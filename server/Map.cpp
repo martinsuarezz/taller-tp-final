@@ -1,36 +1,34 @@
 #include <sstream>
+#include <fstream>
 #include "Map.h"
 #include "Creature.h"
-
-// TODO: Not use constructor to initialize character
+#include "../utils/nlohmann/json.hpp"
 
 Map::Map() {
-  loadMap();
+  std::string filename("../map1.json");
+  load(filename);
 }
 
-void Map::loadMap() {
-  this->height = 10;
-  this->width = 10;
+void Map::load(std::string& filename) {
+  std::ifstream i(filename);
+  nlohmann::json map;
+  i >> map;
 
-  // FIXME: Use loaded map
-  int newMap[10][10] = {
-      {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-  };
+  this->width = map["width"];
+  this->height = map["height"];
 
   for (int row = 0; row < height; row++){
     for (int column = 0; column < width; column ++) {
-      this->map[row][column] = newMap[row][column];
+      this->map[width][height] = 0;
     }
   }
+
+  for (auto& el : map["objects"].items()) {
+    nlohmann::json obj = el.value();
+    this->map[obj["x"]][obj["y"]] = getObject(obj["type"]);
+  }
+
+  i.close();
 }
 
 std::string Map::draw() const {
@@ -53,16 +51,28 @@ std::string Map::draw() const {
 
 std::string Map::drawObject(int object) const{
   switch(object) {
-    case 0:
+    case EMPTY:
       return " ";
-    case 1:
+    case TREE:
       return "T";
-    case 2:
+    case PLAYER:
       return "P";
-    case 3:
+    case CREATURE:
       return "C";
     default:
       return " ";
+  }
+}
+
+int Map::getObject(std::string str) const {
+  if(str == TREE_STR) {
+    return TREE;
+  } else if(str == PLAYER_STR) {
+    return PLAYER;
+  } else if(str == CREATURE_STR) {
+    return  CREATURE;
+  } else {
+    return EMPTY;
   }
 }
 
@@ -85,11 +95,9 @@ void Map::addCreature(Creature* character) {
   int xRand, yRand;
 
   do {
-    //srand(time(0));
-    //xRand = rand() % 5;
-    //yRand = rand() % 5;
-    xRand = 5;
-    yRand = 5;
+    srand(time(0));
+    xRand = rand() % 5;
+    yRand = rand() % 5;
   } while(this->map[xRand][yRand] != 0);
 
   map[xRand][yRand] = 3;
@@ -104,7 +112,7 @@ void Map::update(int actualX, int actualY, int nextX, int nextY, int type) {
   }
 }
 
-bool Map::isInbound(int x, int y) {
+bool Map::isInbound(int x, int y) const {
   return (x >= 0 && x <= this->width - 1 && y >= 0 && y <= this->height - 1);
 }
 

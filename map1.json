@@ -1,0 +1,21 @@
+{
+  "objects": [
+    {
+      "type": "Arbol",
+      "x": 5,
+      "y": 5
+    },
+    {
+      "type": "Arbol",
+      "x": 2,
+      "y": 5
+    },
+    {
+      "type": "Arbol",
+      "x": 1,
+      "y": 1
+    }
+  ],
+  "height":10,
+  "width": 10
+}
