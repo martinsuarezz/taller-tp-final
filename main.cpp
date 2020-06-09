@@ -12,11 +12,13 @@ void printMenu() {
 }
 
 int main() {
+  std::string name = "Emi";
   Game game;
 
   std::string command;
 
-  game.addCharacter("Emi");
+  game.addCharacter(name);
+  game.addCreature();
   game.addCreature();
   Player* character = game.getPlayer();
 

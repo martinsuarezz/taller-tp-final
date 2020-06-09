@@ -5,15 +5,18 @@ Creature::Creature() : Character() {
 }
 
 void Creature::moveTo(Player* player) {
-  if(this->getX() - player->getX() < 0) {
-    x++;
+  srand(time(0));
+  if (rand() % 2 == 0) {
+    if (this->getX() - player->getX() < 0) {
+      this->x++;
+    } else {
+      this->x--;
+    }
   } else {
-    x--;
-  }
-
-  if(this->getY() - player->getY() < 0) {
-    y++;
-  } else {
-    y--;
+    if (this->getY() - player->getY() < 0) {
+      this->y++;
+    } else {
+      this->y--;
+    }
   }
 }

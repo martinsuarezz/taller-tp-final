@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 
 Game::Game() {
@@ -21,11 +20,12 @@ std::string Game::draw() {
 }
 
 void Game::addCreature() {
-  this->creature = new Creature();
+  Creature* creature = new Creature();
+  this->creatures.push_back(creature);
   map->addCreature(creature);
 }
 
-void Game::addCharacter(std::string name) {
+void Game::addCharacter(std::string &name) {
   this->player = new Player(name);
   map->addPlayer(player);
 }
@@ -43,13 +43,17 @@ void Game::move(Player* player, int nextX, int nextY) {
 }
 
 void Game::notify() {
-  if(creature->isNextTo(player)) {
-    // TODO: Combat mode
-  } else if(creature->isNearFrom(player)) {
-    int actualX = creature->getX();
-    int actualY = creature->getY();
-    creature->moveTo(player);
-    map->update(actualX, actualY, creature->getX(), creature->getY(), 3);
+  for(auto creature : creatures) {
+    if (creature->isNextTo(player)) {
+      // TODO: Combat mode
+    } else if (creature->isNearFrom(player)) {
+      int actualX = creature->getX();
+      int actualY = creature->getY();
+      if(map->isInbound(actualX, actualY)) {
+        creature->moveTo(player);
+        map->update(actualX, actualY, creature->getX(), creature->getY(), 3);
+      }
+    }
   }
 }
 

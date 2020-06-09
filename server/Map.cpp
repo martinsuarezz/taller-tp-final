@@ -86,7 +86,7 @@ void Map::addPlayer(Player* character) {
     yRand = rand() % 5;
   } while(this->map[xRand][yRand] != 0);
 
-  map[xRand][yRand] = 2;
+  map[xRand][yRand] = PLAYER;
 
   character->setPosition(xRand, yRand);
 }
@@ -100,7 +100,7 @@ void Map::addCreature(Creature* character) {
     yRand = rand() % 5;
   } while(this->map[xRand][yRand] != 0);
 
-  map[xRand][yRand] = 3;
+  map[xRand][yRand] = CREATURE;
 
   character->setPosition(xRand, yRand);
 }
