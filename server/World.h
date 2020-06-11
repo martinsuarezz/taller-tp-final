@@ -2,33 +2,42 @@
 #define ARGENTUM__MAP_H_
 
 #include <string>
-#include "Player.h"
-#include "Creature.h"
 
-#define EMPTY 0
-#define TREE 1
-#define PLAYER 2
-#define CREATURE 3
+#include "Entity.h"
+
+#define EMPTY ' '
+#define TREE 'T'
+#define PLAYER 'P'
+#define CREATURE 'C'
 
 #define TREE_STR "Arbol"
 #define PLAYER_STR "Jugador"
 #define CREATURE_STR "Criatura"
 
-class Map {
+class World {
  public:
-  Map();
+  World();
+
   void load(std::string& filename);
+
   std::string draw() const;
-  void addPlayer(Player* character);
-  void update(int actualX, int actualY, int nextX, int nextY, int type);
-  bool hasObstacle(int x, int y) const;
+
+  void addEntity(Entity *entity, int x, int y);
+
+  void moveTo(int nextY, int nextX, Entity *character);
+
+  bool isEmpty(int x, int y) const;
+
   bool isInbound(int x, int y) const;
-  void addCreature(Creature *creature);
+
  private:
   int height;
   int width;
   int map[10][10];
 
+  void notify(int event, Entity *entity);
+
+  //std::vector<Entity *> entities;
   std::string drawObject(int type) const;
   int getObject(std::string str) const;
 };

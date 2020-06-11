@@ -7,8 +7,7 @@
 class Player : public Character {
 
  public:
-  Player();
-  Player(std::string name);
+  Player(World& map, std::string& name);
 
   std::string getName() const;
 

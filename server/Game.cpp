@@ -2,7 +2,7 @@
 
 Game::Game() {
   this->running = true;
-  this->map = new Map();
+  this->world = World();
 }
 
 Game::~Game() {}
@@ -16,48 +16,26 @@ void Game::stop() {
 }
 
 std::string Game::draw() {
-  return map->draw();
+  return world.draw();
 }
 
 void Game::addCreature() {
-  Creature* creature = new Creature();
-  this->creatures.push_back(creature);
-  map->addCreature(creature);
+  Creature* creature = new Creature(world);
+  //this->creatures.push_back(creature);
 }
 
 void Game::addCharacter(std::string &name) {
-  this->player = new Player(name);
-  map->addPlayer(player);
+  //Player* player = new Player(world, name);
 }
 
 
 void Game::move(Player* player, int nextX, int nextY) {
-  int actualX = player->getX();
-  int actualY = player->getY();
-
-  if(!map->hasObstacle(nextX, nextY) && map->isInbound(nextX, nextY)) {
-    map->update(actualX, actualY, nextX, nextY, 2);
-    player->setPosition(nextX, nextY);
-    notify();
-  }
+  //player->move(nextX, nextY);
 }
 
-void Game::notify() {
-  for(auto creature : creatures) {
-    if (creature->isNextTo(player)) {
-      // TODO: Combat mode
-    } else if (creature->isNearFrom(player)) {
-      int actualX = creature->getX();
-      int actualY = creature->getY();
-      if(map->isInbound(actualX, actualY)) {
-        creature->moveTo(player);
-        map->update(actualX, actualY, creature->getX(), creature->getY(), 3);
-      }
-    }
-  }
-}
 
 // TODO: Just for testing
 Player * Game::getPlayer() {
-  return this->player;
+  std::string str("asd");
+  return new Player(world, str);
 }

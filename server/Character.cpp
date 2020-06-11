@@ -1,26 +1,8 @@
-#include <complex>
 #include "Character.h"
+#include "World.h"
 
-Character::Character() {
-  this->x = 0;
-  this->y = 0;
-}
-
-int Character::getId() const {
-  return this->id;
-}
-
-int Character::getX() const {
-  return this->x;
-}
-
-int Character::getY() const {
-  return this->y;
-}
-
-void Character::setPosition(int x, int y) {
-  this->x = x;
-  this->y = y;
+Character::Character(World &map) : map(map), Entity() {
+  map.addEntity(this, 0, 0);
 }
 
 bool Character::isNearFrom(Character *character) {
@@ -33,4 +15,27 @@ bool Character::isNextTo(Character *character) {
   int distX = abs(character->getX() - this->getX());
   int distY = abs(character->getY() - this->getY());
   return distX <= 1 && distY <= 1;
+}
+
+void Character::move(int nextX, int nextY) {
+  if(!map.isEmpty(nextX, nextY) && map.isInbound(nextX, nextY)) {
+    map.moveTo(nextX, nextY, this);
+    this->setPosition(nextX, nextY);
+    this->notify();
+  }
+}
+
+void Character::notify() {
+//  for(auto entity: ) {
+//    if (creature->isNextTo(player)) {
+//      // TODO: Combat mode
+//    } else if (creature->isNearFrom(player)) {
+//      int actualX = creature->getX();
+//      int actualY = creature->getY();
+//      if(world.isInbound(actualX, actualY)) {
+//        creature->moveTo(player);
+//        //world.moveTo(create->get,);
+//      }
+//    }
+//  }
 }

@@ -59,7 +59,7 @@ SOFTWARE.
 #include <array> // array
 #include <forward_list> // forward_list
 #include <iterator> // inserter, front_inserter, end
-#include <map> // map
+#include <map> // world
 #include <string> // string
 #include <tuple> // tuple, make_tuple
 #include <type_traits> // is_arithmetic, is_same, is_enum, underlying_type, is_convertible
@@ -2238,7 +2238,7 @@ json.exception.parse_error.108 | parse error: escape character '~' must be follo
 json.exception.parse_error.109 | parse error: array index 'one' is not a number | A JSON Pointer array index must be a number.
 json.exception.parse_error.110 | parse error at 1: cannot read 2 bytes from vector | When parsing CBOR or MessagePack, the byte vector ends before the complete value has been read.
 json.exception.parse_error.112 | parse error at 1: error reading CBOR; last byte: 0xF8 | Not all types of CBOR or MessagePack are supported. This exception occurs if an unsupported byte was read.
-json.exception.parse_error.113 | parse error at 2: expected a CBOR string; last byte: 0x98 | While parsing a map key, a value that is not a string has been read.
+json.exception.parse_error.113 | parse error at 2: expected a CBOR string; last byte: 0x98 | While parsing a world key, a value that is not a string has been read.
 json.exception.parse_error.114 | parse error: Unsupported BSON record type 0x0F | The parsing of the corresponding BSON record type is not implemented (yet).
 
 @note For an input with n bytes, 1 is the index of the first character and n+1
@@ -2379,7 +2379,7 @@ json.exception.type_error.308 | cannot use push_back() with string | The @ref pu
 json.exception.type_error.309 | cannot use insert() with | The @ref insert() member functions can only be executed for certain JSON types.
 json.exception.type_error.310 | cannot use swap() with number | The @ref swap() member functions can only be executed for certain JSON types.
 json.exception.type_error.311 | cannot use emplace_back() with string | The @ref emplace_back() member function can only be executed for certain JSON types.
-json.exception.type_error.312 | cannot use update() with string | The @ref update() member functions can only be executed for certain JSON types.
+json.exception.type_error.312 | cannot use moveTo() with string | The @ref moveTo() member functions can only be executed for certain JSON types.
 json.exception.type_error.313 | invalid value to unflatten | The @ref unflatten function converts an object whose keys are JSON Pointers back into an arbitrary nested JSON value. The JSON Pointers must not overlap, because then the resulting value would not be well defined.
 json.exception.type_error.314 | only objects can be unflattened | The @ref unflatten function only works for an object whose keys are JSON Pointers.
 json.exception.type_error.315 | values in object must be primitive | The @ref unflatten function only works for an object whose keys are JSON Pointers and whose values are primitive.
@@ -2714,7 +2714,7 @@ using is_detected_convertible =
 #define INCLUDE_NLOHMANN_JSON_FWD_HPP_
 
 #include <cstdint> // int64_t, uint64_t
-#include <map> // map
+#include <map> // world
 #include <memory> // allocator
 #include <string> // string
 #include <vector> // vector
@@ -6361,7 +6361,7 @@ class binary_reader
             case 0x9F: // array (indefinite length)
                 return get_cbor_array(std::size_t(-1));
 
-            // map (0x00..0x17 pairs of data items follow)
+            // world (0x00..0x17 pairs of data items follow)
             case 0xA0:
             case 0xA1:
             case 0xA2:
@@ -6388,31 +6388,31 @@ class binary_reader
             case 0xB7:
                 return get_cbor_object(static_cast<std::size_t>(static_cast<unsigned int>(current) & 0x1Fu));
 
-            case 0xB8: // map (one-byte uint8_t for n follows)
+            case 0xB8: // world (one-byte uint8_t for n follows)
             {
                 std::uint8_t len;
                 return get_number(input_format_t::cbor, len) and get_cbor_object(static_cast<std::size_t>(len));
             }
 
-            case 0xB9: // map (two-byte uint16_t for n follow)
+            case 0xB9: // world (two-byte uint16_t for n follow)
             {
                 std::uint16_t len;
                 return get_number(input_format_t::cbor, len) and get_cbor_object(static_cast<std::size_t>(len));
             }
 
-            case 0xBA: // map (four-byte uint32_t for n follow)
+            case 0xBA: // world (four-byte uint32_t for n follow)
             {
                 std::uint32_t len;
                 return get_number(input_format_t::cbor, len) and get_cbor_object(static_cast<std::size_t>(len));
             }
 
-            case 0xBB: // map (eight-byte uint64_t for n follow)
+            case 0xBB: // world (eight-byte uint64_t for n follow)
             {
                 std::uint64_t len;
                 return get_number(input_format_t::cbor, len) and get_cbor_object(static_cast<std::size_t>(len));
             }
 
-            case 0xBF: // map (indefinite length)
+            case 0xBF: // world (indefinite length)
                 return get_cbor_object(std::size_t(-1));
 
             case 0xF4: // false
@@ -7094,13 +7094,13 @@ class binary_reader
                 return get_number(input_format_t::msgpack, len) and get_msgpack_array(static_cast<std::size_t>(len));
             }
 
-            case 0xDE: // map 16
+            case 0xDE: // world 16
             {
                 std::uint16_t len;
                 return get_number(input_format_t::msgpack, len) and get_msgpack_object(static_cast<std::size_t>(len));
             }
 
-            case 0xDF: // map 32
+            case 0xDF: // world 32
             {
                 std::uint32_t len;
                 return get_number(input_format_t::msgpack, len) and get_msgpack_object(static_cast<std::size_t>(len));
@@ -12887,13 +12887,13 @@ class binary_writer
                 }
                 else if (N <= (std::numeric_limits<std::uint16_t>::max)())
                 {
-                    // map 16
+                    // world 16
                     oa->write_character(to_char_type(0xDE));
                     write_number(static_cast<std::uint16_t>(N));
                 }
                 else if (N <= (std::numeric_limits<std::uint32_t>::max)())
                 {
-                    // map 32
+                    // world 32
                     oa->write_character(to_char_type(0xDF));
                     write_number(static_cast<std::uint32_t>(N));
                 }
@@ -15862,7 +15862,7 @@ namespace nlohmann
 /*!
 @brief a class to store JSON values
 
-@tparam ObjectType type for JSON objects (`std::map` by default; will be used
+@tparam ObjectType type for JSON objects (`std::world` by default; will be used
 in @ref object_t)
 @tparam ArrayType type for JSON arrays (`std::vector` by default; will be used
 in @ref array_t)
@@ -16198,7 +16198,7 @@ class basic_json
     To store objects in C++, a type is defined by the template parameters
     described below.
 
-    @tparam ObjectType  the container to store objects (e.g., `std::map` or
+    @tparam ObjectType  the container to store objects (e.g., `std::world` or
     `std::unordered_map`)
     @tparam StringType the type of the keys or names (e.g., `std::string`).
     The comparison function `std::less<StringType>` is used to order elements
@@ -16208,12 +16208,12 @@ class basic_json
 
     #### Default type
 
-    With the default values for @a ObjectType (`std::map`), @a StringType
+    With the default values for @a ObjectType (`std::world`), @a StringType
     (`std::string`), and @a AllocatorType (`std::allocator`), the default
     value for @a object_t is:
 
     @code {.cpp}
-    std::map<
+    std::world<
       std::string, // key_type
       basic_json, // value_type
       std::less<std::string>, // key_compare
@@ -16265,7 +16265,7 @@ class basic_json
     @note The order name/value pairs are added to the object is *not*
     preserved by the library. Therefore, iterating an object may return
     name/value pairs in a different order than they were originally stored. In
-    fact, keys will be traversed in alphabetical order as `std::map` with
+    fact, keys will be traversed in alphabetical order as `std::world` with
     `std::less` is used by default. Please note this behavior conforms to [RFC
     7159](http://rfc7159.net/rfc7159), because any order implements the
     specified "unordered" nature of JSON objects.
@@ -17159,7 +17159,7 @@ class basic_json
       `std::multiset`, and `std::unordered_multiset` with a `value_type` from
       which a @ref basic_json value can be constructed.
     - **objects**: @ref object_t and all kinds of compatible associative
-      containers such as `std::map`, `std::unordered_map`, `std::multimap`,
+      containers such as `std::world`, `std::unordered_map`, `std::multimap`,
       and `std::unordered_multimap` with a `key_type` compatible to
       @ref string_t and a `value_type` from which a @ref basic_json value can
       be constructed.
@@ -17641,7 +17641,7 @@ class basic_json
       must be `begin()` and @a last must be `end()`. In this case, the value is
       copied. Otherwise, invalid_iterator.204 is thrown.
     - In case of structured types (array, object), the constructor behaves as
-      similar versions for `std::vector` or `std::map`; that is, a JSON array
+      similar versions for `std::vector` or `std::world`; that is, a JSON array
       or object is constructed from the values in the range.
 
     @tparam InputIT an input iterator type (@ref iterator or @ref
@@ -19972,7 +19972,7 @@ class basic_json
     @param[in] key value of the elements to remove
 
     @return Number of elements removed. If @a ObjectType is the default
-    `std::map` type, the return value will always be `0` (@a key was not
+    `std::world` type, the return value will always be `0` (@a key was not
     found) or `1` (@a key was found).
 
     @post References and iterators to the erased elements are invalidated.
@@ -20114,7 +20114,7 @@ class basic_json
     @brief returns the number of occurrences of a key in a JSON object
 
     Returns the number of elements with key @a key. If ObjectType is the
-    default `std::map` type, the return value will always be `0` (@a key was
+    default `std::world` type, the return value will always be `0` (@a key was
     not found) or `1` (@a key was found).
 
     @note This method always returns `0` when executed on a JSON type that is
@@ -21515,14 +21515,14 @@ class basic_json
     @param[in] j  JSON object to read values from
 
     @throw type_error.312 if called on JSON values other than objects; example:
-    `"cannot use update() with string"`
+    `"cannot use moveTo() with string"`
 
     @complexity O(N*log(size() + N)), where N is the number of elements to
                 insert.
 
-    @liveexample{The example shows how `update()` is used.,update}
+    @liveexample{The example shows how `update()` is used.,moveTo}
 
-    @sa https://docs.python.org/3.6/library/stdtypes.html#dict.update
+    @sa https://docs.python.org/3.6/library/stdtypes.html#dict.moveTo
 
     @since version 3.0.0
     */
@@ -21538,11 +21538,11 @@ class basic_json
 
         if (JSON_HEDLEY_UNLIKELY(not is_object()))
         {
-            JSON_THROW(type_error::create(312, "cannot use update() with " + std::string(type_name())));
+            JSON_THROW(type_error::create(312, "cannot use moveTo() with " + std::string(type_name())));
         }
         if (JSON_HEDLEY_UNLIKELY(not j.is_object()))
         {
-            JSON_THROW(type_error::create(312, "cannot use update() with " + std::string(j.type_name())));
+            JSON_THROW(type_error::create(312, "cannot use moveTo() with " + std::string(j.type_name())));
         }
 
         for (auto it = j.cbegin(); it != j.cend(); ++it)
@@ -21561,7 +21561,7 @@ class basic_json
     @param[in] last end of the range of elements to insert
 
     @throw type_error.312 if called on JSON values other than objects; example:
-    `"cannot use update() with string"`
+    `"cannot use moveTo() with string"`
     @throw invalid_iterator.202 if iterator @a first or @a last does does not
     point to an object; example: `"iterators first and last must point to
     objects"`
@@ -21571,9 +21571,9 @@ class basic_json
     @complexity O(N*log(size() + N)), where N is the number of elements to
                 insert.
 
-    @liveexample{The example shows how `update()` is used__range.,update}
+    @liveexample{The example shows how `update()` is used__range.,moveTo}
 
-    @sa https://docs.python.org/3.6/library/stdtypes.html#dict.update
+    @sa https://docs.python.org/3.6/library/stdtypes.html#dict.moveTo
 
     @since version 3.0.0
     */
@@ -21589,7 +21589,7 @@ class basic_json
 
         if (JSON_HEDLEY_UNLIKELY(not is_object()))
         {
-            JSON_THROW(type_error::create(312, "cannot use update() with " + std::string(type_name())));
+            JSON_THROW(type_error::create(312, "cannot use moveTo() with " + std::string(type_name())));
         }
 
         // check if range iterators belong to the same JSON object
@@ -22719,11 +22719,11 @@ class basic_json
     array           | *size*: 256..65535                         | array (2 bytes follow)             | 0x99
     array           | *size*: 65536..4294967295                  | array (4 bytes follow)             | 0x9A
     array           | *size*: 4294967296..18446744073709551615   | array (8 bytes follow)             | 0x9B
-    object          | *size*: 0..23                              | map                                | 0xA0..0xB7
-    object          | *size*: 23..255                            | map (1 byte follow)                | 0xB8
-    object          | *size*: 256..65535                         | map (2 bytes follow)               | 0xB9
-    object          | *size*: 65536..4294967295                  | map (4 bytes follow)               | 0xBA
-    object          | *size*: 4294967296..18446744073709551615   | map (8 bytes follow)               | 0xBB
+    object          | *size*: 0..23                              | world                                | 0xA0..0xB7
+    object          | *size*: 23..255                            | world (1 byte follow)                | 0xB8
+    object          | *size*: 256..65535                         | world (2 bytes follow)               | 0xB9
+    object          | *size*: 65536..4294967295                  | world (4 bytes follow)               | 0xBA
+    object          | *size*: 4294967296..18446744073709551615   | world (8 bytes follow)               | 0xBB
     binary          | *size*: 0..23                              | byte string                        | 0x40..0x57
     binary          | *size*: 23..255                            | byte string (1 byte follow)        | 0x58
     binary          | *size*: 256..65535                         | byte string (2 bytes follow)       | 0x59
@@ -22826,9 +22826,9 @@ class basic_json
     array           | *size*: 0..15                     | fixarray         | 0x90..0x9F
     array           | *size*: 16..65535                 | array 16         | 0xDC
     array           | *size*: 65536..4294967295         | array 32         | 0xDD
-    object          | *size*: 0..15                     | fix map          | 0x80..0x8F
-    object          | *size*: 16..65535                 | map 16           | 0xDE
-    object          | *size*: 65536..4294967295         | map 32           | 0xDF
+    object          | *size*: 0..15                     | fix world          | 0x80..0x8F
+    object          | *size*: 16..65535                 | world 16           | 0xDE
+    object          | *size*: 65536..4294967295         | world 32           | 0xDF
     binary          | *size*: 0..255                    | bin 8            | 0xC4
     binary          | *size*: 256..65535                | bin 16           | 0xC5
     binary          | *size*: 65536..4294967295         | bin 32           | 0xC6
@@ -22916,7 +22916,7 @@ class basic_json
     number_float    | *any value*                       | float64     | `D`
     string          | *with shortest length indicator*  | string      | `S`
     array           | *see notes on optimized format*   | array       | `[`
-    object          | *see notes on optimized format*   | map         | `{`
+    object          | *see notes on optimized format*   | world         | `{`
 
     @note The mapping is **complete** in the sense that any JSON value type
           can be converted to a UBJSON value.
@@ -23115,12 +23115,12 @@ class basic_json
     array                  | array           | 0x9A
     array                  | array           | 0x9B
     array                  | array           | 0x9F
-    map                    | object          | 0xA0..0xB7
-    map                    | object          | 0xB8
-    map                    | object          | 0xB9
-    map                    | object          | 0xBA
-    map                    | object          | 0xBB
-    map                    | object          | 0xBF
+    world                    | object          | 0xA0..0xB7
+    world                    | object          | 0xB8
+    world                    | object          | 0xB9
+    world                    | object          | 0xBA
+    world                    | object          | 0xBB
+    world                    | object          | 0xBF
     False                  | `false`         | 0xF4
     True                   | `true`          | 0xF5
     Null                   | `null`          | 0xF6
@@ -23140,7 +23140,7 @@ class basic_json
              - simple values (0xE0..0xF3, 0xF8)
              - undefined (0xF7)
 
-    @warning CBOR allows map keys of any type, whereas JSON only allows
+    @warning CBOR allows world keys of any type, whereas JSON only allows
              strings as keys in object values. Therefore, CBOR maps with keys
              other than UTF-8 strings are rejected (parse_error.113).
 
@@ -23161,7 +23161,7 @@ class basic_json
     file was not reached when @a strict was set to true
     @throw parse_error.112 if unsupported features from CBOR were
     used in the given input @a v or if the input is not valid CBOR
-    @throw parse_error.113 if a string was expected as map key, but not found
+    @throw parse_error.113 if a string was expected as world key, but not found
 
     @complexity Linear in the size of the input @a i.
 
@@ -23265,8 +23265,8 @@ class basic_json
     str 32           | string          | 0xDB
     array 16         | array           | 0xDC
     array 32         | array           | 0xDD
-    map 16           | object          | 0xDE
-    map 32           | object          | 0xDF
+    world 16           | object          | 0xDE
+    world 32           | object          | 0xDF
     bin 8            | binary          | 0xC4
     bin 16           | binary          | 0xC5
     bin 32           | binary          | 0xC6
@@ -23298,7 +23298,7 @@ class basic_json
     file was not reached when @a strict was set to true
     @throw parse_error.112 if unsupported features from MessagePack were
     used in the given input @a i or if the input is not valid MessagePack
-    @throw parse_error.113 if a string was expected as map key, but not found
+    @throw parse_error.113 if a string was expected as world key, but not found
 
     @complexity Linear in the size of the input @a i.
 

@@ -1,21 +1,14 @@
 #include <sstream>
 #include "Player.h"
 
-Player::Player() : Character() {
-  this->name = "";
-  this->level = 0;
-  this->exp = 0;
-  this->nextExp = 0;
-}
-
-Player::Player(std::string name) : Character() {
+Player::Player(World& map, std::string& name) : Character(map) {
   this->name = name;
+  this->type = PLAYER;
   this->level = 1;
   this->exp = 0;
   this->nextExp = 0;
 }
 
-// TODO: Make a Constructor with loaded data
 Player::~Player() {
 
 }

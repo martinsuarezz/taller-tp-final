@@ -1,15 +1,14 @@
 #include <sstream>
 #include <fstream>
-#include "Map.h"
-#include "Creature.h"
 #include "../utils/nlohmann/json.hpp"
+#include "World.h"
 
-Map::Map() {
+World::World() {
   std::string filename("../map1.json");
   load(filename);
 }
 
-void Map::load(std::string& filename) {
+void World::load(std::string& filename) {
   std::ifstream i(filename);
   nlohmann::json map;
   i >> map;
@@ -31,7 +30,7 @@ void Map::load(std::string& filename) {
   i.close();
 }
 
-std::string Map::draw() const {
+std::string World::draw() const {
   std::stringstream ss;
 
   ss << "====================\n";
@@ -49,7 +48,7 @@ std::string Map::draw() const {
   return ss.str();
 }
 
-std::string Map::drawObject(int object) const{
+std::string World::drawObject(int object) const{
   switch(object) {
     case EMPTY:
       return " ";
@@ -64,7 +63,7 @@ std::string Map::drawObject(int object) const{
   }
 }
 
-int Map::getObject(std::string str) const {
+int World::getObject(std::string str) const {
   if(str == TREE_STR) {
     return TREE;
   } else if(str == PLAYER_STR) {
@@ -76,48 +75,44 @@ int Map::getObject(std::string str) const {
   }
 }
 
-// Move to Game?
-void Map::addPlayer(Player* character) {
-  int xRand, yRand;
+void World::addEntity(Entity *entity, int x, int y) {
+  int xPos = x;
+  int yPos = y;
 
-  do {
-    srand(time(0));
-    xRand = rand() % 5;
-    yRand = rand() % 5;
-  } while(this->map[xRand][yRand] != 0);
+  if(!isEmpty(x,y)) {
+    do {
+      xPos = x + 1;
+      yPos = y + 1;
+    } while(this->map[xPos][yPos] != 0);
+  }
 
-  map[xRand][yRand] = PLAYER;
+  map[xPos][yPos] = entity->getType();
 
-  character->setPosition(xRand, yRand);
+  entity->setPosition(xPos, yPos);
+  //entities.push_back(entity);
 }
 
-void Map::addCreature(Creature* character) {
-  int xRand, yRand;
+void World::moveTo(int nextY, int nextX, Entity *entity) {
+  int actualX = entity->getX();
+  int actualY = entity->getY();
 
-  do {
-    srand(time(0));
-    xRand = rand() % 5;
-    yRand = rand() % 5;
-  } while(this->map[xRand][yRand] != 0);
-
-  map[xRand][yRand] = CREATURE;
-
-  character->setPosition(xRand, yRand);
-}
-
-void Map::update(int actualX, int actualY, int nextX, int nextY, int type) {
   if(this->isInbound(nextX, nextY)) {
     this->map[actualX][actualY] = 0;
-    this->map[nextX][nextY] = type;
+    this->map[nextX][nextY] = entity->getType();
   }
 }
 
-bool Map::isInbound(int x, int y) const {
+bool World::isInbound(int x, int y) const {
   return (x >= 0 && x <= this->width - 1 && y >= 0 && y <= this->height - 1);
 }
 
-bool Map::hasObstacle(int x, int y) const {
+bool World::isEmpty(int x, int y) const {
   return this->map[x][y] != 0;
 }
 
+void World::notify(int event, Entity *entity) {
+//  for(auto entity: entities) {
+//    //entity->react(event, entity);
+//  }
+}
 

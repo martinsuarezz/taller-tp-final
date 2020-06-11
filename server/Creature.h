@@ -6,8 +6,8 @@
 
 class Creature : public Character {
  public:
-  Creature();
-  void moveTo(Player* player);
+  Creature(World& map);
+  void moveTo(Entity *entity);
 };
 
 #endif
