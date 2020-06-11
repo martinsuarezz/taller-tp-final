@@ -20,8 +20,10 @@ class Window{
                 int y = SDL_WINDOWPOS_UNDEFINED, 
                 Uint32 flags = SDL_WINDOW_SHOWN);
 
+        ~Window();
+
         // Devuelve el objeto renderer asociado a la ventana.
-        Renderer getRenderer();
+        Renderer& getRenderer();
 
         // Devuelve el puntero a la ventana de SDL.
         SDL_Window* getSDLWindow() const;

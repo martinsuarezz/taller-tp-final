@@ -1,7 +1,6 @@
 #include "Texture.h"
 #include "Renderer.h"
 
-
 Texture::Texture(Renderer& renderer): renderer(renderer){
 	texture = NULL;
 	width = 0;
@@ -49,13 +48,13 @@ bool Texture::loadFromFile(std::string path){
 	return texture != NULL;
 }
 
-bool Texture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
-{
-    TTF_Font* gFont = TTF_OpenFont( "Chantelli_Antiqua.ttf", 35 );
+bool Texture::loadFromRenderedText(std::string text, std::string font, 
+									int fontSize, SDL_Color fontColor){
+    TTF_Font* gFont = TTF_OpenFont(font.c_str(), fontSize);
 	//Get rid of preexisting texture
 	free();
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
+	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, text.c_str(), fontColor);
     
 	if(textSurface != NULL){
 		//Create texture from surface pixels
@@ -93,24 +92,21 @@ void Texture::free(){
 }
 
 void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue){
-	//Modulate texture rgb
 	SDL_SetTextureColorMod(texture, red, green, blue);
 }
 
 void Texture::setBlendMode(SDL_BlendMode blending){
-	//Set blending function
 	SDL_SetTextureBlendMode(texture, blending);
 }
 		
 void Texture::setAlpha(Uint8 alpha){
-	//Modulate texture alpha
 	SDL_SetTextureAlphaMod(texture, alpha);
 }
 
 void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip){
-	SDL_Rect renderQuad = { x, y, width, height };
+	SDL_Rect renderQuad = {x, y, width, height};
 
-	if( clip != NULL ){
+	if (clip != NULL){
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}

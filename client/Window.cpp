@@ -11,13 +11,21 @@ Window::Window(std::string name, int width, int height,
     if (newWindow == NULL)
         throw std::runtime_error("Error creating display window");
 
-    renderer = Renderer(newWindow);
+    renderer = std::move(Renderer(newWindow));
     window = newWindow;
     this->height = height;
     this->width = width;
 }
 
-Renderer Window::getRenderer(){
+Window::~Window(){
+    renderer.~Renderer();
+    if (window)
+        SDL_DestroyWindow(window);
+    window = NULL;
+}
+
+
+Renderer& Window::getRenderer(){
     return renderer;
 }
 

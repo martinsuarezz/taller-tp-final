@@ -7,6 +7,13 @@ Renderer::Renderer(){
     renderer = NULL;
 }
 
+Renderer::~Renderer(){
+    if (renderer)
+        SDL_DestroyRenderer(renderer);
+        
+    renderer = NULL;
+}
+
 Renderer::Renderer(SDL_Window* window){
     renderer = SDL_CreateRenderer(window, -1, 
                     SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -29,4 +36,15 @@ void Renderer::clear() const{
 
 void Renderer::setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha){
     SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
+}
+
+Renderer::Renderer(Renderer&& other){
+    this->renderer = other.renderer;
+    other.renderer = NULL;
+}
+
+Renderer& Renderer::operator=(Renderer&& other){
+    this->renderer = other.renderer;
+    other.renderer = NULL;
+    return *this;
 }

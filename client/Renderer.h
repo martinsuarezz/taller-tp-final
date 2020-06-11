@@ -14,6 +14,8 @@ class Renderer{
         Renderer();
         Renderer(SDL_Window* window);
 
+        ~Renderer();
+
         // Devuelve el puntero al renderer de SDL.
         SDL_Renderer* getSDLRenderer() const;
 
@@ -26,8 +28,14 @@ class Renderer{
         // Limpia la pantalla.
         void clear() const;
 
-        // Operador por asignación.
-        Renderer& operator=(const Renderer&) = default;
+        // Asignación por movimiento.
+        Renderer& operator=(Renderer&&);
+
+        // Elimino el operador asignación por copia.
+        Renderer& operator=(const Renderer&) = delete;
+        
+        // Pasaje copia
+        Renderer(Renderer&&);
 };
 
 #endif

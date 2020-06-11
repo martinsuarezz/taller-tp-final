@@ -24,28 +24,31 @@ class Texture{
 		//Deallocates memory
 		~Texture();
 
-		//Loads image at specified path
+		// Carga una imagen a la textura
 		bool loadFromFile( std::string path );
 		
-		//Creates image from font string
-		bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
+		// Crea una imagen a partir del texto pasado por parámetro.
+		bool loadFromRenderedText(std::string text, std::string font, 
+									int fontSize = 24, SDL_Color fontColor = {0,0,0});
 
 		//Deallocates texture
 		void free();
 
-		//Set color modulation
-		void setColor( Uint8 red, Uint8 green, Uint8 blue );
+		// Modular el color de la textura
+		void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
 		//Set blending
-		void setBlendMode( SDL_BlendMode blending );
+		void setBlendMode(SDL_BlendMode blending);
 
-		//Set alpha modulation
+		// Modificar transparencia de la textura.
 		void setAlpha( Uint8 alpha );
 		
-		//Renders texture at given point
-		void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+		// Renderiza la textura en las coordenadas dadas.
+		void render(int x, int y, SDL_Rect* clip = NULL, 
+					double angle = 0.0, SDL_Point* center = NULL, 
+					SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-		//Gets image dimensions
+		//Obtener dimensiones de la textura.
 		int getWidth();
 		int getHeight();
 };
