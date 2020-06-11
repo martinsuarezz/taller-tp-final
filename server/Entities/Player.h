@@ -7,13 +7,15 @@
 class Player : public Character {
 
  public:
-  Player(World& map, std::string& name);
+  Player(World& world, std::string& name);
 
   std::string getName() const;
 
   int getLevel() const;
   int getExp() const;
   int getHealth() const;
+
+  void react(int event, Entity* sender) override;
 
   std::string toString() const;
 

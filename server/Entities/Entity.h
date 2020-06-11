@@ -8,17 +8,23 @@ class Entity {
   int getId() const;
   int getX() const;
   int getY() const;
+  int getPrevX() const;
+  int getPrevY() const;
 
-  void setPosition(int x, int y);
+  virtual void setPosition(int x, int y);
 
-  //virtual void react(Event event, Entity* sender) = 0;
+  virtual void react(int event, Entity* sender) = 0;
 
-  int getType();
+  char getType();
  protected:
   int id;
+
   int x;
   int y;
-  int type;
+  int prevX;
+  int prevY;
+
+  char type;
 
 };
 

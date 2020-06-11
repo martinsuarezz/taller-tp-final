@@ -6,8 +6,11 @@
 
 class Creature : public Character {
  public:
-  Creature(World& map);
-  void moveTo(Entity *entity);
+  Creature(World& world);
+  void moveToward(Entity *entity);
+  void react(int event, Entity* sender) override;
+ private:
+  void reactMove(Entity *sender);
 };
 
 #endif

@@ -4,10 +4,11 @@
 enum Event { MOVE };
 
 #include <vector>
+#include <map>
 
-#include "Player.h"
+#include "Entities/Player.h"
 #include "World.h"
-#include "Creature.h"
+#include "Entities/Creature.h"
 
 class Game {
  public:
@@ -25,12 +26,11 @@ class Game {
   ~Game();
 
   // Just for testing
-  Player * getPlayer();
+  Player * getPlayer(std::string &name);
  private:
   bool running;
-  //Player* player;
-  //std::vector<Creature*> creatures;
   World world;
+  std::map<std::string, Player *> players;
 };
 
 #endif

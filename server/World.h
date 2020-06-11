@@ -2,17 +2,14 @@
 #define ARGENTUM__MAP_H_
 
 #include <string>
+#include <vector>
 
-#include "Entity.h"
+#include "Entities/Entity.h"
 
 #define EMPTY ' '
 #define TREE 'T'
 #define PLAYER 'P'
 #define CREATURE 'C'
-
-#define TREE_STR "Arbol"
-#define PLAYER_STR "Jugador"
-#define CREATURE_STR "Criatura"
 
 class World {
  public:
@@ -22,24 +19,29 @@ class World {
 
   std::string draw() const;
 
-  void addEntity(Entity *entity, int x, int y);
+  void addEntity(int x, int y, Entity *entity);
 
-  void moveTo(int nextY, int nextX, Entity *character);
+  void updateMap(Entity *entity);
 
-  bool isEmpty(int x, int y) const;
+  bool canMove(int x, int y) const;
 
-  bool isInbound(int x, int y) const;
+  void notify(int event, Entity *sender);
 
  private:
   int height;
   int width;
+
+
+  //Entity* entities[10][10] ?
+  //Terrain* terrain[10][10];
   int map[10][10];
 
-  void notify(int event, Entity *entity);
 
-  //std::vector<Entity *> entities;
-  std::string drawObject(int type) const;
-  int getObject(std::string str) const;
+  std::vector<Entity *> entities;
+  std::string drawObject(char type) const;
+
+  bool isEmpty(int x, int y) const;
+  bool isInbound(int x, int y) const;
 };
 
 #endif

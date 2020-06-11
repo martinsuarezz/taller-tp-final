@@ -2,7 +2,6 @@
 
 Game::Game() {
   this->running = true;
-  this->world = World();
 }
 
 Game::~Game() {}
@@ -21,21 +20,20 @@ std::string Game::draw() {
 
 void Game::addCreature() {
   Creature* creature = new Creature(world);
-  //this->creatures.push_back(creature);
+  world.addEntity(5, 1, creature);
 }
 
 void Game::addCharacter(std::string &name) {
-  //Player* player = new Player(world, name);
+  Player* newPlayer = new Player(world, name);
+  players.insert(make_pair(name, newPlayer));
+  world.addEntity(0, 0, newPlayer);
 }
 
 
 void Game::move(Player* player, int nextX, int nextY) {
-  //player->move(nextX, nextY);
+  player->move(nextX, nextY);
 }
 
-
-// TODO: Just for testing
-Player * Game::getPlayer() {
-  std::string str("asd");
-  return new Player(world, str);
+Player* Game::getPlayer(std::string &name) {
+  return players.find(name)->second;
 }

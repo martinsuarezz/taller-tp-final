@@ -17,11 +17,21 @@ int Entity::getY() const {
   return this->y;
 }
 
+int Entity::getPrevX() const {
+  return this->prevX;
+}
+
+int Entity::getPrevY() const {
+  return this->prevY;
+}
+
 void Entity::setPosition(int x, int y) {
+  this->prevX = this->x;
+  this->prevY = this->y;
   this->x = x;
   this->y = y;
 }
 
-int Entity::getType() {
+char Entity::getType() {
   return type;
 }

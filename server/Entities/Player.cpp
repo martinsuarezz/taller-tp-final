@@ -1,7 +1,7 @@
 #include <sstream>
 #include "Player.h"
 
-Player::Player(World& map, std::string& name) : Character(map) {
+Player::Player(World& world, std::string& name) : Character(world) {
   this->name = name;
   this->type = PLAYER;
   this->level = 1;
@@ -38,4 +38,11 @@ std::string Player::toString() const {
      << "Posicion X: " << this->x << " Y: " << this->y;
 
   return ss.str();
+}
+
+void Player::react(int event, Entity *sender) {
+  switch(event) {
+    case 0:
+      break;
+  }
 }

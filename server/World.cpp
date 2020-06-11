@@ -22,10 +22,11 @@ void World::load(std::string& filename) {
     }
   }
 
-  for (auto& el : map["objects"].items()) {
-    nlohmann::json obj = el.value();
-    this->map[obj["x"]][obj["y"]] = getObject(obj["type"]);
-  }
+  // FIXME:
+  //  for (auto& el : map["objects"].items()) {
+  //    nlohmann::json obj = el.value();
+  //    this->map[obj["x"]][obj["y"]] = getObject(obj["type"]);
+  //  }
 
   i.close();
 }
@@ -48,8 +49,8 @@ std::string World::draw() const {
   return ss.str();
 }
 
-std::string World::drawObject(int object) const{
-  switch(object) {
+std::string World::drawObject(char type) const{
+  switch(type) {
     case EMPTY:
       return " ";
     case TREE:
@@ -63,43 +64,25 @@ std::string World::drawObject(int object) const{
   }
 }
 
-int World::getObject(std::string str) const {
-  if(str == TREE_STR) {
-    return TREE;
-  } else if(str == PLAYER_STR) {
-    return PLAYER;
-  } else if(str == CREATURE_STR) {
-    return  CREATURE;
-  } else {
-    return EMPTY;
+void World::addEntity(int x, int y, Entity *entity) {
+  while(!isEmpty(x, y)) {
+    srand(time(0));
+    if (rand() % 2 == 0) {
+      x = x + 1;
+    } else {
+      y = y + 1;
+    }
   }
+
+  map[x][y] = entity->getType();
+
+  entity->setPosition(x, y);
+  entities.push_back(entity);
 }
 
-void World::addEntity(Entity *entity, int x, int y) {
-  int xPos = x;
-  int yPos = y;
-
-  if(!isEmpty(x,y)) {
-    do {
-      xPos = x + 1;
-      yPos = y + 1;
-    } while(this->map[xPos][yPos] != 0);
-  }
-
-  map[xPos][yPos] = entity->getType();
-
-  entity->setPosition(xPos, yPos);
-  //entities.push_back(entity);
-}
-
-void World::moveTo(int nextY, int nextX, Entity *entity) {
-  int actualX = entity->getX();
-  int actualY = entity->getY();
-
-  if(this->isInbound(nextX, nextY)) {
-    this->map[actualX][actualY] = 0;
-    this->map[nextX][nextY] = entity->getType();
-  }
+void World::updateMap(Entity *entity) {
+  map[entity->getPrevX()][entity->getPrevY()] = 0;
+  map[entity->getX()][entity->getY()] = entity->getType();
 }
 
 bool World::isInbound(int x, int y) const {
@@ -107,12 +90,21 @@ bool World::isInbound(int x, int y) const {
 }
 
 bool World::isEmpty(int x, int y) const {
-  return this->map[x][y] != 0;
+  return this->map[x][y] == 0;
 }
 
-void World::notify(int event, Entity *entity) {
-//  for(auto entity: entities) {
-//    //entity->react(event, entity);
-//  }
+// TODO: Use Entity matrix to check
+bool World::canMove(int x, int y) const {
+  return this->isEmpty(x, y) && this->isInbound(x, y);
 }
 
+void World::notify(int event, Entity *sender) {
+  if(event == 0) {
+    this->updateMap(sender);
+  }
+
+  // notify entities
+  for(auto entity: entities) {
+    entity->react(event, sender);
+  }
+}
