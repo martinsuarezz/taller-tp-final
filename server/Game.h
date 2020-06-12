@@ -17,8 +17,10 @@ class Game {
   void addCharacter(std::string &name);
   void addCreature();
 
+  void move(int id, int nextX, int nextY);
+  void attack(int id, int idEnemy);
+
   std::string draw();
-  void move(Player* player, int nextX, int nextY);
 
   bool isRunning() const;
   void stop();
@@ -26,8 +28,10 @@ class Game {
   ~Game();
 
   // Just for testing
+  Creature *getCreature(int id);
   Player * getPlayer(std::string &name);
  private:
+  int idCounter;
   bool running;
   World world;
   std::map<std::string, Player *> players;

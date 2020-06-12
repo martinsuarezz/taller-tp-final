@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "Entities/Entity.h"
 
@@ -19,6 +20,8 @@ class World {
 
   std::string draw() const;
 
+  Entity * getEntity(int id);
+
   void addEntity(int x, int y, Entity *entity);
 
   void updateMap(Entity *entity);
@@ -31,13 +34,12 @@ class World {
   int height;
   int width;
 
-
   //Entity* entities[10][10] ?
   //Terrain* terrain[10][10];
   int map[10][10];
 
 
-  std::vector<Entity *> entities;
+  std::map<int, Entity *> entities;
   std::string drawObject(char type) const;
 
   bool isEmpty(int x, int y) const;

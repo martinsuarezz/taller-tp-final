@@ -11,7 +11,8 @@ class Entity {
   int getPrevX() const;
   int getPrevY() const;
 
-  virtual void setPosition(int x, int y);
+  void setId(int id);
+  void setPosition(int x, int y);
 
   virtual void react(int event, Entity* sender) = 0;
 

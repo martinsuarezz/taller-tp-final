@@ -1,6 +1,9 @@
+#include <sstream>
 #include "Creature.h"
 
-Creature::Creature(World& world) : Character(world) {
+Creature::Creature(World& world, int id) : Character(world) {
+  this->id = id;
+  this->health = 50;
   this->type = CREATURE;
 }
 
@@ -22,13 +25,11 @@ void Creature::moveToward(Entity *entity) {
 }
 
 void Creature::react(int event, Entity *sender) {
-  switch(event) {
-    case 0: // MOVE
+  switch (event) {
+    case 0:
       if(sender->getType() == PLAYER) {
         reactMove(sender);
       }
-      break;
-    case 1: // ATTACK
       break;
   }
 }
@@ -39,4 +40,13 @@ void Creature::reactMove(Entity *sender) {
   } else if (this->isNextTo((Character*) sender)) {
     //TODO: Combat mode
   }
+}
+
+std::string Creature::toString() const {
+  std::stringstream ss;
+
+  ss << "Id: " << this->id << " - "
+     << "Health: " << this->health;
+
+  return ss.str();
 }

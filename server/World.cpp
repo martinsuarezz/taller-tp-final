@@ -64,6 +64,10 @@ std::string World::drawObject(char type) const{
   }
 }
 
+Entity * World::getEntity(int id) {
+  return entities.find(id)->second;
+}
+
 void World::addEntity(int x, int y, Entity *entity) {
   while(!isEmpty(x, y)) {
     srand(time(0));
@@ -77,7 +81,7 @@ void World::addEntity(int x, int y, Entity *entity) {
   map[x][y] = entity->getType();
 
   entity->setPosition(x, y);
-  entities.push_back(entity);
+  entities.insert(std::make_pair(entity->getId(),entity));
 }
 
 void World::updateMap(Entity *entity) {
@@ -99,12 +103,10 @@ bool World::canMove(int x, int y) const {
 }
 
 void World::notify(int event, Entity *sender) {
-  if(event == 0) {
-    this->updateMap(sender);
-  }
+  this->updateMap(sender);
 
   // notify entities
   for(auto entity: entities) {
-    entity->react(event, sender);
+    entity.second->react(event, sender);
   }
 }

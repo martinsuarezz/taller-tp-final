@@ -25,6 +25,10 @@ int Entity::getPrevY() const {
   return this->prevY;
 }
 
+void Entity::setId(int id) {
+  this->id = id;
+}
+
 void Entity::setPosition(int x, int y) {
   this->prevX = this->x;
   this->prevY = this->y;
