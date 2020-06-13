@@ -121,10 +121,10 @@ void Texture::resetDimentions(){
 	width = originalWidth;
 }
 
-int Texture::getWidth(){
+int Texture::getWidth() const{
 	return originalWidth;
 }
 
-int Texture::getHeight(){
+int Texture::getHeight() const{
 	return originalHeight;
 }

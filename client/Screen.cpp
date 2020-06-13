@@ -3,16 +3,16 @@
 Screen::Screen(const std::string & path, Renderer & renderer, 
 int screen_w, int screen_h) : background(renderer) {
     //Load the file.
-    background->loadFromFile(path, false);
+    background.loadFromFile(path, false);
     //Set the Screen position and size.
-    camera = {0, 0, screen_w, screen_h}
+    camera = {0, 0, screen_w, screen_h};
 }
 
 Screen::~Screen() {}
 
 int Screen::checkBoundryX(int x) const {
-    if (x > background->getWidth() - camera.w) {
-        return background->getWidth() - camera.w
+    if (x > background.getWidth() - camera.w) {
+        return background.getWidth() - camera.w;
     } else if (x < 0) {
         return 0;
     } else {
@@ -21,8 +21,8 @@ int Screen::checkBoundryX(int x) const {
 }
 
 int Screen::checkBoundryY(int y) const {
-    if (y > background->getHeight() - camera.h) {
-        return background->getHeight() - camera.h;
+    if (y > background.getHeight() - camera.h) {
+        return background.getHeight() - camera.h;
     } else if (y < 0) {
         return 0;
     } else {
@@ -64,5 +64,5 @@ int Screen::getHeight() const {
 }
 
 void Screen::render() {
-    background->render(0, 0, &camera);
+    background.render(0, 0, &camera);
 }

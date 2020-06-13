@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
 	renderer.clear();
 
     Texture people(renderer);
-    people.loadFromFile("dot.bmp", true, {0, 255, 255});
+    people.loadFromFile("Images/dot.bmp", true, {0, 255, 255});
 
     SDL_Event event;
     bool quit = false;

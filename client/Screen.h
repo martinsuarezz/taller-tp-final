@@ -8,7 +8,7 @@
 
 class Screen {
     private:
-    Texture * background;
+    Texture background;
     SDL_Rect camera;
 
     //Check if the x value is valid or return a valid value.
@@ -41,7 +41,7 @@ class Screen {
     int getHeight() const;
 
     //Render the screen.
-    void render()
+    void render();
 };
 
 
