@@ -14,7 +14,7 @@ class Player : public Character {
   int getLevel() const;
   int getExp() const;
 
-  void react(int event, Entity* sender) override;
+  void react(Event event, Entity* sender) override;
 
   std::string toString() const override;
 

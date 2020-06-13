@@ -24,9 +24,15 @@ int Player::getExp() const {
   return this->exp;
 }
 
-void Player::react(int event, Entity *sender) {
+void Player::react(Event event, Entity *sender) {
   switch(event) {
-    case 0:
+    case MOVE:
+      break;
+    case ATTACK:
+      break;
+    case RECEIVE_DAMAGE:
+      break;
+    case DEAD:
       break;
   }
 }

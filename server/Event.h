@@ -1,0 +1,11 @@
+#ifndef ARGENTUM_SERVER_EVENT_H_
+#define ARGENTUM_SERVER_EVENT_H_
+
+enum Event {
+  MOVE,
+  ATTACK,
+  RECEIVE_DAMAGE,
+  DEAD
+};
+
+#endif

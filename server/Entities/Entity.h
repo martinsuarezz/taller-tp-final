@@ -1,6 +1,7 @@
 #ifndef ARGENTUM_SERVER_ENTITY_H_
 #define ARGENTUM_SERVER_ENTITY_H_
 
+#include "../Event.h"
 class Entity {
  public:
   Entity();
@@ -14,9 +15,12 @@ class Entity {
   void setId(int id);
   void setPosition(int x, int y);
 
-  virtual void react(int event, Entity* sender) = 0;
+  virtual void react(Event event, Entity* sender) = 0;
 
   char getType();
+  bool isDynamic();
+
+
  protected:
   int id;
 
@@ -26,6 +30,8 @@ class Entity {
   int prevY;
 
   char type;
+  bool solid;
+  bool dynamic;
 
 };
 

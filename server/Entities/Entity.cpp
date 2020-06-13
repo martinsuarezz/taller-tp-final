@@ -39,3 +39,7 @@ void Entity::setPosition(int x, int y) {
 char Entity::getType() {
   return type;
 }
+
+bool Entity::isDynamic() {
+  return this->dynamic;
+}

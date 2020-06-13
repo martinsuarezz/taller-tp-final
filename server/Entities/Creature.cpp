@@ -24,12 +24,18 @@ void Creature::moveToward(Entity *entity) {
   }
 }
 
-void Creature::react(int event, Entity *sender) {
+void Creature::react(Event event, Entity *sender) {
   switch (event) {
-    case 0:
+    case MOVE:
       if(sender->getType() == PLAYER) {
         reactMove(sender);
       }
+      break;
+    case ATTACK:
+      break;
+    case RECEIVE_DAMAGE:
+      break;
+    case DEAD:
       break;
   }
 }

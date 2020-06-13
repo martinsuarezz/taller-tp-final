@@ -6,6 +6,8 @@
 #include <map>
 
 #include "Entities/Entity.h"
+#include "Event.h"
+#include "Map.h"
 
 #define EMPTY ' '
 #define TREE 'T'
@@ -16,10 +18,6 @@ class World {
  public:
   World();
 
-  void load(std::string& filename);
-
-  std::string draw() const;
-
   Entity * getEntity(int id);
 
   void addEntity(int x, int y, Entity *entity);
@@ -28,22 +26,14 @@ class World {
 
   bool canMove(int x, int y) const;
 
-  void notify(int event, Entity *sender);
+  void notify(Event event, Entity *sender);
 
+  // Just for testing:
+  std::string draw() const;
  private:
-  int height;
-  int width;
-
-  //Entity* entities[10][10] ?
-  //Terrain* terrain[10][10];
-  int map[10][10];
-
-
-  std::map<int, Entity *> entities;
-  std::string drawObject(char type) const;
-
-  bool isEmpty(int x, int y) const;
-  bool isInbound(int x, int y) const;
+  Map map;
+  std::map<int, Entity *> staticEntities;
+  std::map<int, Entity *> dynamicEntities;
 };
 
 #endif

@@ -1,8 +1,6 @@
 #ifndef ARGENTUM__GAME_H_
 #define ARGENTUM__GAME_H_
 
-enum Event { MOVE };
-
 #include <vector>
 #include <map>
 
