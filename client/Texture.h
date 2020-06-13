@@ -12,41 +12,46 @@ class Texture{
 	private:
 		Renderer& renderer;
 		SDL_Texture* texture;
-
-		//Image dimensions
+		int originalWidth;
+		int originalHeight;
 		int width;
 		int height;
 
-	public:
-		//Initializes variables
-		Texture(Renderer& renderer);
-
-		//Deallocates memory
-		~Texture();
-
-		// Carga una imagen a la textura
-		bool loadFromFile( std::string path );
-		
-		// Crea una imagen a partir del texto pasado por parámetro.
-		bool loadFromRenderedText(std::string text, std::string font, 
-									int fontSize = 24, SDL_Color fontColor = {0,0,0});
-
-		//Deallocates texture
+		//Libera los recursos de la textura
 		void free();
 
-		// Modular el color de la textura
+	public:
+		Texture(Renderer& renderer);
+		~Texture();
+
+		// Carga una imagen a la textura.
+		bool loadFromFile(std::string path, 
+							bool transparency = true,
+							SDL_Color transparencyColor = {0,0,0});
+		
+		// Crea una imagen a partir del texto pasado por parámetro.
+		bool loadFromRenderedText(std::string text, std::string fontName,
+									int fontSize = 24, 
+									SDL_Color fontColor = {0,0,0});
+
+		// Modular el color de la textura.
 		void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
-		//Set blending
+		// Establece el modo de blending.
 		void setBlendMode(SDL_BlendMode blending);
 
-		// Modificar transparencia de la textura.
-		void setAlpha( Uint8 alpha );
+		// Modifica la transparencia de la textura.
+		void setAlpha(Uint8 alpha);
 		
 		// Renderiza la textura en las coordenadas dadas.
 		void render(int x, int y, SDL_Rect* clip = NULL, 
 					double angle = 0.0, SDL_Point* center = NULL, 
 					SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+		void setWidth(int newWidth);
+		void setHeight(int newHeight);
+
+		void resetDimentions();
 
 		//Obtener dimensiones de la textura.
 		int getWidth();

@@ -10,8 +10,10 @@ SDLHandler::SDLHandler(Uint32 flags): mixerWasInitialized(false){
 }
 
 SDLHandler::~SDLHandler(){
-    if (mixerWasInitialized)
+    if (mixerWasInitialized){
         Mix_CloseAudio();
+        Mix_Quit();
+    }
     if (IMG_Init(0))
         IMG_Quit();
     if (TTF_WasInit())

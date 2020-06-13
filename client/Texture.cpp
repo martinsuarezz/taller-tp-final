@@ -1,84 +1,76 @@
 #include "Texture.h"
 #include "Renderer.h"
+#include <stdexcept>
 
 Texture::Texture(Renderer& renderer): renderer(renderer){
 	texture = NULL;
-	width = 0;
-	height = 0;
+	originalWidth = 0;
+	originalHeight = 0;
 }
 
 Texture::~Texture(){
 	free();
 }
 
-bool Texture::loadFromFile(std::string path){
+bool Texture::loadFromFile(std::string path, bool transparecy, SDL_Color transparencyColor){
 	free();
 	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if( loadedSurface == NULL )
-	{
-		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	}
-	else
-	{
-		//Color key image
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
+	if (loadedSurface == NULL)
+		throw std::runtime_error(IMG_GetError());
+	else{
+		if (transparecy)
+			SDL_SetColorKey(loadedSurface, SDL_TRUE, 
+								SDL_MapRGB(loadedSurface->format, 
+								transparencyColor.r,
+								transparencyColor.g,
+								transparencyColor.b));
 
-		//Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(), loadedSurface);
-		if( newTexture == NULL )
-		{
-			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-		}
-		else
-		{
-			//Get image dimensions
-			width = loadedSurface->w;
-			height = loadedSurface->h;
+		if (newTexture == NULL)
+			throw std::runtime_error(SDL_GetError());
+		else {
+			originalWidth = loadedSurface->w;
+			width = originalWidth;
+			originalHeight = loadedSurface->h;
+			height = originalHeight;
 		}
 
-		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
+		SDL_FreeSurface(loadedSurface);
 	}
 
-	//Return success
 	texture = newTexture;
 	return texture != NULL;
 }
 
-bool Texture::loadFromRenderedText(std::string text, std::string font, 
+bool Texture::loadFromRenderedText(std::string text, std::string fontName, 
 									int fontSize, SDL_Color fontColor){
-    TTF_Font* gFont = TTF_OpenFont(font.c_str(), fontSize);
-	//Get rid of preexisting texture
-	free();
-	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, text.c_str(), fontColor);
-    
-	if(textSurface != NULL){
-		//Create texture from surface pixels
+    free();
+	
+	TTF_Font* font = TTF_OpenFont(fontName.c_str(), fontSize);
+
+	if (!font)
+		throw std::runtime_error(TTF_GetError());
+	
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), fontColor);
+	TTF_CloseFont(font);
+
+	if (textSurface != NULL){
         texture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(), textSurface);
-		if(texture == NULL){
-			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
-		}
-		else
-		{
-			//Get image dimensions
-			width = textSurface->w;
-			height = textSurface->h;
+		if(texture == NULL)
+			throw std::runtime_error(SDL_GetError());
+		else {
+			originalWidth = textSurface->w;
+			width = originalWidth;
+			originalHeight = textSurface->h;
+			height = originalHeight;
 		}
 
-		//Get rid of old surface
-		SDL_FreeSurface( textSurface );
+		SDL_FreeSurface(textSurface);
 	}
 	else
-	{
-		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
-	}
+		throw std::runtime_error(TTF_GetError());
 
-	
-	//Return success
 	return texture != NULL;
 }
 
@@ -86,7 +78,9 @@ void Texture::free(){
 	if (texture != NULL){
 		SDL_DestroyTexture(texture);
 		texture = NULL;
+		originalWidth = 0;
 		width = 0;
+		originalHeight = 0;
 		height = 0;
 	}
 }
@@ -110,14 +104,27 @@ void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cent
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
-
+	
 	SDL_RenderCopyEx(renderer.getSDLRenderer(), texture, clip, &renderQuad, angle, center, flip);
 }
 
+void Texture::setWidth(int newWidth){
+	width = newWidth;
+}
+
+void Texture::setHeight(int newHeight){
+	height = newHeight;
+}
+
+void Texture::resetDimentions(){
+	height = originalHeight;
+	width = originalWidth;
+}
+
 int Texture::getWidth(){
-	return width;
+	return originalWidth;
 }
 
 int Texture::getHeight(){
-	return height;
+	return originalHeight;
 }
