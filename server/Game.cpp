@@ -46,9 +46,10 @@ Creature *Game::getCreature(int id) {
 }
 
 void Game::attack(int id, int idEnemy) {
-  Character* player = dynamic_cast<Character *>(world.getEntity(id));
-  Character* enemy = dynamic_cast<Character *>(world.getEntity(idEnemy));
+  Entity *player = world.getEntity(id);
+  Entity *enemy = world.getEntity(idEnemy);
 
-  player->attack(enemy);
+  if (player != nullptr && enemy != nullptr) {
+    ((Character *) player)->attack((Character *) enemy);
+  }
 }
-

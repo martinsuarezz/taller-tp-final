@@ -8,7 +8,7 @@ Creature::Creature(World& world, int id) : Character(world) {
 }
 
 void Creature::moveToward(Entity *entity) {
-  srand(time(0));
+  srand(time(nullptr));
   if (rand() % 2 == 0) {
     if (this->getX() - entity->getX() < 0) {
       this->move(x + 1, y);
@@ -25,26 +25,25 @@ void Creature::moveToward(Entity *entity) {
 }
 
 void Creature::react(Event event, Entity *sender) {
-  switch (event) {
-    case MOVE:
-      if(sender->getType() == PLAYER) {
+  if(this->alive && sender->getType() == PLAYER) {
+    switch (event) {
+      case MOVE:
         reactMove(sender);
-      }
-      break;
-    case ATTACK:
-      break;
-    case RECEIVE_DAMAGE:
-      break;
-    case DEAD:
-      break;
+        break;
+      case ATTACK:break;
+      case RECEIVE_DAMAGE:break;
+      case DEAD:break;
+    }
   }
 }
 
 void Creature::reactMove(Entity *sender) {
-  if (this->isNearFrom((Character*) sender)) {
-    this->moveToward(sender);
-  } else if (this->isNextTo((Character*) sender)) {
-    //TODO: Combat mode
+  Character* target = dynamic_cast<Character *>(sender);
+
+  if (this->isNearFrom(target)) {
+    this->moveToward(target);
+  } else if (this->isNextTo(target)) {
+    this->attack(target);
   }
 }
 
@@ -52,7 +51,7 @@ std::string Creature::toString() const {
   std::stringstream ss;
 
   ss << "Id: " << this->id << " - "
-     << "Health: " << this->health;
+     << "Vida: " << this->health;
 
   return ss.str();
 }

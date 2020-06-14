@@ -42,6 +42,7 @@ std::string Player::toString() const {
 
   ss << "Id: " << this->id << " - "
      << "Nombre: " << this->name << " - "
+     << "Vida: " << this->health << " - "
      << "Nivel: " << this->level << " - "
      << "Experiencia: " << this->exp << " - "
      << "Posicion X: " << this->x << " Y: " << this->y;

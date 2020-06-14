@@ -3,6 +3,7 @@
 
 Character::Character(World &world) : world(world), Entity() {
   this->dynamic = true;
+  this->solid = true;
 }
 
 bool Character::isNearFrom(Character *character) {
@@ -34,6 +35,7 @@ void Character::attack(Character* enemy) {
 void Character::receiveDamage(int damage) {
   int newHealth = health - damage;
   if (newHealth <= 0) {
+    this->health = 0;
     this->alive = false;
     world.notify(DEAD, this);
   } else {
