@@ -19,7 +19,7 @@ class Entity {
 
   char getType();
   bool isDynamic();
-
+  bool isSolid();
 
  protected:
   int id;

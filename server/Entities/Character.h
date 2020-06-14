@@ -25,6 +25,8 @@ class Character : public Entity {
   bool alive;
 
   int health;
+
+  void dropItem();
 };
 
 #endif

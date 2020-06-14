@@ -56,6 +56,7 @@ int main() {
         break;
       case 6:
         game.attack(character->getId(), creature1->getId());
+        break;
       default:
         std::cout << "Opción invalida";
     }

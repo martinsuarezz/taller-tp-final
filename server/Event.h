@@ -5,7 +5,8 @@ enum Event {
   MOVE,
   ATTACK,
   RECEIVE_DAMAGE,
-  DEAD
+  DEAD,
+  NEW_ENTITY
 };
 
 #endif

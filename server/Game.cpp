@@ -21,14 +21,16 @@ std::string Game::draw() {
 
 void Game::addCreature() {
   Creature* creature = new Creature(world, idCounter);
-  world.addEntity(5, 1, creature);
+  creature->setPosition(5, 1);
+  world.notify(NEW_ENTITY, creature);
   idCounter++;
 }
 
 void Game::addCharacter(std::string &name) {
-  Player* newPlayer = new Player(world, idCounter, name);
-  players.insert(make_pair(name, newPlayer));
-  world.addEntity(0, 0, newPlayer);
+  Player* player = new Player(world, idCounter, name);
+  players.insert(make_pair(name, player));
+  player->setPosition(0, 0);
+  world.notify(NEW_ENTITY, player);
   idCounter++;
 }
 

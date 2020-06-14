@@ -43,3 +43,6 @@ char Entity::getType() {
 bool Entity::isDynamic() {
   return this->dynamic;
 }
+bool Entity::isSolid() {
+  return this->solid;
+}

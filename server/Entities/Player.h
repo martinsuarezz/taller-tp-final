@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Character.h"
+#include "../Inventory.h"
 
 class Player : public Character {
 
@@ -16,6 +17,8 @@ class Player : public Character {
 
   void react(Event event, Entity* sender) override;
 
+  void pickUp(Item *item);
+
   std::string toString() const override;
 
   ~Player();
@@ -25,6 +28,9 @@ class Player : public Character {
   int level;
   int exp;
   int nextExp;
+
+  Inventory inventory;
+
 };
 
 #endif

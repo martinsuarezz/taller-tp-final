@@ -10,10 +10,7 @@ Entity * World::getEntity(int id) {
   return dynamicEntities.find(id)->second;
 }
 
-void World::addEntity(int x, int y, Entity *entity) {
-  // Add to Map
-  map.add(x, y, entity);
-
+void World::addEntity(Entity *entity) {
   // Add to world
   if(entity->isDynamic()) {
     dynamicEntities.insert(std::make_pair(entity->getId(), entity));
@@ -22,18 +19,29 @@ void World::addEntity(int x, int y, Entity *entity) {
   }
 }
 
-// TODO: Use Entity matrix to check
-bool World::canMove(int x, int y) const {
-  return map.isEmpty(x, y) && map.isInbound(x, y);
+void World::deleteEntity(int id) {
+  dynamicEntities.erase(id);
 }
 
 void World::notify(Event event, Entity *sender) {
   // notify map
-  map.update(event, sender);
+  map.notify(event, sender);
 
   // notify dynamic entities
   for(auto entity: dynamicEntities) {
     entity.second->react(event, sender);
+  }
+
+  switch(event) {
+    case MOVE:break;
+    case ATTACK:break;
+    case RECEIVE_DAMAGE:break;
+    case DEAD:
+      this->deleteEntity(sender->getId());
+      break;
+    case NEW_ENTITY:
+      this->addEntity(sender);
+      break;
   }
 }
 

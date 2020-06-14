@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "../utils/nlohmann/json.hpp"
 #include "World.h"
+#include "Entities/Player.h"
 
 void Map::load(std::string& filename) {
   std::ifstream i(filename);
@@ -13,39 +14,44 @@ void Map::load(std::string& filename) {
   this->width = jsonMap["width"];
   this->height = jsonMap["height"];
 
+  this->map = new Entity*[width * height];
+
   for (int row = 0; row < height; row++) {
     for (int column = 0; column < width; column++) {
-      this->tiles[width][height] = 0;
+      this->map[row * width + column] = nullptr;
     }
   }
 
   i.close();
 }
 
-bool Map::isInbound(int x, int y) const {
-  return (x >= 0 && x <= this->width - 1 && y >= 0 && y <= this->height - 1);
-}
-
-bool Map::isEmpty(int x, int y) const {
-  return this->tiles[x][y] == 0;
-}
-
-void Map::update(Event event, Entity *entity) {
+void Map::notify(Event event, Entity *entity) {
   switch(event) {
     case MOVE:
-      tiles[entity->getPrevX()][entity->getPrevY()] = 0;
-      tiles[entity->getX()][entity->getY()] = entity->getType();
-      break;
-    case ATTACK:
-      break;
-    case RECEIVE_DAMAGE:
+      if(this->canMove(entity->getX(), entity->getY())) {
+        this->set(entity->getPrevX(), entity->getPrevY(), nullptr);
+        this->set(entity->getX(), entity->getY(), entity);
+      } else {
+        entity->setPosition(entity->getPrevX(), entity->getPrevY());
+      }
       break;
     case DEAD:
+      if(entity->getType() == CREATURE){
+        this->set(entity->getX(), entity->getY(), nullptr);
+      }
       break;
+    case NEW_ENTITY:
+      this->add(entity);
+      break;
+    case ATTACK: break;
+    case RECEIVE_DAMAGE: break;
   }
 }
 
-void Map::add(int x, int y, Entity *entity) {
+void Map::add(Entity *entity) {
+  int x = entity->getX();
+  int y = entity->getY();
+
   while(!isEmpty(x, y)) {
     srand(time(0));
     if (rand() % 2 == 0) {
@@ -56,8 +62,27 @@ void Map::add(int x, int y, Entity *entity) {
   }
 
   entity->setPosition(x, y);
+  this->set(x,y, entity);
+}
 
-  tiles[x][y] = entity->getType();
+void Map::set(int x, int y, Entity* entity) {
+  this->map[y * width + x] = entity;
+}
+
+Entity* Map::get(int x, int y) const {
+  return this->map[y * width + x];
+}
+
+bool Map::isInbound(int x, int y) const {
+  return (x >= 0 && x <= this->width - 1 && y >= 0 && y <= this->height - 1);
+}
+
+bool Map::isEmpty(int x, int y) const {
+  return this->get(x, y) == nullptr;
+}
+
+bool Map::canMove(int x, int y) const {
+  return (this->isEmpty(x, y) || !this->get(x, y)->isSolid()) && this->isInbound(x, y);
 }
 
 // Just for testing
@@ -66,26 +91,15 @@ std::string Map::draw() const {
   ss << "====================\n";
   for (int row = 0; row < height; row++){
     for (int column = 0; column < width; column ++) {
-      ss << this->getASCII(tiles[column][row]) << " ";
+      if(this->get(column, row) != nullptr) {
+        ss << this->get(column, row)->getType() << " ";
+      } else {
+        ss << EMPTY;
+      }
     }
 
     ss << "\n";
   }
   ss << "====================\n";
   return ss.str();
-}
-
-std::string Map::getASCII(char type) const{
-  switch(type) {
-    case EMPTY:
-      return " ";
-    case TREE:
-      return "T";
-    case PLAYER:
-      return "P";
-    case CREATURE:
-      return "C";
-    default:
-      return " ";
-  }
 }

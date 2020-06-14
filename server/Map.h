@@ -8,11 +8,11 @@ class Map {
 
   void load(std::string &filename);
 
-  bool isEmpty(int x, int y) const;
-  bool isInbound(int x, int y) const;
+  bool canMove(int x, int y) const;
 
-  void update(Event event, Entity *entity);
-  void add(int x, int y, Entity *entity);
+  void notify(Event event, Entity *entity);
+
+  void add(Entity *entity);
 
   // Just for testing
   std::string draw() const;
@@ -20,10 +20,13 @@ class Map {
   int height;
   int width;
 
-  int tiles[10][10];
+  Entity** map;
 
-  // Just for testing
-  std::string getASCII(char type) const;
+  bool isEmpty(int x, int y) const;
+  bool isInbound(int x, int y) const;
+
+  Entity *get(int x, int y) const;
+  void set(int x, int y, Entity *entity);
 };
 
 //Entity* entities[10][10] ?

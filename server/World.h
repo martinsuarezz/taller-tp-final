@@ -13,6 +13,7 @@
 #define TREE 'T'
 #define PLAYER 'P'
 #define CREATURE 'C'
+#define ITEM '*'
 
 class World {
  public:
@@ -20,20 +21,18 @@ class World {
 
   Entity * getEntity(int id);
 
-  void addEntity(int x, int y, Entity *entity);
-
-  void updateMap(Entity *entity);
-
-  bool canMove(int x, int y) const;
-
   void notify(Event event, Entity *sender);
 
   // Just for testing:
   std::string draw() const;
  private:
   Map map;
-  std::map<int, Entity *> staticEntities;
+
   std::map<int, Entity *> dynamicEntities;
+  std::map<int, Entity *> staticEntities;
+
+  void addEntity(Entity *entity);
+  void deleteEntity(int id);
 };
 
 #endif

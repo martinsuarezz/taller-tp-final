@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "../World.h"
+#include "Item.h"
 
 Character::Character(World &world) : world(world), Entity() {
   this->dynamic = true;
@@ -19,10 +20,8 @@ bool Character::isNextTo(Character *character) {
 }
 
 void Character::move(int nextX, int nextY) {
-  if(world.canMove(nextX, nextY)) {
-    this->setPosition(nextX, nextY);
-    world.notify(MOVE, this);
-  }
+  this->setPosition(nextX, nextY);
+  world.notify(MOVE, this);
 }
 
 void Character::attack(Character* enemy) {
@@ -38,10 +37,17 @@ void Character::receiveDamage(int damage) {
     this->health = 0;
     this->alive = false;
     world.notify(DEAD, this);
+    dropItem();
   } else {
     this->health = newHealth;
     world.notify(RECEIVE_DAMAGE, this);
   }
+}
+
+void Character::dropItem() {
+  Item* item = new Item();
+  item->setPosition(this->x, this->y);
+  world.notify(NEW_ENTITY, item);
 }
 
 bool Character::isAlive() {

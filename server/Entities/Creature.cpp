@@ -1,10 +1,12 @@
 #include <sstream>
 #include "Creature.h"
+#include "Item.h"
 
 Creature::Creature(World& world, int id) : Character(world) {
   this->id = id;
   this->health = 50;
   this->type = CREATURE;
+  this->alive = true;
 }
 
 void Creature::moveToward(Entity *entity) {
@@ -25,16 +27,15 @@ void Creature::moveToward(Entity *entity) {
 }
 
 void Creature::react(Event event, Entity *sender) {
-  if(this->alive && sender->getType() == PLAYER) {
     switch (event) {
       case MOVE:
-        reactMove(sender);
+        if(sender->getType() == PLAYER) reactMove(sender);
         break;
+      case DEAD:break;
       case ATTACK:break;
       case RECEIVE_DAMAGE:break;
-      case DEAD:break;
+      case NEW_ENTITY: break;
     }
-  }
 }
 
 void Creature::reactMove(Entity *sender) {

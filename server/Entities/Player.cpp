@@ -1,5 +1,6 @@
 #include <sstream>
 #include "Player.h"
+#include "Item.h"
 
 Player::Player(World& world, int id, std::string& name) : Character(world) {
   this->id = id;
@@ -34,7 +35,13 @@ void Player::react(Event event, Entity *sender) {
       break;
     case DEAD:
       break;
+    case NEW_ENTITY:
+      break;
   }
+}
+
+void Player::pickUp(Item* item) {
+  inventory.addItem(item);
 }
 
 std::string Player::toString() const {
