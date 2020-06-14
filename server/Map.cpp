@@ -28,23 +28,40 @@ void Map::load(std::string& filename) {
 void Map::notify(Event event, Entity *entity) {
   switch(event) {
     case MOVE:
-      if(this->canMove(entity->getX(), entity->getY())) {
-        this->set(entity->getPrevX(), entity->getPrevY(), nullptr);
-        this->set(entity->getX(), entity->getY(), entity);
-      } else {
-        entity->setPosition(entity->getPrevX(), entity->getPrevY());
-      }
+      this->move(entity);
       break;
     case DEAD:
-      if(entity->getType() == CREATURE){
-        this->set(entity->getX(), entity->getY(), nullptr);
-      }
+      this->remove(entity);
       break;
     case NEW_ENTITY:
       this->add(entity);
       break;
     case ATTACK: break;
     case RECEIVE_DAMAGE: break;
+  }
+}
+
+void Map::move(Entity * entity) {
+  if (this->canMove(entity->getX(), entity->getY())) {
+    // Pick up item
+    Entity* next = get(entity->getX(), entity->getY());
+    if(next != nullptr && !next->isSolid() && entity->getType() == PLAYER) {
+      auto* player = (Player*) entity;
+      player->pickUp((Item*) next);
+    }
+
+    // Move entity
+    this->set(entity->getPrevX(), entity->getPrevY(), nullptr);
+    this->set(entity->getX(), entity->getY(), entity);
+  } else {
+    // Backward
+    entity->setPosition(entity->getPrevX(), entity->getPrevY());
+  }
+}
+
+void Map::remove(Entity* entity) {
+  if (entity->getType() == CREATURE){
+    this->set(entity->getX(), entity->getY(), nullptr);
   }
 }
 

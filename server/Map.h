@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Entities/Entity.h"
+
 class Map {
  public:
 
@@ -11,8 +12,6 @@ class Map {
   bool canMove(int x, int y) const;
 
   void notify(Event event, Entity *entity);
-
-  void add(Entity *entity);
 
   // Just for testing
   std::string draw() const;
@@ -27,9 +26,9 @@ class Map {
 
   Entity *get(int x, int y) const;
   void set(int x, int y, Entity *entity);
+  void move(Entity * entity);
+  void remove(Entity *entity);
+  void add(Entity *entity);
 };
-
-//Entity* entities[10][10] ?
-//Terrain* terrain[10][10];
 
 #endif

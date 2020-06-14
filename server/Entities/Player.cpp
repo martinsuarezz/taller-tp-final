@@ -41,8 +41,10 @@ void Player::react(Event event, Entity *sender) {
 }
 
 void Player::pickUp(Item* item) {
-  inventory.addItem(item);
+  this->inventory.addItem(item);
 }
+
+// Private methods
 
 std::string Player::toString() const {
   std::stringstream ss;
@@ -52,7 +54,8 @@ std::string Player::toString() const {
      << "Vida: " << this->health << " - "
      << "Nivel: " << this->level << " - "
      << "Experiencia: " << this->exp << " - "
-     << "Posicion X: " << this->x << " Y: " << this->y;
+     << "Posicion X: " << this->x << " Y: " << this->y << " - "
+     << "Inventario: " << this->inventory.toString();
 
   return ss.str();
 }

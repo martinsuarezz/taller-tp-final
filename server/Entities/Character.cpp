@@ -24,8 +24,8 @@ void Character::move(int nextX, int nextY) {
   world.notify(MOVE, this);
 }
 
-void Character::attack(Character* enemy) {
-  if(isNextTo(enemy)) {
+void Character::attack(Character *enemy) {
+  if (isNextTo(enemy)) {
     enemy->receiveDamage(10);
     world.notify(ATTACK, this);
   }

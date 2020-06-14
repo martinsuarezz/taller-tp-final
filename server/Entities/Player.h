@@ -11,13 +11,12 @@ class Player : public Character {
   Player(World& world, int id, std::string& name);
 
   std::string getName() const;
-
   int getLevel() const;
   int getExp() const;
 
-  void react(Event event, Entity* sender) override;
-
   void pickUp(Item *item);
+
+  void react(Event event, Entity* sender) override;
 
   std::string toString() const override;
 

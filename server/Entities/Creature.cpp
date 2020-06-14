@@ -9,6 +9,20 @@ Creature::Creature(World& world, int id) : Character(world) {
   this->alive = true;
 }
 
+void Creature::react(Event event, Entity *sender) {
+    switch (event) {
+      case MOVE:
+        if(sender->getType() == PLAYER) reactMove(sender);
+        break;
+      case DEAD:break;
+      case ATTACK:break;
+      case RECEIVE_DAMAGE:break;
+      case NEW_ENTITY: break;
+    }
+}
+
+// Private methods
+
 void Creature::moveToward(Entity *entity) {
   srand(time(nullptr));
   if (rand() % 2 == 0) {
@@ -24,18 +38,6 @@ void Creature::moveToward(Entity *entity) {
       this->move(x, y - 1);
     }
   }
-}
-
-void Creature::react(Event event, Entity *sender) {
-    switch (event) {
-      case MOVE:
-        if(sender->getType() == PLAYER) reactMove(sender);
-        break;
-      case DEAD:break;
-      case ATTACK:break;
-      case RECEIVE_DAMAGE:break;
-      case NEW_ENTITY: break;
-    }
 }
 
 void Creature::reactMove(Entity *sender) {

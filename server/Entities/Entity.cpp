@@ -25,6 +25,18 @@ int Entity::getPrevY() const {
   return this->prevY;
 }
 
+char Entity::getType() const {
+  return type;
+}
+
+bool Entity::isDynamic() const {
+  return this->dynamic;
+}
+
+bool Entity::isSolid() const {
+  return this->solid;
+}
+
 void Entity::setId(int id) {
   this->id = id;
 }
@@ -34,15 +46,4 @@ void Entity::setPosition(int x, int y) {
   this->prevY = this->y;
   this->x = x;
   this->y = y;
-}
-
-char Entity::getType() {
-  return type;
-}
-
-bool Entity::isDynamic() {
-  return this->dynamic;
-}
-bool Entity::isSolid() {
-  return this->solid;
 }

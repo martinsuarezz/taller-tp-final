@@ -10,7 +10,6 @@
 #include "Map.h"
 
 #define EMPTY ' '
-#define TREE 'T'
 #define PLAYER 'P'
 #define CREATURE 'C'
 #define ITEM '*'

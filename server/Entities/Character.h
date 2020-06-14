@@ -9,9 +9,9 @@ class Character : public Entity {
 
   void move(int nextX, int nextY);
   bool isNextTo(Character *character);
-  bool isNearFrom(Character* character);
+  bool isNearFrom(Character *character);
 
-  void react(Event event, Entity* sender) override = 0;
+  void react(Event event, Entity *sender) override = 0;
 
   void attack(Character *enemy);
   void receiveDamage(int damage);
@@ -20,8 +20,9 @@ class Character : public Entity {
   bool isAlive();
 
   virtual std::string toString() const = 0;
+
  protected:
-  World& world;
+  World &world;
   bool alive;
 
   int health;

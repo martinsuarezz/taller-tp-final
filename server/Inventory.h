@@ -6,7 +6,13 @@
 
 class Inventory {
  public:
-  int addItem(Item *item);
+  Inventory();
+
+  void addItem(Item *item);
+
+  std::string toString() const;
+
+  ~Inventory();
  private:
   std::vector<Item*> items;
 };
