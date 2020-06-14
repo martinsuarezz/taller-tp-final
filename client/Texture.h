@@ -22,6 +22,7 @@ class Texture{
 
 	public:
 		Texture(Renderer& renderer);
+		Texture(Texture&& other);
 		~Texture();
 
 		// Carga una imagen a la textura.

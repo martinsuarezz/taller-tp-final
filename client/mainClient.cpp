@@ -1,8 +1,11 @@
 #include "Texture.h"
+#include "AssetsLoader.h"
 #include "Window.h"
 #include "Renderer.h"
 #include "SDLHandler.h"
 #include "Sound.h"
+#include "PlayerGraphic.h"
+#include <iostream>
 
 int main(int argc, char* argv[]){
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
@@ -16,17 +19,22 @@ int main(int argc, char* argv[]){
     Renderer& renderer = window.getRenderer();
     SDL_Delay(100);
 
-    renderer.setDrawColor(255,255,255,255);
+    renderer.setDrawColor(255,0,0,255);
 	renderer.clear();
 
     Texture people(renderer);
     people.loadFromFile("dot.bmp", true, {0, 255, 255});
 
+    AssetsLoader assets(renderer);
+    //Texture& texture = assets.getTexture(0);
+
+    PlayerGraphic player(assets);
+
     SDL_Event event;
     bool quit = false;
-    int x = 300;
-    int y = 300;
-    int movespeed = 5;
+    int x = 50;
+    int y = 50;
+    int moveSpeed = 5;
     while (!quit){
         while (SDL_WaitEventTimeout(&event, 500) != 0){
             if (event.type == SDL_QUIT){
@@ -38,28 +46,36 @@ int main(int argc, char* argv[]){
             else if (event.type == SDL_KEYDOWN){
                 switch (event.key.keysym.sym){
                     case SDLK_UP:
-                    y -= movespeed;
+                    y -= moveSpeed;
                     break;
 
                     case SDLK_DOWN:
-                    y += movespeed;
+                    y += moveSpeed;
                     break;
 
                     case SDLK_LEFT:
-                    x -= movespeed;
+                    x -= moveSpeed;
                     break;
 
                     case SDLK_RIGHT:
-                    x += movespeed;
+                    player.moveRight();
                     break;
 
                     default:
                     break;
                 }
             }
-            renderer.clear();
-            people.render(x, y);
-            renderer.renderPresent();
+            for (int i = 0; i < 5; i++){
+                SDL_FlushEvent(SDL_KEYDOWN);
+                renderer.clear();
+                player.render(i);
+                SDL_Delay(50);
+                
+                //texture.render(x, y, &rect);
+                renderer.renderPresent();
+            }
+                
         }
-    }   
+    }
+     
 }
