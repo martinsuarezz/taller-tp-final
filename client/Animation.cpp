@@ -27,11 +27,9 @@ int animation_w, int animation_h) {
     }
 }
 
-void Animation::render(int frame, Screen& background){
-    int x = xInitial + (xFinal - xInitial) * frame / FRAMES_PER_LOOP;
-    int y = yInitial + (yFinal - yInitial) * frame / FRAMES_PER_LOOP;
-    std::cout << "CAMERA"<< background.getPositionX() << "," << background.getPositionY() << std::endl;
-    std::cout << "PLAYER"<<x << "," << y << std::endl;
+void Animation::render(int frame, int& x, int& y, Screen& background){
+    x += (xFinal - xInitial) / FRAMES_PER_LOOP;
+    y += (yFinal - yInitial) / FRAMES_PER_LOOP;
     texture.render(x - background.getPositionX(), y - background.getPositionY(), &areas[frame % areas.size()]);
 }
 

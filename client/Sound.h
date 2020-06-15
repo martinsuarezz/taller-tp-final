@@ -12,6 +12,9 @@ class Sound {
     //Initialize and loud sound.
     Sound(const std::string & path);
 
+    // Constructor por movimiento.
+    Sound(Sound&& other);
+
     //Deallocates memory.
     ~Sound();
 

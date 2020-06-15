@@ -12,35 +12,35 @@ PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
 
 
 void PlayerGraphic::render(int frame, Screen& background){
-    animation.render(frame, background);
+    animation.render(frame, x, y, background);
 }
 
 void PlayerGraphic::moveUp(int distance) {
+    assets.getSound(0).play(1);
     animation = Animation(assets.getTexture(0), x, y, x, y - distance);
     animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_WALK_Y_UP_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
-    y -= distance;
 }
 
 void PlayerGraphic::moveDown(int distance) {
+    assets.getSound(0).play(1);
     animation = Animation(assets.getTexture(0), x, y, x, y + distance);
     animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_WALK_Y_DOWN_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
-    y += distance;
 }
 
 void PlayerGraphic::moveRight(int distance){
+    assets.getSound(0).play(1);
     animation = Animation(assets.getTexture(0), x, y, x + distance, y);
     animation.loadRects(PLAYER_WALK_X_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_WALK_RIGHT_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
-    x += distance;
 }
 
 void PlayerGraphic::moveLeft(int distance){
+    assets.getSound(0).play(1);
     animation = Animation(assets.getTexture(0), x, y, x - distance, y);
     animation.loadRects(PLAYER_WALK_X_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_WALK_LEFT_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
-    x -= distance;
 }
 
 void PlayerGraphic::idle(){

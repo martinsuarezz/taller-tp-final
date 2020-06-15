@@ -31,6 +31,8 @@ class Screen {
     void movePosition(int x, int y);
     //Move to the center of the image
     void moveToCenter();
+    //Put the coordinates in the center of the screen
+    void centerToPosition(int x, int y);
 
     //Get position x of the screen on the background.
     int getPositionX() const;

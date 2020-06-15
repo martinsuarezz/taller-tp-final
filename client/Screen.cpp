@@ -52,6 +52,10 @@ void Screen::moveToCenter() {
     camera.y = checkBoundryY((background.getHeight() / 2) - camera.h / 2); 
 }
 
+void Screen::centerToPosition(int x, int y){
+    this->setPosition(x - camera.w / 2, y - camera.h / 2);
+}
+
 int Screen::getPositionX() const {
     return camera.x;
 }

@@ -64,8 +64,6 @@ int main(int argc, char* argv[]){
 
                     case SDLK_RIGHT:
                     player.moveRight(WALK_DISTANCE);
-                    //moveX = true;
-                    //quantity = WALK_DISTANCE;
                     break;
 
                     default:
@@ -80,7 +78,7 @@ int main(int argc, char* argv[]){
 
             for (int i = 0; i < 10; i++){
                 renderer.clear();
-                background.setPosition(player.getX() - WINDOW_WIDTH / 2, player.getY() - WINDOW_HEIGHT / 2);
+                background.centerToPosition(player.getX(), player.getY());
                 background.render();
                 player.render(i, background);
                 
