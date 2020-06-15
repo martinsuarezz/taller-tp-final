@@ -16,6 +16,8 @@ class PlayerGraphic{
     public:
         PlayerGraphic(AssetsLoader& assets);
         void render(int frame, Screen& background);
+        int getX();
+        int getY();
         void moveRight(int distance);
         void idle();
 };

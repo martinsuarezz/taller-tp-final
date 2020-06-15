@@ -17,7 +17,8 @@ Animation::Animation(Animation&& other): texture(other.texture), areas(other.are
 void Animation::render(int frame, Screen& background){
     int x = xInitial + (xFinal - xInitial) * frame / FRAMES_PER_LOOP;
     int y = yInitial + (yFinal - yInitial) * frame / FRAMES_PER_LOOP;
-    std::cout << background.getPositionX() << "," << background.getPositionY() << std::endl;
+    std::cout << "CAMERA"<< background.getPositionX() << "," << background.getPositionY() << std::endl;
+    std::cout << "PLAYER"<<x << "," << y << std::endl;
     texture.render(x - background.getPositionX(), y - background.getPositionY(), &areas[frame % areas.size()]);
 }
 

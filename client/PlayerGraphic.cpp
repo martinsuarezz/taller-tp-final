@@ -20,3 +20,11 @@ void PlayerGraphic::moveRight(int distance){
 void PlayerGraphic::idle(){
     animation = std::move(AnimationIdle(assets.getTexture(0), x, y));
 }
+
+int PlayerGraphic::getX(){
+    return x;
+}
+
+int PlayerGraphic::getY(){
+    return y;
+}
