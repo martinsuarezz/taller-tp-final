@@ -5,8 +5,8 @@
 #include <vector>
 #include <map>
 
-#include "Entities/Entity.h"
-#include "Event.h"
+#include "entities/Entity.h"
+#include "events/Event.h"
 #include "Map.h"
 
 #define EMPTY ' '

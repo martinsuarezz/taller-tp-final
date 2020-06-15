@@ -4,9 +4,9 @@
 #include <vector>
 #include <map>
 
-#include "Entities/Player.h"
+#include "entities/Player.h"
 #include "World.h"
-#include "Entities/Creature.h"
+#include "entities/Creature.h"
 
 class Game {
  public:

@@ -2,7 +2,7 @@
 #define ARGENTUM_SERVER_MAP_H_
 
 #include <string>
-#include "Entities/Entity.h"
+#include "entities/Entity.h"
 
 class Map {
  public:

@@ -1,7 +1,8 @@
 #ifndef ARGENTUM_SERVER_ENTITY_H_
 #define ARGENTUM_SERVER_ENTITY_H_
 
-#include "../Event.h"
+#include "../events/Event.h"
+
 class Entity {
  public:
   Entity();

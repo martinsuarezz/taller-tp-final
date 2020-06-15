@@ -4,7 +4,7 @@
 #include "Map.h"
 #include "../utils/nlohmann/json.hpp"
 #include "World.h"
-#include "Entities/Player.h"
+#include "entities/Player.h"
 
 void Map::load(std::string& filename) {
   std::ifstream i(filename);

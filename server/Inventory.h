@@ -2,7 +2,7 @@
 #define ARGENTUM_SERVER_INVENTORY_H_
 
 #include <vector>
-#include "Entities/Item.h"
+#include "entities/Item.h"
 
 class Inventory {
  public:
