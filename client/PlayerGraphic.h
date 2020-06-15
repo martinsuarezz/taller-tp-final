@@ -1,7 +1,9 @@
+#ifndef _PLAYER_GRAPHIC_H_
+#define _PLAYER_GRAPHIC_H_
+
 #include "Texture.h"
 #include "Sound.h"
 #include "Animation.h"
-
 
 #define PLAYER_ANIMATION_WIDTH 25
 #define PLAYER_ANIMATION_HEIGHT 45
@@ -39,3 +41,5 @@ class PlayerGraphic{
         void moveLeft(int distance);
         void idle();
 };
+
+#endif
