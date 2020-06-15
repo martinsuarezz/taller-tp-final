@@ -99,7 +99,7 @@ bool Map::isEmpty(int x, int y) const {
 }
 
 bool Map::canMove(int x, int y) const {
-  return (this->isEmpty(x, y) || !this->get(x, y)->isSolid()) && this->isInbound(x, y);
+  return this->isInbound(x, y) && (this->isEmpty(x, y) || !this->get(x, y)->isSolid());
 }
 
 // Just for testing

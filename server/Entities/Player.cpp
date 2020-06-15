@@ -7,6 +7,7 @@ Player::Player(World& world, int id, std::string& name) : Character(world) {
   this->name = name;
   this->type = PLAYER;
   this->level = 1;
+  this->health = 100;
 }
 
 Player::~Player() {
