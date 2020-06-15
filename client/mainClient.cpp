@@ -3,6 +3,10 @@
 #include "Renderer.h"
 #include "SDLHandler.h"
 #include "Sound.h"
+#include "Screen.h"
+
+#define WINDOW_WIDTH 600
+#define WINDOW_HEIGHT 600
 
 int main(int argc, char* argv[]){
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
@@ -12,7 +16,7 @@ int main(int argc, char* argv[]){
     sdlH.initializeTTF();
     sdlH.setHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     
-    Window window("Ventana prueba", 600, 600);
+    Window window("Ventana prueba", WINDOW_WIDTH, WINDOW_HEIGHT);
     Renderer& renderer = window.getRenderer();
     SDL_Delay(100);
 
@@ -21,6 +25,9 @@ int main(int argc, char* argv[]){
 
     Texture people(renderer);
     people.loadFromFile("Images/dot.bmp", true, {0, 255, 255});
+
+    Screen background("Images/bg.png", renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+    background.moveToCenter();
 
     SDL_Event event;
     bool quit = false;
@@ -58,6 +65,7 @@ int main(int argc, char* argv[]){
                 }
             }
             renderer.clear();
+            background.render();
             people.render(x, y);
             renderer.renderPresent();
         }

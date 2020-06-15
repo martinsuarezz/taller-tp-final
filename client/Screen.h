@@ -29,7 +29,8 @@ class Screen {
     void setPosition(int x, int y);
     //Move position of the camera.
     void movePosition(int x, int y);
-    //Render the camera.
+    //Move to the center of the image
+    void moveToCenter();
 
     //Get position x of the screen on the background.
     int getPositionX() const;

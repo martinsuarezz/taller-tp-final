@@ -47,6 +47,11 @@ void Screen::movePosition(int x, int y) {
     camera.y = checkBoundryY(camera.y + y);
 }
 
+void Screen::moveToCenter() {
+    camera.x = checkBoundryX((background.getWidth() / 2) - camera.w / 2);
+    camera.y = checkBoundryY((background.getHeight() / 2) - camera.h / 2); 
+}
+
 int Screen::getPositionX() const {
     return camera.x;
 }
