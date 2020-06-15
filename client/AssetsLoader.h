@@ -1,3 +1,6 @@
+#ifndef _ASSETS_LOADER_H_
+#define _ASSETS_LOADER_H_
+
 #include <map>
 #include <string>
 #include "Sound.h"
@@ -14,3 +17,5 @@ class AssetsLoader{
         Sound& getSound(int soundId);
         Texture& getTexture(int textureId);
 };
+
+#endif

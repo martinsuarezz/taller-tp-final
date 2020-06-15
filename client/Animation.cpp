@@ -14,6 +14,19 @@ Animation::Animation(Animation&& other): texture(other.texture), areas(other.are
                         xInitial(other.xInitial), yInitial(other.yInitial),
                         xFinal(other.xFinal), yFinal(other.yFinal) {}
 
+void Animation::loadRects(int frames, int animation_x, int animation_y,
+int animation_w, int animation_h) {
+    areas.clear();
+    for(int i = 0; i < frames; i++) {
+        SDL_Rect area;
+        area.y = animation_y;
+        area.x = animation_x + i * animation_w;
+        area.w = animation_w;
+        area.h = animation_h;
+        areas.push_back(area);
+    }
+}
+
 void Animation::render(int frame, Screen& background){
     int x = xInitial + (xFinal - xInitial) * frame / FRAMES_PER_LOOP;
     int y = yInitial + (yFinal - yInitial) * frame / FRAMES_PER_LOOP;
