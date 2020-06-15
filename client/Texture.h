@@ -22,6 +22,7 @@ class Texture{
 
 	public:
 		Texture(Renderer& renderer);
+		Texture(Texture&& other);
 		~Texture();
 
 		// Carga una imagen a la textura.
@@ -52,6 +53,8 @@ class Texture{
 		void setHeight(int newHeight);
 
 		void resetDimentions();
+
+		Texture& operator=(Texture&);
 
 		//Obtener dimensiones de la textura.
 		int getWidth() const;

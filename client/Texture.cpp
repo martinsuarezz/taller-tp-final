@@ -8,6 +8,24 @@ Texture::Texture(Renderer& renderer): renderer(renderer){
 	originalHeight = 0;
 }
 
+Texture::Texture(Texture&& other): renderer(other.renderer){
+	this->texture = other.texture;
+	this->width = other.width;
+	this->height = other.height;
+	this->originalWidth = other.originalWidth;
+	this->originalHeight = other.originalHeight;
+	other.texture = NULL;
+}
+
+Texture& Texture::operator=(Texture& other){
+	this->texture = other.texture;
+	this->width = other.width;
+	this->height = other.height;
+	this->originalWidth = other.originalWidth;
+	this->originalHeight = other.originalHeight;
+	return *this;
+}
+
 Texture::~Texture(){
 	free();
 }
