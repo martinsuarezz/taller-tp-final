@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
     Renderer& renderer = window.getRenderer();
     SDL_Delay(100);
 
-    renderer.setDrawColor(255,0,0,255);
+    renderer.setDrawColor(200,255,255,255);
 	renderer.clear();
 
     Texture people(renderer);
@@ -65,16 +65,14 @@ int main(int argc, char* argv[]){
                     break;
                 }
             }
+            SDL_FlushEvent(SDL_KEYDOWN);
             for (int i = 0; i < 5; i++){
-                SDL_FlushEvent(SDL_KEYDOWN);
                 renderer.clear();
                 player.render(i);
-                SDL_Delay(50);
-                
-                //texture.render(x, y, &rect);
                 renderer.renderPresent();
+                SDL_Delay(30);
             }
-                
+            player.idle();   
         }
     }
      

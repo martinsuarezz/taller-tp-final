@@ -54,6 +54,8 @@ class Texture{
 
 		void resetDimentions();
 
+		Texture& operator=(Texture&);
+
 		//Obtener dimensiones de la textura.
 		int getWidth();
 		int getHeight();
