@@ -5,7 +5,7 @@
 #define PLAYER_IDLE_ANIMATION_WIDTH 25
 #define PLAYER_IDLE_ANIMATION_HEIGHT 45
 
-AnimationIdle::AnimationIdle(Texture& texture): Animation(texture){
+AnimationIdle::AnimationIdle(Texture& texture, int x, int y): Animation(texture, x, y, x, y){
     for (int i = 0; i < PLAYER_IDLE_ANIMATION_FRAMES; i++){
         SDL_Rect area;
         area.y = PLAYER_IDLE_ANIMATION_Y;

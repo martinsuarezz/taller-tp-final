@@ -4,5 +4,5 @@ class AnimationIdle: public Animation{
     private:
 
     public:
-        AnimationIdle(Texture& texture);
+        AnimationIdle(Texture& texture, int x, int y);
 };

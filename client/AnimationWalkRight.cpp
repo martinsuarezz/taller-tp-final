@@ -5,7 +5,7 @@
 #define PLAYER_WALK_ANIMATION_WIDTH 25
 #define PLAYER_WALK_ANIMATION_HEIGHT 45
 
-AnimationWalkRight::AnimationWalkRight(Texture& texture): Animation(texture){
+AnimationWalkRight::AnimationWalkRight(Texture& texture, int xInitial, int yInitial, int xFinal, int yFinal): Animation(texture, xInitial, yInitial, xFinal, yFinal){
     for (int i = 0; i < PLAYER_WALK_ANIMATION_FRAMES; i++){
         SDL_Rect area;
         area.y = PLAYER_WALK_RIGHT_ANIMATION_Y;

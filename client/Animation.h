@@ -9,13 +9,18 @@ class Animation{
     protected:
         Texture& texture;
         std::vector<SDL_Rect> areas;
+        int xInitial;
+        int yInitial;
+        int xFinal;
+        int yFinal;
 
     public:
-        Animation(Texture& texture);
+        Animation(Texture& texture, int xInitial, int yInitial, 
+                        int xFinal, int yFinal);
         Animation(Animation&& other);
-        void render(int x, int y, int frame);
-
+        void render(int frame);
         Animation& operator=(Animation&& other);
+        ~Animation();
 };
 
 #endif
