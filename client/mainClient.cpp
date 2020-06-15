@@ -34,8 +34,6 @@ int main(int argc, char* argv[]){
     background.moveToCenter();
 
     AssetsLoader assets(renderer);
-    //Texture& texture = assets.getTexture(0);
-
     PlayerGraphic player(assets);
 
     SDL_Event event;
@@ -77,6 +75,7 @@ int main(int argc, char* argv[]){
                 continue;
             
             SDL_FlushEvent(SDL_KEYDOWN);
+
             for (int i = 0; i < 10; i++){
                 renderer.clear();
                 player.render(i);

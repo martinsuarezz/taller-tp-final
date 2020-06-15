@@ -6,7 +6,6 @@ class AssetsLoader;
 
 class PlayerGraphic{
     private:
-        SDL_Rect rectangles[5];
         AssetsLoader& assets;
         Animation animation;
         int x;

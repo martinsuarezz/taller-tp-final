@@ -2,7 +2,7 @@
 
 AssetsLoader::AssetsLoader(Renderer& renderer){
     Texture texture0 = Texture(renderer);
-    texture0.loadFromFile("25.png");
+    texture0.loadFromFile("Images/25.png");
     textures.emplace(std::make_pair<int, Texture>(0, std::move(texture0)));
 }
 

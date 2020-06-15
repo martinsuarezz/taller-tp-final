@@ -1,5 +1,6 @@
 #include "Animation.h"
 #include "Texture.h"
+#include <iostream>
 
 #define FRAMES_PER_LOOP 10
 
