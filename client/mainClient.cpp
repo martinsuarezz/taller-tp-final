@@ -61,7 +61,7 @@ int main(int argc, char* argv[]){
                     break;
 
                     case SDLK_LEFT:
-                    player.moveRight(-WALK_DISTANCE);
+                    player.moveLeft(WALK_DISTANCE);
                     moveX = true;
                     quantity = -WALK_DISTANCE;
                     break;
