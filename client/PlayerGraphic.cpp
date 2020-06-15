@@ -1,7 +1,5 @@
 #include "PlayerGraphic.h"
 #include "AssetsLoader.h"
-#include "AnimationIdle.h"
-#include "AnimationWalkRight.h"
 
 // CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
