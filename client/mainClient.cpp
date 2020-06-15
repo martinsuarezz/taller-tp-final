@@ -38,9 +38,12 @@ int main(int argc, char* argv[]){
 
     SDL_Event event;
     bool quit = false;
+    int y = 50;
+    int moveSpeed = 5;
     bool moveX = false;
     bool moveY = false;
     int quantity = 0;
+
     while (!quit){
         while (SDL_WaitEventTimeout(&event, 500) != 0){
             if (event.type == SDL_QUIT){
@@ -71,8 +74,8 @@ int main(int argc, char* argv[]){
 
                     case SDLK_RIGHT:
                     player.moveRight(WALK_DISTANCE);
-                    moveX = true;
-                    quantity = WALK_DISTANCE;
+                    //moveX = true;
+                    //quantity = WALK_DISTANCE;
                     break;
 
                     default:
@@ -87,17 +90,14 @@ int main(int argc, char* argv[]){
 
             for (int i = 0; i < 10; i++){
                 renderer.clear();
-                if (moveX) {
-                    background.movePosition((quantity/10), 0);
-                } else if (moveY) {
-                    background.movePosition(0,(quantity/10));
-                }
-
+                background.setPosition(player.getX() - WINDOW_WIDTH / 2, player.getY() - WINDOW_HEIGHT / 2);
                 background.render();
-                player.render(i);
+                player.render(i, background);
+                
                 renderer.renderPresent();
                 SDL_Delay(30);
             }
+
             moveX = false;
             moveY = false;
             player.idle();   

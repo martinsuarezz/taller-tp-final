@@ -3,6 +3,8 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
+class Screen;
+
 class Texture;
 
 class Animation{
@@ -18,12 +20,9 @@ class Animation{
         Animation(Texture& texture, int xInitial, int yInitial, 
                         int xFinal, int yFinal);
         Animation(Animation&& other);
-        
+        void render(int frame, Screen& background);
         void loadRects(int frames, int animation_x, int animation_y,
                         int animation_w, int animation_h);
-
-        void render(int frame);
-        
         Animation& operator=(Animation&& other);
         
         ~Animation();

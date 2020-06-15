@@ -1,5 +1,6 @@
 #include "Animation.h"
 #include "Texture.h"
+#include "Screen.h"
 #include <iostream>
 
 #define FRAMES_PER_LOOP 10
@@ -12,7 +13,6 @@ Animation::Animation(Texture& texture, int xInitial, int yInitial,
 Animation::Animation(Animation&& other): texture(other.texture), areas(other.areas), 
                         xInitial(other.xInitial), yInitial(other.yInitial),
                         xFinal(other.xFinal), yFinal(other.yFinal) {}
-
 
 void Animation::loadRects(int frames, int animation_x, int animation_y,
 int animation_w, int animation_h) {
@@ -27,10 +27,12 @@ int animation_w, int animation_h) {
     }
 }
 
-void Animation::render(int frame){
+void Animation::render(int frame, Screen& background){
     int x = xInitial + (xFinal - xInitial) * frame / FRAMES_PER_LOOP;
     int y = yInitial + (yFinal - yInitial) * frame / FRAMES_PER_LOOP;
-    texture.render(x, y, &areas[frame % areas.size()]);
+    std::cout << "CAMERA"<< background.getPositionX() << "," << background.getPositionY() << std::endl;
+    std::cout << "PLAYER"<<x << "," << y << std::endl;
+    texture.render(x - background.getPositionX(), y - background.getPositionY(), &areas[frame % areas.size()]);
 }
 
 Animation& Animation::operator=(Animation&& other){

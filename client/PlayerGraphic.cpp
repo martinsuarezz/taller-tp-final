@@ -1,5 +1,7 @@
 #include "PlayerGraphic.h"
 #include "AssetsLoader.h"
+#include "Screen.h"
+
 
 // CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
@@ -8,8 +10,9 @@ PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
     PLAYER_IDLE_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
 }
 
-void PlayerGraphic::render(int frame){
-    animation.render(frame);
+
+void PlayerGraphic::render(int frame, Screen& background){
+    animation.render(frame, background);
 }
 
 void PlayerGraphic::moveUp(int distance) {
@@ -44,4 +47,12 @@ void PlayerGraphic::idle(){
     animation = Animation(assets.getTexture(0), x, y, x, y);
     animation.loadRects(PLAYER_IDLE_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_IDLE_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+}
+
+int PlayerGraphic::getX(){
+    return x;
+}
+
+int PlayerGraphic::getY(){
+    return y;
 }
