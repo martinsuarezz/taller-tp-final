@@ -7,6 +7,8 @@
 #include "PlayerGraphic.h"
 #include <iostream>
 
+#define WALK_DISTANCE 30
+
 int main(int argc, char* argv[]){
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
     
@@ -17,7 +19,6 @@ int main(int argc, char* argv[]){
     
     Window window("Ventana prueba", 600, 600);
     Renderer& renderer = window.getRenderer();
-    SDL_Delay(100);
 
     renderer.setDrawColor(200,255,255,255);
 	renderer.clear();
@@ -32,7 +33,6 @@ int main(int argc, char* argv[]){
 
     SDL_Event event;
     bool quit = false;
-    int x = 50;
     int y = 50;
     int moveSpeed = 5;
     while (!quit){
@@ -54,19 +54,23 @@ int main(int argc, char* argv[]){
                     break;
 
                     case SDLK_LEFT:
-                    x -= moveSpeed;
+                    player.moveRight(-WALK_DISTANCE);
                     break;
 
                     case SDLK_RIGHT:
-                    player.moveRight();
+                    player.moveRight(WALK_DISTANCE);
                     break;
 
                     default:
                     break;
                 }
             }
+            
+            else if (event.type == SDL_WINDOWEVENT)
+                continue;
+            
             SDL_FlushEvent(SDL_KEYDOWN);
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < 10; i++){
                 renderer.clear();
                 player.render(i);
                 renderer.renderPresent();

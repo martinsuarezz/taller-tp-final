@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include "Texture.h"
 
-#define FRAMES_PER_LOOP 5
+#define FRAMES_PER_LOOP 10
 
 Animation::Animation(Texture& texture, int xInitial, int yInitial,
                         int xFinal, int yFinal): 
