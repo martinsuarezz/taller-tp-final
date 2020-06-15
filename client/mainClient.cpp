@@ -38,11 +38,6 @@ int main(int argc, char* argv[]){
 
     SDL_Event event;
     bool quit = false;
-    int y = 50;
-    int moveSpeed = 5;
-    bool moveX = false;
-    bool moveY = false;
-    int quantity = 0;
 
     while (!quit){
         while (SDL_WaitEventTimeout(&event, 500) != 0){
@@ -56,20 +51,15 @@ int main(int argc, char* argv[]){
                 switch (event.key.keysym.sym){
                     case SDLK_UP:
                     player.moveUp(WALK_DISTANCE);
-                    moveY = true;
-                    quantity = -WALK_DISTANCE;
                     break;
 
                     case SDLK_DOWN:
                     player.moveDown(WALK_DISTANCE);
-                    moveY = true;
-                    quantity = WALK_DISTANCE;
                     break;
 
                     case SDLK_LEFT:
                     player.moveLeft(WALK_DISTANCE);
-                    moveX = true;
-                    quantity = -WALK_DISTANCE;
+
                     break;
 
                     case SDLK_RIGHT:
@@ -98,8 +88,6 @@ int main(int argc, char* argv[]){
                 SDL_Delay(30);
             }
 
-            moveX = false;
-            moveY = false;
             player.idle();   
         }
     }
