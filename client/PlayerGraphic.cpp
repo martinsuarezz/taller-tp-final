@@ -14,6 +14,20 @@ void PlayerGraphic::render(int frame){
     animation.render(frame);
 }
 
+void PlayerGraphic::moveUp(int distance) {
+    animation = Animation(assets.getTexture(0), x, y, x, y - distance);
+    animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
+    PLAYER_WALK_Y_UP_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    y -= distance;
+}
+
+void PlayerGraphic::moveDown(int distance) {
+    animation = Animation(assets.getTexture(0), x, y, x, y + distance);
+    animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
+    PLAYER_WALK_Y_DOWN_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    y += distance;
+}
+
 void PlayerGraphic::moveRight(int distance){
     animation = Animation(assets.getTexture(0), x, y, x + distance, y);
     animation.loadRects(PLAYER_WALK_X_ANIMATION_FRAMES, PLAYER_ANIMATION_X,

@@ -39,9 +39,8 @@ int main(int argc, char* argv[]){
     SDL_Event event;
     bool quit = false;
     bool moveX = false;
+    bool moveY = false;
     int quantity = 0;
-    int y = 50;
-    int moveSpeed = 5;
     while (!quit){
         while (SDL_WaitEventTimeout(&event, 500) != 0){
             if (event.type == SDL_QUIT){
@@ -53,11 +52,15 @@ int main(int argc, char* argv[]){
             else if (event.type == SDL_KEYDOWN){
                 switch (event.key.keysym.sym){
                     case SDLK_UP:
-                    y -= moveSpeed;
+                    player.moveUp(WALK_DISTANCE);
+                    moveY = true;
+                    quantity = -WALK_DISTANCE;
                     break;
 
                     case SDLK_DOWN:
-                    y += moveSpeed;
+                    player.moveDown(WALK_DISTANCE);
+                    moveY = true;
+                    quantity = WALK_DISTANCE;
                     break;
 
                     case SDLK_LEFT:
@@ -85,7 +88,9 @@ int main(int argc, char* argv[]){
             for (int i = 0; i < 10; i++){
                 renderer.clear();
                 if (moveX) {
-                    background.movePosition((quantity/10) * i, 0);
+                    background.movePosition((quantity/10), 0);
+                } else if (moveY) {
+                    background.movePosition(0,(quantity/10));
                 }
 
                 background.render();
@@ -94,6 +99,7 @@ int main(int argc, char* argv[]){
                 SDL_Delay(30);
             }
             moveX = false;
+            moveY = false;
             player.idle();   
         }
     }
