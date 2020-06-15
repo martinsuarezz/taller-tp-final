@@ -3,6 +3,8 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
+class Screen;
+
 class Texture;
 
 class Animation{
@@ -18,7 +20,7 @@ class Animation{
         Animation(Texture& texture, int xInitial, int yInitial, 
                         int xFinal, int yFinal);
         Animation(Animation&& other);
-        void render(int frame);
+        void render(int frame, Screen& background);
         Animation& operator=(Animation&& other);
         ~Animation();
 };

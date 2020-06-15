@@ -1,5 +1,6 @@
 #include "Animation.h"
 #include "Texture.h"
+#include "Screen.h"
 #include <iostream>
 
 #define FRAMES_PER_LOOP 10
@@ -13,10 +14,11 @@ Animation::Animation(Animation&& other): texture(other.texture), areas(other.are
                         xInitial(other.xInitial), yInitial(other.yInitial),
                         xFinal(other.xFinal), yFinal(other.yFinal) {}
 
-void Animation::render(int frame){
+void Animation::render(int frame, Screen& background){
     int x = xInitial + (xFinal - xInitial) * frame / FRAMES_PER_LOOP;
     int y = yInitial + (yFinal - yInitial) * frame / FRAMES_PER_LOOP;
-    texture.render(x, y, &areas[frame % areas.size()]);
+    std::cout << background.getPositionX() << "," << background.getPositionY() << std::endl;
+    texture.render(x - background.getPositionX(), y - background.getPositionY(), &areas[frame % areas.size()]);
 }
 
 Animation& Animation::operator=(Animation&& other){

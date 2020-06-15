@@ -4,6 +4,8 @@
 
 class AssetsLoader;
 
+class Screen;
+
 class PlayerGraphic{
     private:
         AssetsLoader& assets;
@@ -13,7 +15,7 @@ class PlayerGraphic{
 
     public:
         PlayerGraphic(AssetsLoader& assets);
-        void render(int frame);
+        void render(int frame, Screen& background);
         void moveRight(int distance);
         void idle();
 };

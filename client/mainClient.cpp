@@ -85,11 +85,11 @@ int main(int argc, char* argv[]){
             for (int i = 0; i < 10; i++){
                 renderer.clear();
                 if (moveX) {
-                    background.movePosition((quantity/10) * i, 0);
+                    background.movePosition(quantity/10, 0);
                 }
 
                 background.render();
-                player.render(i);
+                player.render(i, background);
                 renderer.renderPresent();
                 SDL_Delay(30);
             }

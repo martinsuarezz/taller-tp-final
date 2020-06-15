@@ -2,13 +2,14 @@
 #include "AssetsLoader.h"
 #include "AnimationIdle.h"
 #include "AnimationWalkRight.h"
+#include "Screen.h"
 
 // CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
-                    assets(assets), animation(std::move(AnimationIdle(assets.getTexture(0), 5, 5))), x(5), y(5) {}
+                    assets(assets), animation(std::move(AnimationIdle(assets.getTexture(0), 400, 400))), x(400), y(400) {}
 
-void PlayerGraphic::render(int frame){
-    animation.render(frame);
+void PlayerGraphic::render(int frame, Screen& background){
+    animation.render(frame, background);
 }
 
 void PlayerGraphic::moveRight(int distance){
