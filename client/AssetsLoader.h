@@ -9,13 +9,13 @@
 
 class AssetsLoader{
     private:
-        std::map<int, Texture> textures;
-        std::map<int, Sound> sounds;
+        std::map<std::string, Texture> textures;
+        std::map<std::string, Sound> sounds;
 
     public:
         AssetsLoader(Renderer& renderer);
-        Sound& getSound(int soundId);
-        Texture& getTexture(int textureId);
+        Sound& getSound(const std::string& soundName);
+        Texture& getTexture(const std::string& textureName);
 };
 
 #endif

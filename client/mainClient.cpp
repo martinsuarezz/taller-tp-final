@@ -8,7 +8,6 @@
 #include "PlayerGraphic.h"
 #include <iostream>
 
-
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 600
 #define WALK_DISTANCE 30
