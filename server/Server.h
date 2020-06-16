@@ -13,6 +13,8 @@ class Server {
   ~Server();
  private:
   Listener listener;
+  World world;
+  EventQueue queue;
 };
 
 #endif

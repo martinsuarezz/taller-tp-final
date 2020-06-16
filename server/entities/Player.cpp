@@ -26,7 +26,7 @@ int Player::getExp() const {
 }
 
 void Player::react(Event event, Entity *sender) {
-  switch(event) {
+  switch(Event::resolve(event.getAction())) {
     case MOVE:
       break;
     case ATTACK:
@@ -36,6 +36,8 @@ void Player::react(Event event, Entity *sender) {
     case DEAD:
       break;
     case NEW_ENTITY:
+      break;
+    case UNKNOWN:
       break;
   }
 }

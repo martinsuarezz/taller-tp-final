@@ -19,7 +19,7 @@ void World::notify(Event event, Entity *sender) {
     entity.second->react(event, sender);
   }
 
-  switch(event) {
+  switch(Event::resolve(event.getAction())) {
     case DEAD:
       this->deleteEntity(sender->getId());
       break;
@@ -29,6 +29,7 @@ void World::notify(Event event, Entity *sender) {
     case MOVE:break;
     case ATTACK:break;
     case RECEIVE_DAMAGE:break;
+    case UNKNOWN:break;
   }
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Server.h"
 
-Server::Server(std::string &port) : listener(port) {
+Server::Server(std::string &port) : listener(port, world, queue) {
 
 }
 

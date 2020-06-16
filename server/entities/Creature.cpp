@@ -10,7 +10,7 @@ Creature::Creature(World& world, int id) : Character(world) {
 }
 
 void Creature::react(Event event, Entity *sender) {
-    switch (event) {
+    switch (Event::resolve(event.getAction())) {
       case MOVE:
         if(sender->getType() == PLAYER) reactMove(sender);
         break;
@@ -18,6 +18,7 @@ void Creature::react(Event event, Entity *sender) {
       case ATTACK:break;
       case RECEIVE_DAMAGE:break;
       case NEW_ENTITY: break;
+      case UNKNOWN:break;
     }
 }
 
