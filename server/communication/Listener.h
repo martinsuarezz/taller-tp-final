@@ -7,7 +7,7 @@
 #include "ClientPeer.h"
 class Listener : public Thread {
  public:
-  explicit Listener(std::string& port);
+  explicit Listener(std::string& port, World& world, EventQueue& queue);
 
   // Start thread
   void run() override;
@@ -17,9 +17,10 @@ class Listener : public Thread {
 
   ~Listener();
  private:
-  World world;
   Socket serverSocket;
-  EventQueue queue;
+
+  World& world;
+  EventQueue& queue;
   std::vector<ClientPeer*> clients;
 
   bool finished;
