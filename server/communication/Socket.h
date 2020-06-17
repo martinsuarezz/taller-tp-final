@@ -15,6 +15,8 @@ class Socket {
  public:
   Socket();
   Socket(Socket&& other);
+  Socket &operator=(Socket &&other);
+
   explicit Socket(int skt);
 
   void connect(const std::string &host, const std::string &port);

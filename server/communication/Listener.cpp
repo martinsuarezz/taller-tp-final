@@ -11,10 +11,11 @@ Listener::Listener(std::string& port, World& world, EventQueue& queue)
 void Listener::run() {
   while (!this->finished) {
     try {
-    Socket clientSocket = std::move(this->serverSocket.accept());
+    Socket clientSocket = this->serverSocket.accept();
     std::cout << "Cliente conectado\n";
-    ClientPeer client(clientSocket, queue);
-    client.start();
+    auto* client = new ClientPeer(std::move(clientSocket), queue);
+    client->start();
+    clients.push_back(client);
     } catch(SocketConnectionException& exception) {
       continue;
     }

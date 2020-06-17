@@ -18,6 +18,12 @@ Socket::Socket(Socket &&other) {
   other.skt = -1;
 }
 
+Socket &Socket::operator=(Socket &&other) {
+  this->skt = other.skt;
+  other.skt = -1;
+  return *this;
+}
+
 addrinfo_t *get_addr_info(const char* hostname,
                           const char* port, int flags) {
   addrinfo_t hints;
