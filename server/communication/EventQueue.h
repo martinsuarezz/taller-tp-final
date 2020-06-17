@@ -10,8 +10,13 @@ class EventQueue {
  public:
   EventQueue();
 
+  // Enqueue an event
   void push(Event& event);
+
+  // Dequeue an event
   Event pop();
+
+  // Close queue
   void close();
 
   bool isEmpty();

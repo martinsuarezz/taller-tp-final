@@ -8,7 +8,7 @@
 
 class ClientPeer : public Thread {
  public:
-  explicit ClientPeer(Socket &socket, EventQueue& queue);
+  explicit ClientPeer(Socket socket, EventQueue& queue);
 
   /**
    * Run client peer thread
@@ -20,8 +20,8 @@ class ClientPeer : public Thread {
   virtual ~ClientPeer();
  private:
   bool alive;
+  Socket clientSocket;
   EventQueue &queue;
-  Socket &clientSocket;
 };
 
 #endif

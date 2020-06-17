@@ -3,6 +3,8 @@
 
 #include "communication/Listener.h"
 #include "World.h"
+#include "communication/EventWorker.h"
+#include "Game.h"
 
 class Server {
  public:
@@ -13,8 +15,9 @@ class Server {
   ~Server();
  private:
   Listener listener;
-  World world;
+  Game game;
   EventQueue queue;
+  EventWorker worker;
 };
 
 #endif

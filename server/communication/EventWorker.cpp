@@ -1,22 +1,30 @@
+#include <iostream>
 #include "EventWorker.h"
 #include "EventQueue.h"
+#include "../entities/Player.h"
 
-EventWorker::EventWorker(World& world, EventQueue& queue)
-  : world(world), queue(queue) {
+EventWorker::EventWorker(Game& game, EventQueue& queue)
+  : game(game), queue(queue) {
   this->running = true;
 }
 
 void EventWorker::run() {
+  std::cout << game.draw();
   while(this->running) {
-    this->proccess();
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    process();
+    std::this_thread::sleep_for(std::chrono::seconds(5));
   }
 }
 
 void EventWorker::process() {
   while(!queue.isEmpty()) {
-    queue.pop();
+    Event event = queue.pop();
+
+    game.handle(event);
+
+    std::cout << game.draw();
   }
+
 }
 
 void EventWorker::stop() {
@@ -24,5 +32,5 @@ void EventWorker::stop() {
 }
 
 EventWorker::~EventWorker() {
-
+  this->join();
 }

@@ -1,13 +1,17 @@
 #include <string>
 #include <iostream>
 #include "Server.h"
+#include "entities/Creature.h"
 
-Server::Server(std::string &port) : listener(port, world, queue) {
+Server::Server(std::string &port) : listener(port, queue),
+  worker(game, queue) {
 
 }
 
 void Server::start() {
   std::string input;
+
+  worker.start();
 
   listener.start();
 
@@ -16,7 +20,9 @@ void Server::start() {
   }
 
   listener.finish();
+  worker.stop();
 }
 
 Server::~Server() {
+
 }

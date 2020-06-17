@@ -2,8 +2,8 @@
 #include "Listener.h"
 #include "ClientPeer.h"
 
-Listener::Listener(std::string& port, World& world, EventQueue& queue)
-  : world(world), queue(queue) {
+Listener::Listener(std::string& port, EventQueue& queue)
+  : queue(queue) {
   this->serverSocket.bind(port);
   this->serverSocket.listen(20);
 }

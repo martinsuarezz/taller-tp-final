@@ -1,18 +1,23 @@
 #include <iostream>
 #include "ClientPeer.h"
 
-ClientPeer::ClientPeer(Socket &socket, EventQueue &queue)
-    : queue(queue), clientSocket(socket) {
+ClientPeer::ClientPeer(Socket socket,
+                       EventQueue &queue)
+    : queue(queue) {
+  this->clientSocket = std::move(socket);
   this->alive = true;
 }
 
 void ClientPeer::run() {
   while(this->alive) {
     try {
-      std::cout << "Esperando..." << std::endl;
-      std::string receive = this->clientSocket.recv(1);
-      std::cout << "Mensaje recibido: "<< std::endl;
-      std::cout << receive;
+
+      std::string senderId = this->clientSocket.recv(1);
+      std::string actionId = this->clientSocket.recv(1);
+
+      Event event = Event(std::stoi(senderId), std::stoi(actionId));
+
+      queue.push(event);
     } catch (SocketConnectionException& exception) {
       std::cout << "Cerrando cliente" << std::endl;
       this->alive = false;
