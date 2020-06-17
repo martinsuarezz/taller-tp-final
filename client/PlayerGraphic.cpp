@@ -4,8 +4,8 @@
 
 
 // CONSTRUCTOR TEMPORAL
-PlayerGraphic::PlayerGraphic(AssetsLoader& assets):
-                    assets(assets), animation(assets.getTexture("player_sprite"), 5, 5, 5, 5), x(5), y(5) {
+PlayerGraphic::PlayerGraphic(AssetsLoader& assets, int x, int y):
+                    assets(assets), animation(assets.getTexture("player_sprite"), x, y, x, y), x(x), y(y) {
     animation.loadRects(PLAYER_IDLE_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
     PLAYER_IDLE_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
 }

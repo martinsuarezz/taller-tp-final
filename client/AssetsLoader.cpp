@@ -15,8 +15,8 @@ AssetsLoader::AssetsLoader(Renderer& renderer){
         Texture texture = Texture(renderer);
         std::string fileName = "Images/" + std::string(it.value());
         texture.loadFromFile(fileName);
-        std::string keyName = it.key();
-        textures.emplace(std::make_pair<std::string, Texture>(std::move(keyName), std::move(texture)));
+        std::string keyName(it.key());
+        textures.emplace(std::make_pair(keyName, std::move(texture)));
     }
 
     std::ifstream soundsConfig("Audio/roots.json");
@@ -26,8 +26,8 @@ AssetsLoader::AssetsLoader(Renderer& renderer){
     for (json::iterator it = soundsJSON.begin(); it != soundsJSON.end(); ++it) {
         std::string fileName = "Audio/" + std::string(it.value());
         Sound sound(fileName);
-        std::string keyName = it.key();
-        sounds.emplace(std::make_pair<std::string, Sound>(std::move(keyName), std::move(sound)));
+        std::string keyName(it.key());
+        sounds.emplace(std::make_pair(keyName, std::move(sound)));
     }
 }
 

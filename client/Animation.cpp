@@ -3,7 +3,7 @@
 #include "Screen.h"
 #include <iostream>
 
-#define FRAMES_PER_LOOP 10
+#define FRAMES_PER_LOOP 8
 
 Animation::Animation(Texture& texture, int xInitial, int yInitial,
                         int xFinal, int yFinal): 

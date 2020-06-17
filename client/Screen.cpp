@@ -1,7 +1,8 @@
 #include "Screen.h"
+#include "MapGraphic.h"
 
 Screen::Screen(const std::string & path, Renderer & renderer, 
-int screen_w, int screen_h) : background(renderer) {
+int screen_w, int screen_h, MapGraphic& map) : background(renderer), map(map) {
     //Load the file.
     background.loadFromFile(path, false);
     //Set the Screen position and size.
@@ -73,5 +74,5 @@ int Screen::getHeight() const {
 }
 
 void Screen::render() {
-    background.render(0, 0, &camera);
+    map.render(0, 0, &camera);
 }

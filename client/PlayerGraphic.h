@@ -17,10 +17,8 @@
 #define PLAYER_WALK_RIGHT_ANIMATION_Y 145
 #define PLAYER_WALK_LEFT_ANIMATION_Y 100
 
-
 #define PLAYER_IDLE_ANIMATION_FRAMES 1
 #define PLAYER_IDLE_ANIMATION_Y 10
-
 
 class AssetsLoader;
 
@@ -34,7 +32,7 @@ class PlayerGraphic{
         int y;
 
     public:
-        PlayerGraphic(AssetsLoader& assets);
+        PlayerGraphic(AssetsLoader& assets, int x, int y);
 
         void render(int frame, Screen& background);
         int getX();

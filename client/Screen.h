@@ -4,12 +4,14 @@
 #include "SDL2/SDL.h"
 #include "Renderer.h"
 #include "Texture.h"
+#include "MapGraphic.h"
 #include <string>
 
 class Screen {
     private:
     Texture background;
     SDL_Rect camera;
+    MapGraphic& map;
 
     //Check if the x value is valid or return a valid value.
     int checkBoundryX(int x) const;
@@ -19,7 +21,7 @@ class Screen {
     public:
     //Create camera and load background image.
     Screen(const std::string & path, Renderer & renderer,
-    int screen_w, int screen_h);
+    int screen_w, int screen_h, MapGraphic& map);
     //Deallocate resources
     ~Screen();
 
