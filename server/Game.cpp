@@ -1,18 +1,34 @@
+#include <iostream>
 #include "Game.h"
 
 Game::Game() {
   this->idCounter = 1;
-  this->running = true;
+
+  this->addPlayer("Emi");
+  this->addCreature();
 }
 
 Game::~Game() {}
 
-bool Game::isRunning() const {
-  return this->running;
-}
+void Game::handle(Event& event) {
+  auto* player = (Player*) world.getEntity(event.getSenderId());
 
-void Game::stop() {
-  this->running = false;
+  switch(event.getAction()) {
+    case MOVE_UP:
+      player->moveUp();
+      break;
+    case MOVE_DOWN:
+      player->moveDown();
+      break;
+    case MOVE_RIGHT:
+      player->moveRight();
+      break;
+    case MOVE_LEFT:
+      player->moveLeft();
+      break;
+    default:
+      std::cout << "Opción invalida";
+  }
 }
 
 std::string Game::draw() {
@@ -20,31 +36,18 @@ std::string Game::draw() {
 }
 
 void Game::addCreature() {
-  Creature* creature = new Creature(world, idCounter);
+  auto* creature = new Creature(world, idCounter);
   creature->setPosition(5, 1);
   world.notify(NEW_ENTITY, creature);
   idCounter++;
 }
 
-void Game::addCharacter(std::string &name) {
-  Player* player = new Player(world, idCounter, name);
+void Game::addPlayer(std::string name) {
+  auto* player = new Player(world, idCounter, name);
   players.insert(make_pair(name, player));
   player->setPosition(0, 0);
   world.notify(NEW_ENTITY, player);
   idCounter++;
-}
-
-void Game::move(int id, int nextX, int nextY) {
-  Player* player = dynamic_cast<Player *>(world.getEntity(id));
-  player->move(nextX, nextY);
-}
-
-Player *Game::getPlayer(std::string &name) {
-  return players.find(name)->second;
-}
-
-Creature *Game::getCreature(int id) {
-  return dynamic_cast<Creature *>(world.getEntity(id));
 }
 
 void Game::attack(int id, int idEnemy) {
