@@ -37,9 +37,9 @@ void MapGraphic::render(int xScreen, int yScreen, SDL_Rect* area){
     for (int j = roundDown(yInitial, TILESIZE) / TILESIZE; yCurrent < yFinal; yCurrent += TILESIZE, j++){
         for (int i = roundDown(xInitial, TILESIZE) / TILESIZE; xCurrent < xFinal; xCurrent += TILESIZE, i++){
             if (this->getTile(i, j) == 1)
-                assets.getTexture("blue_tile").render(xCurrent, yCurrent);
+                assets.getTexture("$blue_tile").render(xCurrent, yCurrent);
             else
-                assets.getTexture("red_tile").render(xCurrent, yCurrent);     
+                assets.getTexture("$red_tile").render(xCurrent, yCurrent);     
         }
         xCurrent = xScreen - (xInitial - roundDown(xInitial, TILESIZE));
     }    

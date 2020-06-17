@@ -1,7 +1,7 @@
 {
     "player_sprite": "25.png",
     "background": "bg.png",
-    "grass_tile": "24083.png",
-    "blue_tile": "12081.png",
-    "red_tile": "12080.png"
+    "$grass_tile": "24083.png",
+    "$blue_tile": "12081.png",
+    "$red_tile": "12080.png"
 }

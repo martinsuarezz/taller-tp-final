@@ -14,8 +14,9 @@ AssetsLoader::AssetsLoader(Renderer& renderer){
     for (json::iterator it = texturesJSON.begin(); it != texturesJSON.end(); ++it) {
         Texture texture = Texture(renderer);
         std::string fileName = "Images/" + std::string(it.value());
-        texture.loadFromFile(fileName);
         std::string keyName(it.key());
+        bool transparency = (keyName[0] != '$');
+        texture.loadFromFile(fileName, transparency);
         textures.emplace(std::make_pair(keyName, std::move(texture)));
     }
 

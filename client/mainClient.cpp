@@ -82,6 +82,7 @@ int main(int argc, char* argv[]){
                 renderer.clear();
 
                 background.centerToPosition(player.getX(), player.getY());
+                
                 background.render();
                 player.render(i, background);
                 
