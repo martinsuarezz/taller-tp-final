@@ -19,9 +19,24 @@ bool Character::isNextTo(Character *character) {
   return distX <= 1 && distY <= 1;
 }
 
-void Character::move(int nextX, int nextY) {
-  this->setPosition(nextX, nextY);
-  world.notify(MOVE, this);
+void Character::moveRight() {
+  this->setPosition(this->x + 1, this->y);
+  world.notify(MOVE_RIGHT, this);
+}
+
+void Character::moveLeft() {
+  this->setPosition(this->x - 1, this->y);
+  world.notify(MOVE_LEFT, this);
+}
+
+void Character::moveUp() {
+  this->setPosition(this->x, this->y - 1);
+  world.notify(MOVE_UP, this);
+}
+
+void Character::moveDown(){
+  this->setPosition(this->x, this->y + 1);
+  world.notify(MOVE_DOWN, this);
 }
 
 void Character::attack(Character *enemy) {

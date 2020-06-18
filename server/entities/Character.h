@@ -7,11 +7,14 @@ class Character : public Entity {
  public:
   Character(World &world);
 
-  void move(int nextX, int nextY);
+  void moveUp();
+  void moveDown();
+  void moveLeft();
+  void moveRight();
   bool isNextTo(Character *character);
   bool isNearFrom(Character *character);
 
-  void react(Event event, Entity *sender) override = 0;
+  void react(Action action, Entity *sender) override = 0;
 
   void attack(Character *enemy);
   void receiveDamage(int damage);
