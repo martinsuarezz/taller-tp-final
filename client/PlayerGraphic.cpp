@@ -1,60 +1,49 @@
 #include "PlayerGraphic.h"
 #include "AssetsLoader.h"
 #include "Screen.h"
+#include "WalkingAnimation.h"
+#include "IdleAnimation.h"
+#include <iostream>
 
+enum directions{UP, RIGHT, DOWN, LEFT};
 
 // CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets, int x, int y):
-                    assets(assets), animation(assets.getTexture("player_sprite"), x, y, x, y), x(x), y(y) {
-    animation.loadRects(PLAYER_IDLE_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_IDLE_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+                    assets(assets), animation(new IdleAnimation(*this)), x(x), y(y){
+        //animation.reset(new IdleAnimation(*this));
 }
 
-void PlayerGraphic::render(int frame, Screen& background){
-    animation.render(frame, x, y, background);
+void PlayerGraphic::render(Screen& background){
+    animation->render(background);
+}
+
+void PlayerGraphic::addX(int pixels){
+    x += pixels;
+}
+
+void PlayerGraphic::addY(int pixels){
+    y += pixels;
 }
 
 void PlayerGraphic::moveUp(int distance) {
-    std::string soundName = "walking_sound";
-    assets.getSound(soundName).play(1);
-    std::string textureName = "player_sprite";
-    animation = Animation(assets.getTexture(textureName), x, y, x, y - distance);
-    animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_WALK_Y_UP_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    animation->moveUp();
 }
 
 void PlayerGraphic::moveDown(int distance) {
-    std::string soundName = "walking_sound";
-    assets.getSound(soundName).play(1);
-    std::string textureName = "player_sprite";
-    animation = Animation(assets.getTexture(textureName), x, y, x, y + distance);
-    animation.loadRects(PLAYER_WALK_Y_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_WALK_Y_DOWN_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    animation->moveDown();
 }
 
 void PlayerGraphic::moveRight(int distance){
-    std::string soundName = "walking_sound";
-    assets.getSound(soundName).play(1);
-    std::string textureName = "player_sprite";
-    animation = Animation(assets.getTexture(textureName), x, y, x + distance, y);
-    animation.loadRects(PLAYER_WALK_X_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_WALK_RIGHT_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    animation->moveRight();
 }
 
 void PlayerGraphic::moveLeft(int distance){
-    std::string soundName = "walking_sound";
-    assets.getSound(soundName).play(1);
-    std::string textureName = "player_sprite";
-    animation = Animation(assets.getTexture(textureName), x, y, x - distance, y);
-    animation.loadRects(PLAYER_WALK_X_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_WALK_LEFT_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    animation->moveLeft();
 }
 
 void PlayerGraphic::idle(){
-    std::string textureName = "player_sprite";
-    animation = Animation(assets.getTexture(textureName), x, y, x, y);
-    animation.loadRects(PLAYER_IDLE_ANIMATION_FRAMES, PLAYER_ANIMATION_X,
-    PLAYER_IDLE_ANIMATION_Y, PLAYER_ANIMATION_WIDTH, PLAYER_ANIMATION_HEIGHT);
+    animation.reset(new IdleAnimation(*this));
+    std::cout << "IDLE" << std::endl;
 }
 
 int PlayerGraphic::getX(){
@@ -63,4 +52,18 @@ int PlayerGraphic::getX(){
 
 int PlayerGraphic::getY(){
     return y;
+}
+
+void PlayerGraphic::updateAnimation(Animation* newAnimation){
+    animation.reset(newAnimation);
+}
+
+Texture& PlayerGraphic::getBodyAsset(){
+    std::string textureName = "player_sprite";
+    return assets.getTexture(textureName);
+}
+
+Sound& PlayerGraphic::getSound(){
+    std::string soundName = "walking_sound";
+    return assets.getSound(soundName);
 }

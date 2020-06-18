@@ -3,7 +3,8 @@
 
 #include "Texture.h"
 #include "Sound.h"
-#include "Animation.h"
+#include "WalkingAnimation.h"
+#include <memory>
 
 #define PLAYER_ANIMATION_WIDTH 25
 #define PLAYER_ANIMATION_HEIGHT 45
@@ -27,21 +28,28 @@ class Screen;
 class PlayerGraphic{
     private:
         AssetsLoader& assets;
-        Animation animation;
+        //Animation animation;
+        std::unique_ptr<Animation> animation;
         int x;
         int y;
 
     public:
         PlayerGraphic(AssetsLoader& assets, int x, int y);
 
-        void render(int frame, Screen& background);
+        void render(Screen& background);
         int getX();
         int getY();
+        void addX(int pixels);
+        void addY(int pixels);
         void moveUp(int distance);
         void moveDown(int distance);
         void moveRight(int distance);
         void moveLeft(int distance);
         void idle();
+        void updateAnimation(Animation* newAnimation);
+
+        Sound& getSound();
+        Texture& getBodyAsset();
 };
 
 #endif

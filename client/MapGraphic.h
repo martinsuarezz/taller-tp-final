@@ -11,12 +11,11 @@ class MapGraphic{
     private:
         std::vector<int> tiles;
         AssetsLoader& assets;
-        int height;
         int width;
-        
+        int height;
 
     public:
-        MapGraphic(std::string mapFile, AssetsLoader& assets, int height, int width);
+        MapGraphic(std::string mapFile, AssetsLoader& assets, int width, int height);
         void render(int x, int y, SDL_Rect* area);
         int getTile(int x, int y);
 };
