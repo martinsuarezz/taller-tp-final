@@ -7,6 +7,6 @@ Item::Item() {
   this->type = ITEM;
 }
 
-void Item::react(Event event, Entity *sender) {
+void Item::react(Action action, Entity *sender) {
   // Do nothing
 }

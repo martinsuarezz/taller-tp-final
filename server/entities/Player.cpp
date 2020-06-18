@@ -6,6 +6,7 @@ Player::Player(World& world, int id, std::string& name) : Character(world) {
   this->id = id;
   this->name = name;
   this->type = PLAYER;
+  this->health = 100;
   this->level = 1;
 }
 
@@ -25,21 +26,8 @@ int Player::getExp() const {
   return this->exp;
 }
 
-void Player::react(Event event, Entity *sender) {
-  switch(Event::resolve(event.getAction())) {
-    case MOVE:
-      break;
-    case ATTACK:
-      break;
-    case RECEIVE_DAMAGE:
-      break;
-    case DEAD:
-      break;
-    case NEW_ENTITY:
-      break;
-    case UNKNOWN:
-      break;
-  }
+void Player::react(Action action, Entity *sender) {
+
 }
 
 void Player::pickUp(Item* item) {

@@ -20,7 +20,7 @@ class World {
 
   Entity * getEntity(int id);
 
-  void notify(Event event, Entity *sender);
+  void notify(Action action, Entity *sender);
 
   // Just for testing:
   std::string draw() const;

@@ -19,7 +19,7 @@ class Entity {
   void setId(int id);
   void setPosition(int x, int y);
 
-  virtual void react(Event event, Entity* sender) = 0;
+  virtual void react(Action action, Entity* sender) = 0;
 
  protected:
   int id;

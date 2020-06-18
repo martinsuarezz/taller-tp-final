@@ -11,7 +11,7 @@ class Map {
 
   bool canMove(int x, int y) const;
 
-  void notify(Event event, Entity *entity);
+  void notify(Action action, Entity *entity);
 
   // Just for testing
   std::string draw() const;

@@ -7,7 +7,7 @@ class Item : public Entity {
  public:
   Item();
 
-  void react(Event event, Entity* sender) override;
+  void react(Action action, Entity* sender) override;
 };
 
 #endif

@@ -9,7 +9,7 @@ class Creature : public Character {
  public:
   Creature(World& world, int id);
 
-  void react(Event event, Entity* sender) override;
+  void react(Action action, Entity* sender) override;
 
   std::string toString() const override;
 

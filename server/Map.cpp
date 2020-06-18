@@ -25,9 +25,12 @@ void Map::load(std::string& filename) {
   i.close();
 }
 
-void Map::notify(Event event, Entity *entity) {
-  switch(event) {
-    case MOVE:
+void Map::notify(Action action, Entity *entity) {
+  switch(action) {
+    case MOVE_LEFT:
+    case MOVE_RIGHT:
+    case MOVE_UP:
+    case MOVE_DOWN:
       this->move(entity);
       break;
     case DEAD:
@@ -38,6 +41,7 @@ void Map::notify(Event event, Entity *entity) {
       break;
     case ATTACK: break;
     case RECEIVE_DAMAGE: break;
+    case UNKNOWN:break;
   }
 }
 

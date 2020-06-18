@@ -16,7 +16,7 @@ class Player : public Character {
 
   void pickUp(Item *item);
 
-  void react(Event event, Entity* sender) override;
+  void react(Action action, Entity *sender) override;
 
   std::string toString() const override;
 

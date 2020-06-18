@@ -4,16 +4,22 @@
 #include <string>
 
 // Cause
-#define MOVE_STR "move"
-#define ATTACK_STR "attack"
-#define NEW_ENTITY_STR "new_entity"
+#define MOVE_UP_ID 1
+#define MOVE_DOWN_ID 2
+#define MOVE_RIGHT_ID 3
+#define MOVE_LEFT_ID 4
+#define ATTACK_ID 5
+#define NEW_ENTITY_ID 0
 
 // Effects
-#define RECEIVE_DAMAGE_STR "receive_damage"
-#define DEAD_STR "dead"
+#define RECEIVE_DAMAGE_ID 4
+#define DEAD_ID 5
 
 enum Action {
-  MOVE,
+  MOVE_LEFT,
+  MOVE_RIGHT,
+  MOVE_UP,
+  MOVE_DOWN,
   ATTACK,
   NEW_ENTITY,
   RECEIVE_DAMAGE,
@@ -23,13 +29,17 @@ enum Action {
 
 class Event {
  public:
-  Event(int senderId, std::string& action);
-  std::string& getAction();
-  static Action resolve(std::string& action);
+  Event();
+  Event(int senderId, Action action);
+  Event(int senderId, int actionId);
+
+  int getSenderId();
+  Action getAction();
+  static Action resolveAction(int actionId);
 
  private:
   int senderId;
-  std::string action;
+  Action action;
 };
 
 #endif
