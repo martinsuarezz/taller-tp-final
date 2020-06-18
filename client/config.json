@@ -1,5 +1,10 @@
 {
     "window_width": 600,
     "window_height": 600,
-    "fps": 61
+    "fps": 60,
+    "tile_size": 64,
+    "walking_animation_duration": 720,
+    "walking_animation_frames": 5,
+    "idle_animation_duration": 720,
+    "idle_animation_frames": 1
 }

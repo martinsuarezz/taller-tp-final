@@ -12,7 +12,8 @@ class Animation{
         PlayerGraphic& player;
         int elapsedMiliseconds;
         int targetMiliseconds;
-        int currentFrame;
+        int currentAnimation;
+        int animationFrames;
         int remainingFrames;
         int distance;
         int duration;

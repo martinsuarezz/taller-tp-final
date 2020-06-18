@@ -17,23 +17,5 @@ class WalkingAnimation: public Animation{
         void moveLeft();
 
 };
-/*
-class WalkingAnimation{
-    private:
-        PlayerGraphic& player;
-        int elapsedMiliseconds;
-        int targetMiliseconds;
-        int currentFrame;
-        int distance;
-        int direction;
-        std::vector<SDL_Rect> areas;
-
-    public:
-        WalkingAnimation(PlayerGraphic& player, int direction, int distance);
-        void updatePosition();
-        void render(Screen& screen);
-
-};
-*/
 
 #endif

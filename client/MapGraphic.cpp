@@ -1,9 +1,8 @@
 #include "AssetsLoader.h"
 #include "MapGraphic.h"
+#include "Configuration.h"
 #include <vector>
 #include <iostream>
-
-#define TILESIZE 64
 
 static int roundDown(int number, int roundTo){
     return (number / roundTo) * roundTo;
@@ -25,22 +24,25 @@ int MapGraphic::getTile(int x, int y){
 }
 
 void MapGraphic::render(int xScreen, int yScreen, SDL_Rect* area){
+    Configuration& config = Configuration::getInstance();
+    int tileSize = config.getValue("tile_size");
+
     int xInitial = area->x;
     int yInitial = area->y;
 
-    int xFinal = roundUp(area->x + area->w, TILESIZE);
-    int yFinal = roundUp(area->y + area->h, TILESIZE);
+    int xFinal = roundUp(area->x + area->w, tileSize);
+    int yFinal = roundUp(area->y + area->h, tileSize);
 
-    int xCurrent = xScreen - (xInitial - roundDown(xInitial, TILESIZE));
-    int yCurrent = yScreen - (yInitial - roundDown(yInitial, TILESIZE));
+    int xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
+    int yCurrent = yScreen - (yInitial - roundDown(yInitial, tileSize));
 
-    for (int j = roundDown(yInitial, TILESIZE) / TILESIZE; yCurrent < yFinal; yCurrent += TILESIZE, j++){
-        for (int i = roundDown(xInitial, TILESIZE) / TILESIZE; xCurrent < xFinal; xCurrent += TILESIZE, i++){
+    for (int j = roundDown(yInitial, tileSize) / tileSize; yCurrent < yFinal; yCurrent += tileSize, j++){
+        for (int i = roundDown(xInitial, tileSize) / tileSize; xCurrent < xFinal; xCurrent += tileSize, i++){
             if (this->getTile(i, j) == 1)
                 assets.getTexture("$blue_tile").render(xCurrent, yCurrent);
             else
                 assets.getTexture("$red_tile").render(xCurrent, yCurrent);     
         }
-        xCurrent = xScreen - (xInitial - roundDown(xInitial, TILESIZE));
+        xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
     }    
 }

@@ -20,8 +20,6 @@ Client::Client(Window& window): communicator(Communicator(*this)), window(window
 }
 
 void Client::run(){
-    int frame = 0;
-    
     Renderer& renderer = window.getRenderer();
     Configuration& config = Configuration::getInstance();
 
@@ -89,18 +87,10 @@ void Client::run(){
         renderer.renderPresent();        
 
         clock.stop();
-        int elapsedTime = clock.getDuration();
-        std::cout << "Time: " << elapsedTime << " µs" << std::endl;
-        std::cout << "Microseconds per Frame: " << microsecondsPerFrame << std::endl;
-        
+        int elapsedTime = clock.getDuration();        
         int waitTime = microsecondsPerFrame - elapsedTime;
-        std::cout << "Waiting time 2: " << waitTime << " µs" << std::endl;
 
         if (waitTime > 0)
             usleep(waitTime);
-        else
-            std::cout << "NEGATIVE " << waitTime << " µs" << std::endl;
-        
-        std::cout << frame++ << std::endl;
     }
 }

@@ -43,7 +43,6 @@ void PlayerGraphic::moveLeft(int distance){
 
 void PlayerGraphic::idle(){
     animation.reset(new IdleAnimation(*this));
-    std::cout << "IDLE" << std::endl;
 }
 
 int PlayerGraphic::getX(){
