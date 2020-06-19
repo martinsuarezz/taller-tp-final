@@ -38,5 +38,5 @@ void IdleAnimation::moveLeft(){
 }
 
 void IdleAnimation::updatePosition(){
-
+    return;
 }

@@ -1,34 +1,28 @@
 #include "Screen.h"
 #include "MapGraphic.h"
+#include "Renderer.h"
 
-Screen::Screen(const std::string & path, Renderer & renderer, 
-int screen_w, int screen_h, MapGraphic& map) : background(renderer), map(map) {
-    //Load the file.
-    background.loadFromFile(path, false);
-    //Set the Screen position and size.
-    camera = {0, 0, screen_w, screen_h};
+Screen::Screen(MapGraphic& map, Renderer& renderer, 
+int screen_w, int screen_h): map(map), renderer(renderer) {
+    camera = {0, 0, renderer.getWidth(), renderer.getHeight()};
 }
 
 Screen::~Screen() {}
 
 int Screen::checkBoundryX(int x) const {
-    if (x > background.getWidth() - camera.w) {
-        return background.getWidth() - camera.w;
-    } else if (x < 0) {
+    if (x < 0)
         return 0;
-    } else {
-        return x;
-    }
+    if (x + camera.w > map.getPixelsWidth())
+        return map.getPixelsWidth() - camera.w;
+    return x;
 }
 
 int Screen::checkBoundryY(int y) const {
-    if (y > background.getHeight() - camera.h) {
-        return background.getHeight() - camera.h;
-    } else if (y < 0) {
+    if (y < 0)
         return 0;
-    } else {
-        return y;
-    }
+    if (y + camera.h > map.getPixelsHeight())
+        return map.getPixelsHeight() - camera.h;
+    return y;
 }
 
 //CUIDADO -> POSIBLE BUG -> PANTALLA MAS GRANDE QUE IMAGEN
@@ -49,8 +43,8 @@ void Screen::movePosition(int x, int y) {
 }
 
 void Screen::moveToCenter() {
-    camera.x = checkBoundryX((background.getWidth() / 2) - camera.w / 2);
-    camera.y = checkBoundryY((background.getHeight() / 2) - camera.h / 2); 
+    camera.x = checkBoundryX((map.getPixelsWidth() / 2) - camera.w / 2);
+    camera.y = checkBoundryY((map.getPixelsHeight() / 2) - camera.h / 2); 
 }
 
 void Screen::centerToPosition(int x, int y){

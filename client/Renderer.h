@@ -28,6 +28,16 @@ class Renderer{
         // Limpia la pantalla.
         void clear() const;
 
+        // Setea el viewport al area determinada.
+        void setViewport(SDL_Rect* viewport);
+
+        // Setea el viewport a toda la pantalla.
+        void resetViewport();
+        
+        // Obtine las dimensiones del viewport actual.
+        int getWidth() const;
+        int getHeight() const;
+
         // Asignación por movimiento.
         Renderer& operator=(Renderer&&);
 

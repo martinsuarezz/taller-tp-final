@@ -9,7 +9,6 @@
 #include "AssetsLoader.h"
 #include "Configuration.h"
 #include "Clock.h"
-#include <chrono>
 #include <iostream>
 #include <unistd.h>
 
@@ -28,6 +27,9 @@ void Client::run(){
     renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
 
+    SDL_Rect vieport = {0, 0, 400, 600};
+    renderer.setViewport(&vieport);
+
     AssetsLoader assets(renderer);
 
     Texture people(renderer);
@@ -35,7 +37,7 @@ void Client::run(){
 
     MapGraphic map("hola.json", assets, 25, 25);
 
-    Screen background("images/bg.png", renderer, config.getValue("window_width"), config.getValue("window_height"), map);
+    Screen background(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
     background.moveToCenter();
     
     PlayerGraphic player(assets, 20, 14);      

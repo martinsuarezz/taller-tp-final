@@ -17,7 +17,9 @@ class MapGraphic{
     public:
         MapGraphic(std::string mapFile, AssetsLoader& assets, int width, int height);
         void render(int x, int y, SDL_Rect* area);
-        int getTile(int x, int y);
+        int getTile(int x, int y) const; 
+        int getPixelsWidth() const;
+        int getPixelsHeight() const;
 };
 
 #endif

@@ -5,12 +5,9 @@
 #include "IdleAnimation.h"
 #include <iostream>
 
-enum directions{UP, RIGHT, DOWN, LEFT};
-
-// CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets, int x, int y):
                     assets(assets), animation(new IdleAnimation(*this, assets)), x(x), y(y){
-        //animation.reset(new IdleAnimation(*this));
+        animation.reset(new IdleAnimation(*this, assets));
 }
 
 void PlayerGraphic::render(Screen& background){

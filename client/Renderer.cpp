@@ -34,6 +34,26 @@ void Renderer::clear() const{
     SDL_RenderClear(renderer);
 }
 
+void Renderer::setViewport(SDL_Rect* viewport){
+    SDL_RenderSetViewport(renderer, viewport);
+}
+
+void Renderer::resetViewport(){
+    setViewport(NULL);
+}
+
+int Renderer::getHeight() const{
+    SDL_Rect viewport;
+    SDL_RenderGetViewport(renderer, &viewport);
+    return viewport.h;
+}
+
+int Renderer::getWidth() const{
+    SDL_Rect viewport;
+    SDL_RenderGetViewport(renderer, &viewport);
+    return viewport.w;
+}
+
 void Renderer::setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha){
     SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
