@@ -1,7 +1,10 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 #include <vector>
+#include <string>
 #include <SDL2/SDL.h>
+
+class AssetsLoader;
 
 class PlayerGraphic;
 
@@ -10,19 +13,18 @@ class Screen;
 class Animation{
     protected:
         PlayerGraphic& player;
+        AssetsLoader& assets;
         int elapsedMiliseconds;
         int targetMiliseconds;
         int currentAnimation;
         int animationFrames;
         int remainingFrames;
-        int distance;
         int duration;
-        int direction;
-        std::vector<SDL_Rect> areas;
-        void updatePosition();
+        std::string animationName;
+        virtual void updatePosition() = 0;
 
     public:
-        Animation(PlayerGraphic& player, int direction, int distance);
+        Animation(PlayerGraphic& player, AssetsLoader& assets);
         void render(Screen& screen);
         virtual void moveUp() = 0;
         virtual void moveRight() = 0;

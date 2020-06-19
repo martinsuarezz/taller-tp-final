@@ -25,20 +25,20 @@ void Client::run(){
 
     int microsecondsPerFrame = 1000000 / config.getValue("fps");
 
-    renderer.setDrawColor(200,255,255,255);
+    renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
 
     AssetsLoader assets(renderer);
 
     Texture people(renderer);
-    people.loadFromFile("Images/dot.bmp", true, {0, 255, 255});
+    people.loadFromFile("images/dot.bmp", true, {0, 255, 255});
 
     MapGraphic map("hola.json", assets, 25, 25);
 
-    Screen background("Images/bg.png", renderer, config.getValue("window_width"), config.getValue("window_height"), map);
+    Screen background("images/bg.png", renderer, config.getValue("window_width"), config.getValue("window_height"), map);
     background.moveToCenter();
     
-    PlayerGraphic player(assets, 24, 0);        
+    PlayerGraphic player(assets, 20, 14);      
 
     SDL_Event event;
     bool quit = false;
@@ -81,7 +81,7 @@ void Client::run(){
 
         renderer.clear();
         background.centerToPosition(player.getX(), player.getY());
-        background.render();
+        background.render(); 
         player.render(background);
 
         renderer.renderPresent();        

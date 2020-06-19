@@ -9,7 +9,7 @@ enum directions{UP, RIGHT, DOWN, LEFT};
 
 // CONSTRUCTOR TEMPORAL
 PlayerGraphic::PlayerGraphic(AssetsLoader& assets, int x, int y):
-                    assets(assets), animation(new IdleAnimation(*this)), x(x), y(y){
+                    assets(assets), animation(new IdleAnimation(*this, assets)), x(x), y(y){
         //animation.reset(new IdleAnimation(*this));
 }
 
@@ -42,7 +42,7 @@ void PlayerGraphic::moveLeft(int distance){
 }
 
 void PlayerGraphic::idle(){
-    animation.reset(new IdleAnimation(*this));
+    animation.reset(new IdleAnimation(*this, assets));
 }
 
 int PlayerGraphic::getX(){

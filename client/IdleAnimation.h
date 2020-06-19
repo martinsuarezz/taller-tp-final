@@ -8,9 +8,14 @@ class Screen;
 
 class PlayerGraphic;
 
+class AssetsLoader;
+
 class IdleAnimation: public Animation{
+    private:
+        void updatePosition();
+        
     public:
-        IdleAnimation(PlayerGraphic& player);
+        IdleAnimation(PlayerGraphic& player, AssetsLoader& assets);
         void moveUp();
         void moveRight();
         void moveDown();

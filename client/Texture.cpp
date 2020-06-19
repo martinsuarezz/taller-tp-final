@@ -66,7 +66,7 @@ bool Texture::loadFromRenderedText(std::string text, std::string fontName,
 									int fontSize, SDL_Color fontColor){
     free();
 	
-	std::string fontFullName = "Fonts/" + fontName;
+	std::string fontFullName = "fonts/" + fontName;
 	TTF_Font* font = TTF_OpenFont(fontFullName.c_str(), fontSize);
 
 	if (!font)
