@@ -14,7 +14,7 @@ class Character : public Entity {
   bool isNextTo(Character *character);
   bool isNearFrom(Character *character);
 
-  void react(Action action, Entity *sender) override = 0;
+  void react(Event event, Entity *sender) override = 0;
 
   void attack(Character *enemy);
   void receiveDamage(int damage);

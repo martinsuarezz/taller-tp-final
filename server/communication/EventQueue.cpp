@@ -10,13 +10,13 @@ EventQueue::EventQueue() {
 
 }
 
-void EventQueue::push(Event &event) {
+void EventQueue::push(Command &event) {
   std::unique_lock<std::mutex> lk(m);
   queue.push(event);
   cv.notify_all();
 }
 
-Event EventQueue::pop() {
+Command EventQueue::pop() {
   std::unique_lock<std::mutex> lk(m);
 
   while (this->queue.empty()) {
@@ -27,7 +27,7 @@ Event EventQueue::pop() {
     cv.wait(lk);
   }
 
-  Event event = queue.front();
+  Command event = queue.front();
   queue.pop();
 
   return event;

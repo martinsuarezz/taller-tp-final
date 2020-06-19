@@ -18,7 +18,7 @@ void EventWorker::run() {
 
 void EventWorker::process() {
   while(!queue.isEmpty()) {
-    Event event = queue.pop();
+    Command event = queue.pop();
 
     game.handle(event);
 

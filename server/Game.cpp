@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "Game.h"
 
 Game::Game() {
@@ -10,10 +11,10 @@ Game::Game() {
 
 Game::~Game() {}
 
-void Game::handle(Event& event) {
-  auto* player = (Player*) world.getEntity(event.getSenderId());
+void Game::handle(Command& command) {
+  auto* player = (Player*) world.getEntity(command.getSenderId());
 
-  switch(event.getAction()) {
+  switch(command.getAction()) {
     case MOVE_UP:
       player->moveUp();
       break;
@@ -26,13 +27,23 @@ void Game::handle(Event& event) {
     case MOVE_LEFT:
       player->moveLeft();
       break;
-    default:
+    case MAKE_ATTACK: {
+      auto *enemy = (Character *) world.getEntity(command.getTargetId());
+      if (enemy != nullptr)
+        player->attack(enemy);
+      }
+      break;
+     default:
       std::cout << "Opción invalida";
   }
 }
 
 std::string Game::draw() {
-  return world.draw();
+  std::stringstream ss;
+  ss << ((Player*) world.getEntity(1))->toString() << "\n";
+  ss << ((Creature*) world.getEntity(2))->toString() << "\n";
+  ss << world.draw() << "\n";
+  return ss.str();
 }
 
 void Game::addCreature() {

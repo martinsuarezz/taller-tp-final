@@ -21,22 +21,22 @@ bool Character::isNextTo(Character *character) {
 
 void Character::moveRight() {
   this->setPosition(this->x + 1, this->y);
-  world.notify(MOVE_RIGHT, this);
+  world.notify(MOVE, this);
 }
 
 void Character::moveLeft() {
   this->setPosition(this->x - 1, this->y);
-  world.notify(MOVE_LEFT, this);
+  world.notify(MOVE, this);
 }
 
 void Character::moveUp() {
   this->setPosition(this->x, this->y - 1);
-  world.notify(MOVE_UP, this);
+  world.notify(MOVE, this);
 }
 
 void Character::moveDown(){
   this->setPosition(this->x, this->y + 1);
-  world.notify(MOVE_DOWN, this);
+  world.notify(MOVE, this);
 }
 
 void Character::attack(Character *enemy) {
@@ -51,7 +51,7 @@ void Character::receiveDamage(int damage) {
   if (newHealth <= 0) {
     this->health = 0;
     this->alive = false;
-    world.notify(DEAD, this);
+    world.notify(DIE, this);
     dropItem();
   } else {
     this->health = newHealth;

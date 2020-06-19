@@ -12,7 +12,7 @@ class Game {
  public:
   Game();
 
-  void handle(Event& event);
+  void handle(Command& command);
 
   std::string draw();
 

@@ -9,9 +9,8 @@ Creature::Creature(World& world, int id) : Character(world) {
   this->alive = true;
 }
 
-void Creature::react(Action action, Entity *sender) {
-    if((action == MOVE_LEFT ||  action == MOVE_RIGHT || action == MOVE_UP
-      || action == MOVE_DOWN) && sender->getType() == PLAYER) {
+void Creature::react(Event event, Entity *sender) {
+    if(event == MOVE && sender->getType() == PLAYER) {
         reactMove(sender);
     }
 }
@@ -28,9 +27,9 @@ void Creature::moveToward(Entity *entity) {
     }
   } else {
     if (this->getY() - entity->getY() < 0) {
-      this->moveUp();
-    } else {
       this->moveDown();
+    } else {
+      this->moveUp();
     }
   }
 }

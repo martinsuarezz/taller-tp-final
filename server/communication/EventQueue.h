@@ -4,17 +4,17 @@
 #include <mutex>
 #include <queue>
 
-#include "../events/Event.h"
+#include "../events/Command.h"
 
 class EventQueue {
  public:
   EventQueue();
 
   // Enqueue an event
-  void push(Event& event);
+  void push(Command& event);
 
   // Dequeue an event
-  Event pop();
+  Command pop();
 
   // Close queue
   void close();
@@ -27,7 +27,7 @@ class EventQueue {
  private:
   std::atomic<bool> closed;
   std::mutex m;
-  std::queue<Event> queue;
+  std::queue<Command> queue;
   std::condition_variable cv;
 };
 

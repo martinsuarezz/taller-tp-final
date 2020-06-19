@@ -6,7 +6,7 @@
 #include <map>
 
 #include "entities/Entity.h"
-#include "events/Event.h"
+#include "events/Command.h"
 #include "Map.h"
 
 #define EMPTY ' '
@@ -20,7 +20,7 @@ class World {
 
   Entity * getEntity(int id);
 
-  void notify(Action action, Entity *sender);
+  void notify(Event event, Entity *sender);
 
   // Just for testing:
   std::string draw() const;

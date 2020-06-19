@@ -14,8 +14,10 @@ void ClientPeer::run() {
 
       std::string senderId = this->clientSocket.recv(1);
       std::string actionId = this->clientSocket.recv(1);
+      std::string targetId = this->clientSocket.recv(1);
 
-      Event event = Event(std::stoi(senderId), std::stoi(actionId));
+      Command event = Command
+          (std::stoi(senderId), std::stoi(actionId), std::stoi(targetId));
 
       queue.push(event);
     } catch (SocketConnectionException& exception) {

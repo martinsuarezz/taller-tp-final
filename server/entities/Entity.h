@@ -1,7 +1,7 @@
 #ifndef ARGENTUM_SERVER_ENTITY_H_
 #define ARGENTUM_SERVER_ENTITY_H_
 
-#include "../events/Event.h"
+#include "../events/Command.h"
 
 class Entity {
  public:
@@ -19,7 +19,7 @@ class Entity {
   void setId(int id);
   void setPosition(int x, int y);
 
-  virtual void react(Action action, Entity* sender) = 0;
+  virtual void react(Event event, Entity* sender) = 0;
 
  protected:
   int id;

@@ -11,18 +11,18 @@ Entity * World::getEntity(int id) {
   return dynamicEntities.find(id)->second;
 }
 
-void World::notify(Action action, Entity *sender) {
+void World::notify(Event event, Entity *sender) {
   // handle map
-  map.notify(action, sender);
+  map.notify(event, sender);
 
   // handle dynamic entities
   for(auto entity: dynamicEntities) {
-    entity.second->react(action, sender);
+    entity.second->react(event, sender);
   }
 
-  if(action == DEAD) {
+  if(event == DIE) {
     this->deleteEntity(sender->getId());
-  } else if(action == NEW_ENTITY) {
+  } else if(event == NEW_ENTITY) {
     this->addEntity(sender);
   }
 }
