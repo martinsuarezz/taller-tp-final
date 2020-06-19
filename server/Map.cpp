@@ -112,7 +112,7 @@ std::string Map::draw() const {
       if(this->get(column, row) != nullptr) {
         ss << this->get(column, row)->getType() << " ";
       } else {
-        ss << EMPTY;
+        ss << EMPTY << " ";
       }
     }
 
