@@ -1,3 +1,4 @@
+/*
 #include "WalkingAnimation.h"
 #include "PlayerGraphic.h"
 #include "Configuration.h"
@@ -5,7 +6,11 @@
 #include "AssetsLoader.h"
 #include <iostream>
 
-WalkingAnimation::WalkingAnimation(PlayerGraphic& player, AssetsLoader& assets, std::string direction, int distance): Animation(player, assets), direction(direction), distance(distance){
+WalkingAnimation::WalkingAnimation(PlayerGraphic& player, AssetsLoader& assets,
+                                Texture& texture, std::string direction,
+                                int distance): 
+                                Animation(player, assets, texture), 
+                                direction(direction), distance(distance){
     Configuration& config = Configuration::getInstance();
     duration = config.getValue("walking_animation_duration");
     animationFrames = config.getValue("walking_animation_frames");
@@ -50,3 +55,5 @@ void WalkingAnimation::updatePosition(){
 
     distance -= pixelsToMove;
 }
+
+*/

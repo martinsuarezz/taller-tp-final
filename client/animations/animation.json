@@ -3,5 +3,6 @@
     "walking_animation_down": [6, 0, 10, 25, 45],
     "walking_animation_up": [6, 0, 55, 25, 45],
     "walking_animation_left": [5, 0, 100, 25, 45],
-    "walking_animation_right": [5, 0, 145, 25, 45]
+    "walking_animation_right": [5, 0, 145, 25, 45],
+    "human_face_animation_idle" : [1, 0, 0, 16, 18]
 }

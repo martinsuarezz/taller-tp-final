@@ -8,22 +8,24 @@
 #include "PlayerGraphic.h"
 #include "AssetsLoader.h"
 
-Animation::Animation(PlayerGraphic& player, AssetsLoader& assets): player(player), assets(assets){}
+Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration): texture(texture), frames(frames), duration(duration){
+    Configuration& config = Configuration::getInstance();
+    ammountFrames = frames.size();
+    targetMiliseconds = duration / ammountFrames;
+    elapsedMiliseconds = 0;
+    currentAnimation = 0;
+    remainingFrames = (duration * config.getValue("fps")) / 1000;
+}
 
-void Animation::render(Screen& screen){
-    Texture& body = player.getBodyAsset();
-    std::vector<SDL_Rect>& areas = assets.getAnimationFrames(animationName);
+void Animation::render(int x, int y){
     Configuration& config = Configuration::getInstance();
     int milisecondsPerFrame = 1000 / config.getValue("fps");
     if (elapsedMiliseconds <= targetMiliseconds && (elapsedMiliseconds += milisecondsPerFrame) >= targetMiliseconds){
         currentAnimation++;
-        targetMiliseconds += duration / animationFrames;
+        targetMiliseconds += duration / ammountFrames;
     }
-    this->updatePosition();
-    body.render(player.getX() - screen.getPositionX(), player.getY() - screen.getPositionY(), &areas[currentAnimation % areas.size()]);
+    texture.render(x, y, &frames[currentAnimation % ammountFrames]);
     remainingFrames--;
-    if (remainingFrames <= 0)
-        player.idle();
 }
 
 Animation::~Animation(){

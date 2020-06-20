@@ -1,5 +1,5 @@
-#ifndef _CAMERA_H_
-#define _CAMERA_H_
+#ifndef SCREEN_H
+#define SCREEN_H
 
 #include "SDL2/SDL.h"
 #include <string>

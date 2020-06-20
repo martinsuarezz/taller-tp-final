@@ -1,3 +1,5 @@
+/*
+
 #ifndef WALKING_ANIMATION_H
 #define WALKING_ANIMATION_H
 #include <vector>
@@ -27,3 +29,5 @@ class WalkingAnimation: public Animation{
 };
 
 #endif
+
+*/

@@ -27,7 +27,7 @@ void Client::run(){
     renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
 
-    SDL_Rect vieport = {0, 0, 400, 600};
+    SDL_Rect vieport = {5, 5, 600, 590};
     renderer.setViewport(&vieport);
 
     AssetsLoader assets(renderer);
@@ -37,10 +37,9 @@ void Client::run(){
 
     MapGraphic map("hola.json", assets, 25, 25);
 
-    Screen background(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
-    background.moveToCenter();
+    Screen mapScreen(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
     
-    PlayerGraphic player(assets, 20, 14);      
+    PlayerGraphic player(assets, mapScreen, 20, 14);      
 
     SDL_Event event;
     bool quit = false;
@@ -82,9 +81,9 @@ void Client::run(){
         SDL_FlushEvent(SDL_KEYDOWN);
 
         renderer.clear();
-        background.centerToPosition(player.getX(), player.getY());
-        background.render(); 
-        player.render(background);
+        mapScreen.centerToPosition(player.getX(), player.getY());
+        mapScreen.render();
+        player.render();
 
         renderer.renderPresent();        
 

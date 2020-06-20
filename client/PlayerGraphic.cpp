@@ -1,17 +1,17 @@
 #include "PlayerGraphic.h"
 #include "AssetsLoader.h"
 #include "Screen.h"
-#include "WalkingAnimation.h"
-#include "IdleAnimation.h"
+#include "IdleAction.h"
 #include <iostream>
+#include <string>
 
-PlayerGraphic::PlayerGraphic(AssetsLoader& assets, int x, int y):
-                    assets(assets), animation(new IdleAnimation(*this, assets)), x(x), y(y){
-        animation.reset(new IdleAnimation(*this, assets));
+PlayerGraphic::PlayerGraphic(AssetsLoader& assets, Screen& screen, int x, int y):
+                    x(x), y(y), assets(assets), screen(screen), action(new IdleAction(*this, assets)){
+
 }
 
-void PlayerGraphic::render(Screen& background){
-    animation->render(background);
+void PlayerGraphic::render(){
+    action->update();
 }
 
 void PlayerGraphic::addX(int pixels){
@@ -23,42 +23,51 @@ void PlayerGraphic::addY(int pixels){
 }
 
 void PlayerGraphic::moveUp(int distance) {
-    animation->moveUp();
+    action->walk("up", distance);
 }
 
 void PlayerGraphic::moveDown(int distance) {
-    animation->moveDown();
+    action->walk("down", distance);
 }
 
 void PlayerGraphic::moveRight(int distance){
-    animation->moveRight();
+    action->walk("right", distance);
 }
 
 void PlayerGraphic::moveLeft(int distance){
-    animation->moveLeft();
+    action->walk("left", distance);
 }
 
-void PlayerGraphic::idle(){
-    animation.reset(new IdleAnimation(*this, assets));
-}
-
-int PlayerGraphic::getX(){
+int PlayerGraphic::getX() const{
     return x;
 }
 
-int PlayerGraphic::getY(){
+int PlayerGraphic::getY() const{
     return y;
 }
 
-void PlayerGraphic::updateAnimation(Animation* newAnimation){
-    animation.reset(newAnimation);
+int PlayerGraphic::getRelativeX() const{
+    return this->getX() - screen.getPositionX();
+}
+
+int PlayerGraphic::getRelativeY() const{
+    return this->getY() - screen.getPositionY();
+}
+
+void PlayerGraphic::updateAction(Action* newAction){
+    action.reset(newAction);
 }
 
 Texture& PlayerGraphic::getBodyAsset(){
     std::string textureName = "player_sprite";
     return assets.getTexture(textureName);
 }
-
+/*
+Texture& PlayerGraphic::getHeadAsset(){
+    std::string textureName = "face_human";
+    return assets.getTexture(textureName);
+}
+*/
 Sound& PlayerGraphic::getSound(){
     std::string soundName = "walking_sound";
     return assets.getSound(soundName);

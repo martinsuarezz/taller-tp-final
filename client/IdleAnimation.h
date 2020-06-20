@@ -1,3 +1,5 @@
+/*
+
 #ifndef IDLE_ANIMATION_H
 #define IDLE_ANIMATION_H
 #include <vector>
@@ -24,3 +26,5 @@ class IdleAnimation: public Animation{
 };
 
 #endif
+
+*/
