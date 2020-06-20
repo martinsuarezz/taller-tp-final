@@ -5,6 +5,12 @@ ClientSender::ClientSender(Socket socket) {
   this->alive = true;
 }
 
-void ClientSender::send(std::string& message) {
-  clientSocket.send(message);
+void ClientSender::run() {
+  for(;;) {
+   try {
+
+   } catch(SocketConnectionException& exception) {
+     break;
+   }
+  }
 }

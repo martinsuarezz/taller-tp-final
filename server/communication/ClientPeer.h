@@ -2,7 +2,7 @@
 #define ARGENTUM_COMMUNICATION_CLIENTPEER_H_
 
 #include "../Thread.h"
-#include "EventQueue.h"
+#include "Queue.h"
 #include "Socket.h"
 #include "../World.h"
 #include "ClientReceiver.h"
@@ -10,7 +10,7 @@
 
 class ClientPeer {
  public:
-  explicit ClientPeer(Socket socket, EventQueue& queue);
+  explicit ClientPeer(Socket socket, Queue<Command> &queue);
 
   /**
    * Run client peer thread
@@ -20,7 +20,7 @@ class ClientPeer {
   ~ClientPeer();
  private:
   Socket clientSocket;
-  EventQueue &queue;
+  Queue<Command> &queue;
 
   ClientReceiver receiver;
   ClientSender sender;

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "EventWorker.h"
-#include "EventQueue.h"
+#include "Queue.h"
 #include "../entities/Player.h"
 
-EventWorker::EventWorker(Game& game, EventQueue& queue)
+EventWorker::EventWorker(Game& game, Queue<Command>& queue)
   : game(game), queue(queue) {
   this->running = true;
 }

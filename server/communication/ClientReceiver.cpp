@@ -1,9 +1,9 @@
 #include <iostream>
 #include "ClientReceiver.h"
 #include "../events/Command.h"
-#include "EventQueue.h"
+#include "Queue.h"
 
-ClientReceiver::ClientReceiver(Socket socket, EventQueue& queue) : queue(queue) {
+ClientReceiver::ClientReceiver(Socket socket, Queue<Command>& queue) : queue(queue) {
   this->clientSocket = std::move(socket);
   this->alive = true;
 }

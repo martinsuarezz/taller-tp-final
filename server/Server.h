@@ -16,7 +16,7 @@ class Server {
  private:
   Listener listener;
   Game game;
-  EventQueue queue;
+  Queue<Command> queue;
   EventWorker worker;
 };
 

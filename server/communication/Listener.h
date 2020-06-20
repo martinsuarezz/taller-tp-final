@@ -9,7 +9,7 @@
 
 class Listener : public Thread {
  public:
-  explicit Listener(std::string& port, Game& game, EventQueue& queue);
+  explicit Listener(std::string& port, Game& game, Queue<Command>& queue);
 
   // Start thread
   void run() override;
@@ -22,7 +22,7 @@ class Listener : public Thread {
   Socket serverSocket;
 
   Game& game;
-  EventQueue& queue;
+  Queue<Command>& queue;
 
   bool finished;
 };

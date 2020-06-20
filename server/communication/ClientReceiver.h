@@ -3,11 +3,12 @@
 
 #include "../Thread.h"
 #include "Socket.h"
-#include "EventQueue.h"
+#include "Queue.h"
+#include "../events/Command.h"
 
 class ClientReceiver : public Thread {
  public:
-  explicit ClientReceiver(Socket socket, EventQueue& queue);
+  explicit ClientReceiver(Socket socket, Queue<Command> &queue);
 
   void run() override;
 
@@ -16,7 +17,7 @@ class ClientReceiver : public Thread {
   ~ClientReceiver();
  private:
   Socket clientSocket;
-  EventQueue& queue;
+  Queue<Command> &queue;
 
   bool alive;
 };

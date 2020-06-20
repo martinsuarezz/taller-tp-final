@@ -2,7 +2,7 @@
 #include "Listener.h"
 #include "ClientPeer.h"
 
-Listener::Listener(std::string& port, Game& game, EventQueue& queue)
+Listener::Listener(std::string& port, Game& game, Queue<Command>& queue)
   : queue(queue), game(game) {
   this->serverSocket.bind(port);
   this->serverSocket.listen(20);
