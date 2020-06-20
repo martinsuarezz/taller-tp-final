@@ -8,6 +8,7 @@
 #include "entities/Entity.h"
 #include "events/Command.h"
 #include "Map.h"
+#include "events/EventManager.h"
 
 #define EMPTY ' '
 #define PLAYER 'P'
@@ -26,6 +27,7 @@ class World {
   std::string draw() const;
  private:
   Map map;
+  EventManager eventManager;
 
   std::map<int, Entity *> dynamicEntities;
   std::map<int, Entity *> staticEntities;

@@ -1,6 +1,7 @@
 #ifndef ARGENTUM_SERVER_ENTITY_H_
 #define ARGENTUM_SERVER_ENTITY_H_
 
+#include <vector>
 #include "../events/Command.h"
 
 class Entity {
@@ -21,6 +22,8 @@ class Entity {
 
   virtual void react(Event event, Entity* sender) = 0;
 
+  std::vector<Event>& getEvents();
+
  protected:
   int id;
 
@@ -32,6 +35,8 @@ class Entity {
   char type;
   bool solid;
   bool dynamic;
+
+  std::vector<Event> events;
 };
 
 #endif

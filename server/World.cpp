@@ -1,5 +1,5 @@
 #include "World.h"
-#include "entities/Creature.h"
+#include "events/EventManager.h"
 
 World::World() {
   std::string filename("../map1.json");
@@ -14,11 +14,7 @@ Entity * World::getEntity(int id) {
 void World::notify(Event event, Entity *sender) {
   // handle map
   map.notify(event, sender);
-
-  // handle dynamic entities
-  for(auto entity: dynamicEntities) {
-    entity.second->react(event, sender);
-  }
+  eventManager.notify(event, sender);
 
   if(event == DIE) {
     this->deleteEntity(sender->getId());
@@ -37,6 +33,10 @@ void World::addEntity(Entity *entity) {
   // Add to world
   if(entity->isDynamic()) {
     dynamicEntities.insert(std::make_pair(entity->getId(), entity));
+
+    for(auto event : entity->getEvents()) {
+      eventManager.subscribe(event, entity);
+    }
   } else {
     staticEntities.insert(std::make_pair(entity->getId(), entity));
   }

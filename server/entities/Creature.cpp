@@ -7,6 +7,7 @@ Creature::Creature(World& world, int id) : Character(world) {
   this->health = 50;
   this->type = CREATURE;
   this->alive = true;
+  this->events.push_back(MOVE);
 }
 
 void Creature::react(Event event, Entity *sender) {
