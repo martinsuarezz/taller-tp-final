@@ -12,6 +12,10 @@ void ClientPeer::run() {
   receiver.start();
 }
 
+void ClientPeer::notify(ProtocolMessage& message) {
+  sender.push(message);
+}
+
 ClientPeer::~ClientPeer() {
   this->clientSocket.close();
 }

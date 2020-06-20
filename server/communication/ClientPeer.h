@@ -13,9 +13,15 @@ class ClientPeer {
   explicit ClientPeer(Socket socket, Queue<Command> &queue);
 
   /**
-   * Run client peer thread
+   * Run client sender and client receiver
    */
   void run();
+
+  /**
+   * Notify message to a client
+   * @param message
+   */
+  void notify(ProtocolMessage &message);
 
   ~ClientPeer();
  private:

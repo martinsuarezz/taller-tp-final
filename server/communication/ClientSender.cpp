@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ClientSender.h"
 
 ClientSender::ClientSender(Socket socket) {
@@ -6,11 +7,19 @@ ClientSender::ClientSender(Socket socket) {
 }
 
 void ClientSender::run() {
-  for(;;) {
-   try {
-
-   } catch(SocketConnectionException& exception) {
-     break;
-   }
+  while(this->alive) {
+    try {
+      if(!queue.isEmpty()) {
+        ProtocolMessage message = queue.pop();
+        // send
+      }
+    } catch (SocketConnectionException &exception) {
+      this->alive = false;
+      std::cout << "Error conexion socket";
+    }
   }
+}
+
+void ClientSender::push(ProtocolMessage& message) {
+  queue.push(message);
 }
