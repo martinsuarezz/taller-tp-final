@@ -1,9 +1,8 @@
 #include <string>
 #include <iostream>
 #include "Server.h"
-#include "entities/Creature.h"
 
-Server::Server(std::string &port) : listener(port, queue),
+Server::Server(std::string &port) : listener(port, game, queue),
   worker(game, queue) {
 
 }

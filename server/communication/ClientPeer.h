@@ -5,23 +5,25 @@
 #include "EventQueue.h"
 #include "Socket.h"
 #include "../World.h"
+#include "ClientReceiver.h"
+#include "ClientSender.h"
 
-class ClientPeer : public Thread {
+class ClientPeer {
  public:
   explicit ClientPeer(Socket socket, EventQueue& queue);
 
   /**
    * Run client peer thread
    */
-  void run() override;
+  void run();
 
-  bool isAlive();
-
-  virtual ~ClientPeer();
+  ~ClientPeer();
  private:
-  bool alive;
   Socket clientSocket;
   EventQueue &queue;
+
+  ClientReceiver receiver;
+  ClientSender sender;
 };
 
 #endif

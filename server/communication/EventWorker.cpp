@@ -25,6 +25,7 @@ void EventWorker::process() {
     std::cout << game.draw();
   }
 
+  game.notifyClients();
 }
 
 void EventWorker::stop() {

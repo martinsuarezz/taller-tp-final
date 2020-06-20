@@ -69,3 +69,13 @@ void Game::attack(int id, int idEnemy) {
     ((Character *) player)->attack((Character *) enemy);
   }
 }
+
+void Game::pushClient(ClientPeer *client) {
+  clients.push_back(client);
+}
+
+void Game::notifyClients() {
+  for(auto client: clients) {
+    //client->notify();
+  }
+}
