@@ -36,6 +36,9 @@ void Map::notify(Event event, Entity *entity) {
     case NEW_ENTITY:
       this->add(entity);
       break;
+    case REMOVE_ENTITY:
+      this->remove(entity);
+      break;
     case RECEIVE_DAMAGE:
       break;
     case ATTACK:break;
@@ -61,9 +64,7 @@ void Map::move(Entity * entity) {
 }
 
 void Map::remove(Entity* entity) {
-  if (entity->getType() == CREATURE){
-    this->set(entity->getX(), entity->getY(), nullptr);
-  }
+  this->set(entity->getX(), entity->getY(), nullptr);
 }
 
 void Map::add(Entity *entity) {

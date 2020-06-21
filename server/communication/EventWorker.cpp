@@ -1,6 +1,5 @@
 #include <iostream>
 #include "EventWorker.h"
-#include "Queue.h"
 #include "../entities/Player.h"
 
 EventWorker::EventWorker(Game& game, Queue<Command>& queue)

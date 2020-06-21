@@ -21,7 +21,9 @@ Command::Command(int senderId, int actionId) {
 }
 
 Action Command::resolveAction(int actionId) {
-  if (actionId == MOVE_UP_ID) {
+  if(actionId == CONNECT_ID) {
+    return CONNECT;
+  } else if  (actionId == MOVE_UP_ID) {
     return MOVE_UP;
   } else if (actionId == MOVE_DOWN_ID) {
     return MOVE_DOWN;
@@ -31,6 +33,8 @@ Action Command::resolveAction(int actionId) {
     return MOVE_LEFT;
   } else if (actionId == ATTACK_ID) {
     return MAKE_ATTACK;
+  } else if (actionId == DISCONNECT_ID) {
+    return DISCONNECT;
   } else {
     return UNKNOWN_ACTION;
   }

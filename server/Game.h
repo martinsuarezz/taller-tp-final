@@ -30,9 +30,10 @@ class Game {
   std::vector<ClientPeer*> clients;
   std::map<std::string, Player *> players;
 
-  void attack(int id, int idEnemy);
   void addPlayer(std::string name);
+  void removePlayer(std::string name);
   void addCreature(int x, int y);
+  void addItem(int x, int y);
 };
 
 #endif

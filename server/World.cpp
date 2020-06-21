@@ -14,12 +14,16 @@ Entity * World::getEntity(int id) {
 void World::notify(Event event, Entity *sender) {
   // handle map
   map.notify(event, sender);
+
   eventManager.notify(event, sender);
 
   if(event == DIE) {
+    // FIXME: If it's a player should transform
     this->deleteEntity(sender->getId());
   } else if(event == NEW_ENTITY) {
     this->addEntity(sender);
+  } else if(event == REMOVE_ENTITY){
+    this->deleteEntity(sender->getId());
   }
 }
 
@@ -44,4 +48,6 @@ void World::addEntity(Entity *entity) {
 
 void World::deleteEntity(int id) {
   dynamicEntities.erase(id);
+  // TODO: Unsubscribe events
+  // TODO: Remove pointer
 }
