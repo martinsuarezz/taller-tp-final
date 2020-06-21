@@ -8,6 +8,8 @@ class Renderer;
 
 class MapGraphic;
 
+class Entity;
+
 class Screen {
     private:
         MapGraphic& map;
@@ -42,6 +44,8 @@ class Screen {
         // Obtener dimensiones de la camara
         int getWidth() const;
         int getHeight() const;
+
+        bool isInbound(const Entity& entity) const;
 
         //Render the screen.
         void render();

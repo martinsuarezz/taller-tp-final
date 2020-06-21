@@ -1,10 +1,12 @@
 #ifndef IDLE_ACTION_H
 #define IDLE_ACTION_H
 #include <vector>
+#include <map>
+#include <string>
 #include "Animation.h"
 #include "Action.h"
 
-class PlayerGraphic;
+class Entity;
 
 class AssetsLoader;
 
@@ -13,7 +15,7 @@ class IdleAction: public Action{
         AssetsLoader& assets;
 
     public:
-        IdleAction(PlayerGraphic& player, AssetsLoader& assets);
+        IdleAction(Entity& player, AssetsLoader& assets);
         void update();
         void walk(std::string direction, int distance);
 };

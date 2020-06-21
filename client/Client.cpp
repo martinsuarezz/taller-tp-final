@@ -3,12 +3,13 @@
 #include "Sound.h"
 #include "Screen.h"
 #include "Window.h"
-#include "PlayerGraphic.h"
 #include "MapGraphic.h"
 #include "Texture.h"
 #include "AssetsLoader.h"
+#include "EntityFactory.h"
 #include "Configuration.h"
 #include "Clock.h"
+#include "Entity.h"
 #include <iostream>
 #include <unistd.h>
 
@@ -27,20 +28,24 @@ void Client::run(){
     renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
 
-    SDL_Rect vieport = {5, 5, 600, 590};
-    renderer.setViewport(&vieport);
+    int windowWidth = config.getValue("window_width");
+    int windowHeight = config.getValue("window_height");
+    SDL_Rect viewport = {(int) (windowWidth / 80), (int) (windowHeight / 60), (int) (windowWidth / 1.45), (int) (windowHeight / 1.02)};
+    renderer.setViewport(&viewport);
 
     AssetsLoader assets(renderer);
-
-    Texture people(renderer);
-    people.loadFromFile("images/dot.bmp", true, {0, 255, 255});
 
     MapGraphic map("hola.json", assets, 25, 25);
 
     Screen mapScreen(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
-    
-    PlayerGraphic player(assets, mapScreen, 20, 14);      
 
+    Texture& gui = assets.getTexture("interface");
+    gui.setHeight(windowHeight);
+    gui.setWidth(windowWidth);
+
+    EntityFactory factory(assets, mapScreen);
+    Entity player(std::move(factory.getPlayer(20, 14)));
+    
     SDL_Event event;
     bool quit = false;
 
@@ -81,9 +86,12 @@ void Client::run(){
         SDL_FlushEvent(SDL_KEYDOWN);
 
         renderer.clear();
+        renderer.setViewport(&viewport);
         mapScreen.centerToPosition(player.getX(), player.getY());
         mapScreen.render();
-        player.render();
+        player.update();
+        renderer.resetViewport();
+        gui.render(0, 0);
 
         renderer.renderPresent();        
 

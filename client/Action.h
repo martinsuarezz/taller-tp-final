@@ -3,16 +3,16 @@
 #include <vector>
 #include "Animation.h"
 
-class PlayerGraphic;
+class Entity;
 
 class Action{
     protected:
         std::vector<Animation> animations;
-        PlayerGraphic& player;
+        Entity& entity;
         void render();
 
     public:
-        Action(PlayerGraphic& player);
+        Action(Entity& entity);
         virtual void update() = 0;
         virtual void walk(std::string direction, int distance) = 0;
 };

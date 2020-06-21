@@ -5,9 +5,9 @@
 #include <iostream>
 #include <string>
 
-PlayerGraphic::PlayerGraphic(AssetsLoader& assets, Screen& screen, int x, int y):
-                    x(x), y(y), assets(assets), screen(screen), action(new IdleAction(*this, assets)){
-
+PlayerGraphic::PlayerGraphic(AssetsLoader& assets, Screen& screen, std::map<std::string, std::string>& equiped, int x, int y):
+                    x(x), y(y), assets(assets), screen(screen), equiped(equiped), action(new IdleAction(*this, assets)){
+    
 }
 
 void PlayerGraphic::render(){
@@ -58,17 +58,6 @@ void PlayerGraphic::updateAction(Action* newAction){
     action.reset(newAction);
 }
 
-Texture& PlayerGraphic::getBodyAsset(){
-    std::string textureName = "player_sprite";
-    return assets.getTexture(textureName);
-}
-/*
-Texture& PlayerGraphic::getHeadAsset(){
-    std::string textureName = "face_human";
-    return assets.getTexture(textureName);
-}
-*/
-Sound& PlayerGraphic::getSound(){
-    std::string soundName = "walking_sound";
-    return assets.getSound(soundName);
+std::map<std::string, std::string>& PlayerGraphic::getEquipedItems(){
+    return equiped;
 }

@@ -1,6 +1,8 @@
 #include "Screen.h"
 #include "MapGraphic.h"
 #include "Renderer.h"
+#include "Entity.h"
+#include "Configuration.h"
 
 Screen::Screen(MapGraphic& map, Renderer& renderer, 
 int screen_w, int screen_h): map(map), renderer(renderer) {
@@ -69,4 +71,15 @@ int Screen::getHeight() const {
 
 void Screen::render() {
     map.render(0, 0, &camera);
+}
+
+bool Screen::isInbound(const Entity& entity) const{
+    Configuration& config = Configuration::getInstance();
+    int tileSize = config.getValue("tile_size");
+    int entityX = entity.getX();
+    int entityY = entity.getY();
+    bool inboundX = (entityX > camera.x - tileSize) && (entityX < camera.x + camera.w + tileSize);
+    bool inboundY = (entityY > camera.y - tileSize) && (entityY < camera.y + camera.h + tileSize);
+
+    return inboundX && inboundY;
 }

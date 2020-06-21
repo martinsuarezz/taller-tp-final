@@ -1,14 +1,16 @@
 #include "Action.h"
 #include "Animation.h"
-#include "PlayerGraphic.h"
+#include "Entity.h"
 #include <vector>
 
-Action::Action(PlayerGraphic& player): player(player){
+Action::Action(Entity& entity): entity(entity){
 
 }
 
 void Action::render(){
+    if (!entity.isOnScreen())
+        return;
     std::vector<Animation>::iterator it;
     for(it = animations.begin(); it != animations.end(); it++)
-        it->render(player.getRelativeX(), player.getRelativeY());
+        it->render(entity.getRelativeX(), entity.getRelativeY());
 }

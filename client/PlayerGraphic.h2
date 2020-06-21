@@ -6,6 +6,8 @@
 #include "WalkingAnimation.h"
 #include "Action.h"
 #include <memory>
+#include <map>
+#include <string>
 
 class AssetsLoader;
 
@@ -17,10 +19,11 @@ class PlayerGraphic{
         int y;
         AssetsLoader& assets;
         Screen& screen;
+        std::map<std::string, std::string>& equiped;
         std::unique_ptr<Action> action;
 
     public:
-        PlayerGraphic(AssetsLoader& assets, Screen& screen, int x, int y);
+        PlayerGraphic(AssetsLoader& assets, Screen& screen, std::map<std::string, std::string>& equiped, int x, int y);
 
         void render();
         int getX() const;
@@ -35,8 +38,7 @@ class PlayerGraphic{
         void moveLeft(int distance);
         void updateAction(Action* newAction);
 
-        Sound& getSound();
-        Texture& getBodyAsset();
+        std::map<std::string, std::string>& getEquipedItems();
 };
 
 #endif

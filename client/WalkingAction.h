@@ -3,8 +3,9 @@
 #include <vector>
 #include "Animation.h"
 #include "Action.h"
+#include <map>
 
-class PlayerGraphic;
+class Entity;
 
 class AssetsLoader;
 
@@ -16,7 +17,7 @@ class WalkingAction: public Action{
         int remainingFrames;
 
     public:
-        WalkingAction(PlayerGraphic& player, AssetsLoader& assets, std::string direction, int distance);
+        WalkingAction(Entity& player, AssetsLoader& assets, std::string direction, int distance);
         void update();
         void walk(std::string direction, int distance);
         void updatePosition();

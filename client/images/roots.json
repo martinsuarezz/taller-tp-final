@@ -1,8 +1,21 @@
 {
     "player_sprite": "25.png",
     "background": "bg.png",
+    "interface": "gui.png",
     "$grass_tile": "24083.png",
-    "$blue_tile": "12081.png",
+    "$blue_tile": "12082.png",
     "$red_tile": "12080.png",
-    "face_human": "face1.png"
+    "human_head": "human_head.png",
+    "human_body": "human_body.png",
+    "dwarf_head": "dwarf_head.png",
+    "dwarf_body": "dwarf_body.png",
+    "gnome_head": "gnome_head.png",
+    "gnome_body": "gnome_body.png",
+    "elf_head": "elf_head.png",
+    "elf_body": "elf_body.png",
+    "zombie_body": "zombie.png",
+    "blue_tunic": "blue_tunic.png",
+    "leather_armor": "leather_armor.png",
+    "plate_armor": "plate_armor.png",
+    "knot_staff": "knot_staff.png"
 }

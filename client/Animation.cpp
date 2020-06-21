@@ -5,7 +5,6 @@
 #include <math.h>
 #include <iostream>
 #include <stdexcept>
-#include "PlayerGraphic.h"
 #include "AssetsLoader.h"
 
 Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration): texture(texture), frames(frames), duration(duration){
