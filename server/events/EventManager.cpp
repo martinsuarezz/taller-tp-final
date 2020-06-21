@@ -14,3 +14,15 @@ void EventManager::notify(Event event, Entity* notifier) {
       observer->react(event, notifier);
   }
 }
+
+void EventManager::unsubscribe(Entity *observer) {
+  for (auto & it : observers) {
+    std::vector<Entity*> vector = it.second;
+    for (auto iter = vector.begin(); iter != vector.end(); ++iter) {
+      if(*iter == observer) {
+        vector.erase( iter);
+        break;
+      }
+    }
+  }
+}

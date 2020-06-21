@@ -11,7 +11,7 @@ class EventManager {
   EventManager();
   void subscribe(Event event, Entity* observer);
   void notify(Event event, Entity* notifier);
-
+  void unsubscribe(Entity* observer);
  private:
   std::map<Event, std::vector<Entity*>> observers;
 };

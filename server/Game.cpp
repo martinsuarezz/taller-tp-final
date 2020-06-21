@@ -30,7 +30,7 @@ void Game::handle(Command &command) {
         player->attack(enemy);
       }
       break;
-    case CONNECT:
+    case JOIN:
       this->addPlayer("Emi");
       break;
     case DISCONNECT:
@@ -73,6 +73,7 @@ void Game::addItem(int x, int y) {
   auto *item = new Item();
   item->setPosition(4, 0);
   world.notify(NEW_ENTITY, item);
+  idCounter++;
 }
 
 void Game::pushClient(ClientPeer *client) {

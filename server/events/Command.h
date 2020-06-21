@@ -3,7 +3,7 @@
 
 #include <string>
 
-#define CONNECT_ID 0
+#define JOIN_ID 0
 #define MOVE_UP_ID 1
 #define MOVE_DOWN_ID 2
 #define MOVE_RIGHT_ID 3
@@ -17,7 +17,7 @@ enum Action {
   MOVE_UP,
   MOVE_DOWN,
   MAKE_ATTACK,
-  CONNECT,
+  JOIN,
   DISCONNECT,
   UNKNOWN_ACTION,
 };

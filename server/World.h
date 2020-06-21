@@ -33,7 +33,7 @@ class World {
   std::map<int, Entity *> staticEntities;
 
   void addEntity(Entity *entity);
-  void deleteEntity(int id);
+  void deleteEntity(Entity *entity);
 };
 
 #endif

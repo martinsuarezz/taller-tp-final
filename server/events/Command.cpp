@@ -21,8 +21,8 @@ Command::Command(int senderId, int actionId) {
 }
 
 Action Command::resolveAction(int actionId) {
-  if(actionId == CONNECT_ID) {
-    return CONNECT;
+  if(actionId == JOIN_ID) {
+    return JOIN;
   } else if  (actionId == MOVE_UP_ID) {
     return MOVE_UP;
   } else if (actionId == MOVE_DOWN_ID) {
