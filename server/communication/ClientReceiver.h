@@ -4,7 +4,7 @@
 #include "../Thread.h"
 #include "Socket.h"
 #include "Queue.h"
-#include "../events/Command.h"
+#include "../Command.h"
 
 class ClientReceiver : public Thread {
  public:

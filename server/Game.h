@@ -8,7 +8,7 @@
 #include "World.h"
 #include "entities/Creature.h"
 #include "communication/ClientPeer.h"
-#include "events/EventManager.h"
+#include "EventManager.h"
 
 class Game {
  public:

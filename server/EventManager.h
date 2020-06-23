@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 #include "Command.h"
-#include "../entities/Entity.h"
+#include "entities/Entity.h"
 
 class EventManager {
  public:

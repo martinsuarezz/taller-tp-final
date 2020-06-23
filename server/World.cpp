@@ -1,5 +1,5 @@
 #include "World.h"
-#include "events/EventManager.h"
+#include "EventManager.h"
 
 World::World() {
   std::string filename("../map1.json");

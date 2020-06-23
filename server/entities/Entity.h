@@ -2,7 +2,7 @@
 #define ARGENTUM_SERVER_ENTITY_H_
 
 #include <vector>
-#include "../events/Command.h"
+#include "../Command.h"
 
 class Entity {
  public:

@@ -6,9 +6,9 @@
 #include <map>
 
 #include "entities/Entity.h"
-#include "events/Command.h"
+#include "Command.h"
 #include "Map.h"
-#include "events/EventManager.h"
+#include "EventManager.h"
 
 #define EMPTY ' '
 #define PLAYER 'P'

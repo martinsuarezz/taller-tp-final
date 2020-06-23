@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ClientReceiver.h"
-#include "../events/Command.h"
+#include "../Command.h"
 #include "Queue.h"
 
 ClientReceiver::ClientReceiver(Socket socket, Queue<Command>& queue) : queue(queue) {
