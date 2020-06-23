@@ -2,35 +2,21 @@
 #include "ClientPeer.h"
 
 ClientPeer::ClientPeer(Socket socket,
-                       EventQueue &queue)
-    : queue(queue) {
+                       Queue<Command> &queue)
+    : queue(queue), sender(std::move(socket)), receiver(std::move(socket), queue) {
   this->clientSocket = std::move(socket);
-  this->alive = true;
 }
 
 void ClientPeer::run() {
-  while(this->alive) {
-    try {
-
-      std::string senderId = this->clientSocket.recv(1);
-      std::string actionId = this->clientSocket.recv(1);
-
-      Event event = Event(std::stoi(senderId), std::stoi(actionId));
-
-      queue.push(event);
-    } catch (SocketConnectionException& exception) {
-      std::cout << "Cerrando cliente" << std::endl;
-      this->alive = false;
-    }
-  }
+  sender.start();
+  receiver.start();
 }
 
-bool ClientPeer::isAlive() {
-  return this->alive;
+void ClientPeer::notify(ProtocolMessage& message) {
+  sender.push(message);
 }
 
 ClientPeer::~ClientPeer() {
   this->clientSocket.close();
-  this->join();
 }
 

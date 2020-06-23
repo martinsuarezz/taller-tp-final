@@ -1,9 +1,8 @@
 #include <iostream>
 #include "EventWorker.h"
-#include "EventQueue.h"
 #include "../entities/Player.h"
 
-EventWorker::EventWorker(Game& game, EventQueue& queue)
+EventWorker::EventWorker(Game& game, Queue<Command>& queue)
   : game(game), queue(queue) {
   this->running = true;
 }
@@ -18,13 +17,14 @@ void EventWorker::run() {
 
 void EventWorker::process() {
   while(!queue.isEmpty()) {
-    Event event = queue.pop();
+    Command event = queue.pop();
 
     game.handle(event);
 
     std::cout << game.draw();
   }
 
+  game.notifyClients();
 }
 
 void EventWorker::stop() {

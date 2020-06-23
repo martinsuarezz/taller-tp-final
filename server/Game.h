@@ -7,12 +7,18 @@
 #include "entities/Player.h"
 #include "World.h"
 #include "entities/Creature.h"
+#include "communication/ClientPeer.h"
+#include "events/EventManager.h"
 
 class Game {
  public:
   Game();
 
-  void handle(Event& event);
+  void pushClient(ClientPeer* client);
+
+  void handle(Command& command);
+
+  void notifyClients();
 
   std::string draw();
 
@@ -21,11 +27,13 @@ class Game {
  private:
   int idCounter;
   World world;
+  std::vector<ClientPeer*> clients;
   std::map<std::string, Player *> players;
 
-  void attack(int id, int idEnemy);
   void addPlayer(std::string name);
-  void addCreature();
+  void removePlayer(std::string name);
+  void addCreature(int x, int y);
+  void addItem(int x, int y);
 };
 
 #endif

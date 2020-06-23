@@ -2,8 +2,8 @@
 #include "Listener.h"
 #include "ClientPeer.h"
 
-Listener::Listener(std::string& port, EventQueue& queue)
-  : queue(queue) {
+Listener::Listener(std::string& port, Game& game, Queue<Command>& queue)
+  : queue(queue), game(game) {
   this->serverSocket.bind(port);
   this->serverSocket.listen(20);
 }
@@ -11,11 +11,11 @@ Listener::Listener(std::string& port, EventQueue& queue)
 void Listener::run() {
   while (!this->finished) {
     try {
-    Socket clientSocket = this->serverSocket.accept();
-    std::cout << "Cliente conectado\n";
-    auto* client = new ClientPeer(std::move(clientSocket), queue);
-    client->start();
-    clients.push_back(client);
+      Socket clientSocket = this->serverSocket.accept();
+      std::cout << "Cliente conectado\n";
+      auto* client = new ClientPeer(std::move(clientSocket), queue);
+      client->run();
+      game.pushClient(client);
     } catch(SocketConnectionException& exception) {
       continue;
     }

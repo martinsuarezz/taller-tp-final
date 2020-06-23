@@ -6,8 +6,9 @@
 #include <map>
 
 #include "entities/Entity.h"
-#include "events/Event.h"
+#include "events/Command.h"
 #include "Map.h"
+#include "events/EventManager.h"
 
 #define EMPTY ' '
 #define PLAYER 'P'
@@ -20,18 +21,19 @@ class World {
 
   Entity * getEntity(int id);
 
-  void notify(Action action, Entity *sender);
+  void notify(Event event, Entity *sender);
 
   // Just for testing:
   std::string draw() const;
  private:
   Map map;
+  EventManager eventManager;
 
   std::map<int, Entity *> dynamicEntities;
   std::map<int, Entity *> staticEntities;
 
   void addEntity(Entity *entity);
-  void deleteEntity(int id);
+  void deleteEntity(Entity *entity);
 };
 
 #endif

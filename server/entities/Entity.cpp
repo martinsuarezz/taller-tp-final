@@ -47,3 +47,7 @@ void Entity::setPosition(int x, int y) {
   this->x = x;
   this->y = y;
 }
+
+std::vector<Event> &Entity::getEvents() {
+  return events;
+}

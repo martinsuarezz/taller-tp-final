@@ -7,6 +7,7 @@ Player::Player(World& world, int id, std::string& name) : Character(world) {
   this->name = name;
   this->type = PLAYER;
   this->health = 100;
+  this->exp = 0;
   this->level = 1;
 }
 
@@ -26,7 +27,7 @@ int Player::getExp() const {
   return this->exp;
 }
 
-void Player::react(Action action, Entity *sender) {
+void Player::react(Event event, Entity *sender) {
 
 }
 

@@ -1,5 +1,5 @@
 #include "World.h"
-#include "entities/Creature.h"
+#include "events/EventManager.h"
 
 World::World() {
   std::string filename("../map1.json");
@@ -11,19 +11,19 @@ Entity * World::getEntity(int id) {
   return dynamicEntities.find(id)->second;
 }
 
-void World::notify(Action action, Entity *sender) {
+void World::notify(Event event, Entity *sender) {
   // handle map
-  map.notify(action, sender);
+  map.notify(event, sender);
 
-  // handle dynamic entities
-  for(auto entity: dynamicEntities) {
-    entity.second->react(action, sender);
-  }
+  eventManager.notify(event, sender);
 
-  if(action == DEAD) {
-    this->deleteEntity(sender->getId());
-  } else if(action == NEW_ENTITY) {
+  if(event == DIE) {
+    // FIXME: If it's a player should transform
+    this->deleteEntity(sender);
+  } else if(event == NEW_ENTITY) {
     this->addEntity(sender);
+  } else if(event == REMOVE_ENTITY){
+    this->deleteEntity(sender);
   }
 }
 
@@ -37,11 +37,17 @@ void World::addEntity(Entity *entity) {
   // Add to world
   if(entity->isDynamic()) {
     dynamicEntities.insert(std::make_pair(entity->getId(), entity));
+
+    for(auto event : entity->getEvents()) {
+      eventManager.subscribe(event, entity);
+    }
   } else {
     staticEntities.insert(std::make_pair(entity->getId(), entity));
   }
 }
 
-void World::deleteEntity(int id) {
-  dynamicEntities.erase(id);
+void World::deleteEntity(Entity* entity) {
+  eventManager.unsubscribe(entity);
+  dynamicEntities.erase(entity->getId());
+  // TODO: Remove pointer
 }

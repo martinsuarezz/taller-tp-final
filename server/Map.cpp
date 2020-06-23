@@ -25,23 +25,23 @@ void Map::load(std::string& filename) {
   i.close();
 }
 
-void Map::notify(Action action, Entity *entity) {
-  switch(action) {
-    case MOVE_LEFT:
-    case MOVE_RIGHT:
-    case MOVE_UP:
-    case MOVE_DOWN:
+void Map::notify(Event event, Entity *entity) {
+  switch(event) {
+    case MOVE:
       this->move(entity);
       break;
-    case DEAD:
+    case DIE:
       this->remove(entity);
       break;
     case NEW_ENTITY:
       this->add(entity);
       break;
-    case ATTACK: break;
-    case RECEIVE_DAMAGE: break;
-    case UNKNOWN:break;
+    case REMOVE_ENTITY:
+      this->remove(entity);
+      break;
+    case RECEIVE_DAMAGE:
+      break;
+    case ATTACK:break;
   }
 }
 
@@ -64,9 +64,7 @@ void Map::move(Entity * entity) {
 }
 
 void Map::remove(Entity* entity) {
-  if (entity->getType() == CREATURE){
-    this->set(entity->getX(), entity->getY(), nullptr);
-  }
+  this->set(entity->getX(), entity->getY(), nullptr);
 }
 
 void Map::add(Entity *entity) {
@@ -103,7 +101,7 @@ bool Map::isEmpty(int x, int y) const {
 }
 
 bool Map::canMove(int x, int y) const {
-  return (this->isEmpty(x, y) || !this->get(x, y)->isSolid()) && this->isInbound(x, y);
+  return this->isInbound(x, y) && (this->isEmpty(x, y) || !this->get(x, y)->isSolid());
 }
 
 // Just for testing
@@ -115,7 +113,7 @@ std::string Map::draw() const {
       if(this->get(column, row) != nullptr) {
         ss << this->get(column, row)->getType() << " ";
       } else {
-        ss << EMPTY;
+        ss << EMPTY << " ";
       }
     }
 

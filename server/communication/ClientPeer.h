@@ -2,26 +2,34 @@
 #define ARGENTUM_COMMUNICATION_CLIENTPEER_H_
 
 #include "../Thread.h"
-#include "EventQueue.h"
+#include "Queue.h"
 #include "Socket.h"
 #include "../World.h"
+#include "ClientReceiver.h"
+#include "ClientSender.h"
 
-class ClientPeer : public Thread {
+class ClientPeer {
  public:
-  explicit ClientPeer(Socket socket, EventQueue& queue);
+  explicit ClientPeer(Socket socket, Queue<Command> &queue);
 
   /**
-   * Run client peer thread
+   * Run client sender and client receiver
    */
-  void run() override;
+  void run();
 
-  bool isAlive();
+  /**
+   * Notify message to a client
+   * @param message
+   */
+  void notify(ProtocolMessage &message);
 
-  virtual ~ClientPeer();
+  ~ClientPeer();
  private:
-  bool alive;
   Socket clientSocket;
-  EventQueue &queue;
+  Queue<Command> &queue;
+
+  ClientReceiver receiver;
+  ClientSender sender;
 };
 
 #endif

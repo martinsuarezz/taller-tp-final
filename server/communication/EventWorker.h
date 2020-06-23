@@ -3,13 +3,13 @@
 
 #include "../Thread.h"
 #include "../World.h"
-#include "EventQueue.h"
+#include "Queue.h"
 #include "../Game.h"
 
 class EventWorker : public Thread {
 
  public:
-  EventWorker(Game& game, EventQueue& queue);
+  EventWorker(Game& game, Queue<Command> &queue);
 
   void run() override;
 
@@ -18,7 +18,7 @@ class EventWorker : public Thread {
   ~EventWorker();
  private:
   Game& game;
-  EventQueue& queue;
+  Queue<Command> &queue;
 
   bool running;
 
