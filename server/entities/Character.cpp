@@ -20,22 +20,22 @@ bool Character::isNextTo(Character *character) {
 }
 
 void Character::moveRight() {
-  this->setPosition(this->x + 1, this->y);
+  this->setPosition(this->x + 100, this->y);
   world.notify(MOVE, this);
 }
 
 void Character::moveLeft() {
-  this->setPosition(this->x - 1, this->y);
+  this->setPosition(this->x - 100, this->y);
   world.notify(MOVE, this);
 }
 
 void Character::moveUp() {
-  this->setPosition(this->x, this->y - 1);
+  this->setPosition(this->x, this->y - 100);
   world.notify(MOVE, this);
 }
 
 void Character::moveDown(){
-  this->setPosition(this->x, this->y + 1);
+  this->setPosition(this->x, this->y + 100);
   world.notify(MOVE, this);
 }
 

@@ -46,20 +46,26 @@ void Map::notify(Event event, Entity *entity) {
 }
 
 void Map::move(Entity * entity) {
-  if (this->canMove(entity->getX(), entity->getY())) {
+  int x = entity->getX() / 100;
+  int y = entity->getY() / 100;
+
+  int prevX = entity->getPrevX() / 100;
+  int prevY = entity->getPrevY() / 100;
+
+  if (this->canMove(x, y)) {
     // Pick up item
-    Entity* next = get(entity->getX(), entity->getY());
+    Entity* next = get(x, y);
     if(next != nullptr && !next->isSolid() && entity->getType() == PLAYER) {
       auto* player = (Player*) entity;
       player->pickUp((Item*) next);
     }
 
     // Move entity
-    this->set(entity->getPrevX(), entity->getPrevY(), nullptr);
-    this->set(entity->getX(), entity->getY(), entity);
+    this->set(prevX, prevY, nullptr);
+    this->set(x, y, entity);
   } else {
     // Backward
-    entity->setPosition(entity->getPrevX(), entity->getPrevY());
+    entity->setPosition(prevX, prevY);
   }
 }
 
@@ -68,8 +74,8 @@ void Map::remove(Entity* entity) {
 }
 
 void Map::add(Entity *entity) {
-  int x = entity->getX();
-  int y = entity->getY();
+  int x = entity->getX() / 100;
+  int y = entity->getY() / 100;
 
   while(!isEmpty(x, y)) {
     srand(time(0));
