@@ -1,15 +1,16 @@
 #ifndef COMMUNICATOR_H
 #define COMMUNICATOR_H
+#include "Thread.h"
 
-class Client;
+class CommandsQueue;
 
-class Communicator{
+class Communicator: public Thread{
     private:
-        Client& client;
+        CommandsQueue& commandsQueue;
 
     public:
-        Communicator(Client& client);
-        void sendCommand(int command);
+        Communicator(CommandsQueue& queue);
+        void run();
 
 };
 

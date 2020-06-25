@@ -22,20 +22,28 @@ void Entity::addY(int pixels){
     y += pixels;
 }
 
-void Entity::moveUp(int distance) {
-    action->walk("up", distance);
+void Entity::moveUp(int x, int y) {
+    this->x = x;
+    this->y = y;
+    action->walk("up");
 }
 
-void Entity::moveDown(int distance) {
-    action->walk("down", distance);
+void Entity::moveDown(int x, int y) {
+    this->x = x;
+    this->y = y;
+    action->walk("down");
 }
 
-void Entity::moveRight(int distance){
-    action->walk("right", distance);
+void Entity::moveRight(int x, int y){
+    this->x = x;
+    this->y = y;
+    action->walk("right");
 }
 
-void Entity::moveLeft(int distance){
-    action->walk("left", distance);
+void Entity::moveLeft(int x, int y){
+    this->x = x;
+    this->y = y;
+    action->walk("left");
 }
 
 int Entity::getX() const{

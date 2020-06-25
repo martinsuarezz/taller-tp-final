@@ -17,7 +17,7 @@ class IdleAction: public Action{
     public:
         IdleAction(Entity& player, AssetsLoader& assets);
         void update();
-        void walk(std::string direction, int distance);
+        void walk(std::string direction);
 };
 
 #endif

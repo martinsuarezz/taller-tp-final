@@ -25,6 +25,6 @@ void IdleAction::update(){
     this->render();
 }
 
-void IdleAction::walk(std::string direction, int distance){
-    entity.updateAction(new WalkingAction(entity, assets, direction, distance));
+void IdleAction::walk(std::string direction){
+    entity.updateAction(new WalkingAction(entity, assets, direction));
 }

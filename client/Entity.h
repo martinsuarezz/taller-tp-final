@@ -32,10 +32,11 @@ class Entity{
         int getRelativeY() const;
         void addX(int pixels);
         void addY(int pixels);
-        void moveUp(int distance);
-        void moveDown(int distance);
-        void moveRight(int distance);
-        void moveLeft(int distance);
+        void moveUp(int x, int y);
+        void moveDown(int x, int y);
+        void moveRight(int x, int y);
+        void moveLeft(int x, int y);
+        void meditate();
         void updateAction(Action* newAction);
         std::map<std::string, std::string>& getEquipedItems();
         bool isOnScreen() const;

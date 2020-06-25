@@ -8,7 +8,7 @@
 #include <string>
 #include <iostream>
 
-WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets, std::string direction, int distance): Action(entity), assets(assets), direction(direction), distance(distance){
+WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets, std::string direction): Action(entity), assets(assets), direction(direction){
     Configuration& config = Configuration::getInstance();
     remainingFrames = (config.getValue("walking_duration") * config.getValue("fps")) / 1000;
 
@@ -24,7 +24,7 @@ WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets, std::string d
     }
     
 }
-
+/*
 void WalkingAction::updatePosition(){
     int pixelsToMove = (int) nearbyint((double)distance / (double)remainingFrames);
     if (direction == "up")
@@ -41,14 +41,16 @@ void WalkingAction::updatePosition(){
     distance -= pixelsToMove;
     remainingFrames--;
 }
-
+*/
 void WalkingAction::update(){
-    this->updatePosition();
+    //this->updatePosition();
     this->render();
     if (remainingFrames <= 0)
         entity.updateAction(new IdleAction(entity, assets));
 }
 
-void WalkingAction::walk(std::string direction, int distance){
-    
+void WalkingAction::walk(std::string newDirection){
+    if (newDirection == this->direction)
+        return;
+    entity.updateAction(new WalkingAction(entity, assets, newDirection));
 }

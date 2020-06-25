@@ -13,13 +13,12 @@ class WalkingAction: public Action{
     private:
         AssetsLoader& assets;
         std::string direction;
-        int distance;
         int remainingFrames;
 
     public:
-        WalkingAction(Entity& player, AssetsLoader& assets, std::string direction, int distance);
+        WalkingAction(Entity& player, AssetsLoader& assets, std::string direction);
         void update();
-        void walk(std::string direction, int distance);
+        void walk(std::string direction);
         void updatePosition();
 };
 

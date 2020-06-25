@@ -3,6 +3,7 @@
     "background": "bg.png",
     "interface": "gui.png",
     "$grass_tile": "24083.png",
+    "$sand_tile": "12070.png",
     "$blue_tile": "12082.png",
     "$red_tile": "12080.png",
     "human_head": "human_head.png",
@@ -17,5 +18,8 @@
     "blue_tunic": "blue_tunic.png",
     "leather_armor": "leather_armor.png",
     "plate_armor": "plate_armor.png",
-    "knot_staff": "knot_staff.png"
+    "knot_staff": "knot_staff.png",
+    "meditate_aura": "meditating.png",
+    "item1" : "knot_staff_icon.png",
+    "selected_slot": "selectionBox.png"
 }
