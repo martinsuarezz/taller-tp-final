@@ -1,12 +1,15 @@
+#include <iostream>
 #include "Character.h"
 #include "../World.h"
 #include "Item.h"
 #include "../state/WalkingState.h"
+#include "../state/IdleState.h"
 
 Character::Character(World &world) : world(world), Entity() {
   this->dynamic = true;
   this->solid = true;
   this->velocity = 1;
+  this->state = new IdleState();
 }
 
 bool Character::isNearFrom(Character *character) {
@@ -18,7 +21,7 @@ bool Character::isNearFrom(Character *character) {
 bool Character::isNextTo(Character *character) {
   int distX = abs(character->getX() - this->getX());
   int distY = abs(character->getY() - this->getY());
-  return distX <= 1 && distY <= 1;
+  return distX <= 100 && distY <= 100;
 }
 
 void Character::moveRight() {
@@ -45,8 +48,10 @@ void Character::moveDown(){
   world.notify(MOVE, this);
 }
 
-void Character::update(int dt) {
+void Character::update(float dt) {
   this->state->update(this, dt);
+  // TODO: Notify Clients
+  std::cout << this->state->getX() << " / " << this->state->getY() << std::endl;
 }
 
 void Character::attack(Character *enemy) {

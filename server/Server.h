@@ -3,7 +3,7 @@
 
 #include "communication/Listener.h"
 #include "World.h"
-#include "communication/EventWorker.h"
+#include "communication/GameLoop.h"
 #include "Game.h"
 
 class Server {
@@ -17,7 +17,7 @@ class Server {
   Listener listener;
   Game game;
   Queue<Command> queue;
-  EventWorker worker;
+  GameLoop worker;
 };
 
 #endif

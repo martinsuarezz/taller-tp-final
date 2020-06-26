@@ -5,11 +5,15 @@
 
 class State {
  public:
-  State() : timeElapsed(0), inProgress(true) {}
-  virtual void update(Entity* entity, int dt) = 0;
+  State() : timeElapsed(0), inProgress(true), x(0), y(0) {}
+  virtual void update(Entity* entity, float dt) = 0;
+  int getX();
+  int getY();
  protected:
-  int timeElapsed;
+  float timeElapsed;
   bool inProgress;
+  int x;
+  int y;
 };
 
 #endif

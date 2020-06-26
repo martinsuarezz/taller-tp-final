@@ -18,6 +18,8 @@ class Game {
 
   void handle(Command& command);
 
+  void update(float dt);
+
   void notifyClients();
 
   std::string draw();

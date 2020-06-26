@@ -8,6 +8,7 @@ class Item : public Entity {
   Item();
 
   void react(Event event, Entity* sender) override;
+  void update(float dt) override;
 };
 
 #endif

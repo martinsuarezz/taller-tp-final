@@ -5,7 +5,7 @@
 
 class IdleState : public State {
  public:
-  void update(Entity* entity, int dt) override;
+  void update(Entity* entity, float dt) override;
 };
 
 #endif

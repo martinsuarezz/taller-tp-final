@@ -41,17 +41,22 @@ void Game::handle(Command &command) {
   }
 }
 
+void Game::update(float dt) {
+  world.update(dt);
+}
+
 std::string Game::draw() {
   std::stringstream ss;
-  ss << ((Player *) world.getEntity(1))->toString() << "\n";
-  //ss << ((Creature*) world.getEntity(2))->toString() << "\n";
+  for(const auto& player: players) {
+    ss << player.second->toString() << "\n";
+  }
   ss << world.draw() << "\n";
   return ss.str();
 }
 
 void Game::addCreature(int x, int y) {
   auto *creature = new Creature(world, idCounter);
-  creature->setPosition(x, y);
+  creature->setPosition(x * 100, y * 100);
   world.notify(NEW_ENTITY, creature);
   idCounter++;
 }
@@ -71,7 +76,7 @@ void Game::removePlayer(std::string name) {
 
 void Game::addItem(int x, int y) {
   auto *item = new Item();
-  item->setPosition(4, 0);
+  item->setPosition(x * 100, y * 100);
   world.notify(NEW_ENTITY, item);
   idCounter++;
 }

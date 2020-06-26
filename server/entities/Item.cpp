@@ -10,3 +10,7 @@ Item::Item() {
 void Item::react(Event event, Entity *sender) {
   // Do nothing
 }
+
+void Item::update(float dt) {
+
+}

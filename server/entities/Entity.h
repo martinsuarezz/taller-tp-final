@@ -4,6 +4,8 @@
 #include <vector>
 #include "../Command.h"
 
+class State;
+
 class Entity {
  public:
   Entity();
@@ -16,11 +18,14 @@ class Entity {
   char getType() const;
   bool isDynamic() const;
   bool isSolid() const;
+  int getVelocity() const;
 
   void setId(int id);
   void setPosition(int x, int y);
+  void setState(State* state);
 
   virtual void react(Event event, Entity* sender) = 0;
+  virtual void update(float dt) = 0;
 
   std::vector<Event>& getEvents();
 
@@ -35,6 +40,9 @@ class Entity {
   char type;
   bool solid;
   bool dynamic;
+  int velocity;
+
+  State* state;
 
   std::vector<Event> events;
 };

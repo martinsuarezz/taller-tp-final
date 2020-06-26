@@ -25,6 +25,7 @@ class World {
 
   // Just for testing:
   std::string draw() const;
+  void update(float dt);
  private:
   Map map;
   EventManager eventManager;

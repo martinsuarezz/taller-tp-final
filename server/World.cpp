@@ -11,6 +11,12 @@ Entity * World::getEntity(int id) {
   return dynamicEntities.find(id)->second;
 }
 
+void World::update(float dt) {
+  for(auto entity : dynamicEntities) {
+    entity.second->update(dt);
+  }
+}
+
 void World::notify(Event event, Entity *sender) {
   // handle map
   map.notify(event, sender);

@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "../state/IdleState.h"
 
 Entity::Entity() {
   this->x = 0;
@@ -37,6 +38,10 @@ bool Entity::isSolid() const {
   return this->solid;
 }
 
+int Entity::getVelocity() const{
+  return this->velocity;
+}
+
 void Entity::setId(int id) {
   this->id = id;
 }
@@ -51,3 +56,9 @@ void Entity::setPosition(int x, int y) {
 std::vector<Event> &Entity::getEvents() {
   return events;
 }
+
+void Entity::setState(State* state) {
+  this->state = state;
+}
+
+
