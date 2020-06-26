@@ -1,10 +1,12 @@
 #include "Character.h"
 #include "../World.h"
 #include "Item.h"
+#include "../state/WalkingState.h"
 
 Character::Character(World &world) : world(world), Entity() {
   this->dynamic = true;
   this->solid = true;
+  this->velocity = 1;
 }
 
 bool Character::isNearFrom(Character *character) {
@@ -20,23 +22,31 @@ bool Character::isNextTo(Character *character) {
 }
 
 void Character::moveRight() {
+  this->setState(new WalkingState(MOVE_RIGHT));
   this->setPosition(this->x + 100, this->y);
   world.notify(MOVE, this);
 }
 
 void Character::moveLeft() {
+  this->setState(new WalkingState(MOVE_LEFT));
   this->setPosition(this->x - 100, this->y);
   world.notify(MOVE, this);
 }
 
 void Character::moveUp() {
+  this->setState(new WalkingState(MOVE_UP));
   this->setPosition(this->x, this->y - 100);
   world.notify(MOVE, this);
 }
 
 void Character::moveDown(){
+  this->setState(new WalkingState(MOVE_DOWN));
   this->setPosition(this->x, this->y + 100);
   world.notify(MOVE, this);
+}
+
+void Character::update(int dt) {
+  this->state->update(this, dt);
 }
 
 void Character::attack(Character *enemy) {
