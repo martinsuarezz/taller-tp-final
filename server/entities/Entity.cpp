@@ -1,9 +1,9 @@
 #include "Entity.h"
 #include "../state/IdleState.h"
 
-Entity::Entity() {
-  this->x = 0;
-  this->y = 0;
+Entity::Entity(int x, int y) {
+  this->x = x;
+  this->y = y;
 }
 
 int Entity::getId() const {

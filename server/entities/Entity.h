@@ -8,7 +8,7 @@ class State;
 
 class Entity {
  public:
-  Entity();
+  Entity(int x, int y);
 
   int getId() const;
   int getX() const;

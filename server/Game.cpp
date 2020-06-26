@@ -55,16 +55,14 @@ std::string Game::draw() {
 }
 
 void Game::addCreature(int x, int y) {
-  auto *creature = new Creature(world, idCounter);
-  creature->setPosition(x * 100, y * 100);
+  auto *creature = new Creature(world, idCounter, x * 100, y * 100);
   world.notify(NEW_ENTITY, creature);
   idCounter++;
 }
 
 void Game::addPlayer(std::string name) {
-  auto *player = new Player(world, idCounter, name);
+  auto *player = new Player(world, idCounter, name, 0, 0);
   players.insert(make_pair(name, player));
-  player->setPosition(0, 0);
   world.notify(NEW_ENTITY, player);
   idCounter++;
 }
@@ -75,8 +73,7 @@ void Game::removePlayer(std::string name) {
 }
 
 void Game::addItem(int x, int y) {
-  auto *item = new Item();
-  item->setPosition(x * 100, y * 100);
+  auto *item = new Item(x * 100, y * 100);
   world.notify(NEW_ENTITY, item);
   idCounter++;
 }

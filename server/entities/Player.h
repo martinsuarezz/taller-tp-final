@@ -8,7 +8,7 @@
 class Player : public Character {
 
  public:
-  Player(World& world, int id, std::string& name);
+  Player(World& world, int id, std::string& name, int x, int y);
 
   std::string getName() const;
   int getLevel() const;

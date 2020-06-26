@@ -7,7 +7,7 @@
 
 class Creature : public Character {
  public:
-  Creature(World& world, int id);
+  Creature(World& world, int id, int x, int y);
 
   void react(Event event, Entity* sender) override;
 

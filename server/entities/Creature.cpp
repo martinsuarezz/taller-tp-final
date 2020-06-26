@@ -1,8 +1,9 @@
 #include <sstream>
 #include "Creature.h"
 #include "Item.h"
+#include "../state/IdleState.h"
 
-Creature::Creature(World& world, int id) : Character(world) {
+Creature::Creature(World& world, int id, int x, int y) : Character(world, x, y) {
   this->id = id;
   this->health = 50;
   this->type = CREATURE;

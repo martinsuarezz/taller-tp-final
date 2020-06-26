@@ -1,7 +1,7 @@
 #include "Item.h"
 #include "../World.h"
 
-Item::Item() {
+Item::Item(int x, int y) : Entity(x,y) {
   this->dynamic = true;
   this->solid = false;
   this->type = ITEM;

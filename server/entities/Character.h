@@ -6,7 +6,7 @@
 
 class Character : public Entity {
  public:
-  Character(World &world);
+  Character(World &world, int x, int y);
 
   void moveUp();
   void moveDown();
@@ -31,8 +31,6 @@ class Character : public Entity {
   bool alive;
 
   int health;
-
-  State* state;
 
   void dropItem();
 };

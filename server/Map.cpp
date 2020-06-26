@@ -86,7 +86,7 @@ void Map::add(Entity *entity) {
     }
   }
 
-  entity->setPosition(x, y);
+  entity->setPosition(x * 100, y * 100);
   this->set(x,y, entity);
 }
 
