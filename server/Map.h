@@ -15,6 +15,7 @@ class Map {
 
   // Just for testing
   std::string draw() const;
+  bool isInbound(int x, int y) const;
  private:
   int height;
   int width;
@@ -22,7 +23,6 @@ class Map {
   Entity** map;
 
   bool isEmpty(int x, int y) const;
-  bool isInbound(int x, int y) const;
 
   Entity *get(int x, int y) const;
   void set(int x, int y, Entity *entity);

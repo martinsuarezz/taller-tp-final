@@ -5,10 +5,11 @@
 #include "../Command.h"
 
 class State;
+class World;
 
 class Entity {
  public:
-  Entity(int x, int y);
+  Entity(World &world, int x, int y);
 
   int getId() const;
   int getX() const;
@@ -27,22 +28,30 @@ class Entity {
   virtual void react(Event event, Entity* sender) = 0;
   virtual void update(float dt) = 0;
 
+  void moveUp();
+  void moveDown();
+  void moveLeft();
+  void moveRight();
+  bool canMove(int x, int y);
+
   std::vector<Event>& getEvents();
 
  protected:
-  int id;
+  World& world;
+
+  int id{};
 
   int x;
   int y;
   int prevX;
   int prevY;
 
-  char type;
-  bool solid;
-  bool dynamic;
-  int velocity;
+  char type{};
+  bool solid{};
+  bool dynamic{};
+  int velocity{};
 
-  State* state;
+  State* state{};
 
   std::vector<Event> events;
 };

@@ -57,3 +57,7 @@ void World::deleteEntity(Entity* entity) {
   dynamicEntities.erase(entity->getId());
   // TODO: Remove pointer
 }
+
+bool World::canMove(int x, int y) {
+  return map.isInbound(x, y);
+}

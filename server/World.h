@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 
-#include "entities/Entity.h"
 #include "Command.h"
 #include "Map.h"
 #include "EventManager.h"
@@ -22,6 +21,8 @@ class World {
   Entity * getEntity(int id);
 
   void notify(Event event, Entity *sender);
+
+  bool canMove(int x, int y);
 
   // Just for testing:
   std::string draw() const;

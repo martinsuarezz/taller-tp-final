@@ -73,7 +73,7 @@ void Game::removePlayer(std::string name) {
 }
 
 void Game::addItem(int x, int y) {
-  auto *item = new Item(x * 100, y * 100);
+  auto *item = new Item(world, x * 100, y * 100);
   world.notify(NEW_ENTITY, item);
   idCounter++;
 }

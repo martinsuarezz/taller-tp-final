@@ -65,7 +65,7 @@ void Map::move(Entity * entity) {
     this->set(x, y, entity);
   } else {
     // Backward
-    entity->setPosition(prevX, prevY);
+    entity->setPosition(entity->getPrevX(), entity->getPrevY());
   }
 }
 

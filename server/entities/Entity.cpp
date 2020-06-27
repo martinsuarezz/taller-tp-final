@@ -1,9 +1,13 @@
 #include "Entity.h"
 #include "../state/IdleState.h"
+#include "../state/WalkingState.h"
+#include "../World.h"
 
-Entity::Entity(int x, int y) {
+Entity::Entity(World& world, int x, int y) : world(world) {
   this->x = x;
   this->y = y;
+  this->prevX = x;
+  this->prevY = y;
 }
 
 int Entity::getId() const {
@@ -34,7 +38,7 @@ bool Entity::isDynamic() const {
   return this->dynamic;
 }
 
-bool Entity::isSolid() const {
+bool Entity:: isSolid() const {
   return this->solid;
 }
 
@@ -61,4 +65,31 @@ void Entity::setState(State* state) {
   this->state = state;
 }
 
+void Entity::moveRight() {
+  this->setState(new WalkingState(this, MOVE_RIGHT));
+  this->setPosition(this->x + 100, this->y);
+  world.notify(MOVE, this);
+}
+
+void Entity::moveLeft() {
+  this->setState(new WalkingState(this, MOVE_LEFT));
+  this->setPosition(this->x - 100, this->y);
+  world.notify(MOVE, this);
+}
+
+void Entity::moveUp() {
+  this->setState(new WalkingState(this, MOVE_UP));
+  this->setPosition(this->x, this->y - 100);
+  world.notify(MOVE, this);
+}
+
+void Entity::moveDown(){
+  this->setState(new WalkingState(this, MOVE_DOWN));
+  this->setPosition(this->x, this->y + 100);
+  world.notify(MOVE, this);
+}
+
+bool Entity::canMove(int x, int y) {
+  return world.canMove(x / 100, y / 100);
+}
 

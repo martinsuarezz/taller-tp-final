@@ -10,29 +10,45 @@ WalkingState::WalkingState(Entity* entity, Action action) : State(entity) {
 }
 
 void WalkingState::update(float dt) {
+  this->timeElapsed += dt;
   float inc = entity->getVelocity() * dt * 100;
 
-  this->timeElapsed += dt;
+  // Couldn't move
+  if(entity->getX() == entity->getPrevX() && entity->getY() == entity->getPrevY()) {
+    entity->setState(new IdleState(entity));
+  } else {
+    this->move(inc);
 
-  if (action == MOVE_LEFT) {
-    this->x -= inc;
-  } else if (action == MOVE_RIGHT) {
-    this->x += inc;
-  } else if (action == MOVE_UP) {
-    this->y += inc;
-  } else if (action == MOVE_DOWN) {
-    this->y -= inc;
-  }
-
-  if (timeElapsed >= 1) {
-    this->x = entity->getX();
-    this->y = entity->getY();
-
-    if (inProgress) {
+    // Arrives at position
+    if (this->x == entity->getX() && this->y == entity->getY()) {
       this->timeElapsed = 0;
-    } else {
-      entity->setState(new IdleState(entity));
+      this->handleAction(action);
     }
   }
 }
 
+void WalkingState::move(float inc) {
+  if (action == MOVE_LEFT && entity->canMove(x - inc, y)) {
+    this->x -= inc;
+  } else if (action == MOVE_RIGHT && entity->canMove(x + inc, y)) {
+    this->x += inc;
+  } else if (action == MOVE_UP && entity->canMove(x, y - inc)) {
+    this->y -= inc;
+  } else if (action == MOVE_DOWN && entity->canMove(x, y + inc)) {
+    this->y += inc;
+  } else {
+    entity->setState(new IdleState(entity));
+  }
+}
+
+void WalkingState::handleAction(Action action) {
+  if (action == MOVE_LEFT) {
+    entity->moveLeft();
+  } else if (action == MOVE_RIGHT) {
+    entity->moveRight();
+  } else if (action == MOVE_UP) {
+    entity->moveUp();
+  } else if (action == MOVE_DOWN) {
+    entity->moveDown();
+  }
+}

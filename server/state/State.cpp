@@ -3,8 +3,8 @@
 State::State(Entity *entity) : entity(entity) {
   this->timeElapsed = 0;
   this->inProgress = true;
-  this->x = 0;
-  this->y = 0;
+  this->x = entity->getX();
+  this->y = entity->getY();
   this->type = 0;
 }
 

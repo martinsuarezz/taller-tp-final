@@ -1,4 +1,5 @@
 #include <iostream>
+#include <zconf.h>
 #include "ClientSender.h"
 
 ClientSender::ClientSender(Socket socket) {
@@ -13,6 +14,7 @@ void ClientSender::run() {
         ProtocolMessage message = queue.pop();
         // send
       }
+      usleep(1000000);
     } catch (SocketConnectionException &exception) {
       this->alive = false;
       std::cout << "Error conexion socket";

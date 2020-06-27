@@ -11,6 +11,8 @@ class WalkingState : public State {
   void update(float dt) override;
  private:
   Action action;
+  void handleAction(Action action);
+  void move(float inc);
 };
 
 #endif

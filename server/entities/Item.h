@@ -5,7 +5,7 @@
 
 class Item : public Entity {
  public:
-  Item(int x, int y);
+  Item(World& world, int x, int y);
 
   void react(Event event, Entity* sender) override;
   void update(float dt) override;

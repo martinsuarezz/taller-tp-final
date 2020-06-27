@@ -5,12 +5,12 @@
 #include "../state/WalkingState.h"
 #include "../state/IdleState.h"
 
-Character::Character(World &world, int x, int y) : world(world), Entity(x, y) {
+Character::Character(World &world, int x, int y) : Entity(world, x, y) {
   this->alive = true;
   this->health = 100;
   this->dynamic = true;
   this->solid = true;
-  this->velocity = 1;
+  this->velocity = 3;
   this->state = new IdleState(this);
 }
 
@@ -24,30 +24,6 @@ bool Character::isNextTo(Character *character) {
   int distX = abs(character->getX() - this->getX());
   int distY = abs(character->getY() - this->getY());
   return distX <= 100 && distY <= 100;
-}
-
-void Character::moveRight() {
-  this->setState(new WalkingState(this, MOVE_RIGHT));
-  this->setPosition(this->x + 100, this->y);
-  world.notify(MOVE, this);
-}
-
-void Character::moveLeft() {
-  this->setState(new WalkingState(this, MOVE_LEFT));
-  this->setPosition(this->x - 100, this->y);
-  world.notify(MOVE, this);
-}
-
-void Character::moveUp() {
-  this->setState(new WalkingState(this, MOVE_UP));
-  this->setPosition(this->x, this->y - 100);
-  world.notify(MOVE, this);
-}
-
-void Character::moveDown(){
-  this->setState(new WalkingState(this, MOVE_DOWN));
-  this->setPosition(this->x, this->y + 100);
-  world.notify(MOVE, this);
 }
 
 void Character::update(float dt) {
@@ -77,7 +53,7 @@ void Character::receiveDamage(int damage) {
 }
 
 void Character::dropItem() {
-  Item* item = new Item(this->x, this->y);
+  Item* item = new Item(world, this->x, this->y);
   world.notify(NEW_ENTITY, item);
 }
 

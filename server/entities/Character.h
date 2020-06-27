@@ -8,10 +8,6 @@ class Character : public Entity {
  public:
   Character(World &world, int x, int y);
 
-  void moveUp();
-  void moveDown();
-  void moveLeft();
-  void moveRight();
   bool isNextTo(Character *character);
   bool isNearFrom(Character *character);
 
@@ -27,7 +23,6 @@ class Character : public Entity {
   virtual std::string toString() const = 0;
 
  protected:
-  World &world;
   bool alive;
 
   int health;
