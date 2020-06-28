@@ -16,7 +16,7 @@ Character::Character(World &world, int x, int y) : Entity(world, x, y) {
 bool Character::isNearFrom(Character *character) {
   int distX = abs(character->getX() - this->getX());
   int distY = abs(character->getY() - this->getY());
-  return distX <= 3 && distY <= 3;
+  return distX <= 300 && distY <= 300;
 }
 
 bool Character::isNextTo(Character *character) {
@@ -28,7 +28,8 @@ bool Character::isNextTo(Character *character) {
 void Character::update(float dt) {
   this->state->update(dt);
   // TODO: Notify Clients
-  std::cout << this->state->getX() << " / " << this->state->getY() << std::endl;
+  std::cout << this->state->getX() << " / " << this->state->getY()
+    << " / " << this->state->getType() << std::endl ;
 }
 
 void Character::attack(Character *enemy) {

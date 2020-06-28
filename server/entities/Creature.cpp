@@ -43,6 +43,8 @@ void Creature::reactMove(Entity *sender) {
     this->moveToward(target);
   } else if (this->isNextTo(target)) {
     this->attack(target);
+  } else {
+    this->setState(new IdleState(this));
   }
 }
 
