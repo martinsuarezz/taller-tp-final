@@ -1,3 +1,4 @@
+#include <cmath>
 #include "World.h"
 #include "EventManager.h"
 
@@ -59,5 +60,5 @@ void World::deleteEntity(Entity* entity) {
 }
 
 bool World::canMove(int x, int y) {
-  return map.isInbound(x, y);
+  return map.canMove(x,y);
 }

@@ -66,30 +66,50 @@ void Entity::setState(State* state) {
 }
 
 void Entity::moveRight() {
-  this->setState(new WalkingState(this, MOVE_RIGHT));
-  this->setPosition(this->x + 100, this->y);
-  world.notify(MOVE, this);
+  int nextX = this->x + 100;
+  int nextY = this->y;
+
+  if(this->canMove(nextX, nextY)) {
+    this->setState(new WalkingState(this, MOVE_RIGHT));
+    this->setPosition(this->x + 100, this->y);
+    world.notify(MOVE, this);
+  }
 }
 
 void Entity::moveLeft() {
-  this->setState(new WalkingState(this, MOVE_LEFT));
-  this->setPosition(this->x - 100, this->y);
-  world.notify(MOVE, this);
+  int nextX = this->x - 100;
+  int nextY = this->y;
+
+  if(this->canMove(nextX, nextY)) {
+    this->setState(new WalkingState(this, MOVE_LEFT));
+    this->setPosition(nextX, nextY);
+    world.notify(MOVE, this);
+  }
 }
 
 void Entity::moveUp() {
-  this->setState(new WalkingState(this, MOVE_UP));
-  this->setPosition(this->x, this->y - 100);
-  world.notify(MOVE, this);
+  int nextX = this->x;
+  int nextY = this->y - 100;
+
+  if(this->canMove(nextX, nextY)) {
+    this->setState(new WalkingState(this, MOVE_UP));
+    this->setPosition(nextX, nextY);
+    world.notify(MOVE, this);
+  }
 }
 
 void Entity::moveDown(){
-  this->setState(new WalkingState(this, MOVE_DOWN));
-  this->setPosition(this->x, this->y + 100);
-  world.notify(MOVE, this);
+  int nextX = this->x;
+  int nextY = this->y + 100;
+
+  if(this->canMove(nextX, nextY)) {
+    this->setState(new WalkingState(this, MOVE_DOWN));
+    this->setPosition(nextX, nextY);
+    world.notify(MOVE, this);
+  }
 }
 
 bool Entity::canMove(int x, int y) {
-  return world.canMove(x / 100, y / 100);
+  return world.canMove(x, y);
 }
 

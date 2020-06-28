@@ -52,21 +52,16 @@ void Map::move(Entity * entity) {
   int prevX = entity->getPrevX() / 100;
   int prevY = entity->getPrevY() / 100;
 
-  if (this->canMove(x, y)) {
-    // Pick up item
-    Entity* next = get(x, y);
-    if(next != nullptr && !next->isSolid() && entity->getType() == PLAYER) {
-      auto* player = (Player*) entity;
-      player->pickUp((Item*) next);
-    }
-
-    // Move entity
-    this->set(prevX, prevY, nullptr);
-    this->set(x, y, entity);
-  } else {
-    // Backward
-    entity->setPosition(entity->getPrevX(), entity->getPrevY());
+  // Pick up item
+  Entity* next = get(x, y);
+  if(next != nullptr && !next->isSolid() && entity->getType() == PLAYER) {
+    auto* player = (Player*) entity;
+    player->pickUp((Item*) next);
   }
+
+  // Move entity
+  this->set(prevX, prevY, nullptr);
+  this->set(x, y, entity);
 }
 
 void Map::remove(Entity* entity) {
@@ -107,7 +102,9 @@ bool Map::isEmpty(int x, int y) const {
 }
 
 bool Map::canMove(int x, int y) const {
-  return this->isInbound(x, y) && (this->isEmpty(x, y) || !this->get(x, y)->isSolid());
+  int rx = x / 100;
+  int ry = y / 100;
+  return this->isInbound(rx, ry) && (this->isEmpty(rx, ry) || !this->get(rx, ry)->isSolid());
 }
 
 // Just for testing
