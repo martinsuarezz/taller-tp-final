@@ -13,6 +13,10 @@ class WalkingState : public State {
   Action action;
   void handleAction(Action action);
   void move(float inc);
+  void moveLeft(float inc);
+  void moveRight(float inc);
+  void moveDown(float inc);
+  void moveUp(float inc);
 };
 
 #endif

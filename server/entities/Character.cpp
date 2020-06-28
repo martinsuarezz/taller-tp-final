@@ -2,7 +2,6 @@
 #include "Character.h"
 #include "../World.h"
 #include "Item.h"
-#include "../state/WalkingState.h"
 #include "../state/IdleState.h"
 
 Character::Character(World &world, int x, int y) : Entity(world, x, y) {
@@ -34,7 +33,7 @@ void Character::update(float dt) {
 
 void Character::attack(Character *enemy) {
   if (isNextTo(enemy)) {
-    enemy->receiveDamage(10);
+    enemy->receiveDamage(1);
     world.notify(ATTACK, this);
   }
 }

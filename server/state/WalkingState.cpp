@@ -18,26 +18,60 @@ void WalkingState::update(float dt) {
     entity->setState(new IdleState(entity));
   } else {
     this->move(inc);
-
-    // Arrives at position
-    if (this->x == entity->getX() && this->y == entity->getY()) {
-      this->timeElapsed = 0;
-      this->handleAction(action);
-    }
   }
 }
 
 void WalkingState::move(float inc) {
-  if (action == MOVE_LEFT && entity->canMove(x - inc, y)) {
-    this->x -= inc;
-  } else if (action == MOVE_RIGHT && entity->canMove(x + inc, y)) {
-    this->x += inc;
-  } else if (action == MOVE_UP && entity->canMove(x, y - inc)) {
-    this->y -= inc;
-  } else if (action == MOVE_DOWN && entity->canMove(x, y + inc)) {
-    this->y += inc;
+  if (action == MOVE_LEFT) {
+    this->moveLeft(inc);
+  } else if (action == MOVE_RIGHT) {
+    this->moveRight(inc);
+  } else if (action == MOVE_UP) {
+    this->moveUp(inc);
+  } else if (action == MOVE_DOWN) {
+    this->moveDown(inc);
   } else {
     entity->setState(new IdleState(entity));
+  }
+}
+
+void WalkingState::moveLeft(float inc) {
+  bool canMove = entity->canMove(x - inc, y);
+  if(canMove && (this->x - inc) > entity->getX()) {
+    this->x -= inc;
+  } else {
+    this->timeElapsed = 0;
+    this->handleAction(action);
+  }
+}
+
+void WalkingState::moveRight(float inc) {
+  bool canMove = entity->canMove(x + inc, y);
+  if(canMove && (this->x + inc) < entity->getX()) {
+    this->x += inc;
+  } else {
+    this->timeElapsed = 0;
+    this->handleAction(action);
+  }
+}
+
+void WalkingState::moveUp(float inc) {
+  bool canMove = entity->canMove(x, y - inc);
+  if(canMove && (this->y - inc) < entity->getY()) {
+    this->x -= inc;
+  } else {
+    this->timeElapsed = 0;
+    this->handleAction(action);
+  }
+}
+
+void WalkingState::moveDown(float inc) {
+  bool canMove = entity->canMove(x, y + inc);
+  if(canMove && (this->y + inc) < entity->getY()) {
+    this->y += inc;
+  } else {
+    this->timeElapsed = 0;
+    this->handleAction(action);
   }
 }
 

@@ -2,7 +2,7 @@
 #include "../World.h"
 
 Item::Item(World& world, int x, int y) : Entity(world, x,y) {
-  this->dynamic = true;
+  this->dynamic = false;
   this->solid = false;
   this->type = ITEM;
 }
