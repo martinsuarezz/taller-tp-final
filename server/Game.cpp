@@ -83,8 +83,10 @@ void Game::pushClient(ClientPeer *client) {
 }
 
 void Game::notifyClients() {
-  ProtocolMessage message;
   for (auto client: clients) {
-    client->notify(message);
+    for (auto entity: world.getDynamicEntities()) {
+      Message message;
+      client->notify(message);
+    }
   }
 }

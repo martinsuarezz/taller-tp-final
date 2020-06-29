@@ -61,54 +61,6 @@ std::vector<Event> &Entity::getEvents() {
   return events;
 }
 
-void Entity::setState(State* state) {
-  this->state = state;
-}
-
-void Entity::moveRight() {
-  int nextX = this->x + 100;
-  int nextY = this->y;
-
-  if(this->canMove(nextX, nextY)) {
-    this->setState(new WalkingState(this, MOVE_RIGHT));
-    this->setPosition(this->x + 100, this->y);
-    world.notify(MOVE, this);
-  }
-}
-
-void Entity::moveLeft() {
-  int nextX = this->x - 100;
-  int nextY = this->y;
-
-  if(this->canMove(nextX, nextY)) {
-    this->setState(new WalkingState(this, MOVE_LEFT));
-    this->setPosition(nextX, nextY);
-    world.notify(MOVE, this);
-  }
-}
-
-void Entity::moveUp() {
-  int nextX = this->x;
-  int nextY = this->y - 100;
-
-  if(this->canMove(nextX, nextY)) {
-    this->setState(new WalkingState(this, MOVE_UP));
-    this->setPosition(nextX, nextY);
-    world.notify(MOVE, this);
-  }
-}
-
-void Entity::moveDown(){
-  int nextX = this->x;
-  int nextY = this->y + 100;
-
-  if(this->canMove(nextX, nextY)) {
-    this->setState(new WalkingState(this, MOVE_DOWN));
-    this->setPosition(nextX, nextY);
-    world.notify(MOVE, this);
-  }
-}
-
 bool Entity::canMove(int x, int y) {
   return world.canMove(x, y);
 }

@@ -4,7 +4,6 @@
 #include <vector>
 #include "../Command.h"
 
-class State;
 class World;
 
 class Entity {
@@ -23,15 +22,10 @@ class Entity {
 
   void setId(int id);
   void setPosition(int x, int y);
-  void setState(State* state);
 
   virtual void react(Event event, Entity* sender) = 0;
   virtual void update(float dt) = 0;
 
-  void moveUp();
-  void moveDown();
-  void moveLeft();
-  void moveRight();
   bool canMove(int x, int y);
 
   std::vector<Event>& getEvents();
@@ -50,8 +44,6 @@ class Entity {
   bool solid{};
   bool dynamic{};
   int velocity{};
-
-  State* state{};
 
   std::vector<Event> events;
 };

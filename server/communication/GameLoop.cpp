@@ -12,7 +12,7 @@ GameLoop::GameLoop(Game& game, Queue<Command>& queue)
 void GameLoop::run() {
   Clock clock;
 
-  int dt = 1000000 / 30; // time step
+  float dt = (float) 1/30; // 0.33
 
   std::cout << game.draw();
 
@@ -26,15 +26,18 @@ void GameLoop::run() {
     }
 
     // Update world
-    // game.update(dt);
+    game.update(dt);
+
+    // Notify clients
+    // game.notifyClients();
 
     clock.stop();
 
-    int elapsedTime = clock.getDuration();
-    int waitTime = dt - elapsedTime;
+    float elapsedTime = clock.getDuration();
+    float waitTime = dt - elapsedTime;
 
     if (waitTime > 0) {
-      usleep(waitTime);
+      usleep(1000000);
     }
 
     std::cout << game.draw();

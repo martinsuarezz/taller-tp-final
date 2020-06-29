@@ -1,8 +1,13 @@
 #ifndef ARGENTUM_SERVER_CHARACTER_H_
 #define ARGENTUM_SERVER_CHARACTER_H_
 
-#include "../World.h"
-#include "../state/State.h"
+#include "Entity.h"
+
+#define EMPTY ' '
+#define PLAYER 'P'
+#define CREATURE 'C'
+
+class State;
 
 class Character : public Entity {
  public:
@@ -11,8 +16,14 @@ class Character : public Entity {
   bool isNextTo(Character *character);
   bool isNearFrom(Character *character);
 
+  void setState(State* state);
   void react(Event event, Entity *sender) override = 0;
   void update(float dt) override;
+
+  void moveRight();
+  void moveLeft();
+  void moveUp();
+  void moveDown();
 
   void attack(Character *enemy);
   void receiveDamage(int damage);
@@ -24,7 +35,7 @@ class Character : public Entity {
 
  protected:
   bool alive;
-
+  State* state;
   int health;
 
   void dropItem();

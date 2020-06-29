@@ -12,5 +12,5 @@ void Clock::stop(){
 }
 
 int Clock::getDuration(){
-  return std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+  return std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime).count();
 }

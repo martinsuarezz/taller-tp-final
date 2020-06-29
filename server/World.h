@@ -9,11 +9,6 @@
 #include "Map.h"
 #include "EventManager.h"
 
-#define EMPTY ' '
-#define PLAYER 'P'
-#define CREATURE 'C'
-#define ITEM '*'
-
 class World {
  public:
   World();
@@ -27,6 +22,8 @@ class World {
   // Just for testing:
   std::string draw() const;
   void update(float dt);
+
+  std::map<int, Entity *>& getDynamicEntities();
  private:
   Map map;
   EventManager eventManager;

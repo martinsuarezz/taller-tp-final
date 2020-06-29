@@ -47,7 +47,6 @@ std::string Player::toString() const {
      << "Nivel: " << this->level << " - "
      << "Experiencia: " << this->exp << " - "
      << "Posicion X: " << this->x << " Y: " << this->y << " - "
-     << "Estado:" << this->state->getType() << " - "
      << "Inventario: " << this->inventory.toString();
 
   return ss.str();

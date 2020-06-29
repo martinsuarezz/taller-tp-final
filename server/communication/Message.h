@@ -1,0 +1,8 @@
+#ifndef ARGENTUM_SERVER_COMMUNICATION_MESSAGE_H_
+#define ARGENTUM_SERVER_COMMUNICATION_MESSAGE_H_
+
+class Message {
+
+};
+
+#endif

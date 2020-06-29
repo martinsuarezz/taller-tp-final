@@ -3,7 +3,7 @@
 
 ClientPeer::ClientPeer(Socket socket,
                        Queue<Command> &queue)
-    : queue(queue), sender(std::move(socket)), receiver(std::move(socket), queue) {
+    : commandsQueue(queue), sender(std::move(socket), clientQueue), receiver(std::move(socket), queue) {
   this->clientSocket = std::move(socket);
 }
 
@@ -12,8 +12,8 @@ void ClientPeer::run() {
   receiver.start();
 }
 
-void ClientPeer::notify(ProtocolMessage& message) {
-  sender.push(message);
+void ClientPeer::notify(Message& message) {
+  clientQueue.push(message);
 }
 
 ClientPeer::~ClientPeer() {

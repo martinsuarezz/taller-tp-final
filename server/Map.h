@@ -10,12 +10,12 @@ class Map {
   void load(std::string &filename);
 
   bool canMove(int x, int y) const;
+  bool isInbound(int x, int y) const;
 
   void notify(Event event, Entity *entity);
 
   // Just for testing
   std::string draw() const;
-  bool isInbound(int x, int y) const;
  private:
   int height;
   int width;

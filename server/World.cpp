@@ -62,3 +62,7 @@ void World::deleteEntity(Entity* entity) {
 bool World::canMove(int x, int y) {
   return map.canMove(x,y);
 }
+
+std::map<int, Entity *>& World::getDynamicEntities() {
+  return dynamicEntities;
+}

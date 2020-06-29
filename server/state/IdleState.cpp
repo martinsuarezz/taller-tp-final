@@ -1,6 +1,6 @@
 #include "IdleState.h"
 
-IdleState::IdleState(Entity *entity) : State(entity) {
+IdleState::IdleState(Character *character) : State(character) {
   this->type = 'I';
 }
 

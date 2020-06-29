@@ -21,12 +21,17 @@ class ClientPeer {
    * Notify message to a client
    * @param message
    */
-  void notify(ProtocolMessage &message);
+  void notify(Message &message);
 
   ~ClientPeer();
  private:
   Socket clientSocket;
-  Queue<Command> &queue;
+
+  // Global clientQueue to push commands
+  Queue<Command> &commandsQueue;
+
+  // Queue to notify client
+  Queue<Message> clientQueue;
 
   ClientReceiver receiver;
   ClientSender sender;

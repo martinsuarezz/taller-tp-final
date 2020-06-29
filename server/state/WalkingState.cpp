@@ -1,21 +1,21 @@
 #include "WalkingState.h"
 #include "IdleState.h"
 
-WalkingState::WalkingState(Entity* entity, Action action) : State(entity) {
-  this->x = entity->getX();
-  this->y = entity->getY();
+WalkingState::WalkingState(Character* character, Action action) : State(character) {
+  this->character = character;
   this->action = action;
-  this->entity = entity;
   this->type = 'W';
+  this->x = character->getX();
+  this->y = character->getY();
 }
 
 void WalkingState::update(float dt) {
   this->timeElapsed += dt;
-  float inc = entity->getVelocity() * dt * 100;
+  float inc = character->getVelocity() * dt * 100;
 
   // Couldn't move
-  if(entity->getX() == entity->getPrevX() && entity->getY() == entity->getPrevY()) {
-    entity->setState(new IdleState(entity));
+  if(character->getX() == character->getPrevX() && character->getY() == character->getPrevY()) {
+    character->setState(new IdleState(character));
   } else {
     this->move(inc);
   }
@@ -31,12 +31,12 @@ void WalkingState::move(float inc) {
   } else if (action == MOVE_DOWN) {
     this->moveDown(inc);
   } else {
-    entity->setState(new IdleState(entity));
+    character->setState(new IdleState(character));
   }
 }
 
 void WalkingState::moveLeft(float inc) {
-  if((this->x - inc) > entity->getX()) {
+  if((this->x - inc) >= character->getX()) {
     this->x -= inc;
   } else {
     this->timeElapsed = 0;
@@ -45,7 +45,7 @@ void WalkingState::moveLeft(float inc) {
 }
 
 void WalkingState::moveRight(float inc) {
-  if((this->x + inc) < entity->getX()) {
+  if((this->x + inc) <= character->getX()) {
     this->x += inc;
   } else {
     this->timeElapsed = 0;
@@ -54,7 +54,7 @@ void WalkingState::moveRight(float inc) {
 }
 
 void WalkingState::moveUp(float inc) {
-  if((this->y - inc) > entity->getY()) {
+  if((this->y - inc) >= character->getY()) {
     this->y -= inc;
   } else {
     this->timeElapsed = 0;
@@ -63,7 +63,7 @@ void WalkingState::moveUp(float inc) {
 }
 
 void WalkingState::moveDown(float inc) {
-  if((this->y + inc) < entity->getY()) {
+  if((this->y + inc) <= character->getY()) {
     this->y += inc;
   } else {
     this->timeElapsed = 0;
@@ -73,12 +73,12 @@ void WalkingState::moveDown(float inc) {
 
 void WalkingState::handleAction(Action action) {
   if (action == MOVE_LEFT) {
-    entity->moveLeft();
+    character->moveLeft();
   } else if (action == MOVE_RIGHT) {
-    entity->moveRight();
+    character->moveRight();
   } else if (action == MOVE_UP) {
-    entity->moveUp();
+    character->moveUp();
   } else if (action == MOVE_DOWN) {
-    entity->moveDown();
+    character->moveDown();
   }
 }

@@ -1,10 +1,11 @@
 #include "State.h"
+#include "../entities/Character.h"
 
-State::State(Entity *entity) : entity(entity) {
+State::State(Character *character) : character(character) {
   this->timeElapsed = 0;
   this->inProgress = true;
-  this->x = entity->getX();
-  this->y = entity->getY();
+  this->x = character->getX();
+  this->y = character->getY();
   this->type = 0;
 }
 

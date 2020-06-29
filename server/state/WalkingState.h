@@ -7,7 +7,7 @@
 
 class WalkingState : public State {
  public:
-  WalkingState(Entity* entity, Action action);
+  WalkingState(Character* character, Action action);
   void update(float dt) override;
  private:
   Action action;

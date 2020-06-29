@@ -2,7 +2,7 @@
 #include <zconf.h>
 #include "ClientSender.h"
 
-ClientSender::ClientSender(Socket socket) {
+ClientSender::ClientSender(Socket socket, Queue<Message>& queue) : queue(queue) {
   this->clientSocket = std::move(socket);
   this->alive = true;
 }
@@ -11,7 +11,7 @@ void ClientSender::run() {
   while(this->alive) {
     try {
       if(!queue.isEmpty()) {
-        ProtocolMessage message = queue.pop();
+        Message message = queue.pop();
         // send
       }
       usleep(1000000);
@@ -22,6 +22,6 @@ void ClientSender::run() {
   }
 }
 
-void ClientSender::push(ProtocolMessage& message) {
+void ClientSender::push(Message& message) {
   queue.push(message);
 }
