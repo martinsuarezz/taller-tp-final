@@ -2,6 +2,7 @@
 #define ARGENTUM_SERVER_CHARACTER_H_
 
 #include "Entity.h"
+#include "../Config.h"
 
 #define EMPTY ' '
 #define PLAYER 'P'

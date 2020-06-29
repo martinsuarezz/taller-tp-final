@@ -17,7 +17,8 @@ Character::Character(World &world, int x, int y) : Entity(world, x, y) {
 bool Character::isNearFrom(Character *character) {
   int distX = abs(character->getX() - this->getX());
   int distY = abs(character->getY() - this->getY());
-  return distX <= 300 && distY <= 300;
+  return distX <= config.getValue("max_near_from_distance")
+    & distY <= config.getValue("max_near_from_distance");
 }
 
 bool Character::isNextTo(Character *character) {

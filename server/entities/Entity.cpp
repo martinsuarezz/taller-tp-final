@@ -3,7 +3,7 @@
 #include "../state/WalkingState.h"
 #include "../World.h"
 
-Entity::Entity(World& world, int x, int y) : world(world) {
+Entity::Entity(World& world, int x, int y) : world(world), config(Config::getInstance()) {
   this->x = x;
   this->y = y;
   this->prevX = x;

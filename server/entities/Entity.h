@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../Command.h"
+#include "../Config.h"
 
 class World;
 
@@ -46,6 +47,8 @@ class Entity {
   int velocity{};
 
   std::vector<Event> events;
+
+  Config config;
 };
 
 #endif
