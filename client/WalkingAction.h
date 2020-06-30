@@ -19,7 +19,8 @@ class WalkingAction: public Action{
         WalkingAction(Entity& player, AssetsLoader& assets, std::string direction);
         void update();
         void walk(std::string direction);
-        void updatePosition();
+        void idle();
+        //void updatePosition();
 };
 
 #endif

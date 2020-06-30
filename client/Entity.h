@@ -36,6 +36,7 @@ class Entity{
         void moveDown(int x, int y);
         void moveRight(int x, int y);
         void moveLeft(int x, int y);
+        void idle(int x, int y);
         void meditate();
         void updateAction(Action* newAction);
         std::map<std::string, std::string>& getEquipedItems();

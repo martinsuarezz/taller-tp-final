@@ -46,6 +46,12 @@ void Entity::moveLeft(int x, int y){
     action->walk("left");
 }
 
+void Entity::idle(int x, int y){
+    this->x = x;
+    this->y = y;
+    action->idle();
+}
+
 int Entity::getX() const{
     return x;
 }

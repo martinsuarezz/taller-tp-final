@@ -46,11 +46,15 @@ void WalkingAction::update(){
     //this->updatePosition();
     this->render();
     if (remainingFrames <= 0)
-        entity.updateAction(new IdleAction(entity, assets));
+        idle();
 }
 
 void WalkingAction::walk(std::string newDirection){
     if (newDirection == this->direction)
         return;
     entity.updateAction(new WalkingAction(entity, assets, newDirection));
+}
+
+void WalkingAction::idle(){
+    entity.updateAction(new IdleAction(entity, assets));
 }

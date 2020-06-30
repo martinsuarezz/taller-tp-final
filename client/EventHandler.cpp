@@ -21,6 +21,22 @@ int EventHandler::handleKeyDown(SDL_Event* event){
         case SDLK_a:
             std::cout << "A down" << std::endl;
             return 1;
+        case SDLK_m:
+            std::cout << "Play up" << std::endl;
+            client.stopPlaySong();
+            return 1;
+        case SDLK_PERIOD:
+            std::cout << "Next up" << std::endl;
+            client.nextSong();
+            return 1;
+        case SDLK_COMMA:
+            std::cout << "Play up" << std::endl;
+            client.previousSong();
+            return 1;
+        
+        default:
+            std::cout << event->key.keysym.sym << std::endl;
+            return 0;
     }
     return 0;
 }
@@ -44,15 +60,13 @@ int EventHandler::handleKeyUp(SDL_Event* event){
 }
 
 int EventHandler::handleMouseDown(SDL_Event* event){
-    //if (event->key.repeat != 0)
-    //    return 0;
     switch(event->button.button){
         case SDL_BUTTON_LEFT:
             {
             std::cout << "Left mouse down" << std::endl;
             GraphicalInterface& gui = client.getGui();
             try{
-                int slot = gui.getInventarySlot(event->button.x, event->button.y);
+                int slot = gui.getInventorySlot(event->button.x, event->button.y);
                 std::cout << "Clicked slot: " << slot << std::endl;
                 gui.selectSlot(slot); 
             }

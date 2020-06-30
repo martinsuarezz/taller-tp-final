@@ -2,6 +2,7 @@
 #define GRAPHICAL_INTERFACE_H
 #include <map>
 #include "Item.h"
+#include "Inventory.h"
 
 class Texture;
 
@@ -11,19 +12,22 @@ class GraphicalInterface{
     private:
         AssetsLoader& assets;
         Texture& gui;
+        Inventory inventory;
         std::map<int, Item> items;
         int inventorySlots;
         int selected;
-        int getX(int slot) const;
-        int getY(int slot) const;
 
     public:
         GraphicalInterface(AssetsLoader& assets);
         void render();
-        void addItem(int itemId, int position);
-        void removeItem(int position);
+        void addItemInventory(int itemId, int position);
+        void removeItemInventory(int position);
+        void moveItemInventory(int from, int to);
+        void addItemShop(int itemId, int price);
+        void openShop();
+        void closeShop();
         void moveItem(int from, int to);
-        int getInventarySlot(int x, int y);
+        int getInventorySlot(int x, int y);
         bool slotIsInbound(int x, int y, int slot) const;
         void selectSlot(int slot);
         void resetSelection();

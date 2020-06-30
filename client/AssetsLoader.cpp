@@ -1,5 +1,6 @@
 #include "AssetsLoader.h"
 #include "Renderer.h"
+#include "Music.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
 #include <string>
@@ -36,8 +37,21 @@ void AssetsLoader::loadSounds(std::string file){
     }
 }
 
-void AssetsLoader::loadAnimationsSingle(std::vector<int>& dimensions, std::string& keyName){
+void AssetsLoader::loadSongs(std::string file){
+    std::ifstream musicConfig(file);
+    json musicJSON;
+    musicConfig >> musicJSON;
 
+    for (json::iterator it = musicJSON.begin(); it != musicJSON.end(); ++it) {
+        std::string fileName = "music/" + std::string(it.value());
+        Music song(fileName);
+        std::string keyName(it.key());
+        songs.emplace(std::make_pair(keyName, std::move(song)));
+    }
+}
+
+void AssetsLoader::loadAnimationsSingle(std::vector<int>& dimensions, std::string& keyName){
+    std::cout << "Warning: single animation not implemented!" << std::endl; 
 }
 
 void AssetsLoader::loadAnimationsMultiple(std::vector<int>& dimensions, std::string& keyName){
@@ -77,6 +91,7 @@ void AssetsLoader::loadAnimations(std::string file){
 AssetsLoader::AssetsLoader(Renderer& renderer){
     this->loadTextures("images/roots.json", renderer);
     this->loadSounds("audio/roots.json");
+    this->loadSongs("music/roots.json");
     this->loadAnimations("animations/animation.json");
 }
 
@@ -86,6 +101,10 @@ Texture& AssetsLoader::getTexture(const std::string& textureName){
 
 Sound& AssetsLoader::getSound(const std::string& soundName){
     return sounds.find(soundName)->second;
+}
+
+Music& AssetsLoader::getSong(const std::string& songName){
+    return songs.find(songName)->second;
 }
 
 std::vector<SDL_Rect>& AssetsLoader::getAnimationFrames(const std::string& animationName){

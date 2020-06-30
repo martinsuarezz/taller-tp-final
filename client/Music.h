@@ -1,16 +1,16 @@
 #ifndef _MUSIC_H_
 #define _MUSIC_H_
 
-#include "SDL2/SDL_mixer.h"
+#include <SDL2/SDL_mixer.h>
 #include <string>
 
 class Music {
     private:
-    Mix_Music * music;
+    Mix_Music* music;
 
     public:
     //Initialize and load music.
-    Music(const std::string & path);
+    Music(const std::string& path);
 
     //Deallocates memory.
     ~Music();
@@ -27,6 +27,11 @@ class Music {
 
     //Stop music.
     void halt();
+
+    //
+    bool isPaused();
+
+    Music(Music&& other);
 };
 
 #endif

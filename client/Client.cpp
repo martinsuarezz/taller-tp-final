@@ -14,6 +14,7 @@
 #include "CommandsQueue.h"
 #include "Command.h"
 #include "EventHandler.h"
+#include "MusicPlayer.h"
 #include <iostream>
 #include <unistd.h>
 
@@ -23,21 +24,22 @@ Client::Client(Window& window): window(window),
                                 renderer(window.getRenderer()), 
                                 assets(AssetsLoader(renderer)), 
                                 gui(GraphicalInterface(assets)), 
-                                communicator(Communicator(commands)),
+                                communicator(Receiver(commands)),
+                                musicPlayer(MusicPlayer(assets)),
                                 continueExectuion(true){
 
 }
 
 void Client::addItem(int itemId, int position){
-    gui.addItem(itemId, position);
+    gui.addItemInventory(itemId, position);
 }
 
 void Client::removeItem(int position){
-    gui.removeItem(position);
+    gui.removeItemInventory(position);
 }
 
 void Client::moveItem(int from, int to){
-    gui.moveItem(from, to);
+    gui.moveItemInventory(from, to);
 }
 
 void Client::moveEntity(int entityId, int direction, int x, int y){
@@ -55,6 +57,22 @@ void Client::moveEntity(int entityId, int direction, int x, int y){
             entities.at(entityId).moveLeft(x, y);
             break;
     }
+}
+
+void Client::idleEntity(int entityId, int x, int y){
+    entities.at(entityId).idle(x, y);
+}
+
+void Client::nextSong(){
+    musicPlayer.nextTrack();
+}
+
+void Client::previousSong(){
+    musicPlayer.previousTrack();
+}
+
+void Client::stopPlaySong(){
+    musicPlayer.switchPlayStop();
 }
 
 void Client::updateEntities(){
@@ -91,18 +109,12 @@ void Client::run(){
     Screen mapScreen(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
 
     EntityFactory factory(assets, mapScreen);
-    entities.emplace(std::make_pair(1, std::move(factory.getPlayer(20, 14))));
-    entities.emplace(std::make_pair(2, std::move(factory.getZombie(404, 14))));
+    entities.emplace(1, std::move(factory.getPlayer(20, 14)));
+    entities.emplace(2, std::move(factory.getZombie(404, 14)));
     Entity& player = entities.at(1);
 
     addItem(1, 0);
     addItem(1, 1);
-    addItem(1, 2);
-    addItem(1, 3);
-    addItem(1, 11);
-    addItem(1, 6);
-    addItem(1, 12);
-    addItem(1, 13);
     addItem(1, 14);
     moveItem(0, 15);
 
@@ -114,13 +126,14 @@ void Client::run(){
         clock.start();
 
         eventHandler.handle(20, 50);
-        /*
+        
         while (!commands.isEmpty()){
             std::unique_ptr<Command> command;
             command.reset(commands.pop());
             command->execute(*this);
         }
-        */
+        
+        musicPlayer.continuePlaying();
         renderer.clear();
         renderer.setViewport(&viewport);
         mapScreen.centerToPosition(player.getX(), player.getY());
@@ -138,7 +151,7 @@ void Client::run(){
         if (waitTime > 0)
             usleep(waitTime);
         else
-            std::cout << "Warning: se tardo mucho tiempo" << std::endl;
+            std::cout << "Warning: se tardo mucho tiempo: " << elapsedTime << " μs" << std::endl;
         
     }
     //communicator.join();

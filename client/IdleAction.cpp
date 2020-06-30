@@ -28,3 +28,5 @@ void IdleAction::update(){
 void IdleAction::walk(std::string direction){
     entity.updateAction(new WalkingAction(entity, assets, direction));
 }
+
+void IdleAction::idle(){}

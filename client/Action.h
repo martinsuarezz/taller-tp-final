@@ -15,6 +15,7 @@ class Action{
         Action(Entity& entity);
         virtual void update() = 0;
         virtual void walk(std::string direction) = 0;
+        virtual void idle() = 0;
 };
 
 #endif
