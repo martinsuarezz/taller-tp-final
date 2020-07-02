@@ -1,9 +1,15 @@
 #include "EventHandler.h"
 #include "Client.h"
 #include "GraphicalInterface.h"
+#include "IntentionsQueue.h"
+#include "Intention/MoveIntention.h"
+#include "Intention/QuitIntention.h"
+#include "Intention/TimeoutIntention.h"
 #include <iostream>
 
-EventHandler::EventHandler(Client& client): client(client){}
+enum directions{UP, RIGHT, DOWN, LEFT};
+
+EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): client(client), intentions(intentions){}
 
 int EventHandler::handleKeyDown(SDL_Event* event){
     if (event->key.repeat != 0)
@@ -11,15 +17,19 @@ int EventHandler::handleKeyDown(SDL_Event* event){
     switch(event->key.keysym.sym){
         case SDLK_w:
             std::cout << "W down" << std::endl;
+            intentions.push(new MoveIntention(UP));
             return 1;
         case SDLK_d:
             std::cout << "D down" << std::endl;
+            intentions.push(new MoveIntention(RIGHT));
             return 1;
         case SDLK_s:
             std::cout << "S down" << std::endl;
+            intentions.push(new MoveIntention(DOWN));
             return 1;
         case SDLK_a:
             std::cout << "A down" << std::endl;
+            intentions.push(new MoveIntention(LEFT));
             return 1;
         case SDLK_m:
             std::cout << "Play up" << std::endl;
@@ -65,6 +75,7 @@ int EventHandler::handleMouseDown(SDL_Event* event){
             {
             std::cout << "Left mouse down" << std::endl;
             GraphicalInterface& gui = client.getGui();
+            gui.handleLeftClick(event->button.x, event->button.y);
             try{
                 int slot = gui.getInventorySlot(event->button.x, event->button.y);
                 std::cout << "Clicked slot: " << slot << std::endl;
@@ -88,6 +99,7 @@ int EventHandler::handleSingleEvent(SDL_Event* event){
     switch(event->type){
         case SDL_QUIT:
             std::cout << "Quit" << std::endl;
+            intentions.push(new QuitIntention());
             client.stopExecution();
             return 1;
         case SDL_KEYDOWN:
@@ -104,7 +116,8 @@ void EventHandler::handle(int maxEvents, int maxTotalEvents){
     SDL_Event event;
     int counter = 0;
     int counterTotal = 0;
-    while (SDL_PollEvent(&event) && counter < 20 && counterTotal++ < maxTotalEvents){
+    while (SDL_PollEvent(&event) && (counter < 20) && (counterTotal++ < maxTotalEvents)){
         counter += handleSingleEvent(&event);
     }
+    intentions.push(new TimeoutIntention());
 }

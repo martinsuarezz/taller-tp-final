@@ -23,6 +23,7 @@ class Inventory{
         int getSlot(int x, int y);
         bool slotIsInbound(int x, int y, int slot) const;
         void selectSlot(int slot);
+        void handleLeftClick(int x, int y);
         void resetSelection();
         ~Inventory();
 };

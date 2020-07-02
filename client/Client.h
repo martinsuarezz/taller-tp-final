@@ -1,10 +1,12 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "Receiver.h"
+#include "Sender.h"
 #include "GraphicalInterface.h"
 #include "AssetsLoader.h"
 #include "Entity.h"
 #include "CommandsQueue.h"
+#include "IntentionsQueue.h"
 #include "MusicPlayer.h"
 #include <map>
 
@@ -17,7 +19,9 @@ class Client{
         AssetsLoader assets;
         GraphicalInterface gui;
         CommandsQueue commands;
-        Receiver communicator;
+        IntentionsQueue intentions;
+        Receiver receiver;
+        Sender sender;
         MusicPlayer musicPlayer;
         std::map<int, Entity> entities;
         bool continueExectuion;

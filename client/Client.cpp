@@ -24,7 +24,8 @@ Client::Client(Window& window): window(window),
                                 renderer(window.getRenderer()), 
                                 assets(AssetsLoader(renderer)), 
                                 gui(GraphicalInterface(assets)), 
-                                communicator(Receiver(commands)),
+                                receiver(Receiver(commands)),
+                                sender(Sender(intentions, commands)),
                                 musicPlayer(MusicPlayer(assets)),
                                 continueExectuion(true){
 
@@ -92,7 +93,8 @@ GraphicalInterface& Client::getGui(){
 
 void Client::run(){
     Configuration& config = Configuration::getInstance();
-    //communicator.start();
+    //receiver.start();
+    sender.start();
 
     int microsecondsPerFrame = 1000000 / config.getValue("fps");
 
@@ -118,7 +120,7 @@ void Client::run(){
     addItem(1, 14);
     moveItem(0, 15);
 
-    EventHandler eventHandler(*this);
+    EventHandler eventHandler(*this, intentions);
 
     Clock clock;
 
@@ -154,5 +156,6 @@ void Client::run(){
             std::cout << "Warning: se tardo mucho tiempo: " << elapsedTime << " μs" << std::endl;
         
     }
-    //communicator.join();
+    //receiver.join();
+    sender.join();
 }

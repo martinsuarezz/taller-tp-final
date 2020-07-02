@@ -29,6 +29,7 @@ class GraphicalInterface{
         void moveItem(int from, int to);
         int getInventorySlot(int x, int y);
         bool slotIsInbound(int x, int y, int slot) const;
+        void handleLeftClick(int x, int y);
         void selectSlot(int slot);
         void resetSelection();
         ~GraphicalInterface();

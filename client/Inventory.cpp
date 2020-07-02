@@ -127,6 +127,10 @@ void Inventory::resetSelection(){
     selected = -1;
 }
 
+void Inventory::handleLeftClick(int x, int y){
+    
+}
+
 bool Inventory::slotIsInbound(int x, int y, int slot) const{
     if (slot >= slots)
         throw std::out_of_range("Wrong inventory slot");

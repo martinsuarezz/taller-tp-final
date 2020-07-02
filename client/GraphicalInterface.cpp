@@ -45,5 +45,9 @@ void GraphicalInterface::moveItemInventory(int from, int to){
     inventory.moveItem(from, to);
 }
 
+void GraphicalInterface::handleLeftClick(int x, int y){
+    inventory.handleLeftClick(x, y);
+}
+
 GraphicalInterface::~GraphicalInterface(){
 }
