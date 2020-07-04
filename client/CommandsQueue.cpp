@@ -1,5 +1,5 @@
 #include "CommandsQueue.h"
-#include "Command.h"
+#include "Command/Command.h"
 #include <mutex>
 
 CommandsQueue::CommandsQueue(){}

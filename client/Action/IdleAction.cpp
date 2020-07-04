@@ -1,9 +1,9 @@
 #include "IdleAction.h"
-#include "Animation.h"
-#include "Action.h"
-#include "AssetsLoader.h"
 #include "WalkingAction.h"
-#include "Entity.h"
+#include "Action.h"
+#include "../Animation/Animation.h"
+#include "../AssetsLoader.h"
+#include "../Entity.h"
 #include <iostream>
 #include <map>
 #include <string>

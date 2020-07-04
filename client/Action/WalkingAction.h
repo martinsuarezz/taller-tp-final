@@ -1,7 +1,7 @@
 #ifndef WALKING_ACTION_H
 #define WALKING_ACTION_H
 #include <vector>
-#include "Animation.h"
+#include "../Animation/Animation.h"
 #include "Action.h"
 #include <map>
 
@@ -20,7 +20,6 @@ class WalkingAction: public Action{
         void update();
         void walk(std::string direction);
         void idle();
-        //void updatePosition();
 };
 
 #endif

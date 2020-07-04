@@ -1,9 +1,12 @@
 #include "Entity.h"
 #include "AssetsLoader.h"
 #include "Screen.h"
-#include "IdleAction.h"
+#include "Action/IdleAction.h"
 #include <iostream>
+#include <math.h>
 #include <string>
+
+#define TILE_SIZE 64
 
 Entity::Entity(AssetsLoader& assets, Screen& screen, std::map<std::string, std::string> equiped, int x, int y):
                     x(x), y(y), assets(assets), screen(screen), equiped(equiped), action(new IdleAction(*this, assets)){
@@ -14,42 +17,42 @@ void Entity::update(){
     action->update();
 }
 
-void Entity::addX(int pixels){
-    x += pixels;
+void Entity::addX(int distance){
+    x += distance;
 }
 
-void Entity::addY(int pixels){
-    y += pixels;
+void Entity::addY(int distance){
+    y += distance;
 }
 
 void Entity::moveUp(int x, int y) {
-    this->x = x;
-    this->y = y;
+    updatePosition(x, y);
     action->walk("up");
 }
 
 void Entity::moveDown(int x, int y) {
-    this->x = x;
-    this->y = y;
+    updatePosition(x, y);
     action->walk("down");
 }
 
 void Entity::moveRight(int x, int y){
-    this->x = x;
-    this->y = y;
+    updatePosition(x, y);
     action->walk("right");
 }
 
 void Entity::moveLeft(int x, int y){
-    this->x = x;
-    this->y = y;
+    updatePosition(x, y);
     action->walk("left");
 }
 
 void Entity::idle(int x, int y){
-    this->x = x;
-    this->y = y;
+    updatePosition(x, y);
     action->idle();
+}
+
+void Entity::updatePosition(int xNew, int yNew){
+    x = xNew;
+    y = yNew;
 }
 
 int Entity::getX() const{
@@ -60,12 +63,20 @@ int Entity::getY() const{
     return y;
 }
 
+int Entity::getPixelsX() const{
+    return (int) nearbyint((float)(x * TILE_SIZE / 100)) + 12;
+}
+
+int Entity::getPixelsY() const{
+    return (int) nearbyint((float)(y * TILE_SIZE / 100)) + 12;
+}
+
 int Entity::getRelativeX() const{
-    return this->getX() - screen.getPositionX();
+    return getPixelsX() - screen.getPositionX();
 }
 
 int Entity::getRelativeY() const{
-    return this->getY() - screen.getPositionY();
+    return getPixelsY() - screen.getPositionY();
 }
 
 void Entity::updateAction(Action* newAction){

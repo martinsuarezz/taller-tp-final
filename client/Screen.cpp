@@ -2,14 +2,20 @@
 #include "MapGraphic.h"
 #include "Renderer.h"
 #include "Entity.h"
+#include "EntityContainer.h"
 #include "Configuration.h"
+#include <stdexcept>
 
 Screen::Screen(MapGraphic& map, Renderer& renderer, 
-int screen_w, int screen_h): map(map), renderer(renderer) {
+                int screen_w, int screen_h): map(map), renderer(renderer) {
     camera = {0, 0, renderer.getWidth(), renderer.getHeight()};
 }
 
 Screen::~Screen() {}
+
+void Screen::updateCamera(){
+    camera = {0, 0, renderer.getWidth(), renderer.getHeight()};
+}
 
 int Screen::checkBoundryX(int x) const {
     if (x < 0)
@@ -53,6 +59,17 @@ void Screen::centerToPosition(int x, int y){
     this->setPosition(x - camera.w / 2, y - camera.h / 2);
 }
 
+void Screen::centerToPlayerPosition(EntityContainer& entities){
+    try{
+        Entity& player = entities.getPlayer();
+        centerToPosition(player.getPixelsX(), player.getPixelsY());
+    }
+    catch (std::runtime_error& e){
+        centerToPosition(0, 0);
+    }
+    
+}
+
 int Screen::getPositionX() const {
     return camera.x;
 }
@@ -76,8 +93,8 @@ void Screen::render() {
 bool Screen::isInbound(const Entity& entity) const{
     Configuration& config = Configuration::getInstance();
     int tileSize = config.getValue("tile_size");
-    int entityX = entity.getX();
-    int entityY = entity.getY();
+    int entityX = entity.getPixelsX();
+    int entityY = entity.getPixelsY();
     bool inboundX = (entityX > camera.x - tileSize) && (entityX < camera.x + camera.w + tileSize);
     bool inboundY = (entityY > camera.y - tileSize) && (entityY < camera.y + camera.h + tileSize);
 

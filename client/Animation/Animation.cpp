@@ -1,11 +1,11 @@
 #include "Animation.h"
-#include "Texture.h"
-#include "Screen.h"
-#include "Configuration.h"
+#include "../Texture.h"
+#include "../Screen.h"
+#include "../Configuration.h"
+#include "../AssetsLoader.h"
 #include <math.h>
 #include <iostream>
 #include <stdexcept>
-#include "AssetsLoader.h"
 
 Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration): texture(texture), frames(frames), duration(duration){
     Configuration& config = Configuration::getInstance();

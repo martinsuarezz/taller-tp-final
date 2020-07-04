@@ -1,16 +1,17 @@
 #ifndef STATE_H
 #define STATE_H
 
-class GameEntity;
+class MovableEntity;
 
 class State{
     protected:
-        GameEntity& entity;
+        MovableEntity& entity;
 
     public:
-        State(GameEntity& entity);
+        State(MovableEntity& entity);
         virtual void update(int time) = 0;
-        //~State();
+        virtual bool isValid() = 0;
+        virtual void activate() = 0;
 
 };
 

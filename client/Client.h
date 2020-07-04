@@ -1,6 +1,5 @@
 #ifndef CLIENT_H
 #define CLIENT_H
-#include "Receiver.h"
 #include "Sender.h"
 #include "GraphicalInterface.h"
 #include "AssetsLoader.h"
@@ -8,22 +7,31 @@
 #include "CommandsQueue.h"
 #include "IntentionsQueue.h"
 #include "MusicPlayer.h"
+#include "EntityContainer.h"
+#include "MapGraphic.h"
+#include "Screen.h"
+#include "MapGraphic.h"
 #include <map>
 
 class Window;
+
+class Configuration;
 
 class Client{
     private:
         Window& window;
         Renderer& renderer;
+        Configuration& config;
         AssetsLoader assets;
         GraphicalInterface gui;
         CommandsQueue commands;
         IntentionsQueue intentions;
-        Receiver receiver;
         Sender sender;
+        MapGraphic map;
+        Screen screen;
         MusicPlayer musicPlayer;
-        std::map<int, Entity> entities;
+        EntityContainer entities;
+        //std::map<int, Entity> entities;
         bool continueExectuion;
 
     public:
@@ -35,6 +43,8 @@ class Client{
         void addItem(int itemId, int position);
         void removeItem(int position);
         void moveItem(int from, int to);
+        void addMob(int entityId, int x, int y, int type);
+        void addPlayer(int entityId, int x, int y);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

@@ -1,6 +1,6 @@
 #include "Action.h"
-#include "Animation.h"
-#include "Entity.h"
+#include "../Animation/Animation.h"
+#include "../Entity.h"
 #include <vector>
 
 Action::Action(Entity& entity): entity(entity){

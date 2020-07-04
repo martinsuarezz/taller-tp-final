@@ -1,10 +1,10 @@
 #include "IdleAction.h"
-#include "Animation.h"
 #include "Action.h"
-#include "Entity.h"
-#include "AssetsLoader.h"
 #include "WalkingAction.h"
-#include "Configuration.h"
+#include "../Animation/Animation.h"
+#include "../Entity.h"
+#include "../AssetsLoader.h"
+#include "../Configuration.h"
 #include <string>
 #include <iostream>
 

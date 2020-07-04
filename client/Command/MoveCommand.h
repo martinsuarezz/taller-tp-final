@@ -6,8 +6,6 @@ class MoveCommand: public Command{
     private:
         int entityId;
         int direction;
-        int x;
-        int y;
 
     public:
         MoveCommand(int entityId, int direction, int x, int y);

@@ -1,6 +1,6 @@
 #include "State.h"
-#include "../GameEntity.h"
+#include "../GameEntities/MovableEntity.h"
 
-State::State(GameEntity& entity): entity(entity) {}
+State::State(MovableEntity& entity): entity(entity) {}
 
 //State::~State(){}

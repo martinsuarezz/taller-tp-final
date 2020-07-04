@@ -5,6 +5,7 @@
 #include "Intention/MoveIntention.h"
 #include "Intention/QuitIntention.h"
 #include "Intention/TimeoutIntention.h"
+#include "Intention/StopMoveIntention.h"
 #include <iostream>
 
 enum directions{UP, RIGHT, DOWN, LEFT};
@@ -55,15 +56,19 @@ int EventHandler::handleKeyUp(SDL_Event* event){
     switch(event->key.keysym.sym){
         case SDLK_w:
             std::cout << "W up" << std::endl;
+            intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_d:
             std::cout << "D up" << std::endl;
+            intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_s:
             std::cout << "S up" << std::endl;
+            intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_a:
             std::cout << "A up" << std::endl;
+            intentions.push(new StopMoveIntention());
             return 1;
     }
     return 0;

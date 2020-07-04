@@ -1,7 +1,7 @@
 #ifndef ACTION_H
 #define ACTION_H
 #include <vector>
-#include "Animation.h"
+#include "../Animation/Animation.h"
 
 class Entity;
 

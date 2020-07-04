@@ -3,8 +3,8 @@
 
 #include "Texture.h"
 #include "Sound.h"
-#include "WalkingAnimation.h"
-#include "Action.h"
+#include "Animation/WalkingAnimation.h"
+#include "Action/Action.h"
 #include <memory>
 #include <map>
 #include <string>
@@ -28,6 +28,8 @@ class Entity{
         void update();
         int getX() const;
         int getY() const;
+        int getPixelsX() const;
+        int getPixelsY() const;
         int getRelativeX() const;
         int getRelativeY() const;
         void addX(int pixels);
@@ -36,6 +38,7 @@ class Entity{
         void moveDown(int x, int y);
         void moveRight(int x, int y);
         void moveLeft(int x, int y);
+        void updatePosition(int x, int y);
         void idle(int x, int y);
         void meditate();
         void updateAction(Action* newAction);

@@ -4,9 +4,12 @@
 class Client;
 
 class Command{
-    private:
+    protected:
+        int x;
+        int y;
 
     public:
+        Command(int x, int y);
         virtual void execute(Client& client) = 0;
         
 };

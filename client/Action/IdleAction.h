@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Animation.h"
+#include "../Animation/Animation.h"
 #include "Action.h"
 
 class Entity;

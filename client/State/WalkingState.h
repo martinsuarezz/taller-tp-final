@@ -2,7 +2,7 @@
 #define WALKING_STATE_H
 #include "State.h"
 
-class GameEntity;
+class MovableEntity;
 
 class WalkingState: public State{
     private:
@@ -14,8 +14,10 @@ class WalkingState: public State{
         int direction;
 
     public:
-        WalkingState(GameEntity& entity, int xInitial, int yInitial, int xFinal, int yFinal, int duration, int direction);
+        WalkingState(MovableEntity& entity, int xInitial, int yInitial, int xFinal, int yFinal, int duration, int direction);
         void update(int time);
+        bool isValid();
+        void activate();
 
 };
 

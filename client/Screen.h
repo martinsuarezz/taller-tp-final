@@ -10,6 +10,8 @@ class MapGraphic;
 
 class Entity;
 
+class EntityContainer;
+
 class Screen {
     private:
         MapGraphic& map;
@@ -27,6 +29,9 @@ class Screen {
         // Liberar recursos
         ~Screen();
 
+        // Actualiza la camara al renderer actual (usar si hubo cambio de viewport)
+        void updateCamera();
+
         // Setea el tamaño de la camara.
         void setScreenSize(int width, int height);
         // Setea la posición de la camara.
@@ -37,6 +42,8 @@ class Screen {
         void moveToCenter();
         // Mueve la camara para que las posiciones dadas estén en el centro.
         void centerToPosition(int x, int y);
+
+        void centerToPlayerPosition(EntityContainer& entities);
 
         // Obtener las posiciones de la camara
         int getPositionX() const;

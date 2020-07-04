@@ -5,8 +5,6 @@
 class IdleCommand: public Command{
     private:
         int entityId;
-        int x;
-        int y;
 
     public:
         IdleCommand(int entityId, int x, int y);

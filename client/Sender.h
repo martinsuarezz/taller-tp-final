@@ -1,9 +1,9 @@
 #ifndef SENDER_H
 #define SENDER_H
 #include "Thread.h"
-#include "Package.h"
-#include "GameEntity.h"
+#include "GameEntities/MovableEntity.h"
 #include "GameMap.h"
+#include "GameEntityContainer.h"
 
 class Command;
 
@@ -16,12 +16,13 @@ class Sender: public Thread{
         IntentionsQueue& intentions;
         CommandsQueue& commands;
         GameMap map;
-        GameEntity player;
+        GameEntityContainer entities;
         bool continueRunning;
 
     public:
         Sender(IntentionsQueue& intentions, CommandsQueue& commands);
         void movePlayer(int direction);
+        void stopMovementPlayer();
         void run();
         void addCommand(Command* command);
         void close();

@@ -35,7 +35,6 @@ bool IntentionsQueue::isEmpty(){
 }
 
 void IntentionsQueue::close(){
-    std::cout << "Closing" << std::endl;
     isClosed = true;
     cv.notify_all();
 }
