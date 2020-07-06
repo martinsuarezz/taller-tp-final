@@ -3,10 +3,8 @@
     "window_height": 800,
     "fps": 60,
     "tile_size": 64,
-    "walking_duration": 720,
-    "walking_animation_frames": 5,
-    "idle_duration": 720,
-    "idle_animation_frames": 1,
+    "mob_render_offset_x": 16,
+    "mob_render_offset_y": 12,
     "inventory_slots": 12,
     "inventory_rows": 3,
     "inventory_columns": 4,
@@ -27,10 +25,21 @@
     "inv_weapon_slot": 13,
     "inv_armor_slot": 14,
     "inv_shield_slot": 15,
+    "inv_slot_size_x_px": 32,
+    "inv_slot_size_y_px": 32,
 
+    "map_render_offset_tiles": 3,
 
+    "anim_walking_duration": 400000,
+    "anim_walking_frames": 5,
+    "anim_idle_duration": 720000,
+    "anim_idle_frames": 1,
 
-    "player_speed": 200000,
+    "sound_walking_time": 800000,
+
+    "player_speed": 300000,
     "zombie_speed": 1250000,
-    "zombie_vision": 6
+    "zombie_vision": 6,
+    "mob_spawn_prob": 5,
+    "mob_spawn_max": 10
 }

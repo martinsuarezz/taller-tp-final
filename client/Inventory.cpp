@@ -6,8 +6,6 @@
 #include <map>
 #include <stdexcept>
 
-#define SLOT_SIZE 32
-
 Inventory::Inventory(AssetsLoader& assets): assets(assets){
     Configuration& config = Configuration::getInstance();
     slots = config.getValue("inventory_slots") + 
@@ -116,7 +114,11 @@ int Inventory::getY(int position) const{
 
 void Inventory::render(){
     if (selected != -1){
+        Configuration& config = Configuration::getInstance();
+
         Texture& selectionBox = assets.getTexture("selected_slot");
+        selectionBox.setHeight(config.getValue("inv_slot_size_y_px"));
+        selectionBox.setWidth(config.getValue("inv_slot_size_x_px"));
         selectionBox.render(getX(selected), getY(selected));
     }
 
@@ -136,12 +138,16 @@ void Inventory::resetSelection(){
 }
 
 bool Inventory::slotIsInbound(int x, int y, int slot) const{
+    Configuration& config = Configuration::getInstance();
+
     if (slot >= slots)
         throw std::out_of_range("Wrong inventory slot");
     int slotX = getX(slot);
     int slotY = getY(slot);
-    return (x > slotX) && (x < slotX + SLOT_SIZE) && 
-            (y > slotY) && (y < slotY + SLOT_SIZE);
+    return (x > slotX) && 
+            (x < slotX + config.getValue("inv_slot_size_x_px")) && 
+            (y > slotY) && 
+            (y < slotY + config.getValue("inv_slot_size_y_px"));
 }
 
 Inventory::~Inventory(){}

@@ -3,7 +3,6 @@
 #include "../GameEntities/MovableEntity.h"
 #include <math.h>
 #include <stdexcept>
-#include <iostream>
 
 WalkingState::WalkingState(MovableEntity& entity, int xInitial, int yInitial, int xFinal, int yFinal, int duration, int direction): 
                         State(entity), x(xInitial*100), y(yInitial*100), xFinal(xFinal*100), yFinal(yFinal*100), duration(duration), direction(direction){}

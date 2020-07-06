@@ -16,6 +16,7 @@ class GameEntityContainer{
         IdStack ids;
         MovableEntity* getMob(int id);
         size_t maxMobs;
+        int mobSpawnProb;
 
     public:
         GameEntityContainer(Sender& game, GameMap& map);

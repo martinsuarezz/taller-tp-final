@@ -4,10 +4,6 @@
 #include <iostream>
 #include "Configuration.h"
 
-#define WINDOW_WIDTH 600
-#define WINDOW_HEIGHT 600
-#define WALK_DISTANCE 64
-
 int main(int argc, char* argv[]){
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
 

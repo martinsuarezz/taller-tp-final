@@ -22,8 +22,8 @@ IdleAction::IdleAction(Entity& entity, AssetsLoader& assets):
     }
 }
 
-void IdleAction::update(){
-    this->render();
+void IdleAction::update(int timeElapsed){
+    this->render(timeElapsed);
 }
 
 void IdleAction::walk(std::string direction){

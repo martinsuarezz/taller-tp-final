@@ -1,7 +1,6 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include <stdexcept>
-#include <iostream>
 
 Texture::Texture(Renderer& renderer): renderer(renderer){
 	texture = NULL;

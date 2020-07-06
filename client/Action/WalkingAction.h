@@ -13,13 +13,14 @@ class WalkingAction: public Action{
     private:
         AssetsLoader& assets;
         std::string direction;
-        int remainingFrames;
+
+        void playSounds(int timeElapsed);
 
     public:
         WalkingAction(Entity& player, AssetsLoader& assets, std::string direction);
 
         // Notifica el paso del tiempo.
-        void update();
+        void update(int timeElapsed);
 
         // Actualiza la Action de la entidad al movimiento en dicha dirección.
         // Si ya se está moviendo en esa dirección no hace nada.

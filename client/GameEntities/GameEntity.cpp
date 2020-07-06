@@ -6,9 +6,6 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
-#include <iostream>
-
-#define MOVE_SPEED 1000000
 
 GameEntity::GameEntity(Sender& game, GameMap& map, int x, int y): 
                         game(game), map(map), x(x), y(y) {}

@@ -29,7 +29,7 @@ class Entity{
                 int x, int y);
         
         // Actualiza la entidad correspondiente al paso del tiempo.
-        void update();
+        void update(int timeElapsed);
 
         // Obtiene la ubicación en pixeles de la entidad.
         int getPixelsX() const;

@@ -6,15 +6,10 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
-#include <iostream>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
                     GameEntity(game, map, x, y), state(new IdleState(*this)), entityId(entityId), moveSpeed(moveSpeed){}
-/*
-MovableEntity::MovableEntity(MovableEntity&& other):
-                    GameEntity(other.game, other.map, other.x, other.y), 
-                    state(new IdleState(*this)), entityId(other.entityId), moveSpeed(other.moveSpeed){}
-*/
+
 void MovableEntity::move(int direction){
     switch (direction){
         case UP:

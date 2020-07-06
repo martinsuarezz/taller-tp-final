@@ -20,8 +20,6 @@
 #include <iostream>
 #include <unistd.h>
 
-#define WALK_DISTANCE 64
-
 Client::Client(Window& window): window(window), 
                                 renderer(window.getRenderer()), 
                                 config(Configuration::getInstance()),
@@ -142,7 +140,7 @@ void Client::run(){
 
         screen.centerToPlayerPosition(entities);
         screen.render();
-        entities.update();
+        entities.update(16667);
         renderer.resetViewport();
         gui.render();
 

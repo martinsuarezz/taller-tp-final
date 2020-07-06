@@ -48,14 +48,25 @@ int MapGraphic::getTile(int x, int y, int layer) const{
     }
     return tile;
 }
-
+/*
+static int boundZero(int number){
+    if (number < 0)
+        return 0;
+    return number;
+}
+*/
 void MapGraphic::renderLayer(int xScreen, int yScreen, 
                             SDL_Rect* area, int layer){
+                                
     Configuration& config = Configuration::getInstance();
     int tileSize = config.getValue("tile_size");
+    int offsetRender = tileSize * config.getValue("map_render_offset_tiles");
 
-    int xInitial = area->x;
-    int yInitial = area->y;
+    xScreen -= offsetRender;
+    yScreen -= offsetRender;
+
+    int xInitial = area->x - offsetRender;
+    int yInitial = area->y - offsetRender;
 
     int xFinal = roundUp(area->x + area->w, tileSize);
     int yFinal = roundUp(area->y + area->h, tileSize);
@@ -76,7 +87,7 @@ void MapGraphic::renderLayer(int xScreen, int yScreen,
         }
         xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
     }
-
+    
 }
 
 void MapGraphic::render(int xScreen, int yScreen, SDL_Rect* area){

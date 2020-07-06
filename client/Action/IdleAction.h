@@ -18,7 +18,7 @@ class IdleAction: public Action{
         IdleAction(Entity& player, AssetsLoader& assets);
 
         // Notifica el paso del tiempo.
-        void update();
+        void update(int timeElpased);
 
         // Cambia la Action de la entidad a WalkingAction en la dirección
         // indicada.

@@ -17,12 +17,12 @@ class Action{
         std::vector<SoundPlayer> sounds;
 
         // Renderiza las texturas de la entidad.
-        void render();
+        void render(int timeElapsed);
 
     public:
         Action(Entity& entity);
 
-        virtual void update() = 0;
+        virtual void update(int timeElapsed) = 0;
         virtual void walk(std::string direction) = 0;
         virtual void idle() = 0;
 };

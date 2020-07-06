@@ -9,7 +9,6 @@
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
-#include <iostream>
 
 static int playerSpeed(){
     Configuration& config = Configuration::getInstance();

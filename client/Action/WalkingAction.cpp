@@ -11,29 +11,35 @@
 WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets,
                             std::string direction): Action(entity),
                             assets(assets), direction(direction){
-    
-    Configuration& config = Configuration::getInstance();
-    remainingFrames = (config.getValue("walking_duration") * config.getValue("fps")) / 1000;
-
     std::map<std::string, std::string>& equiped = entity.getEquipedItems();
+
+    Configuration& config = Configuration::getInstance();
 
     std::map<std::string, std::string>::iterator it;
     for (it = equiped.begin(); it != equiped.end(); it++){
         Texture& texture = assets.getTexture(it->second);
         std::string animationName = it->first.substr(1) + "_" + direction;
         std::vector<SDL_Rect>& frames = assets.getAnimationFrames(animationName);
-        Animation bodyAnimation(texture, frames, 1000);
+        Animation bodyAnimation(texture, frames, 
+                                config.getValue("anim_walking_duration"));
         animations.push_back(std::move(bodyAnimation));
     }
-
-    sounds.push_back(SoundPlayer(assets.getSound("walking_sound"), 300));
+    
+    sounds.push_back(SoundPlayer(assets.getSound("walking_sound"), 
+                                config.getValue("sound_walking_time")));
 }
 
-void WalkingAction::update(){
-    this->render();
-    sounds[0].update(16);
-    if (remainingFrames <= 0)
-        idle();
+void WalkingAction::playSounds(int timeElapsed){
+    if (!entity.isOnScreen())
+        return;
+    std::vector<SoundPlayer>::iterator it;
+    for (it = sounds.begin(); it != sounds.end(); it++)
+        it->update(timeElapsed);
+}
+
+void WalkingAction::update(int timeElapsed){
+    playSounds(timeElapsed);
+    render(timeElapsed);
 }
 
 void WalkingAction::walk(std::string newDirection){

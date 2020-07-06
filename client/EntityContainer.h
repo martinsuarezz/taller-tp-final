@@ -37,7 +37,7 @@ class EntityContainer{
         void removeMob(int entityId);
 
         // Actualiza a las entidades indicando el paso del tiempo.
-        void update();
+        void update(int timeElapsed);
 
         // Obtiene la entidad correspondiente al jugador.
         Entity& getPlayer();

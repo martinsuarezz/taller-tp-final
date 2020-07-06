@@ -2,11 +2,9 @@
 #include "AssetsLoader.h"
 #include "Screen.h"
 #include "Action/IdleAction.h"
-#include <iostream>
+#include "Configuration.h"
 #include <math.h>
 #include <string>
-
-#define TILE_SIZE 64
 
 Entity::Entity(AssetsLoader& assets, Screen& screen, 
                 std::map<std::string, std::string> equiped, 
@@ -14,8 +12,8 @@ Entity::Entity(AssetsLoader& assets, Screen& screen,
                 screen(screen), equiped(equiped), 
                 action(new IdleAction(*this, assets)){}
 
-void Entity::update(){
-    action->update();
+void Entity::update(int timeElapsed){
+    action->update(timeElapsed);
 }
 
 void Entity::moveUp(int x, int y) {
@@ -49,11 +47,17 @@ void Entity::updatePosition(int xNew, int yNew){
 }
 
 int Entity::getPixelsX() const{
-    return (int) nearbyint((float)(x * TILE_SIZE / 100)) + 12;
+    Configuration& config = Configuration::getInstance();
+    int tileSize = config.getValue("tile_size");
+    int xOffset = config.getValue("mob_render_offset_x");
+    return (int) nearbyint((float)(x * tileSize / 100)) + xOffset;
 }
 
 int Entity::getPixelsY() const{
-    return (int) nearbyint((float)(y * TILE_SIZE / 100)) + 12;
+    Configuration& config = Configuration::getInstance();
+    int tileSize = config.getValue("tile_size");
+    int yOffset = config.getValue("mob_render_offset_y");
+    return (int) nearbyint((float)(y * tileSize / 100)) + yOffset;
 }
 
 int Entity::getRelativeX() const{

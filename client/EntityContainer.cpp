@@ -43,10 +43,10 @@ void EntityContainer::removeMob(int entityId){
     entities.erase(entityId);
 }
 
-void EntityContainer::update(){
+void EntityContainer::update(int timeElapsed){
     std::map<int, Entity>::iterator it;
     for (it = entities.begin(); it != entities.end(); it++){
-        it->second.update();
+        it->second.update(timeElapsed);
     }
 }
 

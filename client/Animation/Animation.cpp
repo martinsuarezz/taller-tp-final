@@ -4,30 +4,24 @@
 #include "../Configuration.h"
 #include "../AssetsLoader.h"
 #include <math.h>
-#include <iostream>
 #include <stdexcept>
 
 Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, 
-                    int duration): texture(texture), frames(frames), 
-                    duration(duration){
-    Configuration& config = Configuration::getInstance();
+                    int duration): texture(texture), frames(frames){
     ammountFrames = frames.size();
-    targetMiliseconds = duration / ammountFrames;
-    elapsedMiliseconds = 0;
-    currentAnimation = 0;
-    remainingFrames = (duration * config.getValue("fps")) / 1000;
+    frameDuration = duration / ammountFrames;
+    elapsedMicroseconds = 0;
+    currentFrame = 0;
+    targetMicroseconds = frameDuration;
 }
 
-void Animation::render(int x, int y){
-    Configuration& config = Configuration::getInstance();
-    int milisecondsPerFrame = 1000 / config.getValue("fps");
-    if ((elapsedMiliseconds <= targetMiliseconds) && 
-        ((elapsedMiliseconds += milisecondsPerFrame) >= targetMiliseconds)){
-        currentAnimation++;
-        targetMiliseconds += duration / ammountFrames;
+void Animation::render(int x, int y, int timeElapsed){
+    if ((elapsedMicroseconds <= targetMicroseconds) && 
+        ((elapsedMicroseconds += timeElapsed) >= targetMicroseconds)){
+        currentFrame++;
+        targetMicroseconds += frameDuration;
     }
-    texture.render(x, y, &frames[currentAnimation % ammountFrames]);
-    remainingFrames--;
+    texture.render(x, y, &frames[currentFrame % ammountFrames]);
 }
 
 

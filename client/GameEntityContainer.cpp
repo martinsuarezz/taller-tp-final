@@ -7,6 +7,7 @@
 #include "Command/RemoveMobCommand.h"
 #include "IdStack.h"
 #include "GameMap.h"
+#include "Configuration.h"
 #include "Sender.h"
 #include "Constants.h"
 #include <stdexcept>
@@ -15,10 +16,11 @@
 #include <stdlib.h>
 #include <tuple>
 
-#define SPAWN_PROBABILITY 0
-#define MAX_MOBS 20
-
-GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): game(game), map(map), maxMobs(MAX_MOBS){}
+GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): game(game), map(map), maxMobs(0){
+    Configuration& config = Configuration::getInstance();
+    maxMobs = (size_t) config.getValue("mob_spawn_max");
+    mobSpawnProb = config.getValue("mob_spawn_prob");
+}
 
 void GameEntityContainer::addPlayer(int x, int y){
     if (!map.isEmpty(x, y))
@@ -75,7 +77,7 @@ void GameEntityContainer::notifyPlayerMovement(int x, int y){
 }
 
 void GameEntityContainer::spawnHostileMob(){
-    if ((mobs.size() < maxMobs) && (rand() % 100 < SPAWN_PROBABILITY)){
+    if ((mobs.size() < maxMobs) && (rand() % 100 < mobSpawnProb)){
         try{
             std::pair<int, int> position = map.getEmptyPosition();
             addMob(position.first, position.second, ZOMBIE);
