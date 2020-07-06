@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAP_WIDTH 20
-#define MAP_HEIGHT 20
+#define MAP_WIDTH 50
+#define MAP_HEIGHT 50
 
 GameMap::GameMap(): width(MAP_WIDTH), height(MAP_HEIGHT), entitiesAmmount(0){
     for (int i = 0; i < MAP_WIDTH; i++){

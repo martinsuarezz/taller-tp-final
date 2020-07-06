@@ -8,16 +8,13 @@
 #include "../Command/MoveCommand.h"
 #include <iostream>
 
-#define MOVE_SPEED 1000000
-
-MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y): 
-                    GameEntity(game, map, x, y), state(new IdleState(*this)), entityId(entityId){}
-
+MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
+                    GameEntity(game, map, x, y), state(new IdleState(*this)), entityId(entityId), moveSpeed(moveSpeed){}
+/*
 MovableEntity::MovableEntity(MovableEntity&& other):
-                    GameEntity(other.game, other.map, other.x, other.y), state(new IdleState(*this)), entityId(other.entityId){
-
-}
-
+                    GameEntity(other.game, other.map, other.x, other.y), 
+                    state(new IdleState(*this)), entityId(other.entityId), moveSpeed(other.moveSpeed){}
+*/
 void MovableEntity::move(int direction){
     switch (direction){
         case UP:
@@ -39,27 +36,23 @@ void MovableEntity::move(int direction){
 }
 
 void MovableEntity::moveUp(){
-    nextState.reset(new WalkingState(*this, x, y, x, y - 1, MOVE_SPEED, UP));
+    nextState.reset(new WalkingState(*this, x, y, x, y - 1, moveSpeed, UP));
 }
 
 void MovableEntity::moveRight(){
-    nextState.reset(new WalkingState(*this, x, y, x + 1, y, MOVE_SPEED, RIGHT));      
+    nextState.reset(new WalkingState(*this, x, y, x + 1, y, moveSpeed, RIGHT));      
 }
 
 void MovableEntity::moveDown(){
-    nextState.reset(new WalkingState(*this, x, y, x, y + 1, MOVE_SPEED, DOWN));
+    nextState.reset(new WalkingState(*this, x, y, x, y + 1, moveSpeed, DOWN));
 }
 
 void MovableEntity::moveLeft(){
-    nextState.reset(new WalkingState(*this, x, y, x - 1, y, MOVE_SPEED, LEFT));
+    nextState.reset(new WalkingState(*this, x, y, x - 1, y, moveSpeed, LEFT));
 }
 
 void MovableEntity::stop(){
     nextState.reset(new IdleState(*this));
-}
-
-void MovableEntity::notifyMovement(int direction, int x, int y){
-    game.addCommand(new MoveCommand(entityId, direction, x, y));
 }
 
 void MovableEntity::notifyIdle(){
@@ -91,3 +84,5 @@ void MovableEntity::updatePosition(int xNew, int yNew){
     x = xNew;
     y = yNew;
 } 
+
+MovableEntity::~MovableEntity(){}

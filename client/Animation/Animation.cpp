@@ -27,6 +27,7 @@ void Animation::render(int x, int y){
     remainingFrames--;
 }
 
+
 Animation::~Animation(){
 
 }

@@ -26,5 +26,11 @@
     "inv_helmet_slot": 12,
     "inv_weapon_slot": 13,
     "inv_armor_slot": 14,
-    "inv_shield_slot": 15
+    "inv_shield_slot": 15,
+
+
+
+    "player_speed": 200000,
+    "zombie_speed": 1250000,
+    "zombie_vision": 6
 }

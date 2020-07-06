@@ -20,6 +20,7 @@ class EntityContainer{
         void idle(int entityId, int x, int y);
         void addMob(int entityId, int x, int y, int type);
         void addPlayer(int entityId, int x, int y);
+        void removeMob(int entityId);
         void update();
         Entity& getPlayer();
 

@@ -34,7 +34,12 @@ void EntityContainer::addMob(int entityId, int x, int y, int type){
 
 void EntityContainer::addPlayer(int entityId, int x, int y){
     entities.emplace(entityId, factory.getPlayer(x, y));
-    playerId = entityId;
+    if (playerId == -1)
+        playerId = entityId;
+}
+
+void EntityContainer::removeMob(int entityId){
+    entities.erase(entityId);
 }
 
 void EntityContainer::update(){

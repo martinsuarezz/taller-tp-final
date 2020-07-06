@@ -17,6 +17,8 @@ class GameEntity{
     public:
         GameEntity(Sender& game, GameMap& map, int x, int y);
         void updatePosition(int x, int y);
+        int getX();
+        int getY();
 };
 
 #endif

@@ -28,7 +28,7 @@ Client::Client(Window& window): window(window),
                                 assets(AssetsLoader(renderer)), 
                                 gui(GraphicalInterface(assets)), 
                                 sender(Sender(intentions, commands)),
-                                map(MapGraphic("hola.json", assets, 25, 25)),
+                                map(MapGraphic("mapFinal.json", assets)),
                                 screen(Screen(map, renderer, config.getValue("window_width"), config.getValue("window_height"))),
                                 musicPlayer(MusicPlayer(assets)),
                                 entities(EntityContainer(assets, screen)),
@@ -58,6 +58,10 @@ void Client::addMob(int entityId, int x, int y, int type){
 
 void Client::addPlayer(int entityId, int x, int y){
     entities.addPlayer(entityId, x, y);
+}
+
+void Client::removeMob(int entityId){
+    entities.removeMob(entityId);
 }
 
 void Client::idleEntity(int entityId, int x, int y){

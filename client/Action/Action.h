@@ -1,6 +1,7 @@
 #ifndef ACTION_H
 #define ACTION_H
 #include <vector>
+#include "../SoundPlayer.h"
 #include "../Animation/Animation.h"
 
 class Entity;
@@ -9,6 +10,7 @@ class Action{
     protected:
         std::vector<Animation> animations;
         Entity& entity;
+        std::vector<SoundPlayer> sounds;
         void render();
 
     public:

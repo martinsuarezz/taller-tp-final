@@ -6,6 +6,8 @@
 
 class Texture;
 
+class Sound;
+
 class Animation{
     protected:
         Texture& texture;
@@ -22,6 +24,7 @@ class Animation{
     public:
         Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration);
         void render(int x, int y);
+        void playSound();
         ~Animation();
 };
 

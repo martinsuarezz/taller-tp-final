@@ -6,7 +6,7 @@ class GameEntity;
 
 class GameMap{
     private:
-        GameEntity* map[20][20];
+        GameEntity* map[50][50];
         int width;
         int height;
         int entitiesAmmount;

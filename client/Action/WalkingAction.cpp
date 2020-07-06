@@ -5,6 +5,7 @@
 #include "../Entity.h"
 #include "../AssetsLoader.h"
 #include "../Configuration.h"
+#include "../SoundPlayer.h"
 #include <string>
 #include <iostream>
 
@@ -22,29 +23,13 @@ WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets, std::string d
         Animation bodyAnimation(texture, frames, 1000);
         animations.push_back(std::move(bodyAnimation));
     }
-    
-}
-/*
-void WalkingAction::updatePosition(){
-    int pixelsToMove = (int) nearbyint((double)distance / (double)remainingFrames);
-    if (direction == "up")
-        entity.addY(-pixelsToMove);
-    else if (direction == "right")
-        entity.addX(pixelsToMove);
-    else if (direction == "down")
-        entity.addY(pixelsToMove);
-    else if (direction == "left")
-        entity.addX(-pixelsToMove);
-    else
-        std::cout << "Advertencia: dirección de movimiento errónea." << std::endl;
 
-    distance -= pixelsToMove;
-    remainingFrames--;
+    sounds.push_back(SoundPlayer(assets.getSound("walking_sound"), 300));
 }
-*/
+
 void WalkingAction::update(){
-    //this->updatePosition();
     this->render();
+    sounds[0].update(16);
     if (remainingFrames <= 0)
         idle();
 }

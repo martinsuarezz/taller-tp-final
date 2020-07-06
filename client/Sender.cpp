@@ -19,7 +19,9 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands):
 
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
-    entities.addPlayer(0, 0);
+    entities.addPlayer(2, 3);
+    entities.addPlayer(3, 3);
+    entities.removeMob(1);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);

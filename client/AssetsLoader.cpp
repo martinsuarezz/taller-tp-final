@@ -18,7 +18,11 @@ void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
         Texture texture = Texture(renderer);
         std::string fileName = "images/" + std::string(it.value());
         std::string keyName(it.key());
-        bool transparency = (keyName[0] != '$');
+        bool transparency = true;
+        if (keyName[0] == '$'){
+            transparency = false;
+            keyName = keyName.substr(1);
+        }
         texture.loadFromFile(fileName, transparency);
         textures.emplace(std::make_pair(keyName, std::move(texture)));
     }
@@ -96,17 +100,17 @@ AssetsLoader::AssetsLoader(Renderer& renderer){
 }
 
 Texture& AssetsLoader::getTexture(const std::string& textureName){
-    return textures.find(textureName)->second;
+    return textures.at(textureName);
 }
 
 Sound& AssetsLoader::getSound(const std::string& soundName){
-    return sounds.find(soundName)->second;
+    return sounds.at(soundName);
 }
 
 Music& AssetsLoader::getSong(const std::string& songName){
-    return songs.find(songName)->second;
+    return songs.at(songName);
 }
 
 std::vector<SDL_Rect>& AssetsLoader::getAnimationFrames(const std::string& animationName){
-    return animations.find(animationName)->second;
+    return animations.at(animationName);
 }

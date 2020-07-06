@@ -19,3 +19,11 @@ void GameEntity::updatePosition(int xNew, int yNew){
     x = xNew;
     y = yNew;
 }
+
+int GameEntity::getX(){
+    return x;
+}
+
+int GameEntity::getY(){
+    return y;
+}
