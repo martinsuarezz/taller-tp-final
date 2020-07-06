@@ -5,3 +5,5 @@
 TimeoutIntention::TimeoutIntention() {}
 
 void TimeoutIntention::execute(Sender& game){}
+
+TimeoutIntention::~TimeoutIntention() {}

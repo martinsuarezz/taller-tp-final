@@ -11,6 +11,7 @@ class TimeoutIntention: public Intention{
         
     public:
         TimeoutIntention();
+        ~TimeoutIntention();
 
         // No realiza nada.
         void execute(Sender& game);
