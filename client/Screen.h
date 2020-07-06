@@ -12,6 +12,8 @@ class Entity;
 
 class EntityContainer;
 
+// Clase que modela la pantalla.
+
 class Screen {
     private:
         MapGraphic& map;
@@ -42,16 +44,17 @@ class Screen {
         void moveToCenter();
         // Mueve la camara para que las posiciones dadas estén en el centro.
         void centerToPosition(int x, int y);
-
+        // Centra la cámara a la posición del jugador.
         void centerToPlayerPosition(EntityContainer& entities);
 
-        // Obtener las posiciones de la camara
+        // Obtener las posiciones de la cámara
         int getPositionX() const;
         int getPositionY() const;
-        // Obtener dimensiones de la camara
+        // Obtener dimensiones de la cámara
         int getWidth() const;
         int getHeight() const;
 
+        // Devuelve si la entidad está dentro de la cámara
         bool isInbound(const Entity& entity) const;
 
         //Render the screen.

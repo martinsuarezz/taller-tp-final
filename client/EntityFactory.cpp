@@ -5,9 +5,8 @@
 #include <map>
 #include <string>
 
-EntityFactory::EntityFactory(AssetsLoader& assets, Screen& screen): assets(assets), screen(screen){
-
-}
+EntityFactory::EntityFactory(AssetsLoader& assets, Screen& screen):
+                            assets(assets), screen(screen){}
 
 Entity EntityFactory::getPlayer(int x, int y){
     std::map<std::string, std::string> equiped;

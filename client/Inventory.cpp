@@ -5,17 +5,17 @@
 #include "AssetsLoader.h"
 #include <map>
 #include <stdexcept>
-#include <iostream>
 
 #define SLOT_SIZE 32
 
 Inventory::Inventory(AssetsLoader& assets): assets(assets){
     Configuration& config = Configuration::getInstance();
-    slots = config.getValue("inventory_slots") + config.getValue("equipment_slots");
+    slots = config.getValue("inventory_slots") + 
+            config.getValue("equipment_slots");
     selected = -1;
 }
 
-int Inventory::getSlot(int x, int y){
+int Inventory::getSlot(int x, int y) const{
     for(int slot = 0; slot < slots; slot++){
         if (slotIsInbound(x, y, slot))
             return slot;
@@ -57,21 +57,25 @@ int Inventory::getX(int position) const{
     
     if (position < saveSlots){
         int columns = config.getValue("inventory_columns");
-        int initialX = windowWidth * config.getValue("inv_x_start_perc") / 100;
+        int initialX = windowWidth * config.getValue("inv_x_start_perc")/100;
         int stepX = windowWidth * config.getValue("inv_x_step_perc") / 100;
         returnValue = initialX + (stepX * (position % columns));
     }
     else if (position == config.getValue("inv_helmet_slot")){
-        returnValue = windowWidth * config.getValue("inv_x_helmet_slot_perc") / 100;
+        returnValue = windowWidth * 
+                        config.getValue("inv_x_helmet_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_weapon_slot")){
-        returnValue = windowWidth * config.getValue("inv_x_weapon_slot_perc") / 100;
+        returnValue = windowWidth * 
+                        config.getValue("inv_x_weapon_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_armor_slot")){
-        returnValue = windowWidth * config.getValue("inv_x_armor_slot_perc") / 100;
+        returnValue = windowWidth * 
+                        config.getValue("inv_x_armor_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_shield_slot")){
-        returnValue = windowWidth * config.getValue("inv_x_shield_slot_perc") / 100;
+        returnValue = windowWidth * 
+                        config.getValue("inv_x_shield_slot_perc") / 100;
     }
     return returnValue;
 }
@@ -87,21 +91,25 @@ int Inventory::getY(int position) const{
 
     if (position < saveSlots){
         int columns = config.getValue("inventory_columns");
-        int initialY = windowHeight * config.getValue("inv_y_start_perc") / 100;
+        int initialY = windowHeight * config.getValue("inv_y_start_perc")/100;
         int stepY = windowHeight * config.getValue("inv_y_step_perc") / 100;
         returnValue = initialY + (stepY * (int)(position / columns));
     }
     else if (position == config.getValue("inv_helmet_slot")){
-        returnValue = windowHeight * config.getValue("inv_y_helmet_slot_perc") / 100;
+        returnValue = windowHeight * 
+                        config.getValue("inv_y_helmet_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_weapon_slot")){
-        returnValue = windowHeight * config.getValue("inv_y_weapon_slot_perc") / 100;
+        returnValue = windowHeight * 
+                        config.getValue("inv_y_weapon_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_armor_slot")){
-        returnValue = windowHeight * config.getValue("inv_y_armor_slot_perc") / 100;
+        returnValue = windowHeight * 
+                        config.getValue("inv_y_armor_slot_perc") / 100;
     }
     else if (position == config.getValue("inv_shield_slot")){
-        returnValue = windowHeight * config.getValue("inv_y_shield_slot_perc") / 100;
+        returnValue = windowHeight * 
+                        config.getValue("inv_y_shield_slot_perc") / 100;
     }
     return returnValue;
 }
@@ -127,16 +135,13 @@ void Inventory::resetSelection(){
     selected = -1;
 }
 
-void Inventory::handleLeftClick(int x, int y){
-    
-}
-
 bool Inventory::slotIsInbound(int x, int y, int slot) const{
     if (slot >= slots)
         throw std::out_of_range("Wrong inventory slot");
     int slotX = getX(slot);
     int slotY = getY(slot);
-    return (x > slotX) && (x < slotX + SLOT_SIZE) && (y > slotY) && (y < slotY + SLOT_SIZE);
+    return (x > slotX) && (x < slotX + SLOT_SIZE) && 
+            (y > slotY) && (y < slotY + SLOT_SIZE);
 }
 
 Inventory::~Inventory(){}

@@ -4,9 +4,10 @@
 #include "Item.h"
 #include <map>
 #include <stdexcept>
-#include <iostream>
 
-GraphicalInterface::GraphicalInterface(AssetsLoader& assets): assets(assets), gui(assets.getTexture("interface")), inventory(Inventory(assets)),selected(-1){
+GraphicalInterface::GraphicalInterface(AssetsLoader& assets): 
+                    assets(assets), gui(assets.getTexture("interface")),
+                    inventory(Inventory(assets)){
     Configuration& config = Configuration::getInstance();
     gui.setHeight(config.getValue("window_height"));
     gui.setWidth(config.getValue("window_width"));
@@ -29,7 +30,7 @@ bool GraphicalInterface::slotIsInbound(int x, int y, int slot) const{
     return inventory.slotIsInbound(x, y, slot);
 }
 
-int GraphicalInterface::getInventorySlot(int x, int y){
+int GraphicalInterface::getInventorySlot(int x, int y) const{
     return inventory.getSlot(x, y);
 }
 
@@ -45,9 +46,4 @@ void GraphicalInterface::moveItemInventory(int from, int to){
     inventory.moveItem(from, to);
 }
 
-void GraphicalInterface::handleLeftClick(int x, int y){
-    inventory.handleLeftClick(x, y);
-}
-
-GraphicalInterface::~GraphicalInterface(){
-}
+GraphicalInterface::~GraphicalInterface(){}

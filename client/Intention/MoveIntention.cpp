@@ -1,4 +1,3 @@
-#include <string.h>
 #include "MoveIntention.h"
 #include "Intention.h"
 #include "../Sender.h"

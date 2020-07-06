@@ -1,8 +1,6 @@
 #include "Configuration.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
-//#include <string>
-//#include <iostream>
 
 using json = nlohmann::json;
 
@@ -11,7 +9,7 @@ Configuration::Configuration(){
     json configJSON;
     configFile >> configJSON;
 
-    for (json::iterator it = configJSON.begin(); it != configJSON.end(); ++it) {
+    for (json::iterator it = configJSON.begin(); it != configJSON.end(); ++it){
         std::string parameter(it.key());
         int value = it.value();
         map.emplace(std::make_pair(std::move(parameter), value));
@@ -23,6 +21,6 @@ Configuration& Configuration::getInstance(){
     return instance;
 }
 
-int Configuration::getValue(std::string parameter){
+int Configuration::getValue(std::string parameter) const{
     return map.find(parameter)->second;
 }

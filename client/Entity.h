@@ -3,7 +3,6 @@
 
 #include "Texture.h"
 #include "Sound.h"
-#include "Animation/WalkingAnimation.h"
 #include "Action/Action.h"
 #include <memory>
 #include <map>
@@ -12,6 +11,8 @@
 class AssetsLoader;
 
 class Screen;
+
+// Clase que modela una entidad en el entorno gráfico.
 
 class Entity{
     private:
@@ -23,26 +24,41 @@ class Entity{
         std::unique_ptr<Action> action;
 
     public:
-        Entity(AssetsLoader& assets, Screen& screen, std::map<std::string, std::string> equiped, int x, int y);
-
+        Entity(AssetsLoader& assets, Screen& screen, 
+                std::map<std::string, std::string> equiped, 
+                int x, int y);
+        
+        // Actualiza la entidad correspondiente al paso del tiempo.
         void update();
-        int getX() const;
-        int getY() const;
+
+        // Obtiene la ubicación en pixeles de la entidad.
         int getPixelsX() const;
         int getPixelsY() const;
+
+        // Obtiene la ubicación en pixeles de la entidad relativo al
+        // comienzo de la pantalla.
         int getRelativeX() const;
         int getRelativeY() const;
-        void addX(int pixels);
-        void addY(int pixels);
+
+        // Mueve la entidad a las coordenadas indicadas en pixeles absolutos.
         void moveUp(int x, int y);
         void moveDown(int x, int y);
         void moveRight(int x, int y);
         void moveLeft(int x, int y);
+
+        // Actualiza la posición a las coordenadas indicadas en pixeles absolutos.
         void updatePosition(int x, int y);
+
+        // La entidad pasa a estar idle en las coordenadas indicadas.
         void idle(int x, int y);
-        void meditate();
+        
+        // Actualiza la acción que está realizando.
         void updateAction(Action* newAction);
+
+        // Obtiene los items equipados por la entidad.
         std::map<std::string, std::string>& getEquipedItems();
+
+        // Devuelve si la entidad se encuentra en la pantalla.
         bool isOnScreen() const;
 
         Entity(Entity&&);

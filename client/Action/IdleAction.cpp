@@ -4,19 +4,20 @@
 #include "../Animation/Animation.h"
 #include "../AssetsLoader.h"
 #include "../Entity.h"
-#include <iostream>
 #include <map>
 #include <string>
 
-IdleAction::IdleAction(Entity& entity, AssetsLoader& assets): Action(entity), assets(assets){
+IdleAction::IdleAction(Entity& entity, AssetsLoader& assets): 
+                                    Action(entity), assets(assets){
+    
     std::map<std::string, std::string>& equiped = entity.getEquipedItems();
 
     std::map<std::string, std::string>::iterator it;
     for (it = equiped.begin(); it != equiped.end(); it++){
         Texture& texture = assets.getTexture(it->second);
         std::string animationName = it->first.substr(1) + "_" + "idle";
-        std::vector<SDL_Rect>& frames = assets.getAnimationFrames(animationName);
-        Animation bodyAnimation(texture, frames, 1000);
+        std::vector<SDL_Rect>& rect = assets.getAnimationFrames(animationName);
+        Animation bodyAnimation(texture, rect, 1000);
         animations.push_back(std::move(bodyAnimation));
     }
 }

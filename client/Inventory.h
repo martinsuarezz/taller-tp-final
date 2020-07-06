@@ -5,6 +5,8 @@
 
 class AssetsLoader;
 
+// Clase que modela el inventario en la interfaz gráfica.
+
 class Inventory{
     private:
         AssetsLoader& assets;
@@ -16,14 +18,31 @@ class Inventory{
 
     public:
         Inventory(AssetsLoader& assets);
+
+        // Renderiza el inventario y sus items.
         void render();
+
+        // Agrega un ítem en la posición indicada.
         void addItem(int itemId, int position);
+
+        // Remueve el ítem de la posición indicada.
         void removeItem(int position);
+
+        // Mueve un ítem entre dos posiciones.
         void moveItem(int from, int to);
-        int getSlot(int x, int y);
+
+        // Obtiene el slot del inventario que abarca las coordenadas
+        // brindadas.
+        int getSlot(int x, int y) const;
+
+        // Devuelve si las coordenadas recibidas corresponden al slot indicado.
         bool slotIsInbound(int x, int y, int slot) const;
+
+        // Selecciona el slot indicado para que la interfaz gráfica
+        // así lo muestre.
         void selectSlot(int slot);
-        void handleLeftClick(int x, int y);
+
+        // Reinicia el slot seleccionado para que no haya ninguno.
         void resetSelection();
         ~Inventory();
 };

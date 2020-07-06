@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 Screen::Screen(MapGraphic& map, Renderer& renderer, 
-                int screen_w, int screen_h): map(map), renderer(renderer) {
+                int screen_w, int screen_h): map(map), renderer(renderer){
     camera = {0, 0, renderer.getWidth(), renderer.getHeight()};
 }
 
@@ -33,8 +33,6 @@ int Screen::checkBoundryY(int y) const {
     return y;
 }
 
-//CUIDADO -> POSIBLE BUG -> PANTALLA MAS GRANDE QUE IMAGEN
-//-> INVESTIGAR -> SE AGREGA LOGICA O SE MANEJA SOLO -> SE ROMPE EL CHECKBOUNDRY ?
 void Screen::setScreenSize(int width, int heigh) {
     camera.w = width;
     camera.h = heigh;
@@ -52,7 +50,7 @@ void Screen::movePosition(int x, int y) {
 
 void Screen::moveToCenter() {
     camera.x = checkBoundryX((map.getPixelsWidth() / 2) - camera.w / 2);
-    camera.y = checkBoundryY((map.getPixelsHeight() / 2) - camera.h / 2); 
+    camera.y = checkBoundryY((map.getPixelsHeight() / 2) - camera.h / 2);
 }
 
 void Screen::centerToPosition(int x, int y){
@@ -67,7 +65,6 @@ void Screen::centerToPlayerPosition(EntityContainer& entities){
     catch (std::runtime_error& e){
         centerToPosition(0, 0);
     }
-    
 }
 
 int Screen::getPositionX() const {
@@ -95,8 +92,10 @@ bool Screen::isInbound(const Entity& entity) const{
     int tileSize = config.getValue("tile_size");
     int entityX = entity.getPixelsX();
     int entityY = entity.getPixelsY();
-    bool inboundX = (entityX > camera.x - tileSize) && (entityX < camera.x + camera.w + tileSize);
-    bool inboundY = (entityY > camera.y - tileSize) && (entityY < camera.y + camera.h + tileSize);
+    bool inboundX = (entityX > camera.x - tileSize) && 
+                    (entityX < camera.x + camera.w + tileSize);
+    bool inboundY = (entityY > camera.y - tileSize) && 
+                    (entityY < camera.y + camera.h + tileSize);
 
     return inboundX && inboundY;
 }

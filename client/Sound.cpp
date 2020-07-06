@@ -4,8 +4,7 @@
 Sound::Sound(const std::string & path) {
     sound = Mix_LoadWAV(path.c_str());
     if (sound == NULL) {
-        //Excepcion a cambiar en el futuro.
-        throw std::invalid_argument(Mix_GetError());
+        throw std::runtime_error("No se pudo cargar el sonido");
     }
 }
 

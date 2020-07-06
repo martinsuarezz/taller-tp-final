@@ -7,7 +7,9 @@
 #include <iostream>
 #include <stdexcept>
 
-Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration): texture(texture), frames(frames), duration(duration){
+Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, 
+                    int duration): texture(texture), frames(frames), 
+                    duration(duration){
     Configuration& config = Configuration::getInstance();
     ammountFrames = frames.size();
     targetMiliseconds = duration / ammountFrames;
@@ -19,7 +21,8 @@ Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames, int durati
 void Animation::render(int x, int y){
     Configuration& config = Configuration::getInstance();
     int milisecondsPerFrame = 1000 / config.getValue("fps");
-    if (elapsedMiliseconds <= targetMiliseconds && (elapsedMiliseconds += milisecondsPerFrame) >= targetMiliseconds){
+    if ((elapsedMiliseconds <= targetMiliseconds) && 
+        ((elapsedMiliseconds += milisecondsPerFrame) >= targetMiliseconds)){
         currentAnimation++;
         targetMiliseconds += duration / ammountFrames;
     }

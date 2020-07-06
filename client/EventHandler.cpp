@@ -1,5 +1,6 @@
 #include "EventHandler.h"
 #include "Client.h"
+#include "Constants.h"
 #include "GraphicalInterface.h"
 #include "IntentionsQueue.h"
 #include "Intention/MoveIntention.h"
@@ -8,40 +9,32 @@
 #include "Intention/StopMoveIntention.h"
 #include <iostream>
 
-enum directions{UP, RIGHT, DOWN, LEFT};
-
-EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): client(client), intentions(intentions){}
+EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): 
+                            client(client), intentions(intentions){}
 
 int EventHandler::handleKeyDown(SDL_Event* event){
     if (event->key.repeat != 0)
         return 0;
     switch(event->key.keysym.sym){
         case SDLK_w:
-            std::cout << "W down" << std::endl;
             intentions.push(new MoveIntention(UP));
             return 1;
         case SDLK_d:
-            std::cout << "D down" << std::endl;
             intentions.push(new MoveIntention(RIGHT));
             return 1;
         case SDLK_s:
-            std::cout << "S down" << std::endl;
             intentions.push(new MoveIntention(DOWN));
             return 1;
         case SDLK_a:
-            std::cout << "A down" << std::endl;
             intentions.push(new MoveIntention(LEFT));
             return 1;
         case SDLK_m:
-            std::cout << "Play up" << std::endl;
             client.stopPlaySong();
             return 1;
         case SDLK_PERIOD:
-            std::cout << "Next up" << std::endl;
             client.nextSong();
             return 1;
         case SDLK_COMMA:
-            std::cout << "Play up" << std::endl;
             client.previousSong();
             return 1;
         
@@ -55,19 +48,15 @@ int EventHandler::handleKeyDown(SDL_Event* event){
 int EventHandler::handleKeyUp(SDL_Event* event){
     switch(event->key.keysym.sym){
         case SDLK_w:
-            std::cout << "W up" << std::endl;
             intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_d:
-            std::cout << "D up" << std::endl;
             intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_s:
-            std::cout << "S up" << std::endl;
             intentions.push(new StopMoveIntention());
             return 1;
         case SDLK_a:
-            std::cout << "A up" << std::endl;
             intentions.push(new StopMoveIntention());
             return 1;
     }
@@ -80,7 +69,6 @@ int EventHandler::handleMouseDown(SDL_Event* event){
             {
             std::cout << "Left mouse down" << std::endl;
             GraphicalInterface& gui = client.getGui();
-            gui.handleLeftClick(event->button.x, event->button.y);
             try{
                 int slot = gui.getInventorySlot(event->button.x, event->button.y);
                 std::cout << "Clicked slot: " << slot << std::endl;

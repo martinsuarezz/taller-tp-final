@@ -2,6 +2,8 @@
 #define THREAD_H
 #include <thread>
 
+// Clase que wrappea la funcionalidad de la librería thread.
+
 class Thread{
     private:
         std::thread thread;

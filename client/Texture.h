@@ -8,6 +8,8 @@
 
 class Renderer;
 
+// Clase que modela las texturas del juego.
+
 class Texture{
 	private:
 		Renderer& renderer;
@@ -47,11 +49,14 @@ class Texture{
 		// Renderiza la textura en las coordenadas dadas.
 		void render(int x, int y, SDL_Rect* clip = NULL, 
 					double angle = 0.0, SDL_Point* center = NULL, 
-					SDL_RendererFlip flip = SDL_FLIP_NONE);
+					SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 
+		// Cambia las dimensiones de la textura.
 		void setWidth(int newWidth);
 		void setHeight(int newHeight);
 
+		// Reinicia las dimensiones de la textura a sus dimensiones
+		// originales.
 		void resetDimentions();
 
 		Texture& operator=(Texture&);

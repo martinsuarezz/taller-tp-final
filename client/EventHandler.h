@@ -6,6 +6,8 @@ class Client;
 
 class IntentionsQueue;
 
+// Clase que se encarga de manejar los eventos de entrada de SDL.
+
 class EventHandler{
     private:
         Client& client;
@@ -16,10 +18,15 @@ class EventHandler{
         int handleMouseDown(SDL_Event* event);
 
     public:
+        // Recibe una referencia a la cola de intenciones donde colocará
+        // las intenciones de ejecución.
         EventHandler(Client& client, IntentionsQueue& intentions);
-        void handle(int maxValidEvents, int maxTotalEvents);
-        
 
+        // Recibe cuantos eventos máximos debe manejar.
+        // maxValidEvents es el número máximo de eventos que sabe manejar.
+        // maxTotalEventos es el número máximo de eventos totales 
+        // a manejar e ignorar.
+        void handle(int maxValidEvents, int maxTotalEvents);
 };
 
 #endif

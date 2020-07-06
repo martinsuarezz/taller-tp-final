@@ -6,6 +6,9 @@ class AssetsLoader;
 
 class Screen;
 
+// Clase que modela una factory de entidades para
+// abstraerse de la creación de las mismas.
+
 class EntityFactory{
     private:
         AssetsLoader& assets;
@@ -13,7 +16,11 @@ class EntityFactory{
 
     public:
         EntityFactory(AssetsLoader& assets, Screen& screen);
+
+        // Devuelve una entidad jugador ubicado en las coordenadas dadas.
         Entity getPlayer(int x, int y);
+
+        // Devuelve una entidad zombie ubicado en las coordenadas dadas.
         Entity getZombie(int x, int y);
 
 };

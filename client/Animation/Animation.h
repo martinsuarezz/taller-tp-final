@@ -8,6 +8,8 @@ class Texture;
 
 class Sound;
 
+// Clase que modela una animación.
+
 class Animation{
     protected:
         Texture& texture;
@@ -22,9 +24,14 @@ class Animation{
         int remainingFrames;
 
     public:
-        Animation(Texture& texture, std::vector<SDL_Rect>& frames, int duration);
+        // Recibe la textura a animar, un vector con los frames de animación,
+        // y la duración de cada frame.
+        Animation(Texture& texture, std::vector<SDL_Rect>& frames, 
+                    int duration);
+
+        // Renderiza la animación en la posición indicada (pixeles absolutos)
         void render(int x, int y);
-        void playSound();
+
         ~Animation();
 };
 

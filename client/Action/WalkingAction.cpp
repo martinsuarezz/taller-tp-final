@@ -7,9 +7,11 @@
 #include "../Configuration.h"
 #include "../SoundPlayer.h"
 #include <string>
-#include <iostream>
 
-WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets, std::string direction): Action(entity), assets(assets), direction(direction){
+WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets,
+                            std::string direction): Action(entity),
+                            assets(assets), direction(direction){
+    
     Configuration& config = Configuration::getInstance();
     remainingFrames = (config.getValue("walking_duration") * config.getValue("fps")) / 1000;
 

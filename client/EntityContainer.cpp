@@ -4,7 +4,8 @@
 #include "Constants.h"
 #include <stdexcept>
 
-EntityContainer::EntityContainer(AssetsLoader& assets, Screen& screen): factory(EntityFactory(assets, screen)), playerId(-1){}
+EntityContainer::EntityContainer(AssetsLoader& assets, Screen& screen): 
+                    factory(EntityFactory(assets, screen)), playerId(-1){}
 
 void EntityContainer::move(int entityId, int direction, int x, int y){
     Entity& entity = entities.at(entityId);
@@ -55,3 +56,5 @@ Entity& EntityContainer::getPlayer(){
     }
     return entities.at(playerId);
 }
+
+//EntityContainer::~EntityContainer(){}

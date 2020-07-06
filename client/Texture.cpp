@@ -31,7 +31,8 @@ Texture::~Texture(){
 	free();
 }
 
-bool Texture::loadFromFile(std::string path, bool transparecy, SDL_Color transparencyColor){
+bool Texture::loadFromFile(std::string path, bool transparecy, 
+							SDL_Color transparencyColor){
 	free();
 	SDL_Texture* newTexture = NULL;
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -40,12 +41,13 @@ bool Texture::loadFromFile(std::string path, bool transparecy, SDL_Color transpa
 	else{
 		if (transparecy)
 			SDL_SetColorKey(loadedSurface, SDL_TRUE, 
-								SDL_MapRGB(loadedSurface->format, 
+								SDL_MapRGB(loadedSurface->format,
 								transparencyColor.r,
 								transparencyColor.g,
 								transparencyColor.b));
 
-        newTexture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(), loadedSurface);
+        newTexture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(),
+													loadedSurface);
 		if (newTexture == NULL)
 			throw std::runtime_error(SDL_GetError());
 		else {
@@ -72,11 +74,13 @@ bool Texture::loadFromRenderedText(std::string text, std::string fontName,
 	if (!font)
 		throw std::runtime_error(TTF_GetError());
 	
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), fontColor);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), 
+													fontColor);
 	TTF_CloseFont(font);
 
 	if (textSurface != NULL){
-        texture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(), textSurface);
+        texture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(),
+												textSurface);
 		if(texture == NULL)
 			throw std::runtime_error(SDL_GetError());
 		else {
@@ -117,7 +121,8 @@ void Texture::setAlpha(Uint8 alpha){
 	SDL_SetTextureAlphaMod(texture, alpha);
 }
 
-void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip){
+void Texture::render(int x, int y, SDL_Rect* clip, double angle,
+					SDL_Point* center, SDL_RendererFlip flip) const{
 	SDL_Rect renderQuad = {x, y, width, height};
 
 	if (clip != NULL){
@@ -125,7 +130,8 @@ void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cent
 		renderQuad.h = clip->h;
 	}
 	
-	SDL_RenderCopyEx(renderer.getSDLRenderer(), texture, clip, &renderQuad, angle, center, flip);
+	SDL_RenderCopyEx(renderer.getSDLRenderer(), texture, clip, &renderQuad, 
+					angle, center, flip);
 }
 
 void Texture::setWidth(int newWidth){

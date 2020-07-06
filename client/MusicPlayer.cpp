@@ -8,7 +8,8 @@
 
 using json = nlohmann::json;
 
-MusicPlayer::MusicPlayer(AssetsLoader& assets): assets(assets), index(0), isStopped(false){
+MusicPlayer::MusicPlayer(AssetsLoader& assets): assets(assets), index(0),
+                                                isStopped(false){
     std::string tracksFile = "music/playableTracks.json";
     std::ifstream tracksConfig(tracksFile);
     json tracksJSON;

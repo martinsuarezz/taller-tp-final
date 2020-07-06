@@ -1,4 +1,8 @@
+#ifndef CLOCK_H
+#define CLOCK_H
 #include <chrono>
+
+// Clase utilizable como cronómetro.
 
 class Clock{
     private:
@@ -8,7 +12,17 @@ class Clock{
     
     public:
         Clock();
+
+        // Comienza el cronómetro.
         void start();
+
+        // Detine el cronómetro.
         void stop();
-        int getDuration();
+
+        // Obtiene la duración del tipo pasado entre
+        // comenzar y para el cronómetro. El resultado
+        // se obtiene en microsegundos.
+        int getDuration() const;
 };
+
+#endif

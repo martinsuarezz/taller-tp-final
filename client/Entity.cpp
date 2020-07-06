@@ -8,21 +8,14 @@
 
 #define TILE_SIZE 64
 
-Entity::Entity(AssetsLoader& assets, Screen& screen, std::map<std::string, std::string> equiped, int x, int y):
-                    x(x), y(y), assets(assets), screen(screen), equiped(equiped), action(new IdleAction(*this, assets)){
-    
-}
+Entity::Entity(AssetsLoader& assets, Screen& screen, 
+                std::map<std::string, std::string> equiped, 
+                int x, int y): x(x), y(y), assets(assets), 
+                screen(screen), equiped(equiped), 
+                action(new IdleAction(*this, assets)){}
 
 void Entity::update(){
     action->update();
-}
-
-void Entity::addX(int distance){
-    x += distance;
-}
-
-void Entity::addY(int distance){
-    y += distance;
 }
 
 void Entity::moveUp(int x, int y) {
@@ -55,14 +48,6 @@ void Entity::updatePosition(int xNew, int yNew){
     y = yNew;
 }
 
-int Entity::getX() const{
-    return x;
-}
-
-int Entity::getY() const{
-    return y;
-}
-
 int Entity::getPixelsX() const{
     return (int) nearbyint((float)(x * TILE_SIZE / 100)) + 12;
 }
@@ -91,7 +76,8 @@ bool Entity::isOnScreen() const{
     return screen.isInbound(*this);
 }
 
-Entity::Entity(Entity&& other): assets(other.assets), screen(other.screen), equiped(other.equiped){
+Entity::Entity(Entity&& other): assets(other.assets), screen(other.screen), 
+                                equiped(other.equiped){
     this->x = other.x;
     this->y = other.y;
     this->action.reset(new IdleAction(*this, assets));

@@ -1,34 +1,36 @@
-#ifndef _MUSIC_H_
-#define _MUSIC_H_
+#ifndef MUSIC_H
+#define MUSIC_H
 
 #include <SDL2/SDL_mixer.h>
 #include <string>
+
+// Clase que modela una canción del juego.
 
 class Music {
     private:
     Mix_Music* music;
 
     public:
-    //Initialize and load music.
+    // Inicializa y carga la música.
     Music(const std::string& path);
 
-    //Deallocates memory.
+    // Libera los recursos utilizados.
     ~Music();
 
-    //Plays de music x times.
-    //For infinite loop times = -1.
+    // Reproduce la canción x times.
+    // Si recibe -1 reproduce la canción eternamente.
     void play(int times);
     
-    //Pause the music if running.
+    // Pausa la música si se está reproduciendo.
     void pause();
 
-    //Resume the music if paused.
+    // Reproduce la música.
     void resume();
 
-    //Stop music.
+    // Detiene la música.
     void halt();
 
-    //
+    // Devuelve si la música se está reproduciendo.
     bool isPaused();
 
     Music(Music&& other);

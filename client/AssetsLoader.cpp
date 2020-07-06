@@ -11,10 +11,10 @@ using json = nlohmann::json;
 
 void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
     std::ifstream texturesConfig(file);
-    json texturesJSON;
-    texturesConfig >> texturesJSON;
+    json texJSON;
+    texturesConfig >> texJSON;
 
-    for (json::iterator it = texturesJSON.begin(); it != texturesJSON.end(); ++it) {
+    for (json::iterator it = texJSON.begin(); it != texJSON.end(); ++it){
         Texture texture = Texture(renderer);
         std::string fileName = "images/" + std::string(it.value());
         std::string keyName(it.key());
@@ -30,10 +30,10 @@ void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
 
 void AssetsLoader::loadSounds(std::string file){
     std::ifstream soundsConfig(file);
-    json soundsJSON;
-    soundsConfig >> soundsJSON;
+    json soundJSON;
+    soundsConfig >> soundJSON;
 
-    for (json::iterator it = soundsJSON.begin(); it != soundsJSON.end(); ++it) {
+    for (json::iterator it = soundJSON.begin(); it != soundJSON.end(); ++it){
         std::string fileName = "audio/" + std::string(it.value());
         Sound sound(fileName);
         std::string keyName(it.key());
@@ -46,7 +46,7 @@ void AssetsLoader::loadSongs(std::string file){
     json musicJSON;
     musicConfig >> musicJSON;
 
-    for (json::iterator it = musicJSON.begin(); it != musicJSON.end(); ++it) {
+    for (json::iterator it = musicJSON.begin(); it != musicJSON.end(); ++it){
         std::string fileName = "music/" + std::string(it.value());
         Music song(fileName);
         std::string keyName(it.key());
@@ -54,11 +54,13 @@ void AssetsLoader::loadSongs(std::string file){
     }
 }
 
-void AssetsLoader::loadAnimationsSingle(std::vector<int>& dimensions, std::string& keyName){
+void AssetsLoader::loadAnimationsSingle(std::vector<int>& dimensions,
+                                        std::string& keyName){
     std::cout << "Warning: single animation not implemented!" << std::endl; 
 }
 
-void AssetsLoader::loadAnimationsMultiple(std::vector<int>& dimensions, std::string& keyName){
+void AssetsLoader::loadAnimationsMultiple(std::vector<int>& dimensions,
+                                        std::string& keyName){
     std::vector<SDL_Rect> areas;
     int ammount = dimensions[0];
     int x = dimensions[1];
@@ -79,10 +81,10 @@ void AssetsLoader::loadAnimationsMultiple(std::vector<int>& dimensions, std::str
 
 void AssetsLoader::loadAnimations(std::string file){
     std::ifstream animationsConfig(file);
-    json animationsJSON;
-    animationsConfig >> animationsJSON;
+    json animJSON;
+    animationsConfig >> animJSON;
 
-    for (json::iterator it = animationsJSON.begin(); it != animationsJSON.end(); ++it) {
+    for (json::iterator it = animJSON.begin(); it != animJSON.end(); ++it){
         std::vector<int> dimensions = it.value();
         std::string keyName(it.key());
         if (dimensions[0] == 0)
@@ -111,6 +113,7 @@ Music& AssetsLoader::getSong(const std::string& songName){
     return songs.at(songName);
 }
 
-std::vector<SDL_Rect>& AssetsLoader::getAnimationFrames(const std::string& animationName){
+std::vector<SDL_Rect>& AssetsLoader::getAnimationFrames(
+        const std::string& animationName){
     return animations.at(animationName);
 }

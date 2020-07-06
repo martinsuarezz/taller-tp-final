@@ -16,8 +16,15 @@ class IdleAction: public Action{
 
     public:
         IdleAction(Entity& player, AssetsLoader& assets);
+
+        // Notifica el paso del tiempo.
         void update();
+
+        // Cambia la Action de la entidad a WalkingAction en la dirección
+        // indicada.
         void walk(std::string direction);
+
+        // No hace nada.
         void idle();
 };
 
