@@ -1,0 +1,52 @@
+#ifndef GRAPHICAL_INTERFACE_H
+#define GRAPHICAL_INTERFACE_H
+#include <map>
+#include "Item.h"
+#include "Inventory.h"
+
+class Texture;
+
+class AssetsLoader;
+
+// Clase que modela la interfaz gráfica.
+
+class GraphicalInterface{
+    private:
+        AssetsLoader& assets;
+        Texture& gui;
+        Inventory inventory;
+
+    public:
+        GraphicalInterface(AssetsLoader& assets);
+
+        // Renderiza la interfaz gráfica.
+        void render();
+
+        // Agrega un ítem al inventario.
+        void addItemInventory(int itemId, int position);
+
+        // Remueve un ítem del inventario.
+        void removeItemInventory(int position);
+
+        // Mueve un ítem del inventario entre dos posiciones.
+        void moveItemInventory(int from, int to);
+
+        // Obtiene el slot del inventario correspondiente
+        // a las coordenadas recibidas.
+        int getInventorySlot(int x, int y) const;
+
+        // Devuelve true si las coordenadas recibidas estan dentro
+        // del slot del inventario indicado.
+        bool slotIsInbound(int x, int y, int slot) const;
+
+        // Selecciona el slot indicado del inventario.
+        void selectSlot(int slot);
+
+        // Reinicia la selección del slot del inventario.
+        void resetSelection();
+
+        ~GraphicalInterface();
+
+};
+
+#endif
