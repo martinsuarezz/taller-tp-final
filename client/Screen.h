@@ -59,6 +59,8 @@ class Screen {
 
         //Render the screen.
         void render();
+
+        std::pair<int, int> getMapCoordinates(int x, int y);
 };
 
 

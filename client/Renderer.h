@@ -31,6 +31,9 @@ class Renderer{
         // Setea el viewport al area determinada.
         void setViewport(SDL_Rect* viewport);
 
+        // Obtiene el viewport actual y lo guarda en rect.
+        void getViewport(SDL_Rect* rect);
+
         // Setea el viewport a toda la pantalla.
         void resetViewport();
         

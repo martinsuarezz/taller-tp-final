@@ -30,6 +30,8 @@ class MapGraphic{
         // Obtiene las dimensiones totales del mapa en píxeles.
         int getPixelsWidth() const;
         int getPixelsHeight() const;
+
+        std::pair<int, int> getCoordinates(int x, int y, SDL_Rect* area);
 };
 
 #endif

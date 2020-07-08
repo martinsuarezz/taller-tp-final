@@ -26,6 +26,9 @@ class Sender: public Thread{
         void run();
         void addCommand(Command* command);
         void close();
+        void moveInventoryItem(int from, int to);
+        void addItem(int itemId, int slot);
+        void attackEntity(int x, int y);
 
 };
 

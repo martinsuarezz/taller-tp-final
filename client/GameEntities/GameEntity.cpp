@@ -24,3 +24,4 @@ int GameEntity::getX(){
 int GameEntity::getY(){
     return y;
 }
+

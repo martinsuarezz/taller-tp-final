@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include "GameMap.h"
 #include "GameEntities/GameEntity.h"
+#include "GameEntities/MovableEntity.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -46,6 +47,13 @@ bool GameMap::isInbound(int x, int y) const{
 
 bool GameMap::canMove(int x, int y) const{
     return isEmpty(x, y) && isInbound(x, y);
+}
+
+int GameMap::getEntityId(int x, int y) const{
+    if (isEmpty(x, y) || !isInbound(x, y))
+        throw std::out_of_range("No valid entity in that space");
+    MovableEntity* entity = (MovableEntity*) map[x][y];
+    return entity->getId();
 }
 
 std::pair<int, int> GameMap::getEmptyPosition(){

@@ -42,6 +42,9 @@ class Inventory{
         // así lo muestre.
         void selectSlot(int slot);
 
+        // Devuelve el slot seleccionado.
+        int getSelectedSlot() const;
+
         // Reinicia el slot seleccionado para que no haya ninguno.
         void resetSelection();
         ~Inventory();

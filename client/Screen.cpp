@@ -14,7 +14,7 @@ Screen::Screen(MapGraphic& map, Renderer& renderer,
 Screen::~Screen() {}
 
 void Screen::updateCamera(){
-    camera = {0, 0, renderer.getWidth(), renderer.getHeight()};
+    renderer.getViewport(&camera);
 }
 
 int Screen::checkBoundryX(int x) const {
@@ -98,4 +98,8 @@ bool Screen::isInbound(const Entity& entity) const{
                     (entityY < camera.y + camera.h + tileSize);
 
     return inboundX && inboundY;
+}
+
+std::pair<int, int> Screen::getMapCoordinates(int x, int y){
+    return map.getCoordinates(x, y, &camera);
 }

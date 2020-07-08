@@ -38,6 +38,10 @@ void Renderer::setViewport(SDL_Rect* viewport){
     SDL_RenderSetViewport(renderer, viewport);
 }
 
+void Renderer::getViewport(SDL_Rect* rect){
+    SDL_RenderGetViewport(renderer, rect);
+}
+
 void Renderer::resetViewport(){
     setViewport(NULL);
 }

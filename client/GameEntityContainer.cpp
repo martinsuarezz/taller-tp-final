@@ -85,3 +85,22 @@ void GameEntityContainer::spawnHostileMob(){
         catch(std::runtime_error& e){}
     }
 }
+
+void GameEntityContainer::moveInventoryItem(int id, int from, int to){
+    getMob(id)->moveInventoryItem(from, to);
+}
+
+void GameEntityContainer::attack(int from, int to){
+    mobs.at(from)->attackEntity(*mobs.at(to));
+}
+
+void GameEntityContainer::addItem(int entityId, int itemId, int slot){
+    getMob(entityId)->addItem(itemId, slot);
+}
+
+GameEntityContainer::~GameEntityContainer(){
+    std::map<int, MovableEntity*>::iterator it;
+    for (it = mobs.begin(); it != mobs.end(); it++){
+        delete it->second;
+    }
+}

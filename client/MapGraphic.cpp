@@ -48,13 +48,17 @@ int MapGraphic::getTile(int x, int y, int layer) const{
     }
     return tile;
 }
-/*
-static int boundZero(int number){
-    if (number < 0)
-        return 0;
-    return number;
+
+std::pair<int, int> MapGraphic::getCoordinates(int x, int y, SDL_Rect* area){
+    Configuration& config = Configuration::getInstance();
+    
+    int tileSize = config.getValue("tile_size");
+    int xTile = (x + area->x) / tileSize;
+    int yTile = (y + area->y) / tileSize;
+    return std::pair<int, int>(xTile, yTile);
 }
-*/
+
+
 void MapGraphic::renderLayer(int xScreen, int yScreen, 
                             SDL_Rect* area, int layer){
                                 

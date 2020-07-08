@@ -16,6 +16,7 @@ class EventHandler{
         int handleKeyDown(SDL_Event* event);
         int handleKeyUp(SDL_Event* event);
         int handleMouseDown(SDL_Event* event);
+        int handleRightMouseDown(SDL_Event* event);
 
     public:
         // Recibe una referencia a la cola de intenciones donde colocará

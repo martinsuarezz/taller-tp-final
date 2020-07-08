@@ -21,8 +21,9 @@ class GameMap{
         bool isEmpty(int x, int y) const;
         void addEntity(GameEntity* entity, int x, int y);
         bool canMove(int x, int y) const;
+        
         std::pair<int, int> getEmptyPosition();
-
+int getEntityId(int x, int y) const;
 };
 
 #endif

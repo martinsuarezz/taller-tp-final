@@ -34,6 +34,10 @@ int GraphicalInterface::getInventorySlot(int x, int y) const{
     return inventory.getSlot(x, y);
 }
 
+int GraphicalInterface::getSelectedSlot() const{
+    return inventory.getSelectedSlot();
+}
+
 void GraphicalInterface::addItemInventory(int itemId, int position){
     inventory.addItem(itemId, position);
 }

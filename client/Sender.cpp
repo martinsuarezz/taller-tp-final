@@ -13,6 +13,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <stdexcept>
 
 Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands): 
     intentions(intentions), commands(commands), entities(GameEntityContainer(*this, map)), continueRunning(true){}
@@ -20,6 +21,7 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands):
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
     entities.addPlayer(20, 20);
+    entities.addItem(0, 1, 1);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);
@@ -33,6 +35,22 @@ void Sender::movePlayer(int direction){
 
 void Sender::stopMovementPlayer(){
     entities.stop(0);
+}
+
+void Sender::moveInventoryItem(int from, int to){
+    entities.moveInventoryItem(0, from, to);
+}
+
+void Sender::addItem(int itemId, int slot){
+    entities.addItem(0, itemId, slot);
+}
+
+void Sender::attackEntity(int x, int y){
+    try{
+        int entityId = map.getEntityId(x, y);
+        entities.attack(0, entityId);
+    }
+    catch (std::out_of_range& e) {}
 }
 
 void Sender::addCommand(Command* command){

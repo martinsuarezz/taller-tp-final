@@ -41,5 +41,11 @@
     "zombie_speed": 1250000,
     "zombie_vision": 6,
     "mob_spawn_prob": 5,
-    "mob_spawn_max": 10
+    "mob_spawn_max": 10,
+
+    "damage_min_bare_hands": 0,
+    "damage_max_bare_hands": 3,
+    "defense_min_bare_hands": 1,
+    "defense_max_bare_hands": 3,
+    "range_bare_hands": 1
 }

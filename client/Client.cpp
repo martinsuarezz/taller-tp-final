@@ -32,6 +32,14 @@ Client::Client(Window& window): window(window),
                                 entities(EntityContainer(assets, screen)),
                                 continueExectuion(true){
 
+    Configuration& config = Configuration::getInstance();
+
+    int windowWidth = config.getValue("window_width");
+    int windowHeight = config.getValue("window_height");
+    mapViewport = {(int) (windowWidth / 80), (int) (windowHeight / 60), (int) (windowWidth / 1.45), (int) (windowHeight / 1.02)};
+    renderer.setViewport(&mapViewport);
+
+    screen.updateCamera();
 }
 
 void Client::addItem(int itemId, int position){
@@ -64,7 +72,6 @@ void Client::removeMob(int entityId){
 
 void Client::idleEntity(int entityId, int x, int y){
     entities.idle(entityId, x, y);
-    //entities.at(entityId).idle(x * 100, y * 100);
 }
 
 void Client::nextSong(){
@@ -83,6 +90,15 @@ void Client::stopExecution(){
     continueExectuion = false;
 }
 
+std::pair<int, int> Client::getMapCoordinates(int x, int y){
+    return screen.getMapCoordinates(x, y);
+}
+
+bool Client::isClickOnMapScreen(int x, int y){
+    return (x > mapViewport.x) && (x < (mapViewport.x + mapViewport.w)) &&
+            (y > mapViewport.y) && (y < mapViewport.y + mapViewport.h);
+}
+
 GraphicalInterface& Client::getGui(){
     return gui;
 }
@@ -95,29 +111,6 @@ void Client::run(){
 
     renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
-
-    int windowWidth = config.getValue("window_width");
-    int windowHeight = config.getValue("window_height");
-    SDL_Rect viewport = {(int) (windowWidth / 80), (int) (windowHeight / 60), (int) (windowWidth / 1.45), (int) (windowHeight / 1.02)};
-    renderer.setViewport(&viewport);
-
-    screen.updateCamera();
-
-    /*
-    MapGraphic map("hola.json", assets, 25, 25);
-
-    Screen mapScreen(map, renderer, config.getValue("window_width"), config.getValue("window_height"));
-    
-    EntityFactory factory(assets, mapScreen);
-    entities.emplace(0, std::move(factory.getPlayer(20, 14)));
-    entities.emplace(1, std::move(factory.getZombie(404, 14)));
-    Entity& player = entities.at(0);
-    */
-
-    addItem(1, 0);
-    addItem(1, 1);
-    addItem(1, 14);
-    moveItem(0, 15);
 
     EventHandler eventHandler(*this, intentions);
 
@@ -136,7 +129,7 @@ void Client::run(){
 
         musicPlayer.continuePlaying();
         renderer.clear();
-        renderer.setViewport(&viewport);
+        renderer.setViewport(&mapViewport);
 
         screen.centerToPlayerPosition(entities);
         screen.render();

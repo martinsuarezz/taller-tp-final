@@ -46,7 +46,7 @@ void Zombie::moveTowards(int xObj, int yObj){
     }
 }
 
-int Zombie::isInRange(int xObj, int yObj, int range){
+bool Zombie::isInRange(int xObj, int yObj, int range){
     return (abs(xObj - x) <= range) && (abs(yObj - y) <= range);
 }
 
@@ -58,7 +58,17 @@ void Zombie::notifyPlayerMovement(int x, int y){
     if (isInVisionRange(x, y)){
         moveTowards(x, y);
     }
-        
 }
+
+void Zombie::attackEntity(MovableEntity& other){}
+
+void Zombie::moveInventoryItem(int from, int to){
+
+}
+
+void Zombie::addItem(int itemId, int slot){
+
+}
+
 
 Zombie::~Zombie(){}

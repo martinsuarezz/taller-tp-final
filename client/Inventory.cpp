@@ -137,6 +137,12 @@ void Inventory::resetSelection(){
     selected = -1;
 }
 
+int Inventory::getSelectedSlot() const{
+    if (selected == -1)
+        throw std::runtime_error("No selected slot");
+    return selected;
+}
+
 bool Inventory::slotIsInbound(int x, int y, int slot) const{
     Configuration& config = Configuration::getInstance();
 

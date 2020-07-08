@@ -6,6 +6,7 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
+#include <iostream>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
                     GameEntity(game, map, x, y), state(new IdleState(*this)), entityId(entityId), moveSpeed(moveSpeed){}
@@ -68,6 +69,19 @@ void MovableEntity::changeState(){
         nextState.release();
         state->activate();
     }
+}
+
+int MovableEntity::getId(){
+    return entityId;
+}
+
+void MovableEntity::getAttacked(int damage){
+    health -= damage;
+    std::cout << "Current HP: " << health << std::endl;
+}
+
+bool MovableEntity::isInRange(MovableEntity& other, int range){
+    return ((abs(other.getX() - x)) <= range) && ((abs(other.getY() - y)) <= range);
 }
 
 bool MovableEntity::canMove(int x, int y){

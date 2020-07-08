@@ -28,7 +28,10 @@ class GameEntityContainer{
         void stop(int id);
         void notifyPlayerMovement(int x, int y);
         void spawnHostileMob();
-
+        void addItem(int entityId, int itemId, int slot);
+        void attack(int from, int to);
+        void moveInventoryItem(int id, int from, int to);
+        ~GameEntityContainer();
 };
 
 #endif

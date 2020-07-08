@@ -12,7 +12,7 @@ class Sender;
 class Zombie: public MovableEntity{
     private:
         int visionRange;
-        int isInRange(int x, int y, int range);
+        bool isInRange(int x, int y, int range);
 
     public:
         Zombie(Sender& game, GameMap& map, int entityId, int x, int y);
@@ -22,6 +22,9 @@ class Zombie: public MovableEntity{
         void notifyPlayerMovement(int x, int y);
         bool isInVisionRange(int x, int y);
         void moveTowards(int x, int y);
+        void moveInventoryItem(int from, int to);
+        void attackEntity(MovableEntity& other);
+        void addItem(int itemId, int slot);
         ~Zombie();
 };
 

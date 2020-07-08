@@ -7,6 +7,8 @@
 #include "Intention/QuitIntention.h"
 #include "Intention/TimeoutIntention.h"
 #include "Intention/StopMoveIntention.h"
+#include "Intention/MoveItemIntention.h"
+#include "Intention/AttackIntention.h"
 #include <iostream>
 
 EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): 
@@ -63,6 +65,30 @@ int EventHandler::handleKeyUp(SDL_Event* event){
     return 0;
 }
 
+int EventHandler::handleRightMouseDown(SDL_Event* event){
+    std::cout << "Right mouse down" << std::endl;
+    if (client.isClickOnMapScreen(event->button.x, event->button.y)){
+        std::pair<int, int> coord = client.getMapCoordinates(event->button.x, event->button.y);
+        std::cout << coord.first << ", " << coord.second << std::endl;
+        intentions.push(new AttackIntention(coord.first, coord.second));
+        return 1;
+    }
+
+    GraphicalInterface& gui = client.getGui();
+    try{
+        int newSlot = gui.getInventorySlot(event->button.x, event->button.y);
+        int selectedSlot = gui.getSelectedSlot();
+        intentions.push(new MoveItemIntention(selectedSlot, newSlot));
+        gui.resetSelection();
+        std::cout << selectedSlot << " moves to " << newSlot << std::endl;
+    }
+    catch(...){
+        gui.resetSelection();
+    }
+    std::cout << "(x,y)" << event->button.x << "," << event->button.y << std::endl;
+    return 1;
+}
+
 int EventHandler::handleMouseDown(SDL_Event* event){
     switch(event->button.button){
         case SDL_BUTTON_LEFT:
@@ -80,10 +106,11 @@ int EventHandler::handleMouseDown(SDL_Event* event){
             std::cout << "(x,y)" << event->button.x << "," << event->button.y << std::endl;
             return 1;
             }
+            break;
 
         case SDL_BUTTON_RIGHT:
-            std::cout << "Right mouse down" << std::endl;
-            return 1;
+            return handleRightMouseDown(event);
+            
     }
     return 0;
 }

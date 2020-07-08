@@ -45,6 +45,9 @@ class GraphicalInterface{
         // Reinicia la selección del slot del inventario.
         void resetSelection();
 
+        // Devuelve el slot seleccionado.
+        int getSelectedSlot() const;
+
         ~GraphicalInterface();
 
 };

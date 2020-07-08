@@ -31,6 +31,7 @@ class Client{
         Screen screen;
         MusicPlayer musicPlayer;
         EntityContainer entities;
+        SDL_Rect mapViewport;
         //std::map<int, Entity> entities;
         bool continueExectuion;
 
@@ -50,6 +51,8 @@ class Client{
         void nextSong();
         void stopPlaySong();
         void previousSong();
+        std::pair<int, int> getMapCoordinates(int x, int y);
+        bool isClickOnMapScreen(int x, int y);
         GraphicalInterface& getGui();
 
 };

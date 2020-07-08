@@ -3,7 +3,6 @@
 #include "Client.h"
 #include <iostream>
 #include "Configuration.h"
-#include "Sound.h"
 
 int main(int argc, char* argv[]){
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
