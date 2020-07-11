@@ -43,6 +43,10 @@ void EntityContainer::removeMob(int entityId){
     entities.erase(entityId);
 }
 
+void EntityContainer::equipWeapon(int entityId, int itemId){
+    entities.at(entityId).equipWeapon(itemId);
+}
+
 void EntityContainer::update(int timeElapsed){
     std::map<int, Entity>::iterator it;
     for (it = entities.begin(); it != entities.end(); it++){

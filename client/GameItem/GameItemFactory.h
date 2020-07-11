@@ -4,13 +4,17 @@
 
 class GameItemFactory{
     private:
+        GameItem getItem(std::string name, int id);
 
     public:
         GameItemFactory();
         GameItem getBareHands();
         GameItem getNoArmor();
         GameItem getNoHelmet();
-        GameItem getItem(int id);
+        GameItem getSword();
+        GameItem getAxe();
+        GameItem getHammer();
+        GameItem getItem(int id); 
 
 };
 

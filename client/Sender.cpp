@@ -8,6 +8,7 @@
 #include "Intention/Intention.h"
 #include "CommandsQueue.h"
 #include "GameEntityContainer.h"
+#include "Constants.h"
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
@@ -21,7 +22,9 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands):
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
     entities.addPlayer(20, 20);
-    entities.addItem(0, 1, 1);
+    addItem(SWORD_ID, 1);
+    addItem(AXE_ID, 2);
+    addItem(HAMMER_ID, 3);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);
@@ -52,6 +55,11 @@ void Sender::attackEntity(int x, int y){
     }
     catch (std::out_of_range& e) {}
 }
+
+void Sender::removeMob(int id){
+    entities.removeMob(id);
+}
+
 
 void Sender::addCommand(Command* command){
     commands.push(command);

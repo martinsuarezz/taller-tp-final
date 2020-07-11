@@ -12,6 +12,7 @@ class GameInventory{
         Sender& game;
         GameItemFactory itemFactory;
         GameItem bareHands;
+        void equipItem(int itemId, int slot);
 
     public:
         GameInventory(Sender& game);

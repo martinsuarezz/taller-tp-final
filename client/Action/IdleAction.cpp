@@ -30,4 +30,8 @@ void IdleAction::walk(std::string direction){
     entity.updateAction(new WalkingAction(entity, assets, direction));
 }
 
+void IdleAction::refresh(){
+    entity.updateAction(new IdleAction(entity, assets));
+}
+
 void IdleAction::idle(){}

@@ -4,7 +4,7 @@
 #include <string>
 
 Item::Item(int itemId, AssetsLoader& assets):
-            texture(assets.getTexture("item" + std::to_string(itemId))),
+            texture(assets.getTexture("item" + std::to_string(itemId) + "_icon")),
             itemId(itemId){}
 
 void Item::render(int x, int y){

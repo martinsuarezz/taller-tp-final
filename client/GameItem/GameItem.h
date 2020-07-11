@@ -19,6 +19,8 @@ class GameItem{
 
         void addValidSlot(int slot);
 
+        bool canBeEquipped(int slot);
+
         int getId();
         int getDamage();
         int getRange();

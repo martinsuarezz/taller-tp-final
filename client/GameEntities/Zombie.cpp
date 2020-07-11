@@ -21,6 +21,7 @@ Zombie::Zombie(Sender& game, GameMap& map, int entityId, int x, int y):
     
     Configuration& config = Configuration::getInstance();
     visionRange = config.getValue("zombie_vision");
+    health = 100;
 }
 
 void Zombie::notifyMovement(int direction, int xNew, int yNew){
@@ -54,10 +55,13 @@ bool Zombie::isInVisionRange(int xObj, int yObj){
     return isInRange(xObj, yObj, visionRange);
 }
 
-void Zombie::notifyPlayerMovement(int x, int y){
-    if (isInVisionRange(x, y)){
-        moveTowards(x, y);
+void Zombie::notifyPlayerMovement(int xObj, int yObj){
+    if (isInVisionRange(xObj, yObj)){
+        moveTowards(xObj, yObj);
     }
+    else
+        stop();
+    
 }
 
 void Zombie::attackEntity(MovableEntity& other){}

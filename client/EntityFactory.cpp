@@ -12,7 +12,7 @@ Entity EntityFactory::getPlayer(int x, int y){
     std::map<std::string, std::string> equiped;
     equiped["1body"] = "leather_armor";
     equiped["2head"] = "human_head";
-    equiped["3staff"] = "knot_staff";
+    equiped["3weapon"] = "item4";
 
     return std::move(Entity(assets, screen, equiped, x, y));
 }

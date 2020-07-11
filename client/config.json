@@ -39,13 +39,31 @@
 
     "player_speed": 300000,
     "zombie_speed": 1250000,
-    "zombie_vision": 6,
+    "zombie_vision": 3,
     "mob_spawn_prob": 5,
     "mob_spawn_max": 10,
 
     "damage_min_bare_hands": 0,
-    "damage_max_bare_hands": 3,
-    "defense_min_bare_hands": 1,
-    "defense_max_bare_hands": 3,
-    "range_bare_hands": 1
+    "damage_max_bare_hands": 2,
+    "defense_min_bare_hands": 0,
+    "defense_max_bare_hands": 2,
+    "range_bare_hands": 1,
+
+    "damage_min_sword": 2,
+    "damage_max_sword": 5,
+    "defense_min_sword": 0,
+    "defense_max_sword": 0,
+    "range_sword": 1,
+
+    "damage_min_axe": 4,
+    "damage_max_axe": 5,
+    "defense_min_axe": 0,
+    "defense_max_axe": 0,
+    "range_axe": 1,
+
+    "damage_min_hammer": 1,
+    "damage_max_hammer": 9,
+    "defense_min_hammer": 0,
+    "defense_max_hammer": 0,
+    "range_hammer": 1
 }

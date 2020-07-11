@@ -1,5 +1,7 @@
 #include "GameItem.h"
 #include "DamageDealer.h"
+#include "../Configuration.h"
+#include <algorithm>
 
 GameItem::GameItem(std::string name, int itemId, int damageMin, int damageMax,
                     int defenseMin, int defenseMax, int range): 
@@ -24,6 +26,15 @@ int GameItem::getId(){
 
 int GameItem::getDamage(){
     return damageDealer.getDamage();
+}
+
+bool GameItem::canBeEquipped(int slot){
+    Configuration& config = Configuration::getInstance();
+    if (slot < config.getValue("inventory_slots"))
+        return true;
+    if (std::find(acceptedSlots.begin(), acceptedSlots.end(), slot) != acceptedSlots.end())
+        return true;
+    return false;
 }
 
 int GameItem::getRange(){

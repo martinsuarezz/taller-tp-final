@@ -78,6 +78,8 @@ int MovableEntity::getId(){
 void MovableEntity::getAttacked(int damage){
     health -= damage;
     std::cout << "Current HP: " << health << std::endl;
+    if (health <= 0)
+        game.removeMob(entityId);
 }
 
 bool MovableEntity::isInRange(MovableEntity& other, int range){

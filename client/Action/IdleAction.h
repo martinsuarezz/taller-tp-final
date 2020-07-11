@@ -26,6 +26,8 @@ class IdleAction: public Action{
 
         // No hace nada.
         void idle();
+
+        void refresh();
 };
 
 #endif

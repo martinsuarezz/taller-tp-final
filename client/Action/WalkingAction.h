@@ -28,6 +28,8 @@ class WalkingAction: public Action{
 
         // Actualiza la Action de la entidad a idle.
         void idle();
+
+        void refresh();
 };
 
 #endif

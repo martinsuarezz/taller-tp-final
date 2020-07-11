@@ -44,6 +44,7 @@ class Client{
         void addItem(int itemId, int position);
         void removeItem(int position);
         void moveItem(int from, int to);
+        void equipWeapon(int entityId, int itemId);
         void addMob(int entityId, int x, int y, int type);
         void removeMob(int entityId);
         void addPlayer(int entityId, int x, int y);

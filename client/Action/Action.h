@@ -25,6 +25,7 @@ class Action{
         virtual void update(int timeElapsed) = 0;
         virtual void walk(std::string direction) = 0;
         virtual void idle() = 0;
+        virtual void refresh() = 0;
 };
 
 #endif

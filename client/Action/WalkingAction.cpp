@@ -51,3 +51,7 @@ void WalkingAction::walk(std::string newDirection){
 void WalkingAction::idle(){
     entity.updateAction(new IdleAction(entity, assets));
 }
+
+void WalkingAction::refresh(){
+    entity.updateAction(new WalkingAction(entity, assets, direction));
+}

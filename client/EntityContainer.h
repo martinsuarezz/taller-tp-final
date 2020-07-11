@@ -36,6 +36,8 @@ class EntityContainer{
         // Remueve un monstruo o jugador.
         void removeMob(int entityId);
 
+        void equipWeapon(int entityId, int itemId);
+
         // Actualiza a las entidades indicando el paso del tiempo.
         void update(int timeElapsed);
 

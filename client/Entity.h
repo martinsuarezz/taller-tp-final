@@ -60,6 +60,9 @@ class Entity{
 
         // Devuelve si la entidad se encuentra en la pantalla.
         bool isOnScreen() const;
+        
+        // Equipa un arma
+        void equipWeapon(int itemId);
 
         Entity(Entity&&);
 };

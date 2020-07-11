@@ -76,6 +76,11 @@ std::map<std::string, std::string>& Entity::getEquipedItems(){
     return equiped;
 }
 
+void Entity::equipWeapon(int itemId){
+    equiped["3weapon"] = "item" + std::to_string(itemId);
+    action->refresh();
+}
+
 bool Entity::isOnScreen() const{
     return screen.isInbound(*this);
 }
