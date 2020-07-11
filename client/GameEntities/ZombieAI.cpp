@@ -16,9 +16,20 @@ void ZombieAI::update(){
     }
         
     if (zombie.isInRange(x, y, 1)){
-        // attack;
-        return;
-    }
+        if (xObj > x){
+            zombie.moveRight();
+        }
+        else if (xObj < x){
+            zombie.moveLeft();
+        }
+        else if (yObj > y){
+            zombie.moveDown();
+        }
+        else if (yObj < y){
+            zombie.moveUp();
+        }
+            return;
+        }
 
     if (zombie.isInRange(x, y, visionRange)){
         // move;
