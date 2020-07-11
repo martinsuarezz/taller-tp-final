@@ -3,7 +3,11 @@
 #include "../Configuration.h"
 
 ZombieAI::ZombieAI(Zombie& zombie): zombie(zombie), x(-1), y(-1), 
-                                    visionRange(1){}
+                                    visionRange(1){
+    
+    Configuration& config = Configuration::getInstance();
+    visionRange = config.getValue("zombie_vision");
+}
 
 void ZombieAI::update(){
     if (x == -1 || y == -1){

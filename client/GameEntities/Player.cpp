@@ -3,6 +3,7 @@
 #include "../GameMap.h"
 #include "../Sender.h"
 #include "../State/WalkingState.h"
+#include "../State/AttackingState.h"
 #include "../State/IdleState.h"
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
@@ -31,10 +32,13 @@ void Player::notifyIdle(){
 }
 
 void Player::attackEntity(MovableEntity& entity){
+    nextState.reset(new AttackingState(*this, entity, inventory.getWeapon(), strength, 2000000));
+    /*
     GameItem& weapon = inventory.getWeapon();
     if (!isInRange(entity, weapon.getRange()))
         return;
     entity.getAttacked(weapon.getDamage() * strength);
+    */
 }
 
 void Player::notifyPlayerMovement(int x, int y){
