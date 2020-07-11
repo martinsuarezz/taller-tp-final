@@ -5,10 +5,10 @@
 #include <math.h>
 #include <stdexcept>
 
-AtackingState::AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength, int duration): 
+AttackingState::AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength, int duration): 
                         State(entity), objective(objective), weapon(weapon), strength(strength), duration(duration){}
 
-void AtackingState::update(int timeElapsed){
+void AttackingState::update(int timeElapsed){
     if (duration <= 0){
         entity.changeState();
         return;
@@ -17,11 +17,11 @@ void AtackingState::update(int timeElapsed){
     duration -= timeElapsed;
 }
 
-bool AtackingState::isValid(){
+bool AttackingState::isValid(){
     return true;
 }
 
-void AtackingState::activate(){
+void AttackingState::activate(){
     if (!entity.isInRange(objective, weapon.getRange()))
         return;
     objective.getAttacked(weapon.getDamage() * strength);
