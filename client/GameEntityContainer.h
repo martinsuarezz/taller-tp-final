@@ -14,7 +14,6 @@ class GameEntityContainer{
         GameMap& map;
         std::map<int, MovableEntity*> mobs;
         IdStack ids;
-        MovableEntity* getMob(int id);
         size_t maxMobs;
         int mobSpawnProb;
 
@@ -30,6 +29,7 @@ class GameEntityContainer{
         void spawnHostileMob();
         void addItem(int entityId, int itemId, int slot);
         void attack(int from, int to);
+        MovableEntity* getMob(int id);
         void moveInventoryItem(int id, int from, int to);
         ~GameEntityContainer();
 };

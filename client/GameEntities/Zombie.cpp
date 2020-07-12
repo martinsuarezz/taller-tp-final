@@ -9,6 +9,7 @@
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
+#include "ZombieAI.h"
 #include <iostream>
 
 static int zombieSpeed(){
@@ -17,7 +18,8 @@ static int zombieSpeed(){
 }
 
 Zombie::Zombie(Sender& game, GameMap& map, int entityId, int x, int y): 
-                    MovableEntity(game, map, entityId, x, y, zombieSpeed()), visionRange(1){
+                    MovableEntity(game, map, entityId, x, y, zombieSpeed()), 
+                    visionRange(1), zombieAI(ZombieAI(*this)){
     
     Configuration& config = Configuration::getInstance();
     visionRange = config.getValue("zombie_vision");
@@ -56,15 +58,23 @@ bool Zombie::isInVisionRange(int xObj, int yObj){
 }
 
 void Zombie::notifyPlayerMovement(int xObj, int yObj){
+    zombieAI.notifyPlayerMovement(xObj, yObj);
+    /*
     if (isInVisionRange(xObj, yObj)){
         moveTowards(xObj, yObj);
     }
     else
         stop();
-    
+    */
 }
 
-void Zombie::attackEntity(MovableEntity& other){}
+void Zombie::attackPlayer(){
+    attackEntity(game.getPlayer());
+}
+
+void Zombie::attackEntity(MovableEntity& other){
+    std::cout << "Attacking player!" << std::endl;
+}
 
 void Zombie::moveInventoryItem(int from, int to){
 

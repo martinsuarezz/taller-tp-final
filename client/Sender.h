@@ -11,6 +11,8 @@ class IntentionsQueue;
 
 class CommandsQueue;
 
+class MovableEntity;
+
 class Sender: public Thread{
     private:
         IntentionsQueue& intentions;
@@ -30,6 +32,7 @@ class Sender: public Thread{
         void addItem(int itemId, int slot);
         void attackEntity(int x, int y);
         void removeMob(int id);
+        MovableEntity& getPlayer();
 
 };
 

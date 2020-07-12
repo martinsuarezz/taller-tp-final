@@ -60,6 +60,9 @@ void Sender::removeMob(int id){
     entities.removeMob(id);
 }
 
+MovableEntity& Sender::getPlayer(){
+    return *entities.getMob(0);
+}
 
 void Sender::addCommand(Command* command){
     commands.push(command);
