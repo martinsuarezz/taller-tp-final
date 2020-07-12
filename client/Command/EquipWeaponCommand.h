@@ -2,7 +2,6 @@
 #define EQUIP_WEAPON_COMMAND_H
 #include "Command.h"
 
-
 class EquipWeaponCommand: public Command{
     private:
         int entityId;

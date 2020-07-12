@@ -95,5 +95,9 @@ void Zombie::addItem(int itemId, int slot){
 
 }
 
+int Zombie::getDefense(int damage){
+    return damage;
+}
+
 
 Zombie::~Zombie(){}

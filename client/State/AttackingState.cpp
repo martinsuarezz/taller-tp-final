@@ -18,12 +18,10 @@ void AttackingState::update(int timeElapsed){
 }
 
 bool AttackingState::isValid(){
-    return true;
+    return entity.isInRange(objective, weapon.getRange());
 }
 
 void AttackingState::activate(){
-    if (!entity.isInRange(objective, weapon.getRange()))
-        return;
     objective.getAttacked(weapon.getDamage() * strength);
     entity.stop();
 }

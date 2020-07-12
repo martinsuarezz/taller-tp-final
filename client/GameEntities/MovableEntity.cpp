@@ -6,6 +6,7 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
+#include "../Configuration.h"
 #include <iostream>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
@@ -75,8 +76,16 @@ int MovableEntity::getId(){
     return entityId;
 }
 
-void MovableEntity::getAttacked(int damage){
-    health -= damage;
+void MovableEntity::getAttacked(int damage, bool critical){
+    Configuration& config = Configuration::getInstance();
+    if (critical)
+        damage *= 2;
+    else if (config.evadeAttack())
+        return;
+    
+    int damageDealt = getDefense(damage);
+    health -= damageDealt;
+    std::cout << "Done: " << damageDealt << " of damage" << std::endl;
     std::cout << "Current HP: " << health << std::endl;
     if (health <= 0)
         game.removeMob(entityId);

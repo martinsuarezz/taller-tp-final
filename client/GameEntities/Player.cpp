@@ -20,9 +20,10 @@ static int playerSpeed(){
 Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
                 int entityId, int x, int y): 
                 MovableEntity(game, map, entityId, x, y, playerSpeed()), 
-                entities(entities), inventory(GameInventory(game)), strength(5){
-    health = 10000;
-
+                entities(entities), inventory(GameInventory(game)){
+    Configuration& config = Configuration::getInstance();
+    strength = config.getValue("human_strength");
+    health = config.getValue("human_constitution") * 100;
 }
 
 void Player::notifyMovement(int direction, int xNew, int yNew){
@@ -34,14 +35,21 @@ void Player::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
 }
 
+int Player::getDefense(int damage){
+    Configuration& config = Configuration::getInstance();
+
+    int armorDef = inventory.getArmor().getDefense();
+    int helmetDef = inventory.getHelmet().getDefense();
+    int shieldDef = inventory.getShield().getDefense();
+
+    int damageDealt = damage - config.getTotalDefense(armorDef, helmetDef, shieldDef);
+    if (damageDealt < 0)
+        damageDealt = 0;
+    return damageDealt;
+}
+
 void Player::attackEntity(MovableEntity& entity){
     nextState.reset(new AttackingState(*this, entity, inventory.getWeapon(), strength, 2000000));
-    /*
-    GameItem& weapon = inventory.getWeapon();
-    if (!isInRange(entity, weapon.getRange()))
-        return;
-    entity.getAttacked(weapon.getDamage() * strength);
-    */
 }
 
 void Player::notifyPlayerMovement(int x, int y){

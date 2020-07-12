@@ -32,7 +32,6 @@ class Client{
         MusicPlayer musicPlayer;
         EntityContainer entities;
         SDL_Rect mapViewport;
-        //std::map<int, Entity> entities;
         bool continueExectuion;
 
     public:

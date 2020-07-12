@@ -2,6 +2,7 @@
 #include "GameMap.h"
 #include "GameEntities/GameEntity.h"
 #include "GameEntities/MovableEntity.h"
+#include "RandomGenerator.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -59,12 +60,14 @@ int GameMap::getEntityId(int x, int y) const{
 std::pair<int, int> GameMap::getEmptyPosition(){
     if (entitiesAmmount == (width * height))
         throw std::runtime_error("No empty position");
-    srand(time(NULL));
-    int x = rand() % getWidth();
-    int y = rand() % getHeight();
+    
+    RandomGenerator& random = RandomGenerator::getInstance();
+
+    int x = random(getWidth());
+    int y = random(getHeight());
     while (!isEmpty(x, y)){
-        x = rand() % getWidth();
-        y = rand() % getHeight();
+        x = random(getWidth());
+        y = random(getHeight());
     }
     return std::make_pair(x, y);
 }

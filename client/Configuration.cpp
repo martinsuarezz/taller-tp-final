@@ -1,6 +1,7 @@
 #include "Configuration.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
+#include "RandomGenerator.h"
 
 using json = nlohmann::json;
 
@@ -23,4 +24,17 @@ Configuration& Configuration::getInstance(){
 
 int Configuration::getValue(std::string parameter) const{
     return map.find(parameter)->second;
+}
+
+int Configuration::getCriticalDamage(int damage) const{
+    return damage * getValue("critical_multiplier");
+}
+
+bool Configuration::evadeAttack() const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    return random(100) < getValue("evade_chance");
+}
+
+int Configuration::getTotalDefense(int armorDef, int helmetDef, int shieldDef) const{
+    return armorDef + helmetDef + shieldDef;
 }

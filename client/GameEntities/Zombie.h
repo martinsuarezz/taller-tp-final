@@ -28,6 +28,7 @@ class Zombie: public MovableEntity{
         void attackEntity(MovableEntity& other);
         void attackPlayer();
         void addItem(int itemId, int slot);
+        int getDefense(int damage);
         void update(int timeElapsed) override;
         ~Zombie();
 };

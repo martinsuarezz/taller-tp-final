@@ -19,6 +19,13 @@ class Configuration{
         // Obtiene el valor de un parámetro de configuración.
         int getValue(std::string parameter) const;
 
+        // Calcula las distintas formulas de la lógica del juego.
+        int getCriticalDamage(int damage) const;
+
+        bool evadeAttack() const;
+
+        int getTotalDefense(int armorDef, int helmetDef, int shieldDef) const;
+
         // Prohibida la copia de la clase.
         Configuration(Configuration const&) = delete;
         void operator=(Configuration const&)  = delete;

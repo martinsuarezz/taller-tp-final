@@ -10,6 +10,7 @@
 #include "Configuration.h"
 #include "Sender.h"
 #include "Constants.h"
+#include "RandomGenerator.h"
 #include <stdexcept>
 #include <map>
 #include <iostream>
@@ -77,7 +78,8 @@ void GameEntityContainer::notifyPlayerMovement(int x, int y){
 }
 
 void GameEntityContainer::spawnHostileMob(){
-    if ((mobs.size() < maxMobs) && (rand() % 100 < mobSpawnProb)){
+    RandomGenerator& random = RandomGenerator::getInstance();
+    if ((mobs.size() < maxMobs) && (random(100) < mobSpawnProb)){
         try{
             std::pair<int, int> position = map.getEmptyPosition();
             addMob(position.first, position.second, ZOMBIE);

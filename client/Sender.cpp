@@ -26,6 +26,8 @@ void Sender::run(){
     addItem(AXE_ID, 2);
     addItem(HAMMER_ID, 3);
     addItem(PLATE_ARMOR_ID, 4);
+    addItem(HOOD_ID, 5);
+    addItem(KNOT_STAFF_ID, 7);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);

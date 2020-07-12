@@ -26,6 +26,7 @@ class Player: public MovableEntity{
         void moveInventoryItem(int from, int to);
         void addItem(int itemId, int slot);
         void attackEntity(MovableEntity& entity);
+        int getDefense(int damage);
         ~Player();
 };
 

@@ -31,9 +31,10 @@ class MovableEntity: public GameEntity{
         void changeState();
         bool canMove(int x, int y);
         void updatePosition(int x, int y);
-        void getAttacked(int damage);
+        void getAttacked(int damage, bool critical = false);
         int getId();
         bool isInRange(MovableEntity& other, int range);
+        virtual int getDefense(int damage) = 0;
         virtual void attackEntity(MovableEntity& other) = 0;
         virtual void notifyPlayerMovement(int x, int y) = 0;
         virtual void moveInventoryItem(int from, int to) = 0;

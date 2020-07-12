@@ -42,12 +42,20 @@
     "zombie_vision": 3,
     "mob_spawn_prob": 5,
     "mob_spawn_max": 10,
+    "critical_multiplier": 2,
+    "evade_chance": 5,
 
     "damage_min_bare_hands": 0,
     "damage_max_bare_hands": 2,
     "defense_min_bare_hands": 0,
-    "defense_max_bare_hands": 2,
+    "defense_max_bare_hands": 1,
     "range_bare_hands": 1,
+
+    "damage_min_no_armor": 0,
+    "damage_max_no_armor": 0,
+    "defense_min_no_armor": 0,
+    "defense_max_no_armor": 3,
+    "range_no_armor": 0,
 
     "damage_min_sword": 2,
     "damage_max_sword": 5,
@@ -67,9 +75,86 @@
     "defense_max_hammer": 0,
     "range_hammer": 1,
 
+    "damage_min_ice_staff": 2,
+    "damage_max_ice_staff": 4,
+    "defense_min_ice_staff": 0,
+    "defense_max_ice_staff": 0,
+    "range_ice_staff": 4,
+
+    "damage_min_knot_staff": 4,
+    "damage_max_knot_staff": 8,
+    "defense_min_knot_staff": 0,
+    "defense_max_knot_staff": 0,
+    "range_knot_staff": 4,
+
+    "damage_min_crimp_staff": 8,
+    "damage_max_crimp_staff": 20,
+    "defense_min_crimp_staff": 0,
+    "defense_max_crimp_staff": 0,
+    "range_crimp_staff": 3,
+
+    "damage_min_simple_bow": 1,
+    "damage_max_simple_bow": 4,
+    "defense_min_simple_bow": 0,
+    "defense_max_simple_bow": 0,
+    "range_simple_bow": 4,
+
+    "damage_min_compound_bow": 4,
+    "damage_max_compound_bow": 16,
+    "defense_min_compound_bow": 0,
+    "defense_max_compound_bow": 0,
+    "range_compound_bow": 4,
+
+    "damage_min_leather_armor": 0,
+    "damage_max_leather_armor": 0,
+    "defense_min_leather_armor": 2,
+    "defense_max_leather_armor": 6,
+    "range_leather_armor": 0,
+
     "damage_min_plate_armor": 0,
     "damage_max_plate_armor": 0,
     "defense_min_plate_armor": 15,
     "defense_max_plate_armor": 30,
-    "range_plate_armor": 0
+    "range_plate_armor": 0,
+
+    "damage_min_blue_tunic": 0,
+    "damage_max_blue_tunic": 0,
+    "defense_min_blue_tunic": 6,
+    "defense_max_blue_tunic": 10,
+    "range_blue_tunic": 0,
+
+    "damage_min_hood": 0,
+    "damage_max_hood": 0,
+    "defense_min_hood": 1,
+    "defense_max_hood": 4,
+    "range_hood": 0,
+
+    "damage_min_iron_helmet": 0,
+    "damage_max_iron_helmet": 0,
+    "defense_min_iron_helmet": 4,
+    "defense_max_iron_helmet": 8,
+    "range_iron_helmet": 0,
+
+    "damage_min_turtle_shield": 0,
+    "damage_max_turtle_shield": 0,
+    "defense_min_turtle_shield": 1,
+    "defense_max_turtle_shield": 2,
+    "range_turtle_shield": 0,
+
+    "damage_min_iron_shield": 0,
+    "damage_max_iron_shield": 0,
+    "defense_min_iron_shield": 1,
+    "defense_max_iron_shield": 4,
+    "range_iron_shield": 0,
+
+    "damage_min_magic_hat": 0,
+    "damage_max_magic_hat": 0,
+    "defense_min_magic_hat": 4,
+    "defense_max_magic_hat": 12,
+    "range_magic_hat": 0,
+
+    "human_strength": 5,
+    "human_agility": 6,
+    "human_inteligence": 7,
+    "human_constitution": 5
 }

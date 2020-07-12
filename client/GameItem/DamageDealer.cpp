@@ -1,4 +1,5 @@
 #include "DamageDealer.h"
+#include "../RandomGenerator.h"
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
@@ -12,9 +13,8 @@ DamageDealer::DamageDealer(DamageDealer&& other): minDamage(other.minDamage),
 
 
 int DamageDealer::getDamage(){
-    srand (time(NULL));
-    int damageSpread = maxDamage - minDamage + 1;
-    int damageDone = (rand() % damageSpread) + minDamage;
+    RandomGenerator& random = RandomGenerator::getInstance();
+    int damageDone = random(minDamage, maxDamage + 1);
     std::cout << "Done " << damageDone << " damage!" << std::endl;
     return damageDone;
 }

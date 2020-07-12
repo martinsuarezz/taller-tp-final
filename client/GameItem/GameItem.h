@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "DamageDealer.h"
+#include "DefenseDealer.h"
 
 class GameItem{
     private:
@@ -10,6 +11,7 @@ class GameItem{
         int itemId;
         std::vector<int> acceptedSlots;
         DamageDealer damageDealer;
+        DefenseDealer defenseDealer;
 
     public:
         GameItem();
@@ -24,6 +26,7 @@ class GameItem{
         int getId();
         int getDamage();
         int getRange();
+        int getDefense();
 
 
 };

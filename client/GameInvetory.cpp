@@ -12,7 +12,9 @@
 
 #define INV_SIZE 15
 
-GameInventory::GameInventory(Sender& game): game(game), bareHands(itemFactory.getBareHands()){}
+GameInventory::GameInventory(Sender& game): game(game), 
+                            bareHands(itemFactory.getBareHands()),
+                            noArmor(itemFactory.getNoArmor()){}
 
 void GameInventory::moveItem(int from, int to){
     if (slotIsEmpty(from) || from == to)
@@ -69,6 +71,33 @@ GameItem& GameInventory::getWeapon(){
     Configuration& config = Configuration::getInstance();
     try{
         return items.at(config.getValue("inv_weapon_slot"));
+    }
+    catch (std::out_of_range& e){}
+    return bareHands;
+}
+
+GameItem& GameInventory::getArmor(){
+    Configuration& config = Configuration::getInstance();
+    try{
+        return items.at(config.getValue("inv_armor_slot"));
+    }
+    catch (std::out_of_range& e){}
+    return noArmor;
+}
+
+GameItem& GameInventory::getHelmet(){
+    Configuration& config = Configuration::getInstance();
+    try{
+        return items.at(config.getValue("inv_helmet_slot"));
+    }
+    catch (std::out_of_range& e){}
+    return noArmor;
+}
+
+GameItem& GameInventory::getShield(){
+    Configuration& config = Configuration::getInstance();
+    try{
+        return items.at(config.getValue("inv_shield_slot"));
     }
     catch (std::out_of_range& e){}
     return bareHands;

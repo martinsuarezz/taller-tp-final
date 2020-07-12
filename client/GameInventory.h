@@ -12,6 +12,7 @@ class GameInventory{
         Sender& game;
         GameItemFactory itemFactory;
         GameItem bareHands;
+        GameItem noArmor;
         void equipItem(int itemId, int slot);
 
     public:
@@ -21,6 +22,9 @@ class GameInventory{
         void addItem(int itemId, int slot);
         int removeItem(int slot);
         GameItem& getWeapon();
+        GameItem& getArmor();
+        GameItem& getHelmet();
+        GameItem& getShield();
 };
 
 #endif
