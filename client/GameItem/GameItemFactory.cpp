@@ -51,6 +51,14 @@ GameItem GameItemFactory::getAxe(){
     return axe;
 }
 
+GameItem GameItemFactory::getPlateArmor(){
+    Configuration& config = Configuration::getInstance();
+    GameItem plateArmor = getItem("plate_armor", PLATE_ARMOR_ID);
+    int armorSlot = config.getValue("inv_armor_slot");
+    plateArmor.addValidSlot(armorSlot);
+    return plateArmor;
+}
+
 GameItem GameItemFactory::getItem(int id){
     switch(id){
         case HANDS_ID:
@@ -61,6 +69,8 @@ GameItem GameItemFactory::getItem(int id){
             return getAxe();
         case HAMMER_ID:
             return getHammer();
+        case PLATE_ARMOR_ID:
+            return getPlateArmor();
     }
 
     std::cout << "Warning: item not implemented!" << std::endl;

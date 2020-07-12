@@ -65,5 +65,11 @@
     "damage_max_hammer": 9,
     "defense_min_hammer": 0,
     "defense_max_hammer": 0,
-    "range_hammer": 1
+    "range_hammer": 1,
+
+    "damage_min_plate_armor": 0,
+    "damage_max_plate_armor": 0,
+    "defense_min_plate_armor": 15,
+    "defense_max_plate_armor": 30,
+    "range_plate_armor": 0
 }

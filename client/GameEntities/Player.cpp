@@ -20,7 +20,10 @@ static int playerSpeed(){
 Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
                 int entityId, int x, int y): 
                 MovableEntity(game, map, entityId, x, y, playerSpeed()), 
-                entities(entities), inventory(GameInventory(game)), strength(5){}
+                entities(entities), inventory(GameInventory(game)), strength(5){
+    health = 10000;
+
+}
 
 void Player::notifyMovement(int direction, int xNew, int yNew){
     game.addCommand(new MoveCommand(entityId, direction, xNew, yNew));

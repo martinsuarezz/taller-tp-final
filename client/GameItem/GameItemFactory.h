@@ -14,6 +14,7 @@ class GameItemFactory{
         GameItem getSword();
         GameItem getAxe();
         GameItem getHammer();
+        GameItem getPlateArmor();
         GameItem getItem(int id); 
 
 };

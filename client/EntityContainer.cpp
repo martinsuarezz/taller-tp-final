@@ -47,6 +47,10 @@ void EntityContainer::equipWeapon(int entityId, int itemId){
     entities.at(entityId).equipWeapon(itemId);
 }
 
+void EntityContainer::equipArmor(int entityId, int itemId){
+    entities.at(entityId).equipArmor(itemId);
+}
+
 void EntityContainer::update(int timeElapsed){
     std::map<int, Entity>::iterator it;
     for (it = entities.begin(); it != entities.end(); it++){

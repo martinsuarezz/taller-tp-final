@@ -7,6 +7,7 @@
 #include <map>
 #include "GameItem/GameItemFactory.h"
 #include "Command/EquipWeaponCommand.h"
+#include "Command/EquipArmorCommand.h"
 #include "Configuration.h"
 
 #define INV_SIZE 15
@@ -39,6 +40,8 @@ void GameInventory::equipItem(int itemId, int slot){
     Configuration& config = Configuration::getInstance();
     if (slot == config.getValue("inv_weapon_slot"))
         game.addCommand(new EquipWeaponCommand(0, itemId));
+    else if (slot == config.getValue("inv_armor_slot"))
+        game.addCommand(new EquipArmorCommand(0, itemId));
 }
 
 void GameInventory::addItem(int itemId, int slot){

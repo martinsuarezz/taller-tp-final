@@ -94,6 +94,10 @@ void Client::equipWeapon(int entityId, int itemId){
     entities.equipWeapon(entityId, itemId);
 }
 
+void Client::equipArmor(int entityId, int itemId){
+    entities.equipArmor(entityId, itemId);
+}
+
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
     return screen.getMapCoordinates(x, y);
 }

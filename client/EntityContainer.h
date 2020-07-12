@@ -37,6 +37,7 @@ class EntityContainer{
         void removeMob(int entityId);
 
         void equipWeapon(int entityId, int itemId);
+        void equipArmor(int entityId, int itemId);
 
         // Actualiza a las entidades indicando el paso del tiempo.
         void update(int timeElapsed);

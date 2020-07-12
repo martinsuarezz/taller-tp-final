@@ -4,11 +4,13 @@
 #include "../GameMap.h"
 #include "../Sender.h"
 #include "../State/WalkingState.h"
+#include "../State/ZombieAttackingState.h"
 #include "../State/IdleState.h"
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
+#include "../GameItem/GameItemFactory.h"
 #include "ZombieAI.h"
 #include <iostream>
 
@@ -32,6 +34,13 @@ void Zombie::notifyMovement(int direction, int xNew, int yNew){
 
 void Zombie::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
+}
+
+void Zombie::update(int timeElapsed){
+    zombieAI.update();
+    if (state == NULL)
+        return;
+    state->update(timeElapsed);
 }
 
 void Zombie::moveTowards(int xObj, int yObj){
@@ -73,7 +82,9 @@ void Zombie::attackPlayer(){
 }
 
 void Zombie::attackEntity(MovableEntity& other){
-    std::cout << "Attacking player!" << std::endl;
+    GameItemFactory factory;
+    GameItem zombieHands = factory.getBareHands();
+    nextState.reset(new ZombieAttackingState(*this, other, 5, 2000000));
 }
 
 void Zombie::moveInventoryItem(int from, int to){

@@ -27,7 +27,7 @@ class MovableEntity: public GameEntity{
         void stop();
         virtual void notifyMovement(int direction, int x, int y) = 0;
         void notifyIdle();
-        void update(int time);
+        virtual void update(int time);
         void changeState();
         bool canMove(int x, int y);
         void updatePosition(int x, int y);

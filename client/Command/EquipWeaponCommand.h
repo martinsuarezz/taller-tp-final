@@ -1,5 +1,5 @@
-#ifndef MOVE_COMMAND_H
-#define MOVE_COMMAND_H
+#ifndef EQUIP_WEAPON_COMMAND_H
+#define EQUIP_WEAPON_COMMAND_H
 #include "Command.h"
 
 

@@ -64,6 +64,9 @@ class Entity{
         // Equipa un arma
         void equipWeapon(int itemId);
 
+        // Equipa una armadura.
+        void equipArmor(int itemId);
+
         Entity(Entity&&);
 };
 

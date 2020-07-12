@@ -10,9 +10,12 @@ EntityFactory::EntityFactory(AssetsLoader& assets, Screen& screen):
 
 Entity EntityFactory::getPlayer(int x, int y){
     std::map<std::string, std::string> equiped;
-    equiped["1body"] = "leather_armor";
+    // equiped["1body"] = "human_body";
+    equiped["1body"] = "item15";
     equiped["2head"] = "human_head";
-    equiped["3weapon"] = "item4";
+    equiped["3weapon"] = "item12";
+    equiped["4weapon"] = "item18";
+    equiped["5head"] = "item20";
 
     return std::move(Entity(assets, screen, equiped, x, y));
 }

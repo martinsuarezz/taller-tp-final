@@ -81,6 +81,11 @@ void Entity::equipWeapon(int itemId){
     action->refresh();
 }
 
+void Entity::equipArmor(int itemId){
+    equiped["1body"] = "item" + std::to_string(itemId);
+    action->refresh();
+}
+
 bool Entity::isOnScreen() const{
     return screen.isInbound(*this);
 }
