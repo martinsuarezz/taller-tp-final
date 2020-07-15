@@ -41,6 +41,7 @@ class Client{
         void moveEntity(int entityId, int direction, int x, int y);
         void idleEntity(int entityId, int x, int y);
         void addItem(int itemId, int position);
+        void addMapItem(int itemId, int x, int y);
         void removeItem(int position);
         void moveItem(int from, int to);
         void equipWeapon(int entityId, int itemId);
@@ -49,6 +50,7 @@ class Client{
         void removeMob(int entityId);
         void addPlayer(int entityId, int x, int y);
         void removeItemMap(int x, int y);
+        void updateHealth(int health);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

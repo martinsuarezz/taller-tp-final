@@ -17,7 +17,10 @@
 #include <stdlib.h>
 #include <tuple>
 
-GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): game(game), map(map), maxMobs(0){
+GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): 
+                        game(game), map(map), maxMobs(0),
+                        factory(GameEntityFactory(game, map, *this)){
+
     Configuration& config = Configuration::getInstance();
     maxMobs = (size_t) config.getValue("mob_spawn_max");
     mobSpawnProb = config.getValue("mob_spawn_prob");
@@ -27,7 +30,7 @@ void GameEntityContainer::addPlayer(int x, int y){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
-    mobs.emplace(id, new Player(game, map, *this, id, x, y));
+    mobs.emplace(id, factory.getPlayer(x, y, id));
     map.addEntity((mobs.at(id)), x, y);
     game.addCommand(new SpawnPlayerCommand(id, x * 100, y * 100));
 }
@@ -36,7 +39,7 @@ void GameEntityContainer::addMob(int x, int y, int type){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
-    mobs.emplace(id, new Zombie(game, map, id, x, y));
+    mobs.emplace(id, factory.getZombie(x, y, id));
     map.addEntity((mobs.at(id)), x, y);
     game.addCommand(new SpawnMobCommand(id, type, x * 100, y* 100));
 }

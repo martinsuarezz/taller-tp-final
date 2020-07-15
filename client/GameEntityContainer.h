@@ -2,6 +2,7 @@
 #define GAME_ENTITY_CONTAINER
 #include <map>
 #include "GameEntities/MovableEntity.h"
+#include "GameEntities/GameEntityFactory.h"
 #include "IdStack.h"
 
 class Sender;
@@ -15,6 +16,7 @@ class GameEntityContainer{
         std::map<int, MovableEntity*> mobs;
         IdStack ids;
         size_t maxMobs;
+        GameEntityFactory factory;
         int mobSpawnProb;
 
     public:

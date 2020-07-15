@@ -28,6 +28,17 @@ void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
     }
 }
 
+void AssetsLoader::loadTexts(Renderer& renderer){
+    Text health(renderer, "0", "diablo_h.ttf");
+    texts.emplace("health", std::move(health));
+
+    Text mana(renderer, "0", "diablo_h.ttf");
+    texts.emplace("mana", std::move(mana));
+
+    Text exp(renderer, "0", "diablo_h.ttf");
+    texts.emplace("exp", std::move(exp));
+}
+
 void AssetsLoader::loadSounds(std::string file){
     std::ifstream soundsConfig(file);
     json soundJSON;
@@ -96,6 +107,7 @@ void AssetsLoader::loadAnimations(std::string file){
 
 AssetsLoader::AssetsLoader(Renderer& renderer){
     this->loadTextures("images/roots.json", renderer);
+    this->loadTexts(renderer);
     this->loadSounds("audio/roots.json");
     this->loadSongs("music/roots.json");
     this->loadAnimations("animations/animation.json");
@@ -103,6 +115,10 @@ AssetsLoader::AssetsLoader(Renderer& renderer){
 
 Texture& AssetsLoader::getTexture(const std::string& textureName){
     return textures.at(textureName);
+}
+
+Text& AssetsLoader::getText(const std::string& textureName){
+    return texts.at(textureName);
 }
 
 Sound& AssetsLoader::getSound(const std::string& soundName){

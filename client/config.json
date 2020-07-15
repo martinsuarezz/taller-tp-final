@@ -25,8 +25,10 @@
     "inv_weapon_slot": 13,
     "inv_armor_slot": 14,
     "inv_shield_slot": 15,
-    "inv_slot_size_x_px": 32,
-    "inv_slot_size_y_px": 32,
+    "inv_x_slot_size_perc": 3,
+    "inv_y_slot_size_perc": 4,
+    "gui_x_health_perc": 88,
+    "gui_y_health_perc": 83,
 
     "map_render_offset_tiles": 3,
 
@@ -44,6 +46,7 @@
     "mob_spawn_max": 10,
     "critical_multiplier": 2,
     "evade_chance": 5,
+    "spawn_item_prob": 100,
 
     "damage_min_bare_hands": 0,
     "damage_max_bare_hands": 2,
@@ -154,7 +157,15 @@
     "range_magic_hat": 0,
 
     "human_strength": 5,
+    "human_health": 10,
     "human_agility": 6,
     "human_inteligence": 7,
-    "human_constitution": 5
+    "human_constitution": 5,
+    "human_health_regen": 2,
+    "human_mana": 2,
+    "human_mana_regen": 2,
+
+    "wizard_health": 5,
+    "wizard_mana": 20,
+    "wizard_meditation": 10
 }

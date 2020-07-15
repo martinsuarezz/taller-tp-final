@@ -10,6 +10,7 @@
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
+#include "../RandomGenerator.h"
 #include "../GameItem/GameItemFactory.h"
 #include "ZombieAI.h"
 #include <iostream>
@@ -25,7 +26,7 @@ Zombie::Zombie(Sender& game, GameMap& map, int entityId, int x, int y):
     
     Configuration& config = Configuration::getInstance();
     visionRange = config.getValue("zombie_vision");
-    health = 100;
+    health.setMaxHealth(100);
 }
 
 void Zombie::notifyMovement(int direction, int xNew, int yNew){
@@ -34,6 +35,16 @@ void Zombie::notifyMovement(int direction, int xNew, int yNew){
 
 void Zombie::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
+}
+
+void Zombie::kill(){
+    RandomGenerator& random = RandomGenerator::getInstance();
+    Configuration& config = Configuration::getInstance();
+    if (random(100) < config.getValue("spawn_item_prob")){
+        int itemId = random(4, 21);
+        map.addItem(itemId, x, y);
+    }
+    game.removeMob(entityId);
 }
 
 void Zombie::update(int timeElapsed){
@@ -68,13 +79,6 @@ bool Zombie::isInVisionRange(int xObj, int yObj){
 
 void Zombie::notifyPlayerMovement(int xObj, int yObj){
     zombieAI.notifyPlayerMovement(xObj, yObj);
-    /*
-    if (isInVisionRange(xObj, yObj)){
-        moveTowards(xObj, yObj);
-    }
-    else
-        stop();
-    */
 }
 
 void Zombie::attackPlayer(){
@@ -91,6 +95,10 @@ void Zombie::moveInventoryItem(int from, int to){
 
 }
 
+void Zombie::notifyHealthUpdate(int newHealth){
+
+}
+
 void Zombie::addItem(int itemId, int slot){
 
 }
@@ -98,6 +106,5 @@ void Zombie::addItem(int itemId, int slot){
 int Zombie::getDefense(int damage){
     return damage;
 }
-
 
 Zombie::~Zombie(){}

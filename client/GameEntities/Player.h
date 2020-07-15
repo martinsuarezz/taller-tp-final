@@ -19,13 +19,17 @@ class Player: public MovableEntity{
         int strength;
 
     public:
-        Player(Sender& game, GameMap& map, GameEntityContainer& entities, int entityId, int x, int y);
+        Player(Sender& game, GameMap& map, GameEntityContainer& entities, 
+            int entityId, std::string race, std::string type, int x, int y);
         void notifyMovement(int direction, int x, int y);
         void notifyIdle();
         void notifyPlayerMovement(int x, int y);
         void moveInventoryItem(int from, int to);
         void addItem(int itemId, int slot);
         void attackEntity(MovableEntity& entity);
+        void notifyHealthUpdate(int newHealth);
+        void update(int timeElapsed);
+        void kill();
         int getDefense(int damage);
         ~Player();
 };

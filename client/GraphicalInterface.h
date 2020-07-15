@@ -3,10 +3,11 @@
 #include <map>
 #include "Item.h"
 #include "Inventory.h"
-
-class Texture;
+#include "Texture.h"
 
 class AssetsLoader;
+
+class Text;
 
 // Clase que modela la interfaz gráfica.
 
@@ -14,6 +15,7 @@ class GraphicalInterface{
     private:
         AssetsLoader& assets;
         Texture& gui;
+        Text& health;
         Inventory inventory;
 
     public:
@@ -47,6 +49,8 @@ class GraphicalInterface{
 
         // Devuelve el slot seleccionado.
         int getSelectedSlot() const;
+
+        void updateHealth(int health);
 
         ~GraphicalInterface();
 

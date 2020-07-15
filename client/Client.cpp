@@ -70,6 +70,10 @@ void Client::removeMob(int entityId){
     entities.removeMob(entityId);
 }
 
+void Client::addMapItem(int itemId, int x, int y){
+    map.addItem(x, y, itemId);
+}
+
 void Client::idleEntity(int entityId, int x, int y){
     entities.idle(entityId, x, y);
 }
@@ -100,6 +104,10 @@ void Client::equipArmor(int entityId, int itemId){
 
 void Client::removeItemMap(int x, int y){
     map.removeItem(x, y);
+}
+
+void Client::updateHealth(int health){
+    gui.updateHealth(health);
 }
 
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
@@ -145,7 +153,7 @@ void Client::run(){
 
         screen.centerToPlayerPosition(entities);
         screen.render();
-        entities.update(16667);
+        entities.update(microsecondsPerFrame);
         renderer.resetViewport();
         gui.render();
 

@@ -18,7 +18,7 @@
 #include <stdexcept>
 
 Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands): 
-    intentions(intentions), commands(commands), map(GameMap("mapFinal.json")),entities(GameEntityContainer(*this, map)), continueRunning(true){}
+    intentions(intentions), commands(commands), map(GameMap(*this, "mapFinal.json")),entities(GameEntityContainer(*this, map)), continueRunning(true){}
 
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
@@ -28,7 +28,7 @@ void Sender::run(){
     addItem(HAMMER_ID, 3);
     addItem(PLATE_ARMOR_ID, 4);
     addItem(HOOD_ID, 5);
-    map.addItem(KNOT_STAFF_ID, 20, 20);
+    //map.addItem(KNOT_STAFF_ID, 20, 20);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);

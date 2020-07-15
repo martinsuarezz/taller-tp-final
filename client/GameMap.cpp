@@ -2,14 +2,16 @@
 #include "GameMap.h"
 #include "GameEntities/GameEntity.h"
 #include "GameEntities/MovableEntity.h"
+#include "Command/AddMapItemCommand.h"
 #include "RandomGenerator.h"
 #include "MapTile.h"
+#include "Sender.h"
 #include <fstream>
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
-GameMap::GameMap(std::string mapFile): entitiesAmmount(0){
+GameMap::GameMap(Sender& game, std::string mapFile): game(game), entitiesAmmount(0){
     std::ifstream file(std::string("maps/" + mapFile));
     json mapJSON;
     file >> mapJSON;
@@ -24,7 +26,7 @@ GameMap::GameMap(std::string mapFile): entitiesAmmount(0){
     std::vector<int> layer2(layers[2]["data"].get<std::vector<int>>());
 
     for (int i = 0; i < width * height; i++){
-        if (layer1[i] != 0 || layer2[0] != 0)
+        if (layer1[i] != 0 || layer2[i] != 0)
             setSolid(i);
     }
 }
@@ -58,6 +60,7 @@ void GameMap::addEntity(MovableEntity* entity, int x, int y){
 
 void GameMap::addItem(int itemId, int x, int y){
     getTile(x, y).addItem(itemId);
+    game.addCommand(new AddMapItemCommand(itemId, x * 100, y * 100));
 }
 
 MapTile& GameMap::getTile(int x, int y){

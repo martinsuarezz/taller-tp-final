@@ -8,9 +8,12 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
+#include "../Command/PlayerHealthCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
 #include "../GameItem/GameItem.h"
+#include "../GameInventory.h"
+#include <iostream>
 
 static int playerSpeed(){
     Configuration& config = Configuration::getInstance();
@@ -18,12 +21,14 @@ static int playerSpeed(){
 }
 
 Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
-                int entityId, int x, int y): 
+                int entityId, std::string race, std::string type, int x, int y): 
                 MovableEntity(game, map, entityId, x, y, playerSpeed()), 
                 entities(entities), inventory(GameInventory(game)){
+    
     Configuration& config = Configuration::getInstance();
-    strength = config.getValue("human_strength");
-    health = config.getValue("human_constitution") * 100;
+    strength = config.getValue(race + "_strength");
+    health.setMaxHealth(config.getMaxHealth(race, type, 1));
+    health.setHealthRegen(config.getHealthRegen(race));
 }
 
 void Player::notifyMovement(int direction, int xNew, int yNew){
@@ -33,6 +38,22 @@ void Player::notifyMovement(int direction, int xNew, int yNew){
 
 void Player::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
+}
+
+void Player::kill(){
+    health.addHealth(1000);
+    std::cout << "YOU DIED" << std::endl;
+}
+
+void Player::update(int timeElapsed){
+    if (state == NULL)
+        return;
+    state->update(timeElapsed);
+    health.regenerate(timeElapsed);
+}
+
+void Player::notifyHealthUpdate(int newHealth){
+    game.addCommand(new PlayerHealthCommand(newHealth));
 }
 
 int Player::getDefense(int damage){

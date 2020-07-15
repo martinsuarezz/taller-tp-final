@@ -10,7 +10,8 @@
 #include <iostream>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
-                    GameEntity(game, map, x, y), state(new IdleState(*this)), entityId(entityId), moveSpeed(moveSpeed){}
+                    GameEntity(game, map, x, y), state(new IdleState(*this)), 
+                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)){}
 
 void MovableEntity::move(int direction){
     switch (direction){
@@ -84,11 +85,16 @@ void MovableEntity::getAttacked(int damage, bool critical){
         return;
     
     int damageDealt = getDefense(damage);
-    health -= damageDealt;
+    health.dealDamage(damageDealt);
+    
     std::cout << "Done: " << damageDealt << " of damage" << std::endl;
-    std::cout << "Current HP: " << health << std::endl;
-    if (health <= 0)
-        game.removeMob(entityId);
+
+    int newHealth = health.getHealth();
+    std::cout << "Current HP: " << newHealth << std::endl;
+    if (newHealth <= 0){
+        this->kill();
+    }
+        
 }
 
 bool MovableEntity::isInRange(MovableEntity& other, int range){

@@ -26,6 +26,12 @@ class Configuration{
 
         int getTotalDefense(int armorDef, int helmetDef, int shieldDef) const;
 
+        int getMaxHealth(std::string race, std::string type, int level) const;
+
+        int getHealthRegen(std::string race) const;
+        
+        int getMaxMana(std::string race, std::string type, int level) const;
+
         // Prohibida la copia de la clase.
         Configuration(Configuration const&) = delete;
         void operator=(Configuration const&)  = delete;

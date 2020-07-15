@@ -5,10 +5,13 @@
 #include <string>
 #include "MapTile.h"
 
+class Sender;
+
 class GameEntity;
 
 class GameMap{
     private:
+        Sender& game;
         std::vector<MapTile> map;
         int width;
         int height;
@@ -20,7 +23,7 @@ class GameMap{
         MapTile& getTile(int x, int y);
 
     public:
-        GameMap(std::string mapFile);
+        GameMap(Sender& game, std::string mapFile);
         bool moveEntity(int fromX, int fromY, int toX, int toY);
         void remove(int fromX, int fromY);
         bool isMobPlacable(int x, int y);

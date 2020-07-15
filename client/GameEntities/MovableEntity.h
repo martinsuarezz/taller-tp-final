@@ -3,6 +3,7 @@
 #include <memory>
 #include "GameEntity.h"
 #include "../State/State.h"
+#include "Health.h"
 
 class GameMap;
 
@@ -14,7 +15,7 @@ class MovableEntity: public GameEntity{
         std::unique_ptr<State> nextState;
         int entityId;
         int moveSpeed;
-        int health;
+        Health health;
 
     public:
         MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed);
@@ -27,16 +28,18 @@ class MovableEntity: public GameEntity{
         void stop();
         virtual void notifyMovement(int direction, int x, int y) = 0;
         void notifyIdle();
-        virtual void update(int time);
+        virtual void update(int time) = 0;
         void changeState();
         bool canMove(int x, int y);
         void updatePosition(int x, int y);
         void getAttacked(int damage, bool critical = false);
         int getId();
         bool isInRange(MovableEntity& other, int range);
+        virtual void kill() = 0;
         virtual int getDefense(int damage) = 0;
         virtual void attackEntity(MovableEntity& other) = 0;
         virtual void notifyPlayerMovement(int x, int y) = 0;
+        virtual void notifyHealthUpdate(int newHealth) = 0;
         virtual void moveInventoryItem(int from, int to) = 0;
         virtual void addItem(int itemId, int slot) = 0;
         virtual ~MovableEntity();

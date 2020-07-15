@@ -11,6 +11,14 @@ Inventory::Inventory(AssetsLoader& assets): assets(assets){
     slots = config.getValue("inventory_slots") + 
             config.getValue("equipment_slots");
     selected = -1;
+
+    Texture& selectionBox = assets.getTexture("selected_slot");
+    int boxHeight = config.getValue("inv_y_slot_size_px");
+    int boxWidth = config.getValue("inv_x_slot_size_px");
+    selectionBox.setHeight(boxHeight);
+    selectionBox.setWidth(boxWidth);
+
+    
 }
 
 int Inventory::getSlot(int x, int y) const{
@@ -114,11 +122,7 @@ int Inventory::getY(int position) const{
 
 void Inventory::render(){
     if (selected != -1){
-        Configuration& config = Configuration::getInstance();
-
         Texture& selectionBox = assets.getTexture("selected_slot");
-        selectionBox.setHeight(config.getValue("inv_slot_size_y_px"));
-        selectionBox.setWidth(config.getValue("inv_slot_size_x_px"));
         selectionBox.render(getX(selected), getY(selected));
     }
 
@@ -151,9 +155,9 @@ bool Inventory::slotIsInbound(int x, int y, int slot) const{
     int slotX = getX(slot);
     int slotY = getY(slot);
     return (x > slotX) && 
-            (x < slotX + config.getValue("inv_slot_size_x_px")) && 
+            (x < slotX + config.getValue("inv_x_slot_size_px")) && 
             (y > slotY) && 
-            (y < slotY + config.getValue("inv_slot_size_y_px"));
+            (y < slotY + config.getValue("inv_y_slot_size_px"));
 }
 
 Inventory::~Inventory(){}
