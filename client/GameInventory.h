@@ -14,6 +14,7 @@ class GameInventory{
         GameItem bareHands;
         GameItem noArmor;
         void equipItem(int itemId, int slot);
+        int getEmptySlot();
 
     public:
         GameInventory(Sender& game);

@@ -7,6 +7,8 @@
 
 using json = nlohmann::json;
 
+#define ITEM_LAYER 3
+
 MapGraphic::MapGraphic(std::string mapFile, AssetsLoader& assets):
                         assets(assets), width(0), height(0){
     std::ifstream file(std::string("maps/" + mapFile));
@@ -20,6 +22,7 @@ MapGraphic::MapGraphic(std::string mapFile, AssetsLoader& assets):
     layer0 = layers[0]["data"].get<std::vector<int>>();
     layer1 = layers[1]["data"].get<std::vector<int>>();
     layer2 = layers[2]["data"].get<std::vector<int>>();
+    itemLayer = std::vector<int>(width * height, 0);
 }
 
 static int roundDown(int number, int roundTo){
@@ -45,6 +48,9 @@ int MapGraphic::getTile(int x, int y, int layer) const{
         case 2:
             tile = layer2[x + y * width];
             break;
+        case ITEM_LAYER:
+            tile = itemLayer[x + y * width];
+            break;
     }
     return tile;
 }
@@ -58,6 +64,25 @@ std::pair<int, int> MapGraphic::getCoordinates(int x, int y, SDL_Rect* area){
     return std::pair<int, int>(xTile, yTile);
 }
 
+void MapGraphic::renderTile(int i, int j, int x, int y, int layer){
+    int tileId = getTile(i, j, layer);
+    if (tileId == 0)
+        return;
+    try{
+        assets.getTexture(std::to_string(tileId)).render(x, y); 
+    }
+    catch (std::out_of_range& e){}
+}
+
+void MapGraphic::renderItem(int i, int j, int x, int y){
+    int itemId = getTile(i, j, ITEM_LAYER);
+    if (itemId == 0)
+        return;
+    try{
+        assets.getTexture("item" + std::to_string(itemId) + "_icon").render(x, y); 
+    }
+    catch (std::out_of_range& e){}
+}
 
 void MapGraphic::renderLayer(int xScreen, int yScreen, 
                             SDL_Rect* area, int layer){
@@ -79,15 +104,11 @@ void MapGraphic::renderLayer(int xScreen, int yScreen,
     int yCurrent = yScreen - (yInitial - roundDown(yInitial, tileSize));
 
     for (int j = roundDown(yInitial, tileSize) / tileSize; yCurrent < yFinal; yCurrent += tileSize, j++){
-        for (int i = roundDown(xInitial, tileSize) / tileSize; xCurrent < xFinal; xCurrent += tileSize, i++){ 
-            int tileId = getTile(i, j, layer);
-            if (tileId == 0)
-                continue;
-            try{
-                assets.getTexture(std::to_string(tileId)).render(xCurrent, yCurrent); 
-            }
-            catch (std::out_of_range& e){}
-             
+        for (int i = roundDown(xInitial, tileSize) / tileSize; xCurrent < xFinal; xCurrent += tileSize, i++){
+            if (layer == ITEM_LAYER)
+                renderItem(i, j, xCurrent, yCurrent);
+            else
+                renderTile(i, j, xCurrent, yCurrent, layer);
         }
         xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
     }
@@ -95,9 +116,17 @@ void MapGraphic::renderLayer(int xScreen, int yScreen,
 }
 
 void MapGraphic::render(int xScreen, int yScreen, SDL_Rect* area){
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 4; i++){
         renderLayer(xScreen, yScreen, area, i);
     }
+}
+
+void MapGraphic::removeItem(int x, int y){
+    itemLayer[y * width + x] = 0;
+}
+
+void MapGraphic::addItem(int x, int y, int itemId){
+    itemLayer[y * width + x] = itemId;
 }
 
 int MapGraphic::getPixelsWidth() const{

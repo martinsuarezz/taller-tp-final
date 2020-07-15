@@ -100,7 +100,7 @@ bool MovableEntity::canMove(int x, int y){
 }
 
 void MovableEntity::updatePosition(int xNew, int yNew){
-    map.move(x, y, xNew, yNew);
+    map.moveEntity(x, y, xNew, yNew);
     x = xNew;
     y = yNew;
 } 

@@ -46,7 +46,20 @@ void GameInventory::equipItem(int itemId, int slot){
         game.addCommand(new EquipArmorCommand(0, itemId));
 }
 
+int GameInventory::getEmptySlot(){
+    Configuration& config = Configuration::getInstance();
+    int invSize = config.getValue("inventory_slots");
+    for (int i = 0; i < invSize; i++){
+        if (slotIsEmpty(i))
+            return i;
+    }
+    throw std::out_of_range("No empty space on inventory");
+}
+
 void GameInventory::addItem(int itemId, int slot){
+    if (slot == -1)
+        slot = getEmptySlot();
+
     Configuration& config = Configuration::getInstance();
     if (!slotIsEmpty(slot))
         return;

@@ -12,7 +12,7 @@ GameEntity::GameEntity(Sender& game, GameMap& map, int x, int y):
 
 
 void GameEntity::updatePosition(int xNew, int yNew){
-    map.move(x, y, xNew, yNew);
+    map.moveEntity(x, y, xNew, yNew);
     x = xNew;
     y = yNew;
 }

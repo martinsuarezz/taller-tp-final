@@ -2,6 +2,7 @@
 #include "IntentionsQueue.h"
 #include "Command/MoveCommand.h"
 #include "Command/IdleCommand.h"
+#include "Command/RemoveItemMapCommand.h"
 #include "Command/Command.h"
 #include "GameEntities/MovableEntity.h"
 #include "GameMap.h"
@@ -17,7 +18,7 @@
 #include <stdexcept>
 
 Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands): 
-    intentions(intentions), commands(commands), entities(GameEntityContainer(*this, map)), continueRunning(true){}
+    intentions(intentions), commands(commands), map(GameMap("mapFinal.json")),entities(GameEntityContainer(*this, map)), continueRunning(true){}
 
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
@@ -27,7 +28,7 @@ void Sender::run(){
     addItem(HAMMER_ID, 3);
     addItem(PLATE_ARMOR_ID, 4);
     addItem(HOOD_ID, 5);
-    addItem(KNOT_STAFF_ID, 7);
+    map.addItem(KNOT_STAFF_ID, 20, 20);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
         currentIntention->execute(*this);
@@ -37,6 +38,21 @@ void Sender::run(){
 
 void Sender::movePlayer(int direction){
     entities.move(0, direction);
+}
+
+void Sender::pickUpItem(){
+    int x = entities.getMob(0)->getX();
+    int y = entities.getMob(0)->getY();
+    try{
+        int itemId = map.getItemId(x, y);
+        addItem(itemId);
+        map.removeItem(x, y);
+        addCommand(new RemoveItemMapCommand(x * 100, y * 100));
+    }
+    catch (std::out_of_range& e){
+        std::cout << "Inventory is full!" << std::endl;
+    }
+    catch (std::runtime_error& e){}
 }
 
 void Sender::stopMovementPlayer(){

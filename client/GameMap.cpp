@@ -3,58 +3,89 @@
 #include "GameEntities/GameEntity.h"
 #include "GameEntities/MovableEntity.h"
 #include "RandomGenerator.h"
-#include <stdlib.h>
-#include <time.h>
+#include "MapTile.h"
+#include <fstream>
+#include "nlohmann/json.hpp"
 
-#define MAP_WIDTH 50
-#define MAP_HEIGHT 50
+using json = nlohmann::json;
 
-GameMap::GameMap(): width(MAP_WIDTH), height(MAP_HEIGHT), entitiesAmmount(0){
-    for (int i = 0; i < MAP_WIDTH; i++){
-        for (int j = 0; j < MAP_HEIGHT; j++){
-            map[i][j] = NULL;
-        }
+GameMap::GameMap(std::string mapFile): entitiesAmmount(0){
+    std::ifstream file(std::string("maps/" + mapFile));
+    json mapJSON;
+    file >> mapJSON;
+
+    width = mapJSON["width"];
+    height = mapJSON["height"];
+
+    map = std::vector<MapTile>(width * height, MapTile());
+
+    json layers = mapJSON["layers"];
+    std::vector<int> layer1(layers[1]["data"].get<std::vector<int>>());
+    std::vector<int> layer2(layers[2]["data"].get<std::vector<int>>());
+
+    for (int i = 0; i < width * height; i++){
+        if (layer1[i] != 0 || layer2[0] != 0)
+            setSolid(i);
     }
 }
 
-bool GameMap::move(int fromX, int fromY, int toX, int toY){
-    if (!isEmpty(toX, toY))
+void GameMap::setSolid(int i){
+    map[i].setSolid();
+}
+
+bool GameMap::moveEntity(int fromX, int fromY, int toX, int toY){
+    if (!isMobPlacable(toX, toY))
         return false;
-    map[toX][toY] = map[fromX][fromY];
-    remove(fromX, fromY);
+    getTile(toX, toY).transferEntity(getTile(fromX, fromY));
     return true;
 }
 
 void GameMap::remove(int fromX, int fromY){
-    if (isEmpty(fromX, fromY))
-        throw std::runtime_error("No entity in specified tile");
-    map[fromX][fromY] = NULL;
+    getTile(fromX, fromY).removeEntity();
 }
 
-bool GameMap::isEmpty(int x, int y) const{
-    return map[x][y] == NULL;
+bool GameMap::isMobPlacable(int x, int y){
+    return !(getTile(x, y).isSolid()) && !(getTile(x, y).hasEntity())
+            && isInbound(x, y);
 }
 
-void GameMap::addEntity(GameEntity* entity, int x, int y){
-    if (!isEmpty(x, y))
+void GameMap::addEntity(MovableEntity* entity, int x, int y){
+    if (!isMobPlacable(x, y))
         throw std::runtime_error("Entity already in that space");
-    map[x][y] = entity;
+    getTile(x, y).addEntity(entity);
     entitiesAmmount++;
+}
+
+void GameMap::addItem(int itemId, int x, int y){
+    getTile(x, y).addItem(itemId);
+}
+
+MapTile& GameMap::getTile(int x, int y){
+    if (!isInbound(x, y))
+        throw std::out_of_range("Trying to access tile out of bounds");
+    return map.at(y * width + x);
 }
 
 bool GameMap::isInbound(int x, int y) const{
     return (x >= 0) && (x < width) && (y >= 0) && (y < height);
 }
 
-bool GameMap::canMove(int x, int y) const{
-    return isEmpty(x, y) && isInbound(x, y);
+bool GameMap::canMove(int x, int y){
+    return isMobPlacable(x, y) && isInbound(x, y);
 }
 
-int GameMap::getEntityId(int x, int y) const{
-    if (isEmpty(x, y) || !isInbound(x, y))
+int GameMap::getEntityId(int x, int y){
+    if (isMobPlacable(x, y) || !isInbound(x, y))
         throw std::out_of_range("No valid entity in that space");
-    MovableEntity* entity = (MovableEntity*) map[x][y];
-    return entity->getId();
+    return getTile(x, y).getEntity()->getId();
+}
+
+int GameMap::getItemId(int x, int y){
+    return getTile(x, y).getItemId();
+}
+
+void GameMap::removeItem(int x, int y){
+    getTile(x, y).removeItem();
 }
 
 std::pair<int, int> GameMap::getEmptyPosition(){
@@ -65,7 +96,7 @@ std::pair<int, int> GameMap::getEmptyPosition(){
 
     int x = random(getWidth());
     int y = random(getHeight());
-    while (!isEmpty(x, y)){
+    while (!isMobPlacable(x, y)){
         x = random(getWidth());
         y = random(getHeight());
     }

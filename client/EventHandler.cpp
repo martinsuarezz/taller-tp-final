@@ -9,6 +9,7 @@
 #include "Intention/StopMoveIntention.h"
 #include "Intention/MoveItemIntention.h"
 #include "Intention/AttackIntention.h"
+#include "Intention/PickUpIntention.h"
 #include <iostream>
 
 EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): 
@@ -29,6 +30,9 @@ int EventHandler::handleKeyDown(SDL_Event* event){
             return 1;
         case SDLK_a:
             intentions.push(new MoveIntention(LEFT));
+            return 1;
+        case SDLK_h:
+            intentions.push(new PickUpIntention());
             return 1;
         case SDLK_m:
             client.stopPlaySong();

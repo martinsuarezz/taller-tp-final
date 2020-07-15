@@ -28,8 +28,9 @@ class Sender: public Thread{
         void run();
         void addCommand(Command* command);
         void close();
+        void pickUpItem();
         void moveInventoryItem(int from, int to);
-        void addItem(int itemId, int slot);
+        void addItem(int itemId, int slot = -1);
         void attackEntity(int x, int y);
         void removeMob(int id);
         MovableEntity& getPlayer();

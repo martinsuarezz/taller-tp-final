@@ -14,10 +14,13 @@ class MapGraphic{
         std::vector<int> layer0;
         std::vector<int> layer1;
         std::vector<int> layer2;
+        std::vector<int> itemLayer;
         AssetsLoader& assets;
         int width;
         int height;
         void renderLayer(int x, int y, SDL_Rect* area, int layer);
+        void renderTile(int i, int j, int x, int y, int layer);
+        void renderItem(int i, int j, int x, int y);
         int getTile(int x, int y, int layer) const; 
 
     public:
@@ -30,6 +33,10 @@ class MapGraphic{
         // Obtiene las dimensiones totales del mapa en píxeles.
         int getPixelsWidth() const;
         int getPixelsHeight() const;
+
+        void removeItem(int x, int y);
+
+        void addItem(int x, int y, int itemId);
 
         std::pair<int, int> getCoordinates(int x, int y, SDL_Rect* area);
 };

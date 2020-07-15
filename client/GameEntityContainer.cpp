@@ -24,8 +24,8 @@ GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): game(game)
 }
 
 void GameEntityContainer::addPlayer(int x, int y){
-    if (!map.isEmpty(x, y))
-        throw std::runtime_error("Map not empty at indicated position");
+    if (!map.isMobPlacable(x, y))
+        throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
     mobs.emplace(id, new Player(game, map, *this, id, x, y));
     map.addEntity((mobs.at(id)), x, y);
@@ -33,8 +33,8 @@ void GameEntityContainer::addPlayer(int x, int y){
 }
 
 void GameEntityContainer::addMob(int x, int y, int type){
-    if (!map.isEmpty(x, y))
-        throw std::runtime_error("Map not empty at indicated position");
+    if (!map.isMobPlacable(x, y))
+        throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
     mobs.emplace(id, new Zombie(game, map, id, x, y));
     map.addEntity((mobs.at(id)), x, y);

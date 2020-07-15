@@ -98,6 +98,10 @@ void Client::equipArmor(int entityId, int itemId){
     entities.equipArmor(entityId, itemId);
 }
 
+void Client::removeItemMap(int x, int y){
+    map.removeItem(x, y);
+}
+
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
     return screen.getMapCoordinates(x, y);
 }

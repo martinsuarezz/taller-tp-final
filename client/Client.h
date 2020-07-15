@@ -48,6 +48,7 @@ class Client{
         void addMob(int entityId, int x, int y, int type);
         void removeMob(int entityId);
         void addPlayer(int entityId, int x, int y);
+        void removeItemMap(int x, int y);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

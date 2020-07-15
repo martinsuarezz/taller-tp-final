@@ -1,29 +1,39 @@
 #ifndef GAME_MAP_H
 #define GAME_MAP_H
 #include <tuple>
+#include <vector>
+#include <string>
+#include "MapTile.h"
 
 class GameEntity;
 
 class GameMap{
     private:
-        GameEntity* map[50][50];
+        std::vector<MapTile> map;
         int width;
         int height;
         int entitiesAmmount;
         bool isInbound(int x, int y) const;
         int getWidth() const;
         int getHeight() const;
+        void setSolid(int tile);
+        MapTile& getTile(int x, int y);
 
     public:
-        GameMap();
-        bool move(int fromX, int fromY, int toX, int toY);
+        GameMap(std::string mapFile);
+        bool moveEntity(int fromX, int fromY, int toX, int toY);
         void remove(int fromX, int fromY);
-        bool isEmpty(int x, int y) const;
-        void addEntity(GameEntity* entity, int x, int y);
-        bool canMove(int x, int y) const;
+        bool isMobPlacable(int x, int y);
+        void addEntity(MovableEntity* entity, int x, int y);
+        bool canMove(int x, int y);
+
+        void addItem(int itemId, int x, int y);
+
+        int getItemId(int x, int y);
+        void removeItem(int x, int y);
         
         std::pair<int, int> getEmptyPosition();
-int getEntityId(int x, int y) const;
+        int getEntityId(int x, int y);
 };
 
 #endif
