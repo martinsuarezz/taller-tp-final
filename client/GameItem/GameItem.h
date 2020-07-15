@@ -12,11 +12,12 @@ class GameItem{
         std::vector<int> acceptedSlots;
         DamageDealer damageDealer;
         DefenseDealer defenseDealer;
+        int manaNeeded;
 
     public:
         GameItem();
         GameItem(std::string name, int itemId, int damageMin, int damageMax,
-                    int defenseMin, int defenseMax, int range);
+                    int defenseMin, int defenseMax, int range, int manaNeeded = 0);
         GameItem(GameItem&&);
 
         void addValidSlot(int slot);
@@ -27,8 +28,7 @@ class GameItem{
         int getDamage();
         int getRange();
         int getDefense();
-
-
+        int getManaNeeded();
 };
 
 #endif

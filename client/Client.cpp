@@ -118,6 +118,10 @@ void Client::updateExperience(int experience){
     gui.updateExperience(experience);
 }
 
+void Client::updateMana(int mana){
+    gui.updateMana(mana);
+}
+
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
     return screen.getMapCoordinates(x, y);
 }

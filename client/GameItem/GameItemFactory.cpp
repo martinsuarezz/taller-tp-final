@@ -31,8 +31,9 @@ GameItem GameItemFactory::getItem(std::string name, int id){
     int defenseMin = config.getValue("defense_min_" + name);
     int defenseMax = config.getValue("defense_max_" + name);
     int range = config.getValue("range_" + name);
+    int manaNeeded = config.getValue("mana_req_" + name);
     return std::move(GameItem(name, id, damageMin, damageMax, 
-                    defenseMin, defenseMax, range));
+                    defenseMin, defenseMax, range, manaNeeded));
 }
 
 GameItem GameItemFactory::getSword(){

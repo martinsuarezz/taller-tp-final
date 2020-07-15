@@ -95,6 +95,10 @@ void Zombie::attackEntity(MovableEntity& other){
     nextState.reset(new ZombieAttackingState(*this, other, 5, 2000000));
 }
 
+bool Zombie::hasManaAvailable(int neededMana){
+    return true;
+}
+
 void Zombie::moveInventoryItem(int from, int to){
 
 }
@@ -104,9 +108,15 @@ void Zombie::notifyHealthUpdate(int newHealth){
 }
 
 void Zombie::notifyExperienceUpdate(int newExperience){
+
 }
 
 void Zombie::notifyLevelUpdate(int newLevel){
+
+}
+
+void Zombie::notifyManaUpdate(int mana){
+
 }
 
 void Zombie::addItem(int itemId, int slot){

@@ -11,6 +11,7 @@
 #include "../Command/PlayerHealthCommand.h"
 #include "../Command/PlayerLevelCommand.h"
 #include "../Command/PlayerExpCommand.h"
+#include "../Command/PlayerManaCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
 #include "../GameItem/GameItem.h"
@@ -32,6 +33,8 @@ Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
     agility = config.getValue(race + "_agility");
     health.setMaxHealth(config.getMaxHealth(race, type, 1));
     health.setHealthRegen(config.getHealthRegen(race));
+    mana.setMaxMana(config.getMaxMana(race, type, 1));
+    mana.setManaRegen(config.getManaRegen(race));
 }
 
 void Player::notifyMovement(int direction, int xNew, int yNew){
@@ -53,6 +56,7 @@ void Player::update(int timeElapsed){
         return;
     state->update(timeElapsed);
     health.regenerate(timeElapsed);
+    mana.regenerate(timeElapsed);
 }
 
 void Player::notifyHealthUpdate(int newHealth){
@@ -68,6 +72,11 @@ void Player::notifyLevelUpdate(int newLevel){
 
     game.addCommand(new PlayerLevelCommand(newLevel));
     health.setMaxHealth(config.getMaxHealth(race, type, level.getLevel()));
+    mana.setMaxMana(config.getMaxMana(race, type, level.getLevel()));
+}
+
+void Player::notifyManaUpdate(int newMana){
+    game.addCommand(new PlayerManaCommand(newMana));
 }
 
 bool Player::evadeAttack(){

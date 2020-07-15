@@ -53,6 +53,7 @@ class Client{
         void updateHealth(int health);
         void updateLevel(int level);
         void updateExperience(int experience);
+        void updateMana(int mana);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

@@ -8,11 +8,10 @@
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
 #include <iostream>
-#include <algorithm>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
                     GameEntity(game, map, x, y), state(new IdleState(*this)), 
-                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)), level(Level(*this)){}
+                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)), level(Level(*this)), mana(Mana(*this)){}
 
 void MovableEntity::move(int direction){
     switch (direction){
@@ -84,6 +83,14 @@ int MovableEntity::getId(){
 
 void MovableEntity::addExperience(int experience){
     level.addExperience(experience);
+}
+
+bool MovableEntity::hasManaAvailable(int neededMana){
+    return mana.getMana() >= neededMana;
+}
+
+void MovableEntity::consumeMana(int ammount){
+    mana.removeMana(ammount);
 }
 
 void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critical){

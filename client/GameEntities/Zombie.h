@@ -32,8 +32,10 @@ class Zombie: public MovableEntity{
         void notifyHealthUpdate(int newHealth);
         void notifyExperienceUpdate(int experience);
         void notifyLevelUpdate(int level);
+        void notifyManaUpdate(int mana);
         void addItem(int itemId, int slot);
         int getDefense(int damage);
+        bool hasManaAvailable(int neededMana) override;
         void update(int timeElapsed) override;
         ~Zombie();
 };

@@ -63,14 +63,20 @@ int Configuration::getHealthRegen(std::string race) const{
     return typeRegen;
 }
 
-int Configuration::getLevelUpExp(int level) const{
-    return (int) (1000 * pow((double) level, 1.8));
-}
-
 int Configuration::getMaxMana(std::string race, std::string type, int level) const{
     int inteligence = getValue(race + "_inteligence");
     int typeMana = getValue(type + "_mana");
     int raceMana = getValue(race + "_mana");
     
     return inteligence * typeMana * raceMana * level;
+}
+
+int Configuration::getManaRegen(std::string race) const{
+    int typeRegen = getValue(race + "_mana_regen");
+    
+    return typeRegen;
+}
+
+int Configuration::getLevelUpExp(int level) const{
+    return (int) (1000 * pow((double) level, 1.8));
 }

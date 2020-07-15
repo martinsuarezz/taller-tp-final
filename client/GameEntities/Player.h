@@ -33,6 +33,7 @@ class Player: public MovableEntity{
         void notifyHealthUpdate(int newHealth);
         void notifyExperienceUpdate(int experience);
         void notifyLevelUpdate(int level);
+        void notifyManaUpdate(int mana);
         void update(int timeElapsed);
         bool evadeAttack();
         void kill();

@@ -13,6 +13,7 @@ GraphicalInterface::GraphicalInterface(AssetsLoader& assets):
                     health(assets.getText("health")),
                     level(assets.getText("level")),
                     experience(assets.getText("exp")),
+                    mana(assets.getText("mana")),
                     inventory(Inventory(assets)){
 
     Configuration& config = Configuration::getInstance();
@@ -37,6 +38,9 @@ void GraphicalInterface::render(){
     int yExperience = config.getValue("gui_y_exp_perc") * config.getValue("window_height") / 100;
     experience.render(xExperience, yExperience);
     
+    int xMana = config.getValue("gui_x_mana_perc") * config.getValue("window_width") / 100;
+    int yMana = config.getValue("gui_y_mana_perc") * config.getValue("window_height") / 100;
+    mana.render(xMana, yMana);
 }
 
 void GraphicalInterface::selectSlot(int slot){
@@ -83,5 +87,8 @@ void GraphicalInterface::updateExperience(int expValue){
     experience.changeText(std::to_string(expValue));
 }
 
+void GraphicalInterface::updateMana(int manaValue){
+    mana.changeText(std::to_string(manaValue));
+}
 
 GraphicalInterface::~GraphicalInterface(){}

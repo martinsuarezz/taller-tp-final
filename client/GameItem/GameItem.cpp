@@ -5,19 +5,22 @@
 #include <algorithm>
 
 GameItem::GameItem(std::string name, int itemId, int damageMin, int damageMax,
-                    int defenseMin, int defenseMax, int range): 
+                    int defenseMin, int defenseMax, int range, int manaNeeded): 
                     name(name), itemId(itemId), 
                     damageDealer(DamageDealer(damageMin, damageMax, range)),
-                    defenseDealer(DefenseDealer(defenseMin, defenseMax)) {}
+                    defenseDealer(DefenseDealer(defenseMin, defenseMax)),
+                    manaNeeded(manaNeeded) {}
 
 GameItem::GameItem(): name("null"), itemId(0), 
                     damageDealer(DamageDealer(0, 0, 0)),
-                    defenseDealer(DefenseDealer(0, 0)){}
+                    defenseDealer(DefenseDealer(0, 0)),
+                    manaNeeded(0) {}
 
 GameItem::GameItem(GameItem&& other): name(other.name), itemId(other.itemId),
                     acceptedSlots(std::move(other.acceptedSlots)), 
                     damageDealer(std::move(other.damageDealer)),
-                    defenseDealer(std::move(other.defenseDealer)){}
+                    defenseDealer(std::move(other.defenseDealer)), 
+                    manaNeeded(other.manaNeeded) {}
 
 void GameItem::addValidSlot(int slot){
     acceptedSlots.push_back(slot);
@@ -46,4 +49,8 @@ int GameItem::getRange(){
 
 int GameItem::getDefense(){
     return defenseDealer.getDefense();
+}
+
+int GameItem::getManaNeeded(){
+    return manaNeeded;
 }

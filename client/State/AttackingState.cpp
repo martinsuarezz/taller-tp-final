@@ -20,7 +20,7 @@ void AttackingState::update(int timeElapsed){
 }
 
 bool AttackingState::isValid(){
-    return entity.isInRange(objective, weapon.getRange());
+    return entity.isInRange(objective, weapon.getRange()) && entity.hasManaAvailable(weapon.getManaNeeded());
 }
 
 void AttackingState::activate(){
@@ -33,6 +33,8 @@ void AttackingState::activate(){
         damage = config.getCriticalDamage(damage);
         critical = true;
     }
+    
+    entity.consumeMana(weapon.getManaNeeded());
 
     objective.getAttacked(damage, entity, critical);
     entity.stop();
