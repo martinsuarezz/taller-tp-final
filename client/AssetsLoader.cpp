@@ -37,6 +37,9 @@ void AssetsLoader::loadTexts(Renderer& renderer){
 
     Text exp(renderer, "0", "diablo_h.ttf");
     texts.emplace("exp", std::move(exp));
+
+    Text level(renderer, "0", "diablo_h.ttf");
+    texts.emplace("level", std::move(level));
 }
 
 void AssetsLoader::loadSounds(std::string file){

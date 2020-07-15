@@ -2,6 +2,8 @@
 #include "IdleState.h"
 #include "../GameItem/GameItem.h"
 #include "../GameEntities/MovableEntity.h"
+#include "../Configuration.h"
+#include "../RandomGenerator.h"
 #include <math.h>
 #include <stdexcept>
 
@@ -22,6 +24,16 @@ bool AttackingState::isValid(){
 }
 
 void AttackingState::activate(){
-    objective.getAttacked(weapon.getDamage() * strength);
+    Configuration& config = Configuration::getInstance();
+    RandomGenerator& random = RandomGenerator::getInstance();
+
+    bool critical = false;
+    int damage = weapon.getDamage() * strength;
+    if (random(100) < config.getValue("critical_chance")){
+        damage = config.getCriticalDamage(damage);
+        critical = true;
+    }
+
+    objective.getAttacked(damage, entity, critical);
     entity.stop();
 }

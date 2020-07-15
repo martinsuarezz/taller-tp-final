@@ -1,5 +1,5 @@
-#ifndef REMOVE_ITEM_MAP_COMMAND_H
-#define REMOVE_ITEM_MAP_COMMAND_H
+#ifndef PLAYER_HEALTH_COMMAND_H
+#define PLAYER_HEALTH_COMMAND_H
 #include "Command.h"
 
 class PlayerHealthCommand: public Command{

@@ -85,6 +85,10 @@ void Zombie::attackPlayer(){
     attackEntity(game.getPlayer());
 }
 
+bool Zombie::evadeAttack(){
+    return false;
+}
+
 void Zombie::attackEntity(MovableEntity& other){
     GameItemFactory factory;
     GameItem zombieHands = factory.getBareHands();
@@ -97,6 +101,12 @@ void Zombie::moveInventoryItem(int from, int to){
 
 void Zombie::notifyHealthUpdate(int newHealth){
 
+}
+
+void Zombie::notifyExperienceUpdate(int newExperience){
+}
+
+void Zombie::notifyLevelUpdate(int newLevel){
 }
 
 void Zombie::addItem(int itemId, int slot){

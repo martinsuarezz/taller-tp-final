@@ -8,10 +8,11 @@
 #include "../Command/MoveCommand.h"
 #include "../Configuration.h"
 #include <iostream>
+#include <algorithm>
 
 MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
                     GameEntity(game, map, x, y), state(new IdleState(*this)), 
-                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)){}
+                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)), level(Level(*this)){}
 
 void MovableEntity::move(int direction){
     switch (direction){
@@ -57,6 +58,10 @@ void MovableEntity::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
 }
 
+int MovableEntity::getLevel(){
+    return level.getLevel();
+}
+
 void MovableEntity::update(int timeElapsed){
     if (state == NULL)
         return;
@@ -77,15 +82,19 @@ int MovableEntity::getId(){
     return entityId;
 }
 
-void MovableEntity::getAttacked(int damage, bool critical){
+void MovableEntity::addExperience(int experience){
+    level.addExperience(experience);
+}
+
+void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critical){
     Configuration& config = Configuration::getInstance();
-    if (critical)
-        damage *= 2;
-    else if (config.evadeAttack())
+
+    if (!critical && evadeAttack())
         return;
     
     int damageDealt = getDefense(damage);
     health.dealDamage(damageDealt);
+    attacker.addExperience(config.getAttackExp(damageDealt, getLevel(), attacker.getLevel()));
     
     std::cout << "Done: " << damageDealt << " of damage" << std::endl;
 
@@ -93,8 +102,7 @@ void MovableEntity::getAttacked(int damage, bool critical){
     std::cout << "Current HP: " << newHealth << std::endl;
     if (newHealth <= 0){
         this->kill();
-    }
-        
+    } 
 }
 
 bool MovableEntity::isInRange(MovableEntity& other, int range){

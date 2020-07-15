@@ -28,7 +28,10 @@ class Zombie: public MovableEntity{
         void attackEntity(MovableEntity& other);
         void attackPlayer();
         void kill();
+        bool evadeAttack();
         void notifyHealthUpdate(int newHealth);
+        void notifyExperienceUpdate(int experience);
+        void notifyLevelUpdate(int level);
         void addItem(int itemId, int slot);
         int getDefense(int damage);
         void update(int timeElapsed) override;

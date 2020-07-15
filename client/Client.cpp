@@ -110,6 +110,14 @@ void Client::updateHealth(int health){
     gui.updateHealth(health);
 }
 
+void Client::updateLevel(int level){
+    gui.updateLevel(level);
+}
+
+void Client::updateExperience(int experience){
+    gui.updateExperience(experience);
+}
+
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
     return screen.getMapCoordinates(x, y);
 }

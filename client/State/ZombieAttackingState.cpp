@@ -2,6 +2,8 @@
 #include "IdleState.h"
 #include "../GameItem/GameItem.h"
 #include "../GameEntities/MovableEntity.h"
+#include "../Configuration.h"
+#include "../RandomGenerator.h"
 #include <math.h>
 #include <stdexcept>
 
@@ -24,6 +26,17 @@ bool ZombieAttackingState::isValid(){
 void ZombieAttackingState::activate(){
     if (!entity.isInRange(objective, 1))
         return;
-    objective.getAttacked(strength * 2);
+
+    Configuration& config = Configuration::getInstance();
+    RandomGenerator& random = RandomGenerator::getInstance();
+
+    bool critical = false;
+    int damage = strength * random(2, 4);
+    if (random(100) < config.getValue("critical_chance")){
+        damage = config.getCriticalDamage(damage);
+        critical = true;
+    }
+
+    objective.getAttacked(damage, entity, critical);
     entity.stop();
 }

@@ -4,6 +4,7 @@
 #include "GameEntity.h"
 #include "../State/State.h"
 #include "Health.h"
+#include "Level.h"
 
 class GameMap;
 
@@ -16,6 +17,7 @@ class MovableEntity: public GameEntity{
         int entityId;
         int moveSpeed;
         Health health;
+        Level level;
 
     public:
         MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed);
@@ -32,14 +34,19 @@ class MovableEntity: public GameEntity{
         void changeState();
         bool canMove(int x, int y);
         void updatePosition(int x, int y);
-        void getAttacked(int damage, bool critical = false);
+        void getAttacked(int damage, MovableEntity& attacker, bool critical = false);
         int getId();
+        int getLevel();
+        void addExperience(int experience);
+        virtual bool evadeAttack() = 0;
         bool isInRange(MovableEntity& other, int range);
         virtual void kill() = 0;
         virtual int getDefense(int damage) = 0;
         virtual void attackEntity(MovableEntity& other) = 0;
         virtual void notifyPlayerMovement(int x, int y) = 0;
         virtual void notifyHealthUpdate(int newHealth) = 0;
+        virtual void notifyExperienceUpdate(int experience) = 0;
+        virtual void notifyLevelUpdate(int level) = 0;
         virtual void moveInventoryItem(int from, int to) = 0;
         virtual void addItem(int itemId, int slot) = 0;
         virtual ~MovableEntity();

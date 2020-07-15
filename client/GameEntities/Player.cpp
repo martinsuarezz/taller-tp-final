@@ -9,6 +9,8 @@
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
 #include "../Command/PlayerHealthCommand.h"
+#include "../Command/PlayerLevelCommand.h"
+#include "../Command/PlayerExpCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
 #include "../GameItem/GameItem.h"
@@ -23,10 +25,11 @@ static int playerSpeed(){
 Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
                 int entityId, std::string race, std::string type, int x, int y): 
                 MovableEntity(game, map, entityId, x, y, playerSpeed()), 
-                entities(entities), inventory(GameInventory(game)){
+                entities(entities), inventory(GameInventory(game)), race(race), type(type){
     
     Configuration& config = Configuration::getInstance();
     strength = config.getValue(race + "_strength");
+    agility = config.getValue(race + "_agility");
     health.setMaxHealth(config.getMaxHealth(race, type, 1));
     health.setHealthRegen(config.getHealthRegen(race));
 }
@@ -54,6 +57,22 @@ void Player::update(int timeElapsed){
 
 void Player::notifyHealthUpdate(int newHealth){
     game.addCommand(new PlayerHealthCommand(newHealth));
+}
+
+void Player::notifyExperienceUpdate(int newExperience){
+    game.addCommand(new PlayerExpCommand(newExperience));
+}
+
+void Player::notifyLevelUpdate(int newLevel){
+    Configuration& config = Configuration::getInstance();
+
+    game.addCommand(new PlayerLevelCommand(newLevel));
+    health.setMaxHealth(config.getMaxHealth(race, type, level.getLevel()));
+}
+
+bool Player::evadeAttack(){
+    Configuration& config = Configuration::getInstance();
+    return config.evadeAttack(agility);
 }
 
 int Player::getDefense(int damage){

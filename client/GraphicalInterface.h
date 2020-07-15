@@ -16,6 +16,8 @@ class GraphicalInterface{
         AssetsLoader& assets;
         Texture& gui;
         Text& health;
+        Text& level;
+        Text& experience;
         Inventory inventory;
 
     public:
@@ -51,6 +53,8 @@ class GraphicalInterface{
         int getSelectedSlot() const;
 
         void updateHealth(int health);
+        void updateLevel(int level);
+        void updateExperience(int exp);
 
         ~GraphicalInterface();
 

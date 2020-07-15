@@ -51,6 +51,8 @@ class Client{
         void addPlayer(int entityId, int x, int y);
         void removeItemMap(int x, int y);
         void updateHealth(int health);
+        void updateLevel(int level);
+        void updateExperience(int experience);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

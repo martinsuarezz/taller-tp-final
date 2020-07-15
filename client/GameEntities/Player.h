@@ -16,7 +16,10 @@ class Player: public MovableEntity{
     private:
         GameEntityContainer& entities;
         GameInventory inventory;
+        std::string race;
+        std::string type;
         int strength;
+        int agility;
 
     public:
         Player(Sender& game, GameMap& map, GameEntityContainer& entities, 
@@ -28,7 +31,10 @@ class Player: public MovableEntity{
         void addItem(int itemId, int slot);
         void attackEntity(MovableEntity& entity);
         void notifyHealthUpdate(int newHealth);
+        void notifyExperienceUpdate(int experience);
+        void notifyLevelUpdate(int level);
         void update(int timeElapsed);
+        bool evadeAttack();
         void kill();
         int getDefense(int damage);
         ~Player();

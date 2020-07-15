@@ -29,6 +29,10 @@
     "inv_y_slot_size_perc": 4,
     "gui_x_health_perc": 88,
     "gui_y_health_perc": 83,
+    "gui_x_level_perc": 88,
+    "gui_y_level_perc": 84,
+    "gui_x_exp_perc": 88,
+    "gui_y_exp_perc": 79,
 
     "map_render_offset_tiles": 3,
 
@@ -46,6 +50,7 @@
     "mob_spawn_max": 10,
     "critical_multiplier": 2,
     "evade_chance": 5,
+    "critical_chance": 10,
     "spawn_item_prob": 100,
 
     "damage_min_bare_hands": 0,
@@ -165,7 +170,7 @@
     "human_mana": 2,
     "human_mana_regen": 2,
 
-    "wizard_health": 5,
+    "wizard_health": 3,
     "wizard_mana": 20,
     "wizard_meditation": 10
 }

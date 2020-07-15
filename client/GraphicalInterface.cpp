@@ -11,6 +11,8 @@
 GraphicalInterface::GraphicalInterface(AssetsLoader& assets): 
                     assets(assets), gui(assets.getTexture("interface")),
                     health(assets.getText("health")),
+                    level(assets.getText("level")),
+                    experience(assets.getText("exp")),
                     inventory(Inventory(assets)){
 
     Configuration& config = Configuration::getInstance();
@@ -21,11 +23,20 @@ GraphicalInterface::GraphicalInterface(AssetsLoader& assets):
 void GraphicalInterface::render(){
     Configuration& config = Configuration::getInstance();
     gui.render(0, 0);
+    inventory.render();
 
     int xHealth = config.getValue("gui_x_health_perc") * config.getValue("window_width") / 100;
     int yHealth = config.getValue("gui_y_health_perc") * config.getValue("window_height") / 100;
     health.render(xHealth, yHealth);
-    inventory.render();
+
+    int xLevel = config.getValue("gui_x_level_perc") * config.getValue("window_width") / 100;
+    int yLevel = config.getValue("gui_y_level_perc") * config.getValue("window_height") / 100;
+    level.render(xLevel, yLevel);
+
+    int xExperience = config.getValue("gui_x_exp_perc") * config.getValue("window_width") / 100;
+    int yExperience = config.getValue("gui_y_exp_perc") * config.getValue("window_height") / 100;
+    experience.render(xExperience, yExperience);
+    
 }
 
 void GraphicalInterface::selectSlot(int slot){
@@ -63,5 +74,14 @@ void GraphicalInterface::moveItemInventory(int from, int to){
 void GraphicalInterface::updateHealth(int healthValue){
     health.changeText(std::to_string(healthValue));
 }
+
+void GraphicalInterface::updateLevel(int levelValue){
+    level.changeText(std::to_string(levelValue));
+}
+
+void GraphicalInterface::updateExperience(int expValue){
+    experience.changeText(std::to_string(expValue));
+}
+
 
 GraphicalInterface::~GraphicalInterface(){}

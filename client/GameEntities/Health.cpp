@@ -8,6 +8,7 @@ Health::Health(MovableEntity& entity): damage(0), maxHealth(100),
 
 void Health::setMaxHealth(int maxHealth){
     this->maxHealth = maxHealth;
+    entity.notifyHealthUpdate(getHealth());
 }
 
 void Health::setHealthRegen(int healthRegen){

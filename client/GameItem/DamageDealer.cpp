@@ -15,7 +15,6 @@ DamageDealer::DamageDealer(DamageDealer&& other): minDamage(other.minDamage),
 int DamageDealer::getDamage(){
     RandomGenerator& random = RandomGenerator::getInstance();
     int damageDone = random(minDamage, maxDamage + 1);
-    std::cout << "Done " << damageDone << " damage!" << std::endl;
     return damageDone;
 }
 

@@ -1,6 +1,8 @@
 #include "Configuration.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
+#include <cmath>
+#include <algorithm>
 #include "RandomGenerator.h"
 
 using json = nlohmann::json;
@@ -33,9 +35,10 @@ int Configuration::getCriticalDamage(int damage) const{
     return damage * getValue("critical_multiplier");
 }
 
-bool Configuration::evadeAttack() const{
+bool Configuration::evadeAttack(int agility) const{
     RandomGenerator& random = RandomGenerator::getInstance();
-    return random(100) < getValue("evade_chance");
+    double randomNum = (double) random(1000) / 1000;
+    return pow(randomNum, (double) agility) < 0.001;
 }
 
 int Configuration::getTotalDefense(int armorDef, int helmetDef, int shieldDef) const{
@@ -50,10 +53,18 @@ int Configuration::getMaxHealth(std::string race, std::string type, int level) c
     return constitution * typeHealth * raceHealth * level;
 }
 
+int Configuration::getAttackExp(int damage, int defenderLevel, int attackerLevel) const{
+    return damage * std::max(defenderLevel - attackerLevel + 10, 0);
+}
+
 int Configuration::getHealthRegen(std::string race) const{
     int typeRegen = getValue(race + "_health_regen");
     
     return typeRegen;
+}
+
+int Configuration::getLevelUpExp(int level) const{
+    return (int) (1000 * pow((double) level, 1.8));
 }
 
 int Configuration::getMaxMana(std::string race, std::string type, int level) const{
