@@ -33,8 +33,8 @@ void EntityContainer::addMob(int entityId, int x, int y, int type){
     entities.emplace(entityId, factory.getZombie(x, y));
 }
 
-void EntityContainer::addPlayer(int entityId, int x, int y){
-    entities.emplace(entityId, factory.getPlayer(x, y));
+void EntityContainer::addPlayer(int entityId, int x, int y, std::string& race){
+    entities.emplace(entityId, factory.getPlayer(x, y, race));
     if (playerId == -1)
         playerId = entityId;
 }
@@ -49,6 +49,14 @@ void EntityContainer::equipWeapon(int entityId, int itemId){
 
 void EntityContainer::equipArmor(int entityId, int itemId){
     entities.at(entityId).equipArmor(itemId);
+}
+
+void EntityContainer::equipShield(int entityId, int itemId){
+    entities.at(entityId).equipShield(itemId);
+}
+
+void EntityContainer::equipHelmet(int entityId, int itemId){
+    entities.at(entityId).equipHelmet(itemId);
 }
 
 void EntityContainer::update(int timeElapsed){

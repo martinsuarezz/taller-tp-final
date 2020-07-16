@@ -26,13 +26,13 @@ GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map):
     mobSpawnProb = config.getValue("mob_spawn_prob");
 }
 
-void GameEntityContainer::addPlayer(int x, int y){
+void GameEntityContainer::addPlayer(int x, int y, std::string& race, std::string& type){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
-    mobs.emplace(id, factory.getPlayer(x, y, id));
+    mobs.emplace(id, factory.getPlayer(x, y, id, race, type));
     map.addEntity((mobs.at(id)), x, y);
-    game.addCommand(new SpawnPlayerCommand(id, x * 100, y * 100));
+    game.addCommand(new SpawnPlayerCommand(id, x * 100, y * 100, race));
 }
 
 void GameEntityContainer::addMob(int x, int y, int type){

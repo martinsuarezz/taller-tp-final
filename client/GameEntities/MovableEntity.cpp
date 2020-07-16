@@ -6,6 +6,7 @@
 #include "../Command/IdleCommand.h"
 #include "../Constants.h"
 #include "../Command/MoveCommand.h"
+#include "../Command/AttackCommand.h"
 #include "../Configuration.h"
 #include <iostream>
 
@@ -59,6 +60,10 @@ void MovableEntity::notifyIdle(){
 
 int MovableEntity::getLevel(){
     return level.getLevel();
+}
+
+void MovableEntity::notifyAttack(int weaponId, int x, int y, int duration){
+    game.addCommand(new AttackCommand(weaponId, x * 100, y * 100, duration));
 }
 
 void MovableEntity::update(int timeElapsed){

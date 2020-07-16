@@ -18,7 +18,7 @@ class EntityFactory{
         EntityFactory(AssetsLoader& assets, Screen& screen);
 
         // Devuelve una entidad jugador ubicado en las coordenadas dadas.
-        Entity getPlayer(int x, int y);
+        Entity getPlayer(int x, int y, std::string& race);
 
         // Devuelve una entidad zombie ubicado en las coordenadas dadas.
         Entity getZombie(int x, int y);

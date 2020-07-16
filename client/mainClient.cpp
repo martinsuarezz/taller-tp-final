@@ -2,9 +2,21 @@
 #include "SDLHandler.h"
 #include "Client.h"
 #include <iostream>
+#include <string>
 #include "Configuration.h"
 
 int main(int argc, char* argv[]){
+    std::string race;
+    std::string type;
+    if (argc < 3){
+        race = "human";
+        type = "mage";
+    }
+    else{
+        race = argv[1];
+        type = argv[2];
+    }
+
     SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
 
     Configuration& congif = Configuration::getInstance();
@@ -16,7 +28,7 @@ int main(int argc, char* argv[]){
     
     Window window("Argentum", congif.getValue("window_width"), congif.getValue("window_height"));
 
-    Client client(window);
+    Client client(window, race, type);
 
     client.run();
     return 0;

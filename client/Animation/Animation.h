@@ -29,6 +29,8 @@ class Animation{
         // Renderiza la animación en la posición indicada (pixeles absolutos)
         void render(int x, int y, int timeElapsed);
 
+        Animation(Animation&&);
+
         ~Animation();
 };
 

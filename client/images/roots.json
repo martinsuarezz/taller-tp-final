@@ -83,5 +83,9 @@
     "item18_icon_inv": "turtle_shield_icon.png",
     "item19_icon_inv": "iron_shield_icon.png",
     "item20_icon_inv": "magic_hat_icon.png",
-    "selected_slot": "selectionBox.png"
+    "selected_slot": "selectionBox.png",
+    "item7_attack": "spell2.png",
+    "item8_attack": "spell3.png",
+    "item9_attack": "spell3.png",
+    "item10_attack": "spell3.png"
 }

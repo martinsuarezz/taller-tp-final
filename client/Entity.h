@@ -67,6 +67,10 @@ class Entity{
         // Equipa una armadura.
         void equipArmor(int itemId);
 
+        void equipShield(int itemId);
+
+        void equipHelmet(int itemId);
+
         Entity(Entity&&);
 };
 

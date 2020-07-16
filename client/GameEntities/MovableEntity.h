@@ -39,6 +39,7 @@ class MovableEntity: public GameEntity{
         void getAttacked(int damage, MovableEntity& attacker, bool critical = false);
         int getId();
         int getLevel();
+        void notifyAttack(int weaponId, int x, int y, int duration);
         void consumeMana(int ammount);
         virtual bool hasManaAvailable(int mana);
         void addExperience(int experience);

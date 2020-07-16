@@ -21,7 +21,7 @@ class GameEntityContainer{
 
     public:
         GameEntityContainer(Sender& game, GameMap& map);
-        void addPlayer(int x, int y);
+        void addPlayer(int x, int y, std::string& race, std::string& type);
         void addMob(int x, int y, int type);
         void removeMob(int id);
         void update(int timeElapsed);

@@ -12,10 +12,7 @@ GameEntityFactory::GameEntityFactory(Sender& game, GameMap& map,
                                     game(game), map(map), entities(entities){}
 
 
-MovableEntity* GameEntityFactory::getPlayer(int x, int y, int entityId){
-    std::string race = "human";
-    std::string type = "wizard";
-
+MovableEntity* GameEntityFactory::getPlayer(int x, int y, int entityId, std::string& race, std::string& type){
     //Configuration& config = Configuration::getInstance();
     //int maxHealth = config.getMaxHealth(race, type, 1);
     //int maxMana = config.getMaxMana(race, type, 1);

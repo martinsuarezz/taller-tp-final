@@ -22,7 +22,8 @@ class Sender: public Thread{
         bool continueRunning;
 
     public:
-        Sender(IntentionsQueue& intentions, CommandsQueue& commands);
+        Sender(IntentionsQueue& intentions, CommandsQueue& commands,
+                    std::string& race, std::string& name);
         void movePlayer(int direction);
         void stopMovementPlayer();
         void run();

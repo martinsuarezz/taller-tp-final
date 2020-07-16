@@ -20,16 +20,18 @@
 #include <iostream>
 #include <unistd.h>
 
-Client::Client(Window& window): window(window), 
+Client::Client(Window& window, std::string& race, std::string& type): 
+                                window(window), 
                                 renderer(window.getRenderer()), 
                                 config(Configuration::getInstance()),
                                 assets(AssetsLoader(renderer)), 
                                 gui(GraphicalInterface(assets)), 
-                                sender(Sender(intentions, commands)),
+                                sender(Sender(intentions, commands, race, type)),
                                 map(MapGraphic("mapFinal.json", assets)),
                                 screen(Screen(map, renderer, config.getValue("window_width"), config.getValue("window_height"))),
                                 musicPlayer(MusicPlayer(assets)),
                                 entities(EntityContainer(assets, screen)),
+                                effects(SFXGenerator(screen, assets)),
                                 continueExectuion(true){
 
     Configuration& config = Configuration::getInstance();
@@ -62,8 +64,8 @@ void Client::addMob(int entityId, int x, int y, int type){
     entities.addMob(entityId, x, y, type);
 }
 
-void Client::addPlayer(int entityId, int x, int y){
-    entities.addPlayer(entityId, x, y);
+void Client::addPlayer(int entityId, int x, int y, std::string& race){
+    entities.addPlayer(entityId, x, y, race);
 }
 
 void Client::removeMob(int entityId){
@@ -102,6 +104,14 @@ void Client::equipArmor(int entityId, int itemId){
     entities.equipArmor(entityId, itemId);
 }
 
+void Client::equipShield(int entityId, int itemId){
+    entities.equipShield(entityId, itemId);
+}
+
+void Client::equipHelmet(int entityId, int itemId){
+    entities.equipHelmet(entityId, itemId);
+}
+
 void Client::removeItemMap(int x, int y){
     map.removeItem(x, y);
 }
@@ -120,6 +130,10 @@ void Client::updateExperience(int experience){
 
 void Client::updateMana(int mana){
     gui.updateMana(mana);
+}
+
+void Client::notifyAttack(int itemId, int x, int y, int duration){
+    effects.addAttackEffect(itemId, x, y, duration);
 }
 
 std::pair<int, int> Client::getMapCoordinates(int x, int y){
@@ -167,6 +181,7 @@ void Client::run(){
         screen.render();
         entities.update(microsecondsPerFrame);
         renderer.resetViewport();
+        effects.render(microsecondsPerFrame);
         gui.render();
 
         renderer.renderPresent();   

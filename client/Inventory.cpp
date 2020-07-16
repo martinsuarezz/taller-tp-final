@@ -3,10 +3,12 @@
 #include "Configuration.h"
 #include "Texture.h"
 #include "AssetsLoader.h"
+#include "Sound.h"
 #include <map>
 #include <stdexcept>
 
-Inventory::Inventory(AssetsLoader& assets): assets(assets){
+Inventory::Inventory(AssetsLoader& assets): assets(assets), 
+                        selectionSound(assets.getSound("click")){
     Configuration& config = Configuration::getInstance();
     slots = config.getValue("inventory_slots") + 
             config.getValue("equipment_slots");
@@ -17,8 +19,6 @@ Inventory::Inventory(AssetsLoader& assets): assets(assets){
     int boxWidth = config.getValue("inv_x_slot_size_px");
     selectionBox.setHeight(boxHeight);
     selectionBox.setWidth(boxWidth);
-
-    
 }
 
 int Inventory::getSlot(int x, int y) const{
@@ -135,6 +135,7 @@ void Inventory::render(){
 
 void Inventory::selectSlot(int slot){
     selected = slot;
+    selectionSound.play(0);
 }
 
 void Inventory::resetSelection(){

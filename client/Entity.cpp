@@ -86,6 +86,16 @@ void Entity::equipArmor(int itemId){
     action->refresh();
 }
 
+void Entity::equipShield(int itemId){
+    equiped["5weapon"] = "item" + std::to_string(itemId);
+    action->refresh();
+}
+
+void Entity::equipHelmet(int itemId){
+    equiped["4head"] = "item" + std::to_string(itemId);
+    action->refresh();
+}
+
 bool Entity::isOnScreen() const{
     return screen.isInbound(*this);
 }

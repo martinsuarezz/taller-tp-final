@@ -15,6 +15,13 @@ Animation::Animation(Texture& texture, std::vector<SDL_Rect>& frames,
     targetMicroseconds = frameDuration;
 }
 
+Animation::Animation(Animation&& other): texture(other.texture),
+            frames(other.frames), ammountFrames(other.ammountFrames),
+            frameDuration(other.frameDuration), 
+            elapsedMicroseconds(other.elapsedMicroseconds),
+            targetMicroseconds(other.targetMicroseconds),
+            currentFrame(other.currentFrame){}
+
 void Animation::render(int x, int y, int timeElapsed){
     if ((elapsedMicroseconds <= targetMicroseconds) && 
         ((elapsedMicroseconds += timeElapsed) >= targetMicroseconds)){

@@ -20,5 +20,9 @@
     "weapon_right": [5, 0, 152, 25, 46],
     "weapon_idle": [1, 0, 0, 25, 46],
     "aura_meditate": [20, 0, 0, 60, 60],
-    "human_face_animation_idle" : [1, 0, 0, 16, 18]
+    "human_face_animation_idle" : [1, 0, 0, 16, 18],
+    "item7_attack": [24, 0, 0, 64, 64],
+    "item8_attack": [24, 0, 0, 64, 64],
+    "item9_attack": [24, 0, 0, 64, 64],
+    "item10_attack": [24, 0, 0, 64, 64]
 }

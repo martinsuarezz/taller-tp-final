@@ -31,13 +31,15 @@ class EntityContainer{
         void addMob(int entityId, int x, int y, int type);
 
         // Agrega un jugador.
-        void addPlayer(int entityId, int x, int y);
+        void addPlayer(int entityId, int x, int y, std::string& race);
 
         // Remueve un monstruo o jugador.
         void removeMob(int entityId);
 
         void equipWeapon(int entityId, int itemId);
         void equipArmor(int entityId, int itemId);
+        void equipShield(int entityId, int itemId);
+        void equipHelmet(int entityId, int itemId);
 
         // Actualiza a las entidades indicando el paso del tiempo.
         void update(int timeElapsed);

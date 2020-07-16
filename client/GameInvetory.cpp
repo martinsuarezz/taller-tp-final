@@ -8,6 +8,8 @@
 #include "GameItem/GameItemFactory.h"
 #include "Command/EquipWeaponCommand.h"
 #include "Command/EquipArmorCommand.h"
+#include "Command/EquipShieldCommand.h"
+#include "Command/EquipHelmetCommand.h"
 #include "Configuration.h"
 
 #define INV_SIZE 15
@@ -44,6 +46,10 @@ void GameInventory::equipItem(int itemId, int slot){
         game.addCommand(new EquipWeaponCommand(0, itemId));
     else if (slot == config.getValue("inv_armor_slot"))
         game.addCommand(new EquipArmorCommand(0, itemId));
+    else if (slot == config.getValue("inv_shield_slot"))
+        game.addCommand(new EquipShieldCommand(0, itemId));
+    else if (slot == config.getValue("inv_helmet_slot"))
+        game.addCommand(new EquipHelmetCommand(0, itemId));
 }
 
 int GameInventory::getEmptySlot(){

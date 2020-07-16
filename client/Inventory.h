@@ -3,6 +3,8 @@
 #include "Item.h"
 #include <map>
 
+class Sound;
+
 class AssetsLoader;
 
 // Clase que modela el inventario en la interfaz gráfica.
@@ -11,6 +13,7 @@ class Inventory{
     private:
         AssetsLoader& assets;
         std::map<int, Item> items;
+        Sound& selectionSound;
         int slots;
         int selected;
         int getX(int slot) const;

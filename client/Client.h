@@ -11,7 +11,9 @@
 #include "MapGraphic.h"
 #include "Screen.h"
 #include "MapGraphic.h"
+#include "SFXGenerator.h"
 #include <map>
+#include <string>
 
 class Window;
 
@@ -31,11 +33,12 @@ class Client{
         Screen screen;
         MusicPlayer musicPlayer;
         EntityContainer entities;
+        SFXGenerator effects;
         SDL_Rect mapViewport;
         bool continueExectuion;
 
     public:
-        Client(Window& window);
+        Client(Window& window, std::string& race, std::string& type);
         void run();
         void updateEntities();
         void moveEntity(int entityId, int direction, int x, int y);
@@ -46,14 +49,17 @@ class Client{
         void moveItem(int from, int to);
         void equipWeapon(int entityId, int itemId);
         void equipArmor(int entityId, int itemId);
+        void equipShield(int entityId, int itemId);
+        void equipHelmet(int entityId, int itemId);
         void addMob(int entityId, int x, int y, int type);
         void removeMob(int entityId);
-        void addPlayer(int entityId, int x, int y);
+        void addPlayer(int entityId, int x, int y, std::string& race);
         void removeItemMap(int x, int y);
         void updateHealth(int health);
         void updateLevel(int level);
         void updateExperience(int experience);
         void updateMana(int mana);
+        void notifyAttack(int itemId, int x, int y, int duration);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

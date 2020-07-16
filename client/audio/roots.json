@@ -1,3 +1,13 @@
 {
-    "walking_sound": "24.wav"
+    "click": "click2.wav",
+    "walking_sound": "24.wav",
+    "item4_attack": "sword3.wav",
+    "item5_attack": "sword2.wav",
+    "item6_attack": "sword1.wav",
+    "item7_attack": "spell4.wav",
+    "item8_attack": "ringtone.wav",
+    "item9_attack": "spell2.wav",
+    "item10_attack": "spell3.wav",
+    "item11_attack": "arrow.wav",
+    "item12_attack": "arrow.wav"
 }

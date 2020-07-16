@@ -17,17 +17,25 @@
 #include <string>
 #include <stdexcept>
 
-Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands): 
-    intentions(intentions), commands(commands), map(GameMap(*this, "mapFinal.json")),entities(GameEntityContainer(*this, map)), continueRunning(true){}
+Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands, 
+                std::string& race, std::string& type): 
+    intentions(intentions), commands(commands), map(GameMap(*this, "mapFinal.json")),
+    entities(GameEntityContainer(*this, map)), continueRunning(true){
+    entities.addPlayer(20, 20, race, type);
+}
 
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
-    entities.addPlayer(20, 20);
     addItem(SWORD_ID, 1);
-    addItem(AXE_ID, 2);
+    addItem(7, 2);
+    
     addItem(HAMMER_ID, 3);
     addItem(PLATE_ARMOR_ID, 4);
     addItem(HOOD_ID, 5);
+    addItem(IRON_SHIELD_ID);
+    addItem(8, -1);
+    addItem(9, -1);
+    addItem(10, -1);
     //map.addItem(KNOT_STAFF_ID, 20, 20);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
