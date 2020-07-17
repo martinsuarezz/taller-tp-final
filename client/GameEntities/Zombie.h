@@ -27,16 +27,20 @@ class Zombie: public MovableEntity{
         void moveInventoryItem(int from, int to);
         void attackEntity(MovableEntity& other);
         void attackPlayer();
-        void kill();
+        void kill(MovableEntity& killer);
         bool evadeAttack();
         void notifyHealthUpdate(int newHealth);
         void notifyExperienceUpdate(int experience);
         void notifyLevelUpdate(int level);
         void notifyManaUpdate(int mana);
-        void addItem(int itemId, int slot);
+        void notifyGoldUpdate(int gold);
+        bool addItem(int itemId, int slot);
+        void interact(MovableEntity& other);
         int getDefense(int damage);
         bool hasManaAvailable(int neededMana) override;
         void update(int timeElapsed) override;
+        void buyItem(MovableEntity& buyer, int itemIndex);
+        void revive();
         ~Zombie();
 };
 

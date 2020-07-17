@@ -10,6 +10,8 @@ class Text{
     private:
         Texture texture;
         std::string fontName;
+        int fontSize;
+        SDL_Color fontColor;
 
     public:
         Text(Renderer& renderer, std::string text, std::string fontName,

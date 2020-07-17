@@ -43,3 +43,7 @@ void Health::dealDamage(int damageDealt){
 int Health::getHealth(){
     return maxHealth - damage;
 }
+
+int Health::getMaxHealth(){
+    return maxHealth;
+}

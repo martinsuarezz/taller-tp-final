@@ -19,6 +19,7 @@ class GraphicalInterface{
         Text& level;
         Text& experience;
         Text& mana;
+        Text& gold;
         Inventory inventory;
 
     public:
@@ -57,6 +58,7 @@ class GraphicalInterface{
         void updateLevel(int level);
         void updateExperience(int exp);
         void updateMana(int mana);
+        void updateGold(int gold);
 
         ~GraphicalInterface();
 

@@ -23,6 +23,10 @@ class EntityFactory{
         // Devuelve una entidad zombie ubicado en las coordenadas dadas.
         Entity getZombie(int x, int y);
 
+        Entity getMerchant(int x, int y);
+
+        Entity getHealer(int x, int y);
+
 };
 
 #endif

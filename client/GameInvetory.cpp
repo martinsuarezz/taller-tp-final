@@ -11,6 +11,7 @@
 #include "Command/EquipShieldCommand.h"
 #include "Command/EquipHelmetCommand.h"
 #include "Configuration.h"
+#include <iostream>
 
 #define INV_SIZE 15
 
@@ -62,18 +63,34 @@ int GameInventory::getEmptySlot(){
     throw std::out_of_range("No empty space on inventory");
 }
 
-void GameInventory::addItem(int itemId, int slot){
-    if (slot == -1)
-        slot = getEmptySlot();
+void GameInventory::clear(){
+    Configuration& config = Configuration::getInstance();
+    int invSize = config.getValue("inventory_slots");
+    for (int i = 0; i < invSize; i++){
+        removeItem(i);
+    }
+}
+
+bool GameInventory::addItem(int itemId, int slot){
+    if (slot == -1){
+        try{
+            slot = getEmptySlot();
+        }
+        catch(std::out_of_range& e){
+            std::cout << "No empty space on inventory" << std::endl;
+            return false;
+        }
+    }
 
     Configuration& config = Configuration::getInstance();
     if (!slotIsEmpty(slot))
-        return;
+        return false;
     items.emplace(slot, std::move(itemFactory.getItem(itemId)));
     game.addCommand(new AddItemCommand(itemId, slot));
     
     if (slot >= config.getValue("inventory_slots"))
         equipItem(itemId, slot);
+    return true;
 }
 
 int GameInventory::removeItem(int slot){
@@ -83,6 +100,11 @@ int GameInventory::removeItem(int slot){
     int itemId = item.getId();
     items.erase(slot);
     game.addCommand(new RemoveItemCommand(slot));
+
+    Configuration& config = Configuration::getInstance();
+    if (slot >= config.getValue("inventory_slots"))
+        equipItem(-1, slot);
+
     return itemId;
 }
 

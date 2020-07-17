@@ -39,8 +39,24 @@ void GameEntityContainer::addMob(int x, int y, int type){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
-    mobs.emplace(id, factory.getZombie(x, y, id));
-    map.addEntity((mobs.at(id)), x, y);
+    switch (type){
+        case ZOMBIE:
+            mobs.emplace(id, factory.getZombie(x, y, id));
+            map.addEntity((mobs.at(id)), x, y);
+            break;
+        case MERCHANT:
+            mobs.emplace(id, factory.getMerchant(x, y, id));
+            map.addEntity((mobs.at(id)), x, y);
+            break;
+        case HEALER:
+            mobs.emplace(id, factory.getHealer(x, y, id));
+            map.addEntity((mobs.at(id)), x, y);
+            break;
+        default:
+            std::cout << "Warning: mob of id " << type << " not implemented." << std::endl;
+            return;
+    }
+    
     game.addCommand(new SpawnMobCommand(id, type, x * 100, y* 100));
 }
 

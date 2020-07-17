@@ -20,6 +20,7 @@ class Health{
         void addHealth(int health);
         void dealDamage(int damage);
         int getHealth();
+        int getMaxHealth();
 
 };
 

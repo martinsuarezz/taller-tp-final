@@ -30,7 +30,17 @@ void EntityContainer::idle(int entityId, int x, int y){
 }
 
 void EntityContainer::addMob(int entityId, int x, int y, int type){
-    entities.emplace(entityId, factory.getZombie(x, y));
+    switch(type){
+        case ZOMBIE:
+            entities.emplace(entityId, factory.getZombie(x, y));
+            break;
+        case MERCHANT:
+            entities.emplace(entityId, factory.getMerchant(x, y));
+            break;
+        case HEALER:
+            entities.emplace(entityId, factory.getHealer(x, y));
+            break;
+    }
 }
 
 void EntityContainer::addPlayer(int entityId, int x, int y, std::string& race){

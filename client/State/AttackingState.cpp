@@ -21,7 +21,8 @@ void AttackingState::update(int timeElapsed){
 
 bool AttackingState::isValid(){
     return entity.isInRange(objective, weapon.getRange()) && 
-    entity.hasManaAvailable(weapon.getManaNeeded());
+    entity.hasManaAvailable(weapon.getManaNeeded()) &&
+    objective.isAlive() && entity.isAlive();
 }
 
 void AttackingState::activate(){

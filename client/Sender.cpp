@@ -10,6 +10,7 @@
 #include "CommandsQueue.h"
 #include "GameEntityContainer.h"
 #include "Constants.h"
+#include "Configuration.h"
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
@@ -22,20 +23,23 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands,
     intentions(intentions), commands(commands), map(GameMap(*this, "mapFinal.json")),
     entities(GameEntityContainer(*this, map)), continueRunning(true){
     entities.addPlayer(20, 20, race, type);
+    entities.addMob(18, 22, MERCHANT);
+    entities.addMob(24, 22, HEALER);
 }
 
 void Sender::run(){
     std::unique_ptr<Intention> currentIntention;
-    addItem(SWORD_ID, 1);
-    addItem(7, 2);
-    
-    addItem(HAMMER_ID, 3);
-    addItem(PLATE_ARMOR_ID, 4);
-    addItem(HOOD_ID, 5);
-    addItem(IRON_SHIELD_ID);
+    addItem(4, -1);
+    addItem(5, -1);
+    addItem(6, -1);
+    addItem(7, -1);
     addItem(8, -1);
     addItem(9, -1);
     addItem(10, -1);
+    addItem(SIMPLE_BOW_ID, -1);
+    addItem(COMPOUND_BOW_ID, -1);
+    addItem(IRON_SHIELD_ID, -1);
+    addItem(TURTLE_SHIELD_ID, -1);
     //map.addItem(KNOT_STAFF_ID, 20, 20);
     while (continueRunning){
         currentIntention.reset(intentions.pop());
@@ -60,6 +64,32 @@ void Sender::pickUpItem(){
     catch (std::out_of_range& e){
         std::cout << "Inventory is full!" << std::endl;
     }
+    catch (std::runtime_error& e){}
+}
+
+void Sender::interact(){
+    Configuration& config = Configuration::getInstance();
+    MovableEntity& player = *entities.getMob(0);
+    int x = player.getX();
+    int y = player.getY();
+    try{
+        MovableEntity& entity = map.getInteractableEntity(x, y, config.getValue("interaction_range"));
+        entity.interact(player);
+    }
+    catch (std::out_of_range& e){}
+    catch (std::runtime_error& e){}
+}
+
+void Sender::buyItem(int itemIndex){
+    Configuration& config = Configuration::getInstance();
+    MovableEntity& player = *entities.getMob(0);
+    int x = player.getX();
+    int y = player.getY();
+    try{
+        MovableEntity& entity = map.getInteractableEntity(x, y, config.getValue("interaction_range"));
+        entity.buyItem(player, itemIndex);
+    }
+    catch (std::out_of_range& e){}
     catch (std::runtime_error& e){}
 }
 

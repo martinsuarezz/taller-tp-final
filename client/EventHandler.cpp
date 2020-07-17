@@ -10,10 +10,16 @@
 #include "Intention/MoveItemIntention.h"
 #include "Intention/AttackIntention.h"
 #include "Intention/PickUpIntention.h"
+#include "Intention/InteractIntention.h"
+#include "Intention/BuyItemIntention.h"
 #include <iostream>
 
 EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): 
-                            client(client), intentions(intentions){}
+                    client(client), intentions(intentions), storeIsOpen(false){}
+
+void EventHandler::openStore(){
+    storeIsOpen = true;
+}
 
 int EventHandler::handleKeyDown(SDL_Event* event){
     if (event->key.repeat != 0)
@@ -21,18 +27,26 @@ int EventHandler::handleKeyDown(SDL_Event* event){
     switch(event->key.keysym.sym){
         case SDLK_w:
             intentions.push(new MoveIntention(UP));
+            storeIsOpen = false;
             return 1;
         case SDLK_d:
             intentions.push(new MoveIntention(RIGHT));
+            storeIsOpen = false;
             return 1;
         case SDLK_s:
             intentions.push(new MoveIntention(DOWN));
+            storeIsOpen = false;
             return 1;
         case SDLK_a:
             intentions.push(new MoveIntention(LEFT));
+            storeIsOpen = false;
             return 1;
         case SDLK_h:
             intentions.push(new PickUpIntention());
+            return 1;
+        case SDLK_e:
+            intentions.push(new InteractIntention());
+            storeIsOpen = false;
             return 1;
         case SDLK_m:
             client.stopPlaySong();
@@ -46,7 +60,10 @@ int EventHandler::handleKeyDown(SDL_Event* event){
         
         default:
             std::cout << event->key.keysym.sym << std::endl;
-            return 0;
+    }
+    if (storeIsOpen && event->key.keysym.sym >= SDLK_1 && 
+        event->key.keysym.sym <= SDLK_9){
+        intentions.push(new BuyItemIntention(event->key.keysym.sym - SDLK_1));
     }
     return 0;
 }

@@ -32,6 +32,7 @@ Client::Client(Window& window, std::string& race, std::string& type):
                                 musicPlayer(MusicPlayer(assets)),
                                 entities(EntityContainer(assets, screen)),
                                 effects(SFXGenerator(screen, assets)),
+                                eventHandler(EventHandler(*this, intentions)),
                                 continueExectuion(true){
 
     Configuration& config = Configuration::getInstance();
@@ -122,6 +123,7 @@ void Client::updateHealth(int health){
 
 void Client::updateLevel(int level){
     gui.updateLevel(level);
+    effects.addLevelUpEffect();
 }
 
 void Client::updateExperience(int experience){
@@ -130,6 +132,10 @@ void Client::updateExperience(int experience){
 
 void Client::updateMana(int mana){
     gui.updateMana(mana);
+}
+
+void Client::updateGold(int gold){
+    gui.updateGold(gold);
 }
 
 void Client::notifyAttack(int itemId, int x, int y, int duration){
@@ -145,6 +151,14 @@ bool Client::isClickOnMapScreen(int x, int y){
             (y > mapViewport.y) && (y < mapViewport.y + mapViewport.h);
 }
 
+void Client::showProducts(std::vector<int>& products){
+    eventHandler.openStore();
+    std::cout << "Elija un producto para comprar:" << std::endl;
+    for (size_t i = 0; i < products.size() / 2; i++){
+        std::cout << i + 1 << ". Item " << products[2 * i] << " - $" << products[2 * i + 1] << std::endl;
+    }
+}
+
 GraphicalInterface& Client::getGui(){
     return gui;
 }
@@ -157,8 +171,6 @@ void Client::run(){
 
     renderer.setDrawColor(200, 255, 255, 255);
 	renderer.clear();
-
-    EventHandler eventHandler(*this, intentions);
 
     Clock clock;
 

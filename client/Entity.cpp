@@ -8,9 +8,10 @@
 
 Entity::Entity(AssetsLoader& assets, Screen& screen, 
                 std::map<std::string, std::string> equiped, 
-                int x, int y): x(x), y(y), assets(assets), 
+                std::string race, int x, int y): assets(assets), 
                 screen(screen), equiped(equiped), 
-                action(new IdleAction(*this, assets)){}
+                action(new IdleAction(*this, assets)), 
+                race(race), x(x), y(y){}
 
 void Entity::update(int timeElapsed){
     action->update(timeElapsed);
@@ -77,22 +78,34 @@ std::map<std::string, std::string>& Entity::getEquipedItems(){
 }
 
 void Entity::equipWeapon(int itemId){
-    equiped["3weapon"] = "item" + std::to_string(itemId);
+    if (itemId == -1)
+        equiped["3weapon"] = "";
+    else
+        equiped["3weapon"] = "item" + std::to_string(itemId);
     action->refresh();
 }
 
 void Entity::equipArmor(int itemId){
-    equiped["1body"] = "item" + std::to_string(itemId);
+    if (itemId == -1)
+        equiped["1body"] = race + "_body";
+    else
+        equiped["1body"] = "item" + std::to_string(itemId);
     action->refresh();
 }
 
 void Entity::equipShield(int itemId){
-    equiped["5weapon"] = "item" + std::to_string(itemId);
+    if (itemId == -1)
+        equiped["5weapon"] = "";
+    else
+        equiped["5weapon"] = "item" + std::to_string(itemId);
     action->refresh();
 }
 
 void Entity::equipHelmet(int itemId){
-    equiped["4head"] = "item" + std::to_string(itemId);
+    if (itemId == -1)
+        equiped["4head"] = "";
+    else
+        equiped["4head"] = "item" + std::to_string(itemId);
     action->refresh();
 }
 
@@ -101,7 +114,7 @@ bool Entity::isOnScreen() const{
 }
 
 Entity::Entity(Entity&& other): assets(other.assets), screen(other.screen), 
-                                equiped(other.equiped){
+                                equiped(other.equiped), race(other.race){
     this->x = other.x;
     this->y = other.y;
     this->action.reset(new IdleAction(*this, assets));

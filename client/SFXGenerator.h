@@ -22,6 +22,7 @@ class SFXGenerator{
         void render(int timeElapsed);
         void addAttackEffect(int weapon, int x, int y, int duration);
         void removeEffect(int effectNumber);
+        void addLevelUpEffect();
 
 };
 

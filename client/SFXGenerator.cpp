@@ -36,6 +36,11 @@ void SFXGenerator::render(int timeElapsed){
     */
 }
 
+void SFXGenerator::addLevelUpEffect(){
+    Sound& sound = assets.getSound("level_up");
+    sound.play(0);
+}
+
 void SFXGenerator::addAttackEffect(int weapon, int x, int y, int duration){
     if (MELEE_FIRST <= weapon && weapon <= MELEE_LAST)
         addMeleeEffect(weapon, duration);

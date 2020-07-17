@@ -12,20 +12,17 @@
 #include "../Command/PlayerLevelCommand.h"
 #include "../Command/PlayerExpCommand.h"
 #include "../Command/PlayerManaCommand.h"
+#include "../Command/PlayerGoldCommand.h"
+#include "../Command/EquipArmorCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
 #include "../GameItem/GameItem.h"
 #include "../GameInventory.h"
 #include <iostream>
 
-static int playerSpeed(){
-    Configuration& config = Configuration::getInstance();
-    return config.getValue("player_speed");
-}
-
 Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
-                int entityId, std::string race, std::string type, int x, int y): 
-                MovableEntity(game, map, entityId, x, y, playerSpeed()), 
+                int entityId, std::string race, std::string type, int x, int y, int duration): 
+                MovableEntity(game, map, entityId, x, y, duration), 
                 entities(entities), inventory(GameInventory(game)), race(race), type(type){
     
     Configuration& config = Configuration::getInstance();
@@ -46,7 +43,12 @@ void Player::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
 }
 
-void Player::kill(){
+void Player::kill(MovableEntity& killer){
+    Configuration& config = Configuration::getInstance();
+    gold.notifyDeath();
+    alive = false;
+    inventory.clear();
+    inventory.equipItem(GHOST_BODY_ID, config.getValue("inv_armor_slot"));
     health.addHealth(1000);
     std::cout << "YOU DIED" << std::endl;
 }
@@ -65,6 +67,10 @@ void Player::notifyHealthUpdate(int newHealth){
 
 void Player::notifyExperienceUpdate(int newExperience){
     game.addCommand(new PlayerExpCommand(newExperience));
+}
+
+void Player::notifyGoldUpdate(int newGold){
+    game.addCommand(new PlayerGoldCommand(newGold));
 }
 
 void Player::notifyLevelUpdate(int newLevel){
@@ -106,11 +112,27 @@ void Player::notifyPlayerMovement(int x, int y){
 }
 
 void Player::moveInventoryItem(int from, int to){
+    if (!alive)
+        return;
     inventory.moveItem(from, to);
 }
 
-void Player::addItem(int itemId, int slot){
-    inventory.addItem(itemId, slot);
+bool Player::addItem(int itemId, int slot){
+    if (!alive)
+        return false;
+    return inventory.addItem(itemId, slot);
 }
+
+void Player::revive(){
+    if (alive)
+        return;
+    Configuration& config = Configuration::getInstance();
+    inventory.equipItem(-1, config.getValue("inv_armor_slot"));
+    alive = true;
+}
+
+void Player::interact(MovableEntity& other){}
+
+void Player::buyItem(MovableEntity& buyer, int itemIndex){}
 
 Player::~Player(){}

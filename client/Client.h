@@ -11,6 +11,7 @@
 #include "MapGraphic.h"
 #include "Screen.h"
 #include "MapGraphic.h"
+#include "EventHandler.h"
 #include "SFXGenerator.h"
 #include <map>
 #include <string>
@@ -34,6 +35,7 @@ class Client{
         MusicPlayer musicPlayer;
         EntityContainer entities;
         SFXGenerator effects;
+        EventHandler eventHandler;
         SDL_Rect mapViewport;
         bool continueExectuion;
 
@@ -59,7 +61,9 @@ class Client{
         void updateLevel(int level);
         void updateExperience(int experience);
         void updateMana(int mana);
+        void updateGold(int gold);
         void notifyAttack(int itemId, int x, int y, int duration);
+        void showProducts(std::vector<int>& products);
         void stopExecution();
         void nextSong();
         void stopPlaySong();

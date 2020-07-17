@@ -30,6 +30,8 @@ class Sender: public Thread{
         void addCommand(Command* command);
         void close();
         void pickUpItem();
+        void interact();
+        void buyItem(int itemIndex);
         void moveInventoryItem(int from, int to);
         void addItem(int itemId, int slot = -1);
         void attackEntity(int x, int y);

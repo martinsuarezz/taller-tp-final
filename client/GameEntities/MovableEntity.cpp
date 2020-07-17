@@ -10,9 +10,13 @@
 #include "../Configuration.h"
 #include <iostream>
 
-MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, int x, int y, int moveSpeed): 
+MovableEntity::MovableEntity(Sender& game, GameMap& map, int entityId, 
+                            int x, int y, int moveSpeed, bool alive): 
                     GameEntity(game, map, x, y), state(new IdleState(*this)), 
-                    entityId(entityId), moveSpeed(moveSpeed), health(Health(*this)), level(Level(*this)), mana(Mana(*this)){}
+                    entityId(entityId), moveSpeed(moveSpeed), 
+                    health(Health(*this)), level(Level(*this)),
+                    mana(Mana(*this)), gold(GoldContainer(*this)),
+                    alive(alive){}
 
 void MovableEntity::move(int direction){
     switch (direction){
@@ -90,6 +94,10 @@ void MovableEntity::addExperience(int experience){
     level.addExperience(experience);
 }
 
+void MovableEntity::addGold(int ammount){
+    gold.add(ammount);
+}
+
 bool MovableEntity::hasManaAvailable(int neededMana){
     return mana.getMana() >= neededMana;
 }
@@ -99,6 +107,9 @@ void MovableEntity::consumeMana(int ammount){
 }
 
 void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critical){
+    if(!alive)
+        return;
+
     Configuration& config = Configuration::getInstance();
 
     if (!critical && evadeAttack())
@@ -113,8 +124,16 @@ void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critic
     int newHealth = health.getHealth();
     std::cout << "Current HP: " << newHealth << std::endl;
     if (newHealth <= 0){
-        this->kill();
+        this->kill(attacker);
     } 
+}
+
+bool MovableEntity::hasGoldAvailable(int ammount){
+    return gold.areAvailable(ammount);
+}
+
+void MovableEntity::removeGold(int ammount){
+    gold.remove(ammount);
 }
 
 bool MovableEntity::isInRange(MovableEntity& other, int range){
@@ -123,6 +142,10 @@ bool MovableEntity::isInRange(MovableEntity& other, int range){
 
 bool MovableEntity::canMove(int x, int y){
     return map.canMove(x, y);
+}
+
+bool MovableEntity::isAlive(){
+    return alive;
 }
 
 void MovableEntity::updatePosition(int xNew, int yNew){

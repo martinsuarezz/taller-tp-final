@@ -38,6 +38,10 @@ class Configuration{
 
         int getLevelUpExp(int level) const;
 
+        int getWalkDuration(std::string race) const;
+
+        int getRandomGold(int maxHealth) const;
+
         // Prohibida la copia de la clase.
         Configuration(Configuration const&) = delete;
         void operator=(Configuration const&)  = delete;

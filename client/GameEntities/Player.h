@@ -23,21 +23,25 @@ class Player: public MovableEntity{
 
     public:
         Player(Sender& game, GameMap& map, GameEntityContainer& entities, 
-            int entityId, std::string race, std::string type, int x, int y);
+            int entityId, std::string race, std::string type, int x, int y, int duration);
         void notifyMovement(int direction, int x, int y);
         void notifyIdle();
         void notifyPlayerMovement(int x, int y);
         void moveInventoryItem(int from, int to);
-        void addItem(int itemId, int slot);
+        bool addItem(int itemId, int slot);
         void attackEntity(MovableEntity& entity);
         void notifyHealthUpdate(int newHealth);
         void notifyExperienceUpdate(int experience);
         void notifyLevelUpdate(int level);
         void notifyManaUpdate(int mana);
+        void notifyGoldUpdate(int gold);
         void update(int timeElapsed);
         bool evadeAttack();
-        void kill();
+        void kill(MovableEntity& killer);
         int getDefense(int damage);
+        void interact(MovableEntity& other);
+        void revive();
+        void buyItem(MovableEntity& buyer, int itemIndex);
         ~Player();
 };
 

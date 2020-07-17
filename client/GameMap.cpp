@@ -91,6 +91,31 @@ void GameMap::removeItem(int x, int y){
     getTile(x, y).removeItem();
 }
 
+MovableEntity* GameMap::getEntity(int x, int y){
+    MovableEntity* entity = getTile(x, y).getEntity();
+    if (entity == nullptr)
+        throw std::runtime_error("No entity at that coordinates");
+    return entity;
+}
+
+MovableEntity& GameMap::getInteractableEntity(int x, int y, int range){
+    MovableEntity* entity = nullptr;
+    for (int i = x - range; i < x + range; i++){
+        for (int j = y - range; j < y + range; j++){
+            if (i == x && j == y)
+                continue;
+            try{
+                entity = getEntity(i, j);
+                if (!entity->isAlive())
+                    return *entity;
+            }
+            catch(...) {}
+        }
+    }
+    throw std::runtime_error("No available interactable entity");
+    return *entity;
+}
+
 std::pair<int, int> GameMap::getEmptyPosition(){
     if (entitiesAmmount == (width * height))
         throw std::runtime_error("No empty position");

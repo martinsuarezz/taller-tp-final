@@ -28,13 +28,15 @@
     "inv_x_slot_size_perc": 3,
     "inv_y_slot_size_perc": 4,
     "gui_x_health_perc": 88,
-    "gui_y_health_perc": 83,
+    "gui_y_health_perc": 81,
     "gui_x_level_perc": 88,
-    "gui_y_level_perc": 84,
+    "gui_y_level_perc": 92,
     "gui_x_exp_perc": 88,
-    "gui_y_exp_perc": 79,
+    "gui_y_exp_perc": 86,
     "gui_x_mana_perc": 88,
     "gui_y_mana_perc": 75,
+    "gui_x_gold_perc": 88,
+    "gui_y_gold_perc": 69,
 
     "map_render_offset_tiles": 3,
 
@@ -45,7 +47,7 @@
 
     "sound_walking_time": 800000,
 
-    "player_speed": 300000,
+    "player_speed": 1200000,
     "zombie_speed": 1250000,
     "zombie_vision": 3,
     "mob_spawn_prob": 5,
@@ -54,6 +56,7 @@
     "evade_chance": 5,
     "critical_chance": 10,
     "spawn_item_prob": 100,
+    "spawn_gold_prob": 100,
 
     "damage_min_bare_hands": 0,
     "damage_max_bare_hands": 2,
@@ -183,7 +186,7 @@
 
     "human_strength": 4,
     "human_health": 5,
-    "human_agility": 5,
+    "human_agility": 6,
     "human_inteligence": 6,
     "human_constitution": 5,
     "human_health_regen": 5,

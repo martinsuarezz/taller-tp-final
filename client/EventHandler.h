@@ -12,6 +12,7 @@ class EventHandler{
     private:
         Client& client;
         IntentionsQueue& intentions;
+        bool storeIsOpen;
         int handleSingleEvent(SDL_Event* event);
         int handleKeyDown(SDL_Event* event);
         int handleKeyUp(SDL_Event* event);
@@ -28,6 +29,8 @@ class EventHandler{
         // maxTotalEventos es el número máximo de eventos totales 
         // a manejar e ignorar.
         void handle(int maxValidEvents, int maxTotalEvents);
+
+        void openStore();
 };
 
 #endif

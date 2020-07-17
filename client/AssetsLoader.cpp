@@ -8,6 +8,7 @@
 #include <vector>
 
 using json = nlohmann::json;
+#define FONT_SIZE 24
 
 void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
     std::ifstream texturesConfig(file);
@@ -29,17 +30,20 @@ void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
 }
 
 void AssetsLoader::loadTexts(Renderer& renderer){
-    Text health(renderer, "0", "diablo_h.ttf");
+    Text health(renderer, "0", "diablo_h.ttf", FONT_SIZE, {237, 14, 14});
     texts.emplace("health", std::move(health));
 
-    Text mana(renderer, "0", "diablo_h.ttf");
+    Text mana(renderer, "0", "diablo_h.ttf", FONT_SIZE, {173, 35, 232});
     texts.emplace("mana", std::move(mana));
 
-    Text exp(renderer, "0", "diablo_h.ttf");
+    Text exp(renderer, "0", "diablo_h.ttf", FONT_SIZE, {122, 232, 32});
     texts.emplace("exp", std::move(exp));
 
-    Text level(renderer, "0", "diablo_h.ttf");
+    Text level(renderer, "1", "diablo_h.ttf", FONT_SIZE, {255, 232, 255});
     texts.emplace("level", std::move(level));
+
+    Text gold(renderer, "0", "diablo_h.ttf", FONT_SIZE, {224, 235, 23});
+    texts.emplace("gold", std::move(gold));
 }
 
 void AssetsLoader::loadSounds(std::string file){

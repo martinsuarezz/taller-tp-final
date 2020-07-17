@@ -20,6 +20,7 @@ class GameMap{
         int getWidth() const;
         int getHeight() const;
         void setSolid(int tile);
+        MovableEntity* getEntity(int x, int y);
         MapTile& getTile(int x, int y);
 
     public:
@@ -29,6 +30,8 @@ class GameMap{
         bool isMobPlacable(int x, int y);
         void addEntity(MovableEntity* entity, int x, int y);
         bool canMove(int x, int y);
+
+        MovableEntity& getInteractableEntity(int x, int y, int range);
 
         void addItem(int itemId, int x, int y);
 

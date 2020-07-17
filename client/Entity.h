@@ -16,17 +16,18 @@ class Screen;
 
 class Entity{
     private:
-        int x;
-        int y;
         AssetsLoader& assets;
         Screen& screen;
         std::map<std::string, std::string> equiped;
         std::unique_ptr<Action> action;
+        std::string race;
+        int x;
+        int y;
 
     public:
         Entity(AssetsLoader& assets, Screen& screen, 
                 std::map<std::string, std::string> equiped, 
-                int x, int y);
+                std::string race, int x, int y);
         
         // Actualiza la entidad correspondiente al paso del tiempo.
         void update(int timeElapsed);

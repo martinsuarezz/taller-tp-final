@@ -17,6 +17,8 @@ WalkingAction::WalkingAction(Entity& entity, AssetsLoader& assets,
 
     std::map<std::string, std::string>::iterator it;
     for (it = equiped.begin(); it != equiped.end(); it++){
+        if (it->second == "")
+            continue;
         Texture& texture = assets.getTexture(it->second);
         std::string animationName = it->first.substr(1) + "_" + direction;
         std::vector<SDL_Rect>& frames = assets.getAnimationFrames(animationName);

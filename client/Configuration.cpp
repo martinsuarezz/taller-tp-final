@@ -1,5 +1,6 @@
 #include "Configuration.h"
 #include "nlohmann/json.hpp"
+#include "Constants.h"
 #include <fstream>
 #include <cmath>
 #include <algorithm>
@@ -71,6 +72,12 @@ int Configuration::getMaxMana(std::string race, std::string type, int level) con
     return inteligence * typeMana * raceMana * level;
 }
 
+int Configuration::getWalkDuration(std::string race) const{
+    int agility = getValue(race + "_agility");
+    double speed = (double) agility * (-0.72) + 10.72;
+    return (int) (speed * (MICROS_IN_SECOND / 10));
+}
+
 int Configuration::getManaRegen(std::string race) const{
     int typeRegen = getValue(race + "_mana_regen");
     
@@ -79,4 +86,11 @@ int Configuration::getManaRegen(std::string race) const{
 
 int Configuration::getLevelUpExp(int level) const{
     return (int) (1000 * pow((double) level, 1.8));
+}
+
+int Configuration::getRandomGold(int maxHealth) const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    double randomNum = (double) random(2000) / 10000;
+    randomNum += 200;
+    return (int) (randomNum * maxHealth);
 }

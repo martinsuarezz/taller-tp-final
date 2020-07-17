@@ -37,12 +37,16 @@ void Zombie::notifyIdle(){
     game.addCommand(new IdleCommand(entityId, x * 100, y * 100));
 }
 
-void Zombie::kill(){
+void Zombie::kill(MovableEntity& killer){
     RandomGenerator& random = RandomGenerator::getInstance();
     Configuration& config = Configuration::getInstance();
     if (random(100) < config.getValue("spawn_item_prob")){
         int itemId = random(4, 21);
         map.addItem(itemId, x, y);
+    }
+    if (random(100) < config.getValue("spawn_gold_prob")){
+        int goldDrop = config.getRandomGold(health.getMaxHealth());
+        killer.addGold(goldDrop);
     }
     game.removeMob(entityId);
 }
@@ -99,29 +103,27 @@ bool Zombie::hasManaAvailable(int neededMana){
     return true;
 }
 
-void Zombie::moveInventoryItem(int from, int to){
+void Zombie::moveInventoryItem(int from, int to){}
 
+void Zombie::notifyHealthUpdate(int newHealth){}
+
+void Zombie::notifyExperienceUpdate(int newExperience){}
+
+void Zombie::notifyLevelUpdate(int newLevel){}
+
+void Zombie::notifyManaUpdate(int mana){}
+
+void Zombie::notifyGoldUpdate(int gold){}
+
+bool Zombie::addItem(int itemId, int slot){
+    return false;
 }
 
-void Zombie::notifyHealthUpdate(int newHealth){
+void Zombie::revive(){}
 
-}
+void Zombie::interact(MovableEntity& other){}
 
-void Zombie::notifyExperienceUpdate(int newExperience){
-
-}
-
-void Zombie::notifyLevelUpdate(int newLevel){
-
-}
-
-void Zombie::notifyManaUpdate(int mana){
-
-}
-
-void Zombie::addItem(int itemId, int slot){
-
-}
+void Zombie::buyItem(MovableEntity& buyer, int itemIndex){}
 
 int Zombie::getDefense(int damage){
     return damage;

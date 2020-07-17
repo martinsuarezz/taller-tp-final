@@ -13,15 +13,16 @@ class GameInventory{
         GameItemFactory itemFactory;
         GameItem bareHands;
         GameItem noArmor;
-        void equipItem(int itemId, int slot);
         int getEmptySlot();
 
     public:
         GameInventory(Sender& game);
         void moveItem(int from, int to);
         bool slotIsEmpty(int slot) const;
-        void addItem(int itemId, int slot);
+        bool addItem(int itemId, int slot);
         int removeItem(int slot);
+        void equipItem(int itemId, int slot);
+        void clear();
         GameItem& getWeapon();
         GameItem& getArmor();
         GameItem& getHelmet();
