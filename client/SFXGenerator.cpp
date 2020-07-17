@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Effect.h"
 #include "Animation/Animation.h"
+#include "RandomGenerator.h"
 #include "Constants.h"
 #include <string>
 #include <list>
@@ -38,6 +39,12 @@ void SFXGenerator::render(int timeElapsed){
 
 void SFXGenerator::addLevelUpEffect(){
     Sound& sound = assets.getSound("level_up");
+    sound.play(0);
+}
+
+void SFXGenerator::addMerchantEffect(){
+    RandomGenerator& random = RandomGenerator::getInstance();
+    Sound& sound = assets.getSound("merchant" + std::to_string(random(1, 10)));
     sound.play(0);
 }
 

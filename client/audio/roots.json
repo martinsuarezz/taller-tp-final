@@ -10,5 +10,14 @@
     "item9_attack": "spell2.wav",
     "item10_attack": "spell3.wav",
     "item11_attack": "arrow.wav",
-    "item12_attack": "arrow.wav"
+    "item12_attack": "arrow.wav",
+    "merchant1": "comerciante1.wav",
+    "merchant2": "comerciante2.wav",
+    "merchant3": "comerciante3.wav",
+    "merchant4": "comerciante4.wav",
+    "merchant5": "comerciante5.wav",
+    "merchant6": "comerciante6.wav",
+    "merchant7": "comerciante7.wav",
+    "merchant8": "comerciante8.wav",
+    "merchant9": "comerciante9.wav"
 }

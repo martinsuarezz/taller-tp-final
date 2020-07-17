@@ -153,6 +153,7 @@ bool Client::isClickOnMapScreen(int x, int y){
 
 void Client::showProducts(std::vector<int>& products){
     eventHandler.openStore();
+    effects.addMerchantEffect();
     std::cout << "Elija un producto para comprar:" << std::endl;
     for (size_t i = 0; i < products.size() / 2; i++){
         std::cout << i + 1 << ". Item " << products[2 * i] << " - $" << products[2 * i + 1] << std::endl;
