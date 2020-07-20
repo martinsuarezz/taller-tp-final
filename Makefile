@@ -1,0 +1,2 @@
+client:
+	$(MAKE) -C src
