@@ -2,13 +2,13 @@
 #include "Renderer.h"
 #include "Music.h"
 #include "nlohmann/json.hpp"
+#include "Constants.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <vector>
 
 using json = nlohmann::json;
-#define FONT_SIZE 24
 
 void AssetsLoader::loadTextures(std::string file, Renderer& renderer){
     std::ifstream texturesConfig(file);

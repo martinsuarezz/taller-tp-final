@@ -1,7 +1,6 @@
 #include "Health.h"
 #include "MovableEntity.h"
-
-#define MICROSECONDS_IN_SEC 1000000
+#include "../Constants.h"
 
 Health::Health(MovableEntity& entity): damage(0), maxHealth(100), 
                         regenRate(0), entity(entity){}
@@ -26,9 +25,9 @@ void Health::changeHealth(int value){
 
 void Health::regenerate(int time){
     timeElapsed += time;
-    if (timeElapsed > MICROSECONDS_IN_SEC){
+    if (timeElapsed > MICROS_IN_SECOND){
         addHealth(regenRate);
-        timeElapsed -= MICROSECONDS_IN_SEC; 
+        timeElapsed -= MICROS_IN_SECOND; 
     }
 }
 

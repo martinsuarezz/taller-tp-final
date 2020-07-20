@@ -31,3 +31,7 @@ void GoldContainer::notifyDeath(){
     if (goldAmmount > safeGold)
         remove(goldAmmount - safeGold);
 }
+
+void GoldContainer::setSafeGold(int ammount){
+    safeGold = ammount;
+}

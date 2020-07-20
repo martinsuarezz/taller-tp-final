@@ -27,24 +27,34 @@ void GraphicalInterface::render(){
     gui.render(0, 0);
     inventory.render();
 
-    int xHealth = config.getValue("gui_x_health_perc") * config.getValue("window_width") / 100;
-    int yHealth = config.getValue("gui_y_health_perc") * config.getValue("window_height") / 100;
+    int xHealth = config.getValue("gui_x_health_perc") * 
+                    config.getValue("window_width") / 100;
+    int yHealth = config.getValue("gui_y_health_perc") * 
+                    config.getValue("window_height") / 100;
     health.render(xHealth, yHealth);
 
-    int xLevel = config.getValue("gui_x_level_perc") * config.getValue("window_width") / 100;
-    int yLevel = config.getValue("gui_y_level_perc") * config.getValue("window_height") / 100;
+    int xLevel = config.getValue("gui_x_level_perc") * 
+                config.getValue("window_width") / 100;
+    int yLevel = config.getValue("gui_y_level_perc") * 
+                config.getValue("window_height") / 100;
     level.render(xLevel, yLevel);
 
-    int xExperience = config.getValue("gui_x_exp_perc") * config.getValue("window_width") / 100;
-    int yExperience = config.getValue("gui_y_exp_perc") * config.getValue("window_height") / 100;
+    int xExperience = config.getValue("gui_x_exp_perc") * 
+                        config.getValue("window_width") / 100;
+    int yExperience = config.getValue("gui_y_exp_perc") * 
+                        config.getValue("window_height") / 100;
     experience.render(xExperience, yExperience);
     
-    int xMana = config.getValue("gui_x_mana_perc") * config.getValue("window_width") / 100;
-    int yMana = config.getValue("gui_y_mana_perc") * config.getValue("window_height") / 100;
+    int xMana = config.getValue("gui_x_mana_perc") * 
+                config.getValue("window_width") / 100;
+    int yMana = config.getValue("gui_y_mana_perc") * 
+                config.getValue("window_height") / 100;
     mana.render(xMana, yMana);
 
-    int xGold = config.getValue("gui_x_gold_perc") * config.getValue("window_width") / 100;
-    int yGold = config.getValue("gui_y_gold_perc") * config.getValue("window_height") / 100;
+    int xGold = config.getValue("gui_x_gold_perc") * 
+                config.getValue("window_width") / 100;
+    int yGold = config.getValue("gui_y_gold_perc") * 
+                config.getValue("window_height") / 100;
     gold.render(xGold, yGold);
 }
 

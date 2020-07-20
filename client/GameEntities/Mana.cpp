@@ -1,7 +1,6 @@
 #include "Mana.h"
 #include "MovableEntity.h"
-
-#define MICROSECONDS_IN_SEC 1000000
+#include "../Constants.h"
 
 Mana::Mana(MovableEntity& entity): depleted(0), maxMana(100), 
                         regenRate(0), entity(entity){}
@@ -26,9 +25,9 @@ void Mana::changeMana(int value){
 
 void Mana::regenerate(int time){
     timeElapsed += time;
-    if (timeElapsed > MICROSECONDS_IN_SEC){
+    if (timeElapsed > MICROS_IN_SECOND){
         addMana(regenRate);
-        timeElapsed -= MICROSECONDS_IN_SEC; 
+        timeElapsed -= MICROS_IN_SECOND; 
     }
 }
 

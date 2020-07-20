@@ -10,6 +10,8 @@ class GameMap;
 
 class GameEntityContainer;
 
+// Factory de entidades del juego.
+
 class GameEntityFactory{
     private:
         Sender& game;

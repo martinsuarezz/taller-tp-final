@@ -34,10 +34,14 @@ class MapGraphic{
         int getPixelsWidth() const;
         int getPixelsHeight() const;
 
+        // Remueve el item en la posición dada
         void removeItem(int x, int y);
 
+        // Agrega un item en la posición dada.
         void addItem(int x, int y, int itemId);
 
+        // Obtiene las coordenadas del mapa correspondientes
+        // al respectivo par (x, y) de píxeles.
         std::pair<int, int> getCoordinates(int x, int y, SDL_Rect* area);
 };
 

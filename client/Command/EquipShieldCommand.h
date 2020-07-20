@@ -2,6 +2,7 @@
 #define EQUIP_SHIELD_COMMAND_H
 #include "Command.h"
 
+// Clase que se equipó un item como escudo.
 
 class EquipShieldCommand: public Command{
     private:

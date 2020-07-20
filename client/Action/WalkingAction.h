@@ -9,6 +9,8 @@ class Entity;
 
 class AssetsLoader;
 
+// Clase que modela la acción de moverse.
+
 class WalkingAction: public Action{
     private:
         AssetsLoader& assets;

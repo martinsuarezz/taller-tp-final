@@ -127,10 +127,7 @@ void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critic
         experience = 2;
     attacker.addExperience(experience);
     
-    std::cout << "Done: " << damageDealt << " of damage" << std::endl;
-
     int newHealth = health.getHealth();
-    std::cout << "Current HP: " << newHealth << std::endl;
     if (newHealth <= 0){
         this->kill(attacker);
     } 
@@ -149,7 +146,7 @@ bool MovableEntity::isInRange(MovableEntity& other, int range){
 }
 
 bool MovableEntity::canMove(int x, int y){
-    return map.canMove(x, y);
+    return map.isMobPlacable(x, y);
 }
 
 bool MovableEntity::isAlive(){

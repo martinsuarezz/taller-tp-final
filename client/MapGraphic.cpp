@@ -1,13 +1,12 @@
 #include "AssetsLoader.h"
 #include "MapGraphic.h"
 #include "Configuration.h"
+#include "Constants.h"
 #include "nlohmann/json.hpp"
 #include <vector>
 #include <fstream>
 
 using json = nlohmann::json;
-
-#define ITEM_LAYER 3
 
 MapGraphic::MapGraphic(std::string mapFile, AssetsLoader& assets):
                         assets(assets), width(0), height(0){
@@ -82,7 +81,8 @@ void MapGraphic::renderItem(int i, int j, int x, int y){
     if (itemId == 0)
         return;
     try{
-        assets.getTexture("item" + std::to_string(itemId) + "_icon").render(xTrue, yTrue); 
+        assets.getTexture("item" + 
+                        std::to_string(itemId) + "_icon").render(xTrue, yTrue);
     }
     catch (std::out_of_range& e){}
 }
@@ -106,14 +106,20 @@ void MapGraphic::renderLayer(int xScreen, int yScreen,
     int xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
     int yCurrent = yScreen - (yInitial - roundDown(yInitial, tileSize));
 
-    for (int j = roundDown(yInitial, tileSize) / tileSize; yCurrent < yFinal; yCurrent += tileSize, j++){
-        for (int i = roundDown(xInitial, tileSize) / tileSize; xCurrent < xFinal; xCurrent += tileSize, i++){
+    for (int j = roundDown(yInitial, tileSize) / tileSize; 
+            yCurrent < yFinal; yCurrent += tileSize, j++){
+
+        for (int i = roundDown(xInitial, tileSize) / tileSize;
+                xCurrent < xFinal; xCurrent += tileSize, i++){
+
             if (layer == ITEM_LAYER)
                 renderItem(i, j, xCurrent, yCurrent);
             else
                 renderTile(i, j, xCurrent, yCurrent, layer);
         }
+
         xCurrent = xScreen - (xInitial - roundDown(xInitial, tileSize));
+        
     }
     
 }

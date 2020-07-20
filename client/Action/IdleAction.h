@@ -10,6 +10,8 @@ class Entity;
 
 class AssetsLoader;
 
+// Clase que modela la acción de estar quieto.
+
 class IdleAction: public Action{
     private:
         AssetsLoader& assets;

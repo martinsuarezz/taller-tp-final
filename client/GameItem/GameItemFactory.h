@@ -2,6 +2,8 @@
 #define GAME_ITEM_FACTORY_H
 #include "GameItem.h"
 
+// Factory de items.
+
 class GameItemFactory{
     private:
         GameItem getItem(std::string name, int id);

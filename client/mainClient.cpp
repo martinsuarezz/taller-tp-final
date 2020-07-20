@@ -21,7 +21,8 @@ int main(int argc, char* argv[]){
         sdlH.initializeTTF();
         sdlH.setHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
         
-        Window window("Argentum", congif.getValue("window_width"), congif.getValue("window_height"));
+        Window window("Argentum", congif.getValue("window_width"), 
+                                    congif.getValue("window_height"));
 
         Client client(window, race, type);
 

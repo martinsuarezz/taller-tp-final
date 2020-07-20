@@ -54,6 +54,7 @@ class GraphicalInterface{
         // Devuelve el slot seleccionado.
         int getSelectedSlot() const;
 
+        // Actualiza los distintos valores a mostrar en la GUI
         void updateHealth(int health);
         void updateLevel(int level);
         void updateExperience(int exp);

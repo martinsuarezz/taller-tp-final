@@ -7,6 +7,9 @@ class Screen;
 
 class AssetsLoader;
 
+// Clase que se encarga de manejar las animaciones
+// y sonidos del juego. 
+
 class SFXGenerator{
     private:
         Screen& screen;
@@ -19,7 +22,11 @@ class SFXGenerator{
 
     public:
         SFXGenerator(Screen& screen, AssetsLoader& assets);
+
+        // Notifica el paso del tiempo a las animaciones y renderiza.
         void render(int timeElapsed);
+
+        // Agrega distintos efectos a mostrar, reproduce los sonidos.
         void addAttackEffect(int weapon, int x, int y, int duration);
         void removeEffect(int effectNumber);
         void addLevelUpEffect();

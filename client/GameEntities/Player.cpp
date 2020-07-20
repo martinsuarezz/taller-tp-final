@@ -54,7 +54,6 @@ void Player::kill(MovableEntity& killer){
     game.addCommand(new PlayerDeathCommand(entityId));
     alive = false;
     health.addHealth(1000);
-    std::cout << "YOU DIED" << std::endl;
 }
 
 void Player::update(int timeElapsed){
@@ -83,6 +82,7 @@ void Player::notifyLevelUpdate(int newLevel){
     game.addCommand(new PlayerLevelCommand(newLevel));
     health.setMaxHealth(config.getMaxHealth(race, type, level.getLevel()));
     mana.setMaxMana(config.getMaxMana(race, type, level.getLevel()));
+    gold.setSafeGold(config.getSafeGold(level.getLevel()));
 }
 
 void Player::notifyManaUpdate(int newMana){

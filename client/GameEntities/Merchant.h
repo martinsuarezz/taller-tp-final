@@ -10,6 +10,8 @@ class GameMap;
 
 class Sender;
 
+// Clase que modela el vendedor de items
+
 class Merchant: public MovableEntity{
     private:
         std::vector<int> products;
@@ -17,7 +19,6 @@ class Merchant: public MovableEntity{
 
     public:
         Merchant(Sender& game, GameMap& map, int entityId, int x, int y);
-        //Merchant(Merchant&&);
         void notifyMovement(int direction, int x, int y);
         void notifyPlayerMovement(int x, int y);
         void moveInventoryItem(int from, int to);

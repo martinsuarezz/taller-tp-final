@@ -6,6 +6,8 @@ class MovableEntity;
 
 class GameItem;
 
+// Clase que modela el estado de estar atacando.
+
 class AttackingState: public State{
     private:
         MovableEntity& objective;
@@ -19,8 +21,10 @@ class AttackingState: public State{
         // Actualiza el estado notificando el paso del tiempo.
         void update(int time);
 
+        // Chequea si es válido el ataque.
         bool isValid();
 
+        // Activa el estado.
         void activate();
 
 };

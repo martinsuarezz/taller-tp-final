@@ -11,7 +11,8 @@
 
 using json = nlohmann::json;
 
-GameMap::GameMap(Sender& game, std::string mapFile): game(game), entitiesAmmount(0){
+GameMap::GameMap(Sender& game, std::string mapFile): game(game), 
+                                            entitiesAmmount(0){
     std::ifstream file(std::string("maps/" + mapFile));
     json mapJSON;
     file >> mapJSON;
@@ -72,10 +73,6 @@ MapTile& GameMap::getTile(int x, int y){
 
 bool GameMap::isInbound(int x, int y) const{
     return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-}
-
-bool GameMap::canMove(int x, int y){
-    return isInbound(x, y) && isMobPlacable(x, y);
 }
 
 int GameMap::getEntityId(int x, int y){

@@ -10,6 +10,8 @@ class GameMap;
 
 class Sender;
 
+// Clase que modela un zombie.
+
 class Zombie: public MovableEntity{
     private:
         int visionRange;
@@ -19,7 +21,6 @@ class Zombie: public MovableEntity{
 
     public:
         Zombie(Sender& game, GameMap& map, int entityId, int x, int y, int visionRange, int strength, int defense, int speed, int constitution);
-        //Zombie(Zombie&&);
         void notifyMovement(int direction, int x, int y);
         void notifyIdle();
         void notifyPlayerMovement(int x, int y);

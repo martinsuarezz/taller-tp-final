@@ -1,7 +1,7 @@
 #ifndef RANDOM_GENERATOR_H
 #define RANDOM_GENERATOR_H
 
-// Clase para obtener valores de configuración del juego.
+// Clase para obtener números aleatorios con distribución uniforme.
 // Es un singleton.
 
 class RandomGenerator{
@@ -9,8 +9,7 @@ class RandomGenerator{
         RandomGenerator();
 
     public:
-        // Obtiene una referencia a la instancia del objeto
-        // de configuración.
+        // Obtiene una referencia a la instancia del objeto.
         static RandomGenerator& getInstance();
 
         // Devuelve un número random en el rango [0, maxNumber)

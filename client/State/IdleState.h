@@ -4,6 +4,8 @@
 
 class MovableEntity;
 
+// Clase que modela el estado de estar inactivo.
+
 class IdleState: public State{
     private:
         

@@ -37,6 +37,8 @@ class Configuration{
         
         int getMaxMana(std::string race, std::string type, int level) const;
 
+        int getSafeGold(int level) const;
+
         int getManaRegen(std::string race) const;
 
         int getLevelUpExp(int level) const;

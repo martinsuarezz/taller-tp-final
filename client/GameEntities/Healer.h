@@ -10,6 +10,8 @@ class GameMap;
 
 class Sender;
 
+// Clase que modela el NPC sanador del juego.
+
 class Healer: public MovableEntity{
     private:
 

@@ -13,3 +13,9 @@ enum weaponTypes{MELEE_FIRST = 4, MELEE_LAST = 6, STAFF_FIRST = 7, STAFF_LAST = 
                 BOW_FIRST = 11, BOW_LAST = 12};
 
 #define MICROS_IN_SECOND 1000000
+
+#define FONT_SIZE 24
+
+#define PLAYER_ID 0
+
+#define ITEM_LAYER 3

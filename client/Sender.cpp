@@ -48,12 +48,12 @@ void Sender::run(){
 }
 
 void Sender::movePlayer(int direction){
-    entities.move(0, direction);
+    entities.move(PLAYER_ID, direction);
 }
 
 void Sender::pickUpItem(){
-    int x = entities.getMob(0)->getX();
-    int y = entities.getMob(0)->getY();
+    int x = entities.getMob(PLAYER_ID)->getX();
+    int y = entities.getMob(PLAYER_ID)->getY();
     try{
         int itemId = map.getItemId(x, y);
         addItem(itemId);
@@ -68,7 +68,7 @@ void Sender::pickUpItem(){
 
 void Sender::interact(){
     Configuration& config = Configuration::getInstance();
-    MovableEntity& player = *entities.getMob(0);
+    MovableEntity& player = *entities.getMob(PLAYER_ID);
     int x = player.getX();
     int y = player.getY();
     try{
@@ -81,7 +81,7 @@ void Sender::interact(){
 
 void Sender::buyItem(int itemIndex){
     Configuration& config = Configuration::getInstance();
-    MovableEntity& player = *entities.getMob(0);
+    MovableEntity& player = *entities.getMob(PLAYER_ID);
     int x = player.getX();
     int y = player.getY();
     try{
@@ -93,19 +93,19 @@ void Sender::buyItem(int itemIndex){
 }
 
 void Sender::stopMovementPlayer(){
-    entities.stop(0);
+    entities.stop(PLAYER_ID);
 }
 
 void Sender::moveInventoryItem(int from, int to){
-    entities.moveInventoryItem(0, from, to);
+    entities.moveInventoryItem(PLAYER_ID, from, to);
 }
 
 void Sender::addItem(int itemId, int slot){
-    entities.addItem(0, itemId, slot);
+    entities.addItem(PLAYER_ID, itemId, slot);
 }
 
 void Sender::tossItem(int slot){
-    MovableEntity& player = *entities.getMob(0);
+    MovableEntity& player = *entities.getMob(PLAYER_ID);
     try{
         int item = player.removeItem(slot);
         map.addItem(item, player.getX(), player.getY());
@@ -116,7 +116,7 @@ void Sender::tossItem(int slot){
 void Sender::attackEntity(int x, int y){
     try{
         int entityId = map.getEntityId(x, y);
-        entities.attack(0, entityId);
+        entities.attack(PLAYER_ID, entityId);
     }
     catch (std::out_of_range& e) {}
 }
@@ -126,7 +126,7 @@ void Sender::removeMob(int id){
 }
 
 MovableEntity& Sender::getPlayer(){
-    return *entities.getMob(0);
+    return *entities.getMob(PLAYER_ID);
 }
 
 void Sender::addCommand(Command* command){

@@ -2,6 +2,8 @@
 #define ADD_MAP_ITEM_COMMAND_H
 #include "Command.h"
 
+// Clase que modela agregar un item al mapa.
+
 class AddMapItemCommand: public Command{
     private:
         int itemId;

@@ -3,6 +3,9 @@
 
 class Zombie;
 
+// Clase que encapsula la lógica de toma
+// de decisiones del zombie.
+
 class ZombieAI{
     private:
         Zombie& zombie;

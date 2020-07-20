@@ -20,13 +20,10 @@ void ZombieAttackingState::update(int timeElapsed){
 }
 
 bool ZombieAttackingState::isValid(){
-    return objective.isAlive();
+    return objective.isAlive() && entity.isInRange(objective, 1);
 }
 
 void ZombieAttackingState::activate(){
-    if (!entity.isInRange(objective, 1))
-        return;
-
     Configuration& config = Configuration::getInstance();
     RandomGenerator& random = RandomGenerator::getInstance();
 

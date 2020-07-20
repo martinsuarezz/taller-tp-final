@@ -4,6 +4,8 @@
 
 class MovableEntity;
 
+// Clase que modela el estado estar caminando.
+
 class WalkingState: public State{
     private:
         int x;

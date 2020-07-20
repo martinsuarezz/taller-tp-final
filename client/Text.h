@@ -6,6 +6,8 @@
 
 class Renderer;
 
+// Clase que modela un texto.
+
 class Text{
     private:
         Texture texture;
@@ -17,8 +19,10 @@ class Text{
         Text(Renderer& renderer, std::string text, std::string fontName,
             int fontSize = 24, SDL_Color fontColor = {0, 0, 0});
         
+        // Cambia el contenido del texto.
         void changeText(std::string newText);
 
+        // Renderiza el texto en las coordenadas indicadas.
         void render(int x, int y);
         Text(Text&&);
 

@@ -5,7 +5,8 @@
 #include <string>
 
 Item::Item(int itemId, AssetsLoader& assets):
-            texture(assets.getTexture("item" + std::to_string(itemId) + "_icon_inv")),
+            texture(assets.getTexture("item" + std::to_string(itemId) + 
+                                        "_icon_inv")),
             itemId(itemId){
 
     Configuration& config = Configuration::getInstance();

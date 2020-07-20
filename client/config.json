@@ -49,7 +49,11 @@
 
     "sound_walking_time": 800000,
 
+    "merchant_refresh_sec": 120,
+    "merchant_ammount_to_sell": 3,
+
     "player_speed": 1200000,
+
     "zombie_min_speed": 450000,
     "zombie_max_speed": 1300000,
     "zombie_min_vision": 2,

@@ -78,6 +78,10 @@ int Configuration::getMaxMana(std::string race, std::string type, int level) con
     return inteligence * typeMana * raceMana * level;
 }
 
+int Configuration::getSafeGold(int level) const{
+    return (int)(100 * pow((double)level, 1.1));
+}
+
 int Configuration::getZombieWalkDuration() const{
     RandomGenerator& random = RandomGenerator::getInstance();
     int minSpeed = getValue("zombie_min_speed");

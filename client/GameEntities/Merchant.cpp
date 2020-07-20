@@ -10,14 +10,11 @@
 #include "../Command/MoveCommand.h"
 #include "../Command/ShowProductsCommand.h"
 #include "../Configuration.h"
-#include <random>
 #include "../GameItem/GameItemFactory.h"
 #include <time.h>
-#include <iostream>
+#include <random>
+#include <stdexcept>
 #include <vector>
-
-#define PRODUCTS_TO_SELL 3
-#define REFRESH_SECONDS 10 
 
 Merchant::Merchant(Sender& game, GameMap& map, int entityId, int x, int y): 
                     MovableEntity(game, map, entityId, x, y, 0, false){  
@@ -34,8 +31,9 @@ void Merchant::kill(MovableEntity& killer){
 }
 
 void Merchant::update(int timeElapsed){
+    Configuration& config = Configuration::getInstance();
     timePassed += timeElapsed;
-    if (timePassed > REFRESH_SECONDS * 1000000){
+    if (timePassed > config.getValue("merchant_refresh_sec")*MICROS_IN_SECOND){
         refreshProducts();
         timePassed = 0;
     }
@@ -43,12 +41,14 @@ void Merchant::update(int timeElapsed){
 
 void Merchant::refreshProducts(){
     products.clear();
+
+    Configuration& config = Configuration::getInstance();
     std::default_random_engine generator(time(NULL));
     std::uniform_int_distribution<int> uniform(SWORD_ID, MAGIC_HAT_ID);
     std::normal_distribution<double> normal(140.0,20.0);
     uniform(generator);
 
-    for (int i = 0; i < PRODUCTS_TO_SELL; i++){
+    for (int i = 0; i < config.getValue("merchant_ammount_to_sell"); i++){
         int itemId = uniform(generator);
         int itemPrice = (int) normal(generator);
         products.push_back(itemId);

@@ -7,6 +7,8 @@ class GameMap;
 
 class Sender;
 
+// Clase que modela una entidad del juego.
+
 class GameEntity{
     protected:
         Sender& game;
