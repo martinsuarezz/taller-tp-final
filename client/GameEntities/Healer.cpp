@@ -62,6 +62,11 @@ void Healer::buyItem(MovableEntity& buyer, int itemIndex){
 
 }
 
+int Healer::removeItem(int slot){
+    std::runtime_error("No inventory");
+    return -1;
+}
+
 int Healer::getDefense(int damage){
     return damage;
 }

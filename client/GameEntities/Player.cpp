@@ -14,6 +14,8 @@
 #include "../Command/PlayerManaCommand.h"
 #include "../Command/PlayerGoldCommand.h"
 #include "../Command/EquipArmorCommand.h"
+#include "../Command/PlayerDeathCommand.h"
+#include "../Command/PlayerReviveCommand.h"
 #include "../Configuration.h"
 #include "../GameEntityContainer.h"
 #include "../GameItem/GameItem.h"
@@ -36,7 +38,8 @@ Player::Player(Sender& game, GameMap& map, GameEntityContainer& entities,
 
 void Player::notifyMovement(int direction, int xNew, int yNew){
     game.addCommand(new MoveCommand(entityId, direction, xNew, yNew));
-    entities.notifyPlayerMovement(x, y);
+    if (alive)
+        entities.notifyPlayerMovement(x, y);
 }
 
 void Player::notifyIdle(){
@@ -46,9 +49,10 @@ void Player::notifyIdle(){
 void Player::kill(MovableEntity& killer){
     Configuration& config = Configuration::getInstance();
     gold.notifyDeath();
-    alive = false;
-    inventory.clear();
+    inventory.notifyDeath();
     inventory.equipItem(GHOST_BODY_ID, config.getValue("inv_armor_slot"));
+    game.addCommand(new PlayerDeathCommand(entityId));
+    alive = false;
     health.addHealth(1000);
     std::cout << "YOU DIED" << std::endl;
 }
@@ -104,7 +108,14 @@ int Player::getDefense(int damage){
 }
 
 void Player::attackEntity(MovableEntity& entity){
-    nextState.reset(new AttackingState(*this, entity, inventory.getWeapon(), strength, 2000000));
+    nextState.reset(new AttackingState(*this, entity, inventory.getWeapon(), strength));
+}
+
+int Player::removeItem(int slot){
+    int itemId = inventory.removeItem(slot);
+    if (itemId == 0)
+        throw std::runtime_error("No item to toss");
+    return itemId;
 }
 
 void Player::notifyPlayerMovement(int x, int y){
@@ -127,6 +138,7 @@ void Player::revive(){
     if (alive)
         return;
     Configuration& config = Configuration::getInstance();
+    game.addCommand(new PlayerReviveCommand(entityId));
     inventory.equipItem(-1, config.getValue("inv_armor_slot"));
     alive = true;
 }

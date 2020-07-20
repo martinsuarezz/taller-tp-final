@@ -22,30 +22,29 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands,
                 std::string& race, std::string& type): 
     intentions(intentions), commands(commands), map(GameMap(*this, "mapFinal.json")),
     entities(GameEntityContainer(*this, map)), continueRunning(true){
-    entities.addPlayer(20, 20, race, type);
+    entities.addPlayer(2, 2, race, type);
     entities.addMob(18, 22, MERCHANT);
     entities.addMob(24, 22, HEALER);
 }
 
 void Sender::run(){
-    std::unique_ptr<Intention> currentIntention;
-    addItem(4, -1);
-    addItem(5, -1);
-    addItem(6, -1);
-    addItem(7, -1);
-    addItem(8, -1);
-    addItem(9, -1);
-    addItem(10, -1);
-    addItem(SIMPLE_BOW_ID, -1);
-    addItem(COMPOUND_BOW_ID, -1);
-    addItem(IRON_SHIELD_ID, -1);
-    addItem(TURTLE_SHIELD_ID, -1);
-    //map.addItem(KNOT_STAFF_ID, 20, 20);
-    while (continueRunning){
-        currentIntention.reset(intentions.pop());
-        currentIntention->execute(*this);
-        entities.update(16667);
+    try{
+        std::unique_ptr<Intention> currentIntention;
+        addItem(IRON_SHIELD_ID, -1);
+        addItem(SWORD_ID, -1);
+        addItem(PLATE_ARMOR_ID, -1);
+        addItem(ELFIC_FLUTE_ID, -1);
+        addItem(ICE_STAFF_ID, -1);
+        Configuration& config = Configuration::getInstance();
+        int microsecondsPerFrame = MICROS_IN_SECOND / config.getValue("fps");
+
+        while (continueRunning){
+            currentIntention.reset(intentions.pop());
+            currentIntention->execute(*this);
+            entities.update(microsecondsPerFrame);
+        }
     }
+    catch(...){}
 }
 
 void Sender::movePlayer(int direction){
@@ -103,6 +102,15 @@ void Sender::moveInventoryItem(int from, int to){
 
 void Sender::addItem(int itemId, int slot){
     entities.addItem(0, itemId, slot);
+}
+
+void Sender::tossItem(int slot){
+    MovableEntity& player = *entities.getMob(0);
+    try{
+        int item = player.removeItem(slot);
+        map.addItem(item, player.getX(), player.getY());
+    }
+    catch(std::runtime_error& e){}
 }
 
 void Sender::attackEntity(int x, int y){

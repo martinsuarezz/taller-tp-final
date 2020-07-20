@@ -100,7 +100,13 @@ void Merchant::buyItem(MovableEntity& buyer, int itemIndex){
         std::vector<int>::iterator it = products.begin() + itemIndex * 2;
         products.erase(it, it + 1);
     }
+    refreshProducts();
     interact(buyer);
+}
+
+int Merchant::removeItem(int slot){
+    std::runtime_error("No inventory");
+    return -1;
 }
 
 void Merchant::revive(){}

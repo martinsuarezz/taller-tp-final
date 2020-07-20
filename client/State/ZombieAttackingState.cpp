@@ -20,7 +20,7 @@ void ZombieAttackingState::update(int timeElapsed){
 }
 
 bool ZombieAttackingState::isValid(){
-    return true;
+    return objective.isAlive();
 }
 
 void ZombieAttackingState::activate(){
@@ -31,7 +31,7 @@ void ZombieAttackingState::activate(){
     RandomGenerator& random = RandomGenerator::getInstance();
 
     bool critical = false;
-    int damage = strength * random(2, 4);
+    int damage = strength * random(2, 9);
     if (random(100) < config.getValue("critical_chance")){
         damage = config.getCriticalDamage(damage);
         critical = true;

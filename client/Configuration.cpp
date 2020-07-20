@@ -58,6 +58,12 @@ int Configuration::getAttackExp(int damage, int defenderLevel, int attackerLevel
     return damage * std::max(defenderLevel - attackerLevel + 10, 0);
 }
 
+int Configuration::getKillExp(int maxHealth, int defenderLevel, int attackerLevel) const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    double modifier = (double) random(100) / 1000;
+    return (int) (modifier * (double) maxHealth * (double) std::max(defenderLevel - attackerLevel + 10, 0));
+}
+
 int Configuration::getHealthRegen(std::string race) const{
     int typeRegen = getValue(race + "_health_regen");
     
@@ -70,6 +76,38 @@ int Configuration::getMaxMana(std::string race, std::string type, int level) con
     int raceMana = getValue(race + "_mana");
     
     return inteligence * typeMana * raceMana * level;
+}
+
+int Configuration::getZombieWalkDuration() const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    int minSpeed = getValue("zombie_min_speed");
+    int maxSpeed = getValue("zombie_max_speed");
+    return random(minSpeed, maxSpeed + 1);
+}
+
+int Configuration::getZombieVision(int level) const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    int minVision = getValue("zombie_min_vision");
+    int maxVision = getValue("zombie_max_vision");
+    return random(minVision, maxVision + 1);
+}
+
+int Configuration::getZombieStrength(int level) const{
+    int stregth = (int) ((double) level * (double) getValue("zombie_strength_perc") / 100);
+    int maxStrength = getValue("zombie_strength_cap");
+    return std::max(1, std::min(maxStrength, stregth));
+}
+
+int Configuration::getZombieDefense(int level) const{
+    int defense = (int) ((double) level * (double) getValue("zombie_defense_perc") / 100);
+    int maxDefense = getValue("zombie_defense_cap");
+    return std::min(maxDefense, defense);
+}
+
+int Configuration::getZombieConstitution(int level) const{
+    RandomGenerator& random = RandomGenerator::getInstance();
+    int constitution = random(getValue("zombie_min_constitution"), getValue("zombie_max_constitution"));
+    return level * constitution;
 }
 
 int Configuration::getWalkDuration(std::string race) const{

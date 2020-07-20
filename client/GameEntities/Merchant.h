@@ -31,6 +31,7 @@ class Merchant: public MovableEntity{
         void notifyGoldUpdate(int gold);
         bool addItem(int itemId, int slot);
         int getDefense(int damage);
+        int removeItem(int slot);
         void update(int timeElapsed) override;
         void interact(MovableEntity& other);
         void refreshProducts();

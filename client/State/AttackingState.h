@@ -14,7 +14,7 @@ class AttackingState: public State{
         int duration;
 
     public:
-        AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength, int duration);
+        AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength);
         
         // Actualiza el estado notificando el paso del tiempo.
         void update(int time);

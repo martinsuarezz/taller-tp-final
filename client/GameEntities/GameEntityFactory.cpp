@@ -22,13 +22,15 @@ MovableEntity* GameEntityFactory::getPlayer(int x, int y, int entityId, std::str
     return player;
 }
 
-MovableEntity* GameEntityFactory::getZombie(int x, int y, int entityId){
+MovableEntity* GameEntityFactory::getZombie(int x, int y, int entityId, int level){
+    Configuration& config = Configuration::getInstance();
+    int visionRange = config.getZombieVision(level);
+    int strength = config.getZombieStrength(level);
+    int defense = config.getZombieDefense(level);
+    int speed = config.getZombieWalkDuration();
+    int constitution = config.getZombieConstitution(level);
 
-    //Configuration& config = Configuration::getInstance();
-    //int maxHealth = config.getMaxHealth(race, type, 1);
-    //int maxMana = config.getMaxMana(race, type, 1);
-
-    MovableEntity* zombie = new Zombie(game, map, entityId, x, y);
+    MovableEntity* zombie = new Zombie(game, map, entityId, x, y, visionRange, strength, defense, speed, constitution);
     return zombie;
 }
 

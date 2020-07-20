@@ -51,7 +51,8 @@ class MovableEntity: public GameEntity{
         bool isAlive();
         bool hasGoldAvailable(int ammount);
         void removeGold(int ammount);
-        
+
+        virtual int removeItem(int slot) = 0;
         virtual void revive() = 0;
         virtual void buyItem(MovableEntity& buyer, int itemIndex) = 0;
         virtual void interact(MovableEntity& other) = 0;

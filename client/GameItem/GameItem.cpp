@@ -5,14 +5,14 @@
 #include <algorithm>
 
 GameItem::GameItem(std::string name, int itemId, int damageMin, int damageMax,
-                    int defenseMin, int defenseMax, int range, int manaNeeded): 
+                    int defenseMin, int defenseMax, int range, int duration, int manaNeeded): 
                     name(name), itemId(itemId), 
-                    damageDealer(DamageDealer(damageMin, damageMax, range)),
+                    damageDealer(DamageDealer(damageMin, damageMax, range, duration)),
                     defenseDealer(DefenseDealer(defenseMin, defenseMax)),
                     manaNeeded(manaNeeded) {}
 
 GameItem::GameItem(): name("null"), itemId(0), 
-                    damageDealer(DamageDealer(0, 0, 0)),
+                    damageDealer(DamageDealer(0, 0, 0, 0)),
                     defenseDealer(DefenseDealer(0, 0)),
                     manaNeeded(0) {}
 
@@ -32,6 +32,10 @@ int GameItem::getId(){
 
 int GameItem::getDamage(){
     return damageDealer.getDamage();
+}
+
+int GameItem::getDuration(){
+    return damageDealer.getDuration();
 }
 
 bool GameItem::canBeEquipped(int slot){

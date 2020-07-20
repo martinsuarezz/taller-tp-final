@@ -1,10 +1,12 @@
 {
     "window_width": 1000,
     "window_height": 800,
-    "fps": 60,
+    "fps": 45,
     "tile_size": 64,
     "mob_render_offset_x": 16,
     "mob_render_offset_y": 12,
+    "item_render_offset_x": 18,
+    "item_render_offset_y": 14,
     "inventory_slots": 12,
     "inventory_rows": 3,
     "inventory_columns": 4,
@@ -48,29 +50,45 @@
     "sound_walking_time": 800000,
 
     "player_speed": 1200000,
-    "zombie_speed": 1250000,
-    "zombie_vision": 3,
+    "zombie_min_speed": 450000,
+    "zombie_max_speed": 1300000,
+    "zombie_min_vision": 2,
+    "zombie_max_vision": 5,
+
+    "zombie_strength_perc": 80,
+    "zombie_strength_cap": 10,
+
+    "zombie_defense_perc": 140,
+    "zombie_defense_cap": 25,
+
+    "zombie_min_constitution": 25,
+    "zombie_max_constitution": 70,
+
+    "zombie_attack_cooldown": 1000000,
+
     "mob_spawn_prob": 5,
-    "mob_spawn_max": 10,
+    "mob_spawn_max": 30,
     "critical_multiplier": 2,
     "evade_chance": 5,
     "critical_chance": 10,
-    "spawn_item_prob": 100,
+    "spawn_item_prob": 20,
     "spawn_gold_prob": 100,
 
     "damage_min_bare_hands": 0,
     "damage_max_bare_hands": 2,
     "defense_min_bare_hands": 0,
-    "defense_max_bare_hands": 1,
+    "defense_max_bare_hands": 0,
     "range_bare_hands": 1,
     "mana_req_bare_hands" : 0,
+    "cooldown_bare_hands" : 500000,
 
     "damage_min_no_armor": 0,
     "damage_max_no_armor": 0,
     "defense_min_no_armor": 0,
-    "defense_max_no_armor": 3,
+    "defense_max_no_armor": 1,
     "range_no_armor": 0,
     "mana_req_no_armor" : 0,
+    "cooldown_no_armor" : 1000000,
 
     "damage_min_sword": 2,
     "damage_max_sword": 5,
@@ -78,6 +96,7 @@
     "defense_max_sword": 0,
     "range_sword": 1,
     "mana_req_sword" : 0,
+    "cooldown_sword" : 750000,
 
     "damage_min_axe": 4,
     "damage_max_axe": 5,
@@ -85,6 +104,7 @@
     "defense_max_axe": 0,
     "range_axe": 1,
     "mana_req_axe" : 0,
+    "cooldown_axe" : 1000000,
 
     "damage_min_hammer": 1,
     "damage_max_hammer": 9,
@@ -92,6 +112,7 @@
     "defense_max_hammer": 0,
     "range_hammer": 1,
     "mana_req_hammer" : 0,
+    "cooldown_hammer" : 1150000,
 
     "damage_min_ice_staff": 2,
     "damage_max_ice_staff": 4,
@@ -99,6 +120,15 @@
     "defense_max_ice_staff": 0,
     "range_ice_staff": 4,
     "mana_req_ice_staff" : 5,
+    "cooldown_ice_staff" : 750000,
+
+    "damage_min_elfic_flute": -5,
+    "damage_max_elfic_flute": -8,
+    "defense_min_elfic_flute": 0,
+    "defense_max_elfic_flute": 0,
+    "range_elfic_flute": 4,
+    "mana_req_elfic_flute" : 100,
+    "cooldown_elfic_flute" : 1000000,
 
     "damage_min_knot_staff": 4,
     "damage_max_knot_staff": 8,
@@ -106,6 +136,7 @@
     "defense_max_knot_staff": 0,
     "range_knot_staff": 4,
     "mana_req_knot_staff" : 15,
+    "cooldown_knot_staff" : 1000000,
 
     "damage_min_crimp_staff": 8,
     "damage_max_crimp_staff": 20,
@@ -113,6 +144,7 @@
     "defense_max_crimp_staff": 0,
     "range_crimp_staff": 3,
     "mana_req_crimp_staff" : 30,
+    "cooldown_crimp_staff" : 1400000,
 
     "damage_min_simple_bow": 1,
     "damage_max_simple_bow": 4,
@@ -120,6 +152,7 @@
     "defense_max_simple_bow": 0,
     "range_simple_bow": 4,
     "mana_req_simple_bow" : 0,
+    "cooldown_simple_bow" : 800000,
 
     "damage_min_compound_bow": 4,
     "damage_max_compound_bow": 16,
@@ -127,6 +160,7 @@
     "defense_max_compound_bow": 0,
     "range_compound_bow": 4,
     "mana_req_compound_bow" : 0,
+    "cooldown_compound_bow" : 950000,
 
     "damage_min_leather_armor": 0,
     "damage_max_leather_armor": 0,
@@ -134,6 +168,7 @@
     "defense_max_leather_armor": 6,
     "range_leather_armor": 0,
     "mana_req_leather_armor" : 0,
+    "cooldown_leather_armor" : 1000000,
 
     "damage_min_plate_armor": 0,
     "damage_max_plate_armor": 0,
@@ -141,6 +176,7 @@
     "defense_max_plate_armor": 30,
     "range_plate_armor": 0,
     "mana_req_plate_armor" : 0,
+    "cooldown_plate_armor" : 1000000,
 
     "damage_min_blue_tunic": 0,
     "damage_max_blue_tunic": 0,
@@ -148,6 +184,7 @@
     "defense_max_blue_tunic": 10,
     "range_blue_tunic": 0,
     "mana_req_blue_tunic" : 0,
+    "cooldown_blue_tunic" : 1000000,
 
     "damage_min_hood": 0,
     "damage_max_hood": 0,
@@ -155,6 +192,7 @@
     "defense_max_hood": 4,
     "range_hood": 0,
     "mana_req_hood" : 0,
+    "cooldown_hood" : 1000000,
 
     "damage_min_iron_helmet": 0,
     "damage_max_iron_helmet": 0,
@@ -162,6 +200,7 @@
     "defense_max_iron_helmet": 8,
     "range_iron_helmet": 0,
     "mana_req_iron_helmet" : 0,
+    "cooldown_iron_helmet" : 1000000,
 
     "damage_min_turtle_shield": 0,
     "damage_max_turtle_shield": 0,
@@ -169,6 +208,7 @@
     "defense_max_turtle_shield": 2,
     "range_turtle_shield": 0,
     "mana_req_turtle_shield" : 0,
+    "cooldown_turtle_shield" : 1000000,
 
     "damage_min_iron_shield": 0,
     "damage_max_iron_shield": 0,
@@ -176,6 +216,7 @@
     "defense_max_iron_shield": 4,
     "range_iron_shield": 0,
     "mana_req_iron_shield" : 0,
+    "cooldown_iron_shield" : 1000000,
 
     "damage_min_magic_hat": 0,
     "damage_max_magic_hat": 0,
@@ -183,13 +224,14 @@
     "defense_max_magic_hat": 12,
     "range_magic_hat": 0,
     "mana_req_magic_hat" : 0,
+    "cooldown_magic_hat" : 1000000,
 
     "human_strength": 4,
     "human_health": 5,
     "human_agility": 6,
     "human_inteligence": 6,
     "human_constitution": 5,
-    "human_health_regen": 5,
+    "human_health_regen": 3,
     "human_mana": 4,
     "human_mana_regen": 3,
 
@@ -198,7 +240,7 @@
     "elf_agility": 10,
     "elf_inteligence": 9,
     "elf_constitution": 5,
-    "elf_health_regen": 6,
+    "elf_health_regen": 5,
     "elf_mana": 5,
     "elf_mana_regen": 7,
 
@@ -207,7 +249,7 @@
     "dwarf_agility": 2,
     "dwarf_inteligence": 2,
     "dwarf_constitution": 8,
-    "dwarf_health_regen": 2,
+    "dwarf_health_regen": 1,
     "dwarf_mana": 2,
     "dwarf_mana_regen": 2,
 
@@ -216,7 +258,7 @@
     "gnome_agility": 4,
     "gnome_inteligence": 7,
     "gnome_constitution": 4,
-    "gnome_health_regen": 6,
+    "gnome_health_regen": 4,
     "gnome_mana": 9,
     "gnome_mana_regen": 2,
 

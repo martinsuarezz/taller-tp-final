@@ -15,18 +15,13 @@
 #include "ZombieAI.h"
 #include <iostream>
 
-static int zombieSpeed(){
-    Configuration& config = Configuration::getInstance();
-    return config.getValue("zombie_speed");
-}
-
-Zombie::Zombie(Sender& game, GameMap& map, int entityId, int x, int y): 
-                    MovableEntity(game, map, entityId, x, y, zombieSpeed()), 
-                    visionRange(1), zombieAI(ZombieAI(*this)){
+Zombie::Zombie(Sender& game, GameMap& map, int entityId, int x, int y,
+                int visionRange, int strength, int defense, int speed, int constitution):
+                MovableEntity(game, map, entityId, x, y, speed), 
+                visionRange(visionRange), strength(strength),
+                defense(defense), zombieAI(ZombieAI(*this, visionRange)){
     
-    Configuration& config = Configuration::getInstance();
-    visionRange = config.getValue("zombie_vision");
-    health.setMaxHealth(100);
+    health.setMaxHealth(constitution);
 }
 
 void Zombie::notifyMovement(int direction, int xNew, int yNew){
@@ -48,7 +43,13 @@ void Zombie::kill(MovableEntity& killer){
         int goldDrop = config.getRandomGold(health.getMaxHealth());
         killer.addGold(goldDrop);
     }
+    killer.addExperience(config.getKillExp(health.getMaxHealth(), level.getLevel(), killer.getLevel()));
     game.removeMob(entityId);
+}
+
+int Zombie::removeItem(int slot){
+    std::runtime_error("No inventory");
+    return -1;
 }
 
 void Zombie::update(int timeElapsed){
@@ -95,8 +96,9 @@ bool Zombie::evadeAttack(){
 
 void Zombie::attackEntity(MovableEntity& other){
     GameItemFactory factory;
-    GameItem zombieHands = factory.getBareHands();
-    nextState.reset(new ZombieAttackingState(*this, other, 5, 2000000));
+    Configuration& config = Configuration::getInstance();
+    int attackCooldown = config.getValue("zombie_attack_cooldown");
+    nextState.reset(new ZombieAttackingState(*this, other, strength, attackCooldown));
 }
 
 bool Zombie::hasManaAvailable(int neededMana){
@@ -126,7 +128,7 @@ void Zombie::interact(MovableEntity& other){}
 void Zombie::buyItem(MovableEntity& buyer, int itemIndex){}
 
 int Zombie::getDefense(int damage){
-    return damage;
+    return damage - defense;
 }
 
 Zombie::~Zombie(){}

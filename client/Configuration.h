@@ -19,7 +19,8 @@ class Configuration{
         // Obtiene el valor de un parámetro de configuración.
         int getValue(std::string parameter) const;
 
-        // Calcula las distintas formulas de la lógica del juego.
+        // Los siguientes métodos calculan las distintas formulas
+        // de la lógica del juego.
         int getCriticalDamage(int damage) const;
 
         bool evadeAttack(int agility) const;
@@ -30,7 +31,9 @@ class Configuration{
 
         int getHealthRegen(std::string race) const;
 
-        int getAttackExp(int damage, int defenderLevel, int attackerLeve) const;
+        int getAttackExp(int damage, int defenderLevel, int attackerLevel) const;
+
+        int getKillExp(int maxHealth, int defenderLevel, int attackerLevel) const;
         
         int getMaxMana(std::string race, std::string type, int level) const;
 
@@ -39,6 +42,16 @@ class Configuration{
         int getLevelUpExp(int level) const;
 
         int getWalkDuration(std::string race) const;
+
+        int getZombieWalkDuration() const;
+
+        int getZombieVision(int level) const;
+
+        int getZombieStrength(int level) const;
+
+        int getZombieDefense(int level) const;
+
+        int getZombieConstitution(int level) const;
 
         int getRandomGold(int maxHealth) const;
 

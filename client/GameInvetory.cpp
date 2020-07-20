@@ -63,12 +63,16 @@ int GameInventory::getEmptySlot(){
     throw std::out_of_range("No empty space on inventory");
 }
 
-void GameInventory::clear(){
+void GameInventory::notifyDeath(){
     Configuration& config = Configuration::getInstance();
     int invSize = config.getValue("inventory_slots");
     for (int i = 0; i < invSize; i++){
         removeItem(i);
     }
+    moveItem(config.getValue("inv_weapon_slot"), 0);
+    moveItem(config.getValue("inv_armor_slot"), 1);
+    moveItem(config.getValue("inv_shield_slot"), 2);
+    moveItem(config.getValue("inv_helmet_slot"), 3);
 }
 
 bool GameInventory::addItem(int itemId, int slot){

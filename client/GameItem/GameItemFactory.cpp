@@ -31,9 +31,10 @@ GameItem GameItemFactory::getItem(std::string name, int id){
     int defenseMin = config.getValue("defense_min_" + name);
     int defenseMax = config.getValue("defense_max_" + name);
     int range = config.getValue("range_" + name);
+    int duration = config.getValue("cooldown_" + name);
     int manaNeeded = config.getValue("mana_req_" + name);
     return std::move(GameItem(name, id, damageMin, damageMax, 
-                    defenseMin, defenseMax, range, manaNeeded));
+                    defenseMin, defenseMax, range, duration, manaNeeded));
 }
 
 GameItem GameItemFactory::getSword(){
@@ -70,7 +71,7 @@ GameItem GameItemFactory::getIceStaff(){
 
 GameItem GameItemFactory::getElficFlute(){
     Configuration& config = Configuration::getInstance();
-    GameItem elficFlute = getItem("ice_staff", ELFIC_FLUTE_ID);
+    GameItem elficFlute = getItem("elfic_flute", ELFIC_FLUTE_ID);
     int weaponSlot = config.getValue("inv_weapon_slot");
     elficFlute.addValidSlot(weaponSlot);
     return elficFlute;

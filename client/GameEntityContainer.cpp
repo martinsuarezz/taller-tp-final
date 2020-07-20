@@ -15,6 +15,7 @@
 #include <map>
 #include <iostream>
 #include <stdlib.h>
+#include <algorithm> 
 #include <tuple>
 
 GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map): 
@@ -26,7 +27,8 @@ GameEntityContainer::GameEntityContainer(Sender& game, GameMap& map):
     mobSpawnProb = config.getValue("mob_spawn_prob");
 }
 
-void GameEntityContainer::addPlayer(int x, int y, std::string& race, std::string& type){
+void GameEntityContainer::addPlayer(int x, int y, std::string& race, 
+                                    std::string& type){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
@@ -35,13 +37,13 @@ void GameEntityContainer::addPlayer(int x, int y, std::string& race, std::string
     game.addCommand(new SpawnPlayerCommand(id, x * 100, y * 100, race));
 }
 
-void GameEntityContainer::addMob(int x, int y, int type){
+void GameEntityContainer::addMob(int x, int y, int type, int level){
     if (!map.isMobPlacable(x, y))
         throw std::runtime_error("Map can't place mob at indicated position");
     int id = ids.pop();
     switch (type){
         case ZOMBIE:
-            mobs.emplace(id, factory.getZombie(x, y, id));
+            mobs.emplace(id, factory.getZombie(x, y, id, level));
             map.addEntity((mobs.at(id)), x, y);
             break;
         case MERCHANT:
@@ -53,7 +55,8 @@ void GameEntityContainer::addMob(int x, int y, int type){
             map.addEntity((mobs.at(id)), x, y);
             break;
         default:
-            std::cout << "Warning: mob of id " << type << " not implemented." << std::endl;
+            std::cout << "Warning: mob of id " << type 
+                        << " not implemented." << std::endl;
             return;
     }
     
@@ -101,7 +104,9 @@ void GameEntityContainer::spawnHostileMob(){
     if ((mobs.size() < maxMobs) && (random(100) < mobSpawnProb)){
         try{
             std::pair<int, int> position = map.getEmptyPosition();
-            addMob(position.first, position.second, ZOMBIE);
+            int playerLevel = getMob(0)->getLevel();
+            int level = std::max(1, random(playerLevel - 3, playerLevel + 3));
+            addMob(position.first, position.second, ZOMBIE, level);
         }
         catch(std::runtime_error& e){}
     }

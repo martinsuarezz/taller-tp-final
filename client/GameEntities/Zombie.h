@@ -13,10 +13,12 @@ class Sender;
 class Zombie: public MovableEntity{
     private:
         int visionRange;
+        int strength;
+        int defense;
         ZombieAI zombieAI;
 
     public:
-        Zombie(Sender& game, GameMap& map, int entityId, int x, int y);
+        Zombie(Sender& game, GameMap& map, int entityId, int x, int y, int visionRange, int strength, int defense, int speed, int constitution);
         //Zombie(Zombie&&);
         void notifyMovement(int direction, int x, int y);
         void notifyIdle();
@@ -35,6 +37,7 @@ class Zombie: public MovableEntity{
         void notifyManaUpdate(int mana);
         void notifyGoldUpdate(int gold);
         bool addItem(int itemId, int slot);
+        int removeItem(int slot);
         void interact(MovableEntity& other);
         int getDefense(int damage);
         bool hasManaAvailable(int neededMana) override;

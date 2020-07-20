@@ -36,6 +36,7 @@ class EntityContainer{
         // Remueve un monstruo o jugador.
         void removeMob(int entityId);
 
+        // Ordena a cierta entidad equipar un item.
         void equipWeapon(int entityId, int itemId);
         void equipArmor(int entityId, int itemId);
         void equipShield(int entityId, int itemId);

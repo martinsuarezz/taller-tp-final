@@ -7,8 +7,8 @@
 #include <math.h>
 #include <stdexcept>
 
-AttackingState::AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength, int duration): 
-                        State(entity), objective(objective), weapon(weapon), strength(strength), duration(duration){}
+AttackingState::AttackingState(MovableEntity& entity, MovableEntity& objective, GameItem& weapon, int strength): 
+                        State(entity), objective(objective), weapon(weapon), strength(strength), duration(weapon.getDuration()){}
 
 void AttackingState::update(int timeElapsed){
     if (duration <= 0){

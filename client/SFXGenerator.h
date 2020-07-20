@@ -24,6 +24,8 @@ class SFXGenerator{
         void removeEffect(int effectNumber);
         void addLevelUpEffect();
         void addMerchantEffect();
+        void addPlayerDeathEffect();
+        void addPlayerReviveEffect();
 
 };
 

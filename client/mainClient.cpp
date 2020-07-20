@@ -4,32 +4,32 @@
 #include <iostream>
 #include <string>
 #include "Configuration.h"
+#include "ClassTypeSelector.h"
 
 int main(int argc, char* argv[]){
-    std::string race;
-    std::string type;
-    if (argc < 3){
-        race = "human";
-        type = "mage";
+    try{
+        ClassTypeSelector(argc, argv);
+        std::string race = argv[1];
+        std::string type = argv[2];
+
+        SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
+
+        Configuration& congif = Configuration::getInstance();
+        
+        sdlH.initializeMixer();
+        sdlH.initializeImage();
+        sdlH.initializeTTF();
+        sdlH.setHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+        
+        Window window("Argentum", congif.getValue("window_width"), congif.getValue("window_height"));
+
+        Client client(window, race, type);
+
+        client.run();
+        return 0;
     }
-    else{
-        race = argv[1];
-        type = argv[2];
+    catch(...){
+        return 1;
     }
-
-    SDLHandler sdlH = SDLHandler(AUDIO | VIDEO | TIMER | EVENTS);
-
-    Configuration& congif = Configuration::getInstance();
     
-    sdlH.initializeMixer();
-    sdlH.initializeImage();
-    sdlH.initializeTTF();
-    sdlH.setHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-    
-    Window window("Argentum", congif.getValue("window_width"), congif.getValue("window_height"));
-
-    Client client(window, race, type);
-
-    client.run();
-    return 0;
 }

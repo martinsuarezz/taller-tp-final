@@ -110,14 +110,22 @@ void MovableEntity::getAttacked(int damage, MovableEntity& attacker, bool critic
     if(!alive)
         return;
 
-    Configuration& config = Configuration::getInstance();
+    if (damage < 0){
+        health.addHealth(-damage);
+        return;
+    }   
 
     if (!critical && evadeAttack())
         return;
     
+    Configuration& config = Configuration::getInstance();
+
     int damageDealt = getDefense(damage);
     health.dealDamage(damageDealt);
-    attacker.addExperience(config.getAttackExp(damageDealt, getLevel(), attacker.getLevel()));
+    int experience = config.getAttackExp(damageDealt, getLevel(), attacker.getLevel());
+    if (this == &attacker)
+        experience = 2;
+    attacker.addExperience(experience);
     
     std::cout << "Done: " << damageDealt << " of damage" << std::endl;
 

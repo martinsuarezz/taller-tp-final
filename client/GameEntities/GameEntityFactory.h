@@ -20,7 +20,7 @@ class GameEntityFactory{
         GameEntityFactory(Sender& game, GameMap& map, 
                         GameEntityContainer& entities);
         MovableEntity* getPlayer(int x, int y, int entityId, std::string& race, std::string& type);
-        MovableEntity* getZombie(int x, int y, int entityId);
+        MovableEntity* getZombie(int x, int y, int entityId, int level);
         MovableEntity* getMerchant(int x, int y, int entityId);
         MovableEntity* getHealer(int x, int y, int entityId);
 

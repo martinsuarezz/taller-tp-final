@@ -17,7 +17,7 @@ class GameItem{
     public:
         GameItem();
         GameItem(std::string name, int itemId, int damageMin, int damageMax,
-                    int defenseMin, int defenseMax, int range, int manaNeeded = 0);
+                    int defenseMin, int defenseMax, int range, int duration, int manaNeeded = 0);
         GameItem(GameItem&&);
 
         void addValidSlot(int slot);
@@ -29,6 +29,7 @@ class GameItem{
         int getRange();
         int getDefense();
         int getManaNeeded();
+        int getDuration();
 };
 
 #endif

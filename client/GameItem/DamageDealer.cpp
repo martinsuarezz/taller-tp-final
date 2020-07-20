@@ -4,12 +4,13 @@
 #include <time.h>
 #include <iostream>
 
-DamageDealer::DamageDealer(int minDamage, int maxDamage, int range):
+DamageDealer::DamageDealer(int minDamage, int maxDamage, int range, int duration):
                             minDamage(minDamage), maxDamage(maxDamage), 
-                            range(range){}
+                            range(range), duration(duration){}
 
 DamageDealer::DamageDealer(DamageDealer&& other): minDamage(other.minDamage),
-                            maxDamage(other.maxDamage), range(other.range){}
+                            maxDamage(other.maxDamage), range(other.range),
+                            duration(other.duration){}
 
 
 int DamageDealer::getDamage(){
@@ -20,4 +21,8 @@ int DamageDealer::getDamage(){
 
 int DamageDealer::getRange(){
     return range;
+}
+
+int DamageDealer::getDuration(){
+    return duration;
 }

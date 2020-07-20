@@ -6,12 +6,14 @@ class DamageDealer{
         int minDamage;
         int maxDamage;
         int range;
+        int duration;
 
     public:
-        DamageDealer(int minDamage, int maxDamage, int range);
+        DamageDealer(int minDamage, int maxDamage, int range, int duration);
         DamageDealer(DamageDealer&& other);
         int getDamage();
         int getRange();
+        int getDuration();
 
 };
 

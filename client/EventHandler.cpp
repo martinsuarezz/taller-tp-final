@@ -12,10 +12,11 @@
 #include "Intention/PickUpIntention.h"
 #include "Intention/InteractIntention.h"
 #include "Intention/BuyItemIntention.h"
-#include <iostream>
+#include "Intention/TossIntention.h"
 
 EventHandler::EventHandler(Client& client, IntentionsQueue& intentions): 
-                    client(client), intentions(intentions), storeIsOpen(false){}
+                    client(client), intentions(intentions), 
+                    storeIsOpen(false){}
 
 void EventHandler::openStore(){
     storeIsOpen = true;
@@ -44,6 +45,14 @@ int EventHandler::handleKeyDown(SDL_Event* event){
         case SDLK_h:
             intentions.push(new PickUpIntention());
             return 1;
+        case SDLK_b:
+            try{
+                GraphicalInterface& gui = client.getGui();
+                int slot = gui.getSelectedSlot();
+                intentions.push(new TossIntention(slot));
+                return 1;
+            }
+            catch(...) {}
         case SDLK_e:
             intentions.push(new InteractIntention());
             storeIsOpen = false;
@@ -57,9 +66,6 @@ int EventHandler::handleKeyDown(SDL_Event* event){
         case SDLK_COMMA:
             client.previousSong();
             return 1;
-        
-        default:
-            std::cout << event->key.keysym.sym << std::endl;
     }
     if (storeIsOpen && event->key.keysym.sym >= SDLK_1 && 
         event->key.keysym.sym <= SDLK_9){
@@ -87,10 +93,9 @@ int EventHandler::handleKeyUp(SDL_Event* event){
 }
 
 int EventHandler::handleRightMouseDown(SDL_Event* event){
-    std::cout << "Right mouse down" << std::endl;
     if (client.isClickOnMapScreen(event->button.x, event->button.y)){
-        std::pair<int, int> coord = client.getMapCoordinates(event->button.x, event->button.y);
-        std::cout << coord.first << ", " << coord.second << std::endl;
+        std::pair<int, int> coord = client.getMapCoordinates(event->button.x, 
+                                                            event->button.y);
         intentions.push(new AttackIntention(coord.first, coord.second));
         return 1;
     }
@@ -101,12 +106,10 @@ int EventHandler::handleRightMouseDown(SDL_Event* event){
         int selectedSlot = gui.getSelectedSlot();
         intentions.push(new MoveItemIntention(selectedSlot, newSlot));
         gui.resetSelection();
-        std::cout << selectedSlot << " moves to " << newSlot << std::endl;
     }
     catch(...){
         gui.resetSelection();
     }
-    std::cout << "(x,y)" << event->button.x << "," << event->button.y << std::endl;
     return 1;
 }
 
@@ -114,24 +117,21 @@ int EventHandler::handleMouseDown(SDL_Event* event){
     switch(event->button.button){
         case SDL_BUTTON_LEFT:
             {
-            std::cout << "Left mouse down" << std::endl;
             GraphicalInterface& gui = client.getGui();
             try{
-                int slot = gui.getInventorySlot(event->button.x, event->button.y);
-                std::cout << "Clicked slot: " << slot << std::endl;
+                int slot = gui.getInventorySlot(event->button.x, 
+                                                event->button.y);
                 gui.selectSlot(slot); 
             }
             catch(...){
                 gui.resetSelection();
             }
-            std::cout << "(x,y)" << event->button.x << "," << event->button.y << std::endl;
             return 1;
             }
             break;
 
         case SDL_BUTTON_RIGHT:
             return handleRightMouseDown(event);
-            
     }
     return 0;
 }
@@ -139,7 +139,6 @@ int EventHandler::handleMouseDown(SDL_Event* event){
 int EventHandler::handleSingleEvent(SDL_Event* event){
     switch(event->type){
         case SDL_QUIT:
-            std::cout << "Quit" << std::endl;
             intentions.push(new QuitIntention());
             client.stopExecution();
             return 1;
@@ -157,7 +156,8 @@ void EventHandler::handle(int maxEvents, int maxTotalEvents){
     SDL_Event event;
     int counter = 0;
     int counterTotal = 0;
-    while (SDL_PollEvent(&event) && (counter < 20) && (counterTotal++ < maxTotalEvents)){
+    while (SDL_PollEvent(&event) && (counter < 20) 
+            && (counterTotal++ < maxTotalEvents)){
         counter += handleSingleEvent(&event);
     }
     intentions.push(new TimeoutIntention());

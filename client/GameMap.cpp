@@ -47,8 +47,9 @@ void GameMap::remove(int fromX, int fromY){
 }
 
 bool GameMap::isMobPlacable(int x, int y){
-    return !(getTile(x, y).isSolid()) && !(getTile(x, y).hasEntity())
-            && isInbound(x, y);
+    return isInbound(x, y) && 
+            !(getTile(x, y).isSolid()) && 
+            !(getTile(x, y).hasEntity());
 }
 
 void GameMap::addEntity(MovableEntity* entity, int x, int y){
@@ -74,7 +75,7 @@ bool GameMap::isInbound(int x, int y) const{
 }
 
 bool GameMap::canMove(int x, int y){
-    return isMobPlacable(x, y) && isInbound(x, y);
+    return isInbound(x, y) && isMobPlacable(x, y);
 }
 
 int GameMap::getEntityId(int x, int y){

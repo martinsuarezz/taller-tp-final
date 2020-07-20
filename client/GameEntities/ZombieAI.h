@@ -11,7 +11,7 @@ class ZombieAI{
         int visionRange;
 
     public:
-        ZombieAI(Zombie& zombie);
+        ZombieAI(Zombie& zombie, int visionRange);
         void notifyPlayerMovement(int xObj, int yObj);
         void update();
 

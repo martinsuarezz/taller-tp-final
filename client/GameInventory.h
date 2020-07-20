@@ -22,7 +22,7 @@ class GameInventory{
         bool addItem(int itemId, int slot);
         int removeItem(int slot);
         void equipItem(int itemId, int slot);
-        void clear();
+        void notifyDeath();
         GameItem& getWeapon();
         GameItem& getArmor();
         GameItem& getHelmet();

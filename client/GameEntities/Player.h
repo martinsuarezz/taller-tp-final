@@ -37,6 +37,7 @@ class Player: public MovableEntity{
         void notifyGoldUpdate(int gold);
         void update(int timeElapsed);
         bool evadeAttack();
+        int removeItem(int slot);
         void kill(MovableEntity& killer);
         int getDefense(int damage);
         void interact(MovableEntity& other);

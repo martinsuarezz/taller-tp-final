@@ -32,6 +32,7 @@ class Sender: public Thread{
         void pickUpItem();
         void interact();
         void buyItem(int itemIndex);
+        void tossItem(int slot);
         void moveInventoryItem(int from, int to);
         void addItem(int itemId, int slot = -1);
         void attackEntity(int x, int y);

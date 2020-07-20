@@ -48,8 +48,18 @@ void SFXGenerator::addMerchantEffect(){
     sound.play(0);
 }
 
+void SFXGenerator::addPlayerDeathEffect(){
+    Sound& sound = assets.getSound("player_death");
+    sound.play(0);
+}
+
+void SFXGenerator::addPlayerReviveEffect(){
+    Sound& sound = assets.getSound("player_revive");
+    sound.play(0);
+}
+
 void SFXGenerator::addAttackEffect(int weapon, int x, int y, int duration){
-    if (MELEE_FIRST <= weapon && weapon <= MELEE_LAST)
+    if (weapon == HANDS_ID || (MELEE_FIRST <= weapon && weapon <= MELEE_LAST))
         addMeleeEffect(weapon, duration);
     else if (STAFF_FIRST <= weapon && weapon <= STAFF_LAST)
         addStaffEffect(weapon, x, y, duration);

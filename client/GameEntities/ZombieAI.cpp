@@ -2,11 +2,9 @@
 #include "Zombie.h"
 #include "../Configuration.h"
 
-ZombieAI::ZombieAI(Zombie& zombie): zombie(zombie), x(-1), y(-1), 
-                                    visionRange(1){
-    
-    Configuration& config = Configuration::getInstance();
-    visionRange = config.getValue("zombie_vision");
+ZombieAI::ZombieAI(Zombie& zombie, int visionRange): zombie(zombie), x(-1), y(-1), 
+                                    visionRange(visionRange){
+
 }
 
 void ZombieAI::update(){

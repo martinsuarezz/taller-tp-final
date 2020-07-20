@@ -17,6 +17,7 @@
 #include "MusicPlayer.h"
 #include "Constants.h"
 #include "EntityContainer.h"
+#include "ShopDescriptor.h"
 #include <iostream>
 #include <unistd.h>
 
@@ -138,6 +139,16 @@ void Client::updateGold(int gold){
     gui.updateGold(gold);
 }
 
+void Client::entityDeath(int entityId){
+    entities.equipArmor(entityId, GHOST_BODY_ID);
+    effects.addPlayerDeathEffect();
+}
+
+void Client::entityRevive(int entityId){
+    entities.equipArmor(entityId, -1);
+    effects.addPlayerReviveEffect();
+}
+
 void Client::notifyAttack(int itemId, int x, int y, int duration){
     effects.addAttackEffect(itemId, x, y, duration);
 }
@@ -154,9 +165,10 @@ bool Client::isClickOnMapScreen(int x, int y){
 void Client::showProducts(std::vector<int>& products){
     eventHandler.openStore();
     effects.addMerchantEffect();
+    ShopDescriptor shop;
     std::cout << "Elija un producto para comprar:" << std::endl;
     for (size_t i = 0; i < products.size() / 2; i++){
-        std::cout << i + 1 << ". Item " << products[2 * i] << " - $" << products[2 * i + 1] << std::endl;
+        shop.printItem(i + 1, products[2 * i], products[2 * i + 1]);
     }
 }
 

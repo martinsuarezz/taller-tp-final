@@ -30,6 +30,8 @@ class EventHandler{
         // a manejar e ignorar.
         void handle(int maxValidEvents, int maxTotalEvents);
 
+        // Abre el negocio de compra de items y se prepara a recibir
+        // eventos relacionados a presionar números en el teclado.
         void openStore();
 };
 

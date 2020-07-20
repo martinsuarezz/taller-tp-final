@@ -75,11 +75,14 @@ void MapGraphic::renderTile(int i, int j, int x, int y, int layer){
 }
 
 void MapGraphic::renderItem(int i, int j, int x, int y){
+    Configuration& config = Configuration::getInstance();
     int itemId = getTile(i, j, ITEM_LAYER);
+    int xTrue = x + config.getValue("item_render_offset_x");
+    int yTrue = y + config.getValue("item_render_offset_y");
     if (itemId == 0)
         return;
     try{
-        assets.getTexture("item" + std::to_string(itemId) + "_icon").render(x, y); 
+        assets.getTexture("item" + std::to_string(itemId) + "_icon").render(xTrue, yTrue); 
     }
     catch (std::out_of_range& e){}
 }

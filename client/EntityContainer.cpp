@@ -82,5 +82,3 @@ Entity& EntityContainer::getPlayer(){
     }
     return entities.at(playerId);
 }
-
-//EntityContainer::~EntityContainer(){}
