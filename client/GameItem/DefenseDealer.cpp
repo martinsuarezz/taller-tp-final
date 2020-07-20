@@ -12,6 +12,5 @@ DefenseDealer::DefenseDealer(DefenseDealer&& other): minDefense(other.minDefense
 int DefenseDealer::getDefense(){
     RandomGenerator& random = RandomGenerator::getInstance();
     int defense = random(minDefense, maxDefense + 1);
-    std::cout << "Defended " << defense << " damage!" << std::endl;
     return defense;
 }

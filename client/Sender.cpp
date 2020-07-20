@@ -30,11 +30,7 @@ Sender::Sender(IntentionsQueue& intentions, CommandsQueue& commands,
 void Sender::run(){
     try{
         std::unique_ptr<Intention> currentIntention;
-        addItem(IRON_SHIELD_ID, -1);
         addItem(SWORD_ID, -1);
-        addItem(PLATE_ARMOR_ID, -1);
-        addItem(ELFIC_FLUTE_ID, -1);
-        addItem(ICE_STAFF_ID, -1);
         Configuration& config = Configuration::getInstance();
         int microsecondsPerFrame = MICROS_IN_SECOND / config.getValue("fps");
 
