@@ -4,8 +4,11 @@
 #include <math.h>
 #include <stdexcept>
 
-WalkingState::WalkingState(MovableEntity& entity, int xInitial, int yInitial, int xFinal, int yFinal, int duration, int direction): 
-                        State(entity), x(xInitial*100), y(yInitial*100), xFinal(xFinal*100), yFinal(yFinal*100), duration(duration), direction(direction){}
+WalkingState::WalkingState(MovableEntity& entity, int xInitial, int yInitial, 
+                        int xFinal, int yFinal, int duration, int direction): 
+                        State(entity), x(xInitial*100), y(yInitial*100), 
+                        xFinal(xFinal*100), yFinal(yFinal*100), 
+                        duration(duration), direction(direction){}
 
 void WalkingState::update(int timeElapsed){
     if (duration <= 0){

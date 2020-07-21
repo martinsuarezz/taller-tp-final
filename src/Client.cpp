@@ -216,10 +216,7 @@ void Client::run(){
         int waitTime = microsecondsPerFrame - elapsedTime;
 
         if (waitTime > 0)
-            usleep(waitTime);
-        else
-            std::cout << "Warning: se tardo mucho tiempo: " << elapsedTime << " μs" << std::endl;
-        
+            usleep(waitTime);        
     }
     sender.join();
 }

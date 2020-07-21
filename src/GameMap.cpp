@@ -98,8 +98,8 @@ MovableEntity* GameMap::getEntity(int x, int y){
 
 MovableEntity& GameMap::getInteractableEntity(int x, int y, int range){
     MovableEntity* entity = nullptr;
-    for (int i = x - range; i < x + range; i++){
-        for (int j = y - range; j < y + range; j++){
+    for (int i = x - range; i <= x + range; i++){
+        for (int j = y - range; j <= y + range; j++){
             if (i == x && j == y)
                 continue;
             try{

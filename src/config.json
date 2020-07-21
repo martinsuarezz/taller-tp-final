@@ -2,6 +2,7 @@
     "window_width": 1000,
     "window_height": 800,
     "fps": 45,
+
     "tile_size": 64,
     "mob_render_offset_x": 16,
     "mob_render_offset_y": 12,
@@ -57,10 +58,10 @@
     "zombie_min_speed": 450000,
     "zombie_max_speed": 1300000,
     "zombie_min_vision": 2,
-    "zombie_max_vision": 5,
+    "zombie_max_vision": 6,
 
-    "zombie_strength_perc": 80,
-    "zombie_strength_cap": 10,
+    "zombie_strength_perc": 100,
+    "zombie_strength_cap": 18,
 
     "zombie_defense_perc": 140,
     "zombie_defense_cap": 25,
@@ -245,7 +246,7 @@
     "elf_inteligence": 9,
     "elf_constitution": 5,
     "elf_health_regen": 5,
-    "elf_mana": 5,
+    "elf_mana": 6,
     "elf_mana_regen": 7,
 
     "dwarf_strength": 9,
@@ -255,27 +256,27 @@
     "dwarf_constitution": 8,
     "dwarf_health_regen": 1,
     "dwarf_mana": 2,
-    "dwarf_mana_regen": 2,
+    "dwarf_mana_regen": 1,
 
     "gnome_strength": 6,
-    "gnome_health": 7,
+    "gnome_health": 3,
     "gnome_agility": 4,
     "gnome_inteligence": 7,
-    "gnome_constitution": 4,
-    "gnome_health_regen": 4,
-    "gnome_mana": 9,
-    "gnome_mana_regen": 2,
+    "gnome_constitution": 3,
+    "gnome_health_regen": 6,
+    "gnome_mana": 6,
+    "gnome_mana_regen": 1,
 
     "mage_health": 2,
-    "mage_mana": 15,
+    "mage_mana": 8,
     "mage_meditation": 10,
 
     "cleric_health": 4,
-    "cleric_mana": 12,
+    "cleric_mana": 4,
     "cleric_meditation": 8,
 
     "paladin_health": 8,
-    "paladin_mana": 6,
+    "paladin_mana": 1,
     "paladin_meditation": 3,
 
     "warrior_health": 10,
