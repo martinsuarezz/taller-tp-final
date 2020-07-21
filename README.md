@@ -11,6 +11,4 @@ El programa fue probado en Manjaro Linux 20.0.3. Se utilizaron las siguientes li
 - sdl2_ttf 2.0.15-2
 - Tiled 1.3.5-1. Para la generación de mapas (no es necesaria su instalación).
 
-En su versión actual, el juego permite el movimiento del jugador principal a través del mapa. Spawnean zombies que persiguen al jugador si este se encuentra en su cercanía.
-
-El jugador se mueve con las teclas 'w', 'a', 's', 'd'. Es posible cambiar la muúsica que suena con las teclas ',' y '.' o pausar/reanudar su reproducción con la tecla 'm'.
+Para más información, ver el manual de usuario dentro de la carpeta informes.
