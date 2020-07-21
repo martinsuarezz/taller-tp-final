@@ -57,6 +57,8 @@ A lo largo del juego conseguirás ítems que te ayudarán a lanzar poderosos ata
 
 Para equipar un ítem hacer click izquierdo sobre el mismo para seleccionarlo, luego hacer click derecho en el lugar de equipamiento correspondiente.
 
+![inventario](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/003.png)
+
 ### Stats del jugador
 
 Debajo del inventario es posible observar los stats del jugador.
@@ -67,13 +69,18 @@ Debajo del inventario es posible observar los stats del jugador.
 - Exp: la experiencia se gana al atacar y matar criaturas del juego. Sirve para subir de nivel.
 - Level: tu nivel es una muestra de tu poder, mientras mejor nivel tengas, mejor será tu HP y mana.
 
+![stats](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/004.png)
+
 ### NPC
 
 En el mapa es posible encontrar NPC's que te ayudarán. Para interactuar, debés estar en su rango y apretar la tecla `e`.
 
 - Comerciante: el comerciante vende ítems a cambio de oro. Al interactuar con el mostrará por consola varias opciones de items para comprar. Para elegir uno, simplemente apretar en el teclado el número correspondiente al ítem (dentro del juego, no ingresarlo por consola).
+![comerciante](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/001.png)
+
 - Sanador: el sanador permite resucitar a un jugador que ha muerto.
+![sanador](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/002.png)
 
 ### Muerte
 
-Cuando tus puntos de vida llegan a 0 te convertis en fantasma. En este estado es imposible interactuar con el mundo. Para resucitar acercarse a un sanador e interactuar con él.
+Cuando tus puntos de vida llegan a 0 te convertís en fantasma. En este estado es imposible interactuar con el mundo. Para resucitar acercarse a un sanador e interactuar con él.
