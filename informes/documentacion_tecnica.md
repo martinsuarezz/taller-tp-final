@@ -70,6 +70,10 @@ Para gráficar las entidades movibles del juego (jugador, NPCs, zombies), delego
 
 La clase `Entity` modela una entidad del juego. Contiene distinta información como su ubicación, texturas, sónidos. Para poder mantener una animación sostenida en el paso del tiempo se utiliza el patrón *State*, modelado en este caso por las clases `Action`.
 
+En el siguiente diagrama, se muestra un esquema básico de clases sobre la clase `Entity`.
+
+![diagrama clases](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/class2.png)
+
 ##### EntityFactory
 
 Para abstraer la inicialización de las entidades hago uso de esta clase que implementa el patrón *Factory*.
@@ -115,6 +119,10 @@ Almacena y administra las entidades del juego.
 
 En la lógica del juego existe la clase `GameEntity`. Inicialmente iba a ser una clase de la que hereden tanto unidades del juego (jugador, zombies, npcs) como otras entidades que pueden aparecer en el mapa (items, obstáculos como casas o árboles). Finalmente utilicé la clase solo para modelar las primeras. La clase `MovableEntity` representa esto.
 
+El siguiente es un diagrama de clases general de las entidades del juego. Decidí solo poner los métodos y objetos más representativos del funcionamiento del modelo
+
+![diagrama clases](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/class1.png)
+
 ##### Movable Entity
 
 Una clase abstracta que brinda las funcionalidades de una unidad móvil. Almacena una gran cantidad de atributos como vida, experiencia, oro, nivel y un estado de acción modelado por las clases `State`.
@@ -159,9 +167,19 @@ A pesar de que la clase `Client` tiene dentro a la clase `Sender`, nunca se comu
 
 IntentionsQueue es una clase que implementa una cola bloqueante. Dentro de ellas se colocan intenciones de acciones que quiere realizar el jugador. Estas intenciones están modeladas por clases que heredan de `Intention`. Por ejemplo, cuando se apreta la tecla `w` para moverse hacia arriba, la clase `EventHandler` lo detecta. Esta clase crea una intención `MoveIntention` y encola esta intención. Paralelamente, la clase `Sender` constantemente quita intenciones de esta cola y ejecuta sus acciones.
 
+Un uso importante de la clase `Intention`, es para marcar el tiempo del game loop. En cada game loop de la parte gráfica, se encola en la cola de intenciones una clase `TimeOutIntention`, de esta manera, se despierta necesariamente a la clase `Sender` en cada loop del juego. Gracias a esto, tanto la parte gráfica, como la lógica, funcionan sincronizadas.
+
+En el siguiente diagrama se muestra la secuencia de recibir una orden de movimiento y como se transmite a la lógica del juego.
+
+![diagrama intentions](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/seq2.png)
+
 ##### CommandsQueue y Command
 
 El funcionamiento de `CommandsQueue` y las clases que heredan de `Command` es similar al anterior. La única diferencia es el sentido de comunicación. Las clases `Command` indican actualizaciones del estado del juego que la lógica le envía a la parte gráfica para que pueda mostrarlas.
+
+En el siguiente diagrama se muestra la secuencia que se da luego de que se actualiza una entidad en la lógica del juego, y como esta información llega a la parte gráfica del programa.
+
+![diagrama commands](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/seq1.png)
 
 ### 4. Archivos utilizados
 

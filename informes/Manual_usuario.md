@@ -76,9 +76,11 @@ Debajo del inventario es posible observar los stats del jugador.
 En el mapa es posible encontrar NPC's que te ayudarán. Para interactuar, debés estar en su rango y apretar la tecla `e`.
 
 - Comerciante: el comerciante vende ítems a cambio de oro. Al interactuar con el mostrará por consola varias opciones de items para comprar. Para elegir uno, simplemente apretar en el teclado el número correspondiente al ítem (dentro del juego, no ingresarlo por consola).
+
 ![comerciante](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/001.png)
 
 - Sanador: el sanador permite resucitar a un jugador que ha muerto.
+
 ![sanador](https://github.com/martinsuarezz/taller-tp-final/blob/master/informes/002.png)
 
 ### Muerte
